@@ -1,0 +1,30 @@
+﻿  Application.cpp
+  Camera.cpp
+C:\Users\antho\Desktop\DM2122\Application\Source\Camera.cpp(63,32): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\antho\Desktop\DM2122\Application\Source\Camera.cpp(67,32): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\antho\Desktop\DM2122\Application\Source\Camera.cpp(71,32): warning C4244: '-=': conversion from 'double' to 'float', possible loss of data
+C:\Users\antho\Desktop\DM2122\Application\Source\Camera.cpp(75,32): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  Camera3.cpp
+C:\Users\antho\Desktop\DM2122\Application\Source\Camera3.cpp(9,60): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\antho\Desktop\DM2122\Application\Source\Camera3.cpp(27,18): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\antho\Desktop\DM2122\Application\Source\Camera3.cpp(31,39): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\antho\Desktop\DM2122\Application\Source\Camera3.cpp(38,39): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\antho\Desktop\DM2122\Application\Source\Camera3.cpp(47,38): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\antho\Desktop\DM2122\Application\Source\Camera3.cpp(57,38): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  SceneUI.cpp
+C:\Users\antho\Desktop\DM2122\Application\Source\SceneUI.cpp(89,26): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\antho\Desktop\DM2122\Application\Source\SceneUI.cpp(89,23): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\antho\Desktop\DM2122\Application\Source\SceneUI.cpp(90,26): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\antho\Desktop\DM2122\Application\Source\SceneUI.cpp(90,19): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\antho\Desktop\DM2122\Application\Source\SceneUI.cpp(146,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\antho\Desktop\DM2122\Application\Source\SceneUI.cpp(147,13): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\antho\Desktop\DM2122\Application\Source\SceneUI.cpp(167,53): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\antho\Desktop\DM2122\Application\Source\SceneUI.cpp(174,52): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\antho\Desktop\DM2122\Application\Source\SceneUI.cpp(182,62): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\antho\Desktop\DM2122\Application\Source\SceneUI.cpp(189,61): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\antho\Desktop\DM2122\Application\Source\SceneUI.cpp(197,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\antho\Desktop\DM2122\Application\Source\SceneUI.cpp(204,39): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\antho\Desktop\DM2122\Application\Source\SceneUI.cpp(419,23): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  main.cpp
+  Generating Code...
+  Application.vcxproj -> C:\Users\antho\Desktop\DM2122\Debug\Application.exe
