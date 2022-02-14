@@ -91,6 +91,8 @@ void Camera3::Update(double dt)
 			view = view.Normalized();
 			target = position + view;
 
+			
+			Application::ResetCursor();
 			Application::GetCursorPos(&cameraPrevX, &cameraPrevY);
 		}
 	}
