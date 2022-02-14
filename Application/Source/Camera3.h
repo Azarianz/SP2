@@ -5,9 +5,10 @@
 
 class Camera3 : public Camera
 {
+private:
+	bool enableControl;
 public:
 	float rotateMod;
-	bool enableControl;
 
 	double cameraPrevX;
 	double cameraPrevY;
@@ -22,6 +23,8 @@ public:
 	virtual void Init(const Vector3& pos, const Vector3& target, const Vector3& up);
 	virtual void Reset();
 	virtual void Update(double dt);
+	void EnableControl();
+	void DisableControl();
 };
 
 #endif

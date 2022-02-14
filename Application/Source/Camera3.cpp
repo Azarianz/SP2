@@ -19,11 +19,11 @@ void Camera3::Reset()
 
 void Camera3::Update(double dt)
 {
-	view = (target - position).Normalized();
-	right = view.Cross(up);
-
 	if (enableControl)
 	{
+		view = (target - position).Normalized();
+		right = view.Cross(up);
+
 		rotateMod = 50 * dt;
 		//camera move controls
 		if (Application::IsKeyPressed('A'))
@@ -94,4 +94,14 @@ void Camera3::Update(double dt)
 			Application::GetCursorPos(&cameraPrevX, &cameraPrevY);
 		}
 	}
+}
+
+void Camera3::EnableControl()
+{
+	enableControl = true;
+}
+
+void Camera3::DisableControl()
+{
+	enableControl = false;
 }
