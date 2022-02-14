@@ -66,8 +66,6 @@ private:
 	unsigned m_parameters[U_TOTAL];
 	unsigned m_vertexArrayID;
 	Mesh* meshList[NUM_GEOMETRY];
-	Vector3 transform[NUM_GEOMETRY];
-	Vector3 scale[NUM_GEOMETRY];
 
 	//unsigned m_indexBuffer [Num_Geometry];
 	//unsigned m_vertexBuffer[Num_Geometry];
