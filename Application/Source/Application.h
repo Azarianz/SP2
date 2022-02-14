@@ -25,6 +25,8 @@ public:
 	static void GetCursorPos(double* xpos, double* ypos);
 	static int GetWindowWidth();
 	static int GetWindowHeight();
+	static void HideCursor();
+	static void ShowCursor();
 	void resize_callback(GLFWwindow* window, int w, int h);
 	void Init();
 	void Run();

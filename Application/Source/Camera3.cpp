@@ -62,8 +62,40 @@ void Camera3::Update(double dt)
 
 		}
 
+		Application::GetCursorPos(&cameraCurrentX, &cameraCurrentY);
 		//camera look controls
-		if ((Application::IsKeyPressed(VK_UP)) && (view.y < 0.5))
+		if ((cameraCurrentX != cameraPrevX) && (cameraCurrentY != cameraPrevY))
+		{
+			float xoffset = cameraCurrentX - cameraPrevX;
+			float yoffset = cameraCurrentY - cameraPrevY;
+
+			float sensitivity = 0.1f;
+			xoffset *= sensitivity;
+			yoffset *= sensitivity;
+
+			yaw += xoffset;
+			pitch += yoffset;
+
+			if (pitch > 45.0f)
+			{
+				pitch = 45.0f;
+			}
+			if (pitch < -45.0f)
+			{
+				pitch = -45.0f;
+			}
+
+			view.x = cos(Math::DegreeToRadian(yaw)) * cos(Math::DegreeToRadian(pitch));
+			view.y = -(sin(Math::DegreeToRadian(pitch)));
+			view.z = sin(Math::DegreeToRadian(yaw)) * cos(Math::DegreeToRadian(pitch));
+			view = view.Normalized();
+			target = position + view;
+
+			Application::GetCursorPos(&cameraPrevX, &cameraPrevY);
+		}
+
+
+		/*if ((Application::IsKeyPressed(VK_UP)) && (view.y < 0.5))
 		{
 			Mtx44 rotation;
 			rotation.SetToRotation(rotateMod, right.x, right.y, right.z);
@@ -90,6 +122,6 @@ void Camera3::Update(double dt)
 			rotation.SetToRotation(-rotateMod, 0, 1, 0);
 			view = rotation * view;
 			target = position + view;
-		}
+		}*/
 	}
 }
