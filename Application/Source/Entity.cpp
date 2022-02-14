@@ -7,18 +7,20 @@ Entity::Entity(Mesh mesh)
 	scale = (1.f, 1.f, 1.f);
 }
 
-Entity::Entity(Mesh mesh, Vector3 transform)
+Entity::Entity(Mesh mesh, Vector3 vector, vector3Type type)
 {
-	this->mesh = &mesh;
-	this->transform = transform;
-	scale = (1.f, 1.f, 1.f);
-}
-
-Entity::Entity(Mesh mesh, Vector3 scale)
-{
-	this->mesh = &mesh;
-	transform = (0.f, 0.f, 0.f);
-	this->scale = scale;
+	if (type == vector3Type::TRANSFORM)
+	{
+		this->mesh = &mesh;
+		transform = vector;
+		scale = (1.f, 1.f, 1.f);
+	}
+	else
+	{
+		this->mesh = &mesh;
+		transform = (0.f,0.f,0.f);
+		scale = vector;
+	}
 }
 
 Entity::Entity(Mesh mesh, Vector3 transform, Vector3 scale)

@@ -1,5 +1,6 @@
 #pragma once
 #include "Mesh.h"
+#include <string>
 class Entity
 {
 private:
@@ -8,9 +9,14 @@ private:
 	Vector3 scale;
 
 public:
+	enum class vector3Type
+	{
+		TRANSFORM,
+		SCALE
+	};
+
 	Entity(Mesh mesh);
-	Entity(Mesh mesh, Vector3 transform);
-	Entity(Mesh mesh, Vector3 scale);
+	Entity(Mesh mesh, Vector3 vector, vector3Type type);
 	Entity(Mesh mesh, Vector3 transform, Vector3 scale);
 	~Entity();
 
