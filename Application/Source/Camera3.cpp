@@ -66,8 +66,8 @@ void Camera3::Update(double dt)
 		//camera look controls
 		if ((cameraCurrentX != cameraPrevX) && (cameraCurrentY != cameraPrevY))
 		{
-			float xoffset = cameraCurrentX - cameraPrevX;
-			float yoffset = cameraCurrentY - cameraPrevY;
+			float xoffset = static_cast<float>(cameraCurrentX - cameraPrevX);
+			float yoffset = static_cast<float>(cameraCurrentY - cameraPrevY);
 
 			float sensitivity = 0.1f;
 			xoffset *= sensitivity;
@@ -93,35 +93,5 @@ void Camera3::Update(double dt)
 
 			Application::GetCursorPos(&cameraPrevX, &cameraPrevY);
 		}
-
-
-		/*if ((Application::IsKeyPressed(VK_UP)) && (view.y < 0.5))
-		{
-			Mtx44 rotation;
-			rotation.SetToRotation(rotateMod, right.x, right.y, right.z);
-			view = rotation * view;
-			target = position + view;
-		}
-		if ((Application::IsKeyPressed(VK_DOWN)) && (view.y > -0.5))
-		{
-			Mtx44 rotation;
-			rotation.SetToRotation(-rotateMod, right.x, right.y, right.z);
-			view = rotation * view;
-			target = position + view;
-		}
-		if (Application::IsKeyPressed(VK_LEFT))
-		{
-			Mtx44 rotation;
-			rotation.SetToRotation(rotateMod, 0, 1, 0);
-			view = rotation * view;
-			target = position + view;
-		}
-		if (Application::IsKeyPressed(VK_RIGHT))
-		{
-			Mtx44 rotation;
-			rotation.SetToRotation(-rotateMod, 0, 1, 0);
-			view = rotation * view;
-			target = position + view;
-		}*/
 	}
 }

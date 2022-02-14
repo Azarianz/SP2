@@ -75,7 +75,7 @@ void SceneUI::RenderText(Mesh* mesh, std::string text, Color color)
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
 }
 
-void SceneUI::RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int sizey)
+void SceneUI::RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey)
 {
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
@@ -143,8 +143,8 @@ bool SceneUI::CreateButton(float buttonTop, float buttonBottom, float buttonRigh
 	Application::GetCursorPos(&x, &y);
 	unsigned w = Application::GetWindowWidth();
 	unsigned h = Application::GetWindowHeight();
-	float posX = x / 10; //convert (0,800) to (0,80)
-	float posY = h / 10 - y / 10; //convert (600,0) to (0,60)
+	float posX = static_cast<float>(x / 10); //convert (0,800) to (0,80)
+	float posY = static_cast<float>(h / 10 - y / 10); //convert (600,0) to (0,60)
 	std::cout << "posX:" << posX << " , posY:" << posY << std::endl;
 	if (posX > buttonLeft && posX < buttonRight && posY > buttonBottom  && posY < buttonTop)
 	{

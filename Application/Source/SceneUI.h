@@ -14,18 +14,18 @@ class SceneUI : public Scene
 private:
 	enum GEOMETRY_TYPE
 	{
-	GEO_AXES,
-	GEO_QUAD,
-	GEO_SPHERE,
-	GEO_SUN,
-	GEO_LEFT,
-	GEO_RIGHT,
-	GEO_TOP,
-	GEO_BOTTOM,
-	GEO_FRONT,
-	GEO_BACK,
-	GEO_TEXT,
-	NUM_GEOMETRY,
+		GEO_AXES,
+		GEO_QUAD,
+		GEO_SPHERE,
+		GEO_SUN,
+		GEO_LEFT,
+		GEO_RIGHT,
+		GEO_TOP,
+		GEO_BOTTOM,
+		GEO_FRONT,
+		GEO_BACK,
+		GEO_TEXT,
+		NUM_GEOMETRY,
 	};
 
 	enum UNIFORM_TYPE
@@ -76,7 +76,7 @@ private:
 
 	void RenderSkybox();
 	void RenderMesh(Mesh* mesh, bool enableLight);
-	void RenderMeshOnScreen(Mesh* mesh, int x, int y, int sizex, int sizey);
+	void RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey);
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	bool CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft);
