@@ -8,6 +8,7 @@
 #include "Light.h"
 #include "Utility.h"
 #include "LoadTGA.h"
+#include "Entity.h"
 
 class SceneUI : public Scene
 {
@@ -76,6 +77,7 @@ private:
 
 	void RenderSkybox();
 	void RenderMesh(Mesh* mesh, bool enableLight);
+	void RenderEntity(Entity* entity, bool enableLight);
 	void RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey);
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
