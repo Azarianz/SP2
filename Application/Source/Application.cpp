@@ -41,6 +41,11 @@ void Application::ShowCursor()
 	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 }
 
+void Application::ResetCursor()
+{
+	glfwSetCursorPos(m_window, m_width / 2, m_height / 2);
+}
+
 bool Application::IsKeyPressed(unsigned short key)
 {
     return ((GetAsyncKeyState(key) & 0x8001) != 0);

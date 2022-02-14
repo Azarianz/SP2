@@ -27,6 +27,7 @@ public:
 	static int GetWindowHeight();
 	static void HideCursor();
 	static void ShowCursor();
+	static void ResetCursor();
 	void resize_callback(GLFWwindow* window, int w, int h);
 	void Init();
 	void Run();
