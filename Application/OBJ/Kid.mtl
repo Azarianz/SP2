@@ -1,0 +1,12 @@
+# Blender MTL File: 'characters.blend'
+# Material Count: 2
+
+newmtl KIds
+Ns 56.806129
+Kd 1.000000 1.000000 1.000000
+map_Kd Polygon_Kids_Texture_Facial_Expression_Frown_Freckles_01.png
+
+newmtl lambert2
+Ns 179.999996
+Kd 1.000000 1.000000 1.000000
+map_Kd PolygonKids_Texture_01_A.png
