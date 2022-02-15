@@ -1,4 +1,3 @@
-
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
@@ -12,6 +11,7 @@
 
 #include "SceneUI.h"
 #include "SceneMiniGame.h"
+#include "LobbyScene.h"
 
 
 class Application

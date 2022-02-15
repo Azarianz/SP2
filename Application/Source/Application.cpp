@@ -144,7 +144,7 @@ void Application::Init()
 void Application::Run()
 {
 	//Main Loop
-	Scene* scene1 = new SceneUI();
+	Scene* scene1 = new LobbyScene();
 	Scene* scene = scene1;
 	scene1->Init();
 
