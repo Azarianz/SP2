@@ -11,6 +11,7 @@
 #include <GLFW/glfw3.h>
 
 #include "SceneUI.h"
+#include "SceneMiniGame.h"
 
 
 class Application

@@ -152,7 +152,10 @@ void Application::Run()
 	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
 	{
 		if (IsKeyPressed(VK_F1))
+		{
+			HideCursor();
 			scene = scene1;
+		}
 		scene->Update(m_timer.getElapsedTime());
 		scene->Render();
 		//Swap buffers
