@@ -33,6 +33,7 @@ private:
 		GEO_OLDMAN,
 		GEO_LOBBY,
 		GEO_TABLES,
+		GEO_MACHINE,
 		NUM_GEOMETRY,
 	};
 

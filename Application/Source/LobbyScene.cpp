@@ -270,7 +270,7 @@ void LobbyScene::Init()
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	camera.Init(Vector3(4, 1.6f, 3), Vector3(0, 0, 0), Vector3(0, 1,0));
+	camera.Init(Vector3(-7, 1.5f, 30), Vector3(-7, 1.5f, 30), Vector3(0, 1,0));
 
 	light[0].type = Light::LIGHT_SPOT;
 	light[0].position.Set(0, 20, 0);
@@ -406,6 +406,8 @@ void LobbyScene::Init()
 	meshList[GEO_TABLES] = MeshBuilder::GenerateOBJMTL("Tables", "OBJ//dininghall_tables.obj", "OBJ//dininghall_tables.mtl");
 	meshList[GEO_TABLES]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_A.tga");
 
+	meshList[GEO_MACHINE] = MeshBuilder::GenerateOBJMTL("Arcade Machine", "OBJ//arcade_machine.obj", "OBJ//arcade_machine.mtl");
+	meshList[GEO_MACHINE]->textureID = LoadTGA("Image//PolygonOffice_Texture_01_AMachine.tga");
 }
 
 void LobbyScene::Update(double dt)
@@ -574,6 +576,12 @@ void LobbyScene::Render()
 	modelStack.Translate(-4, 0, 12);
 	modelStack.Scale(1, 1, 1);
 	RenderMesh(meshList[GEO_TABLES], true);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(4.5f, 0,-14);
+	modelStack.Scale(1, 1, 1);
+	RenderMesh(meshList[GEO_MACHINE], true);
 	modelStack.PopMatrix();
 
 	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 0, 0);
