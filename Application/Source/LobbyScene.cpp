@@ -266,6 +266,96 @@ void LobbyScene::RenderPressEToInteract()
 void LobbyScene::BoundsCheck()
 {
 
+	//room left
+	if ((camera.position.x <= -8.5) && (camera.position.z <= 18.5) && (camera.position.z >= -15))
+	{
+		camera.position.x = -8.5;
+		camera.target = camera.position + camera.view;
+	}
+	//room back
+	if ((camera.position.z <= -14.5) && (camera.position.x <= 7) && (camera.position.x >= -9))
+	{
+		camera.position.z = -14.5;
+		camera.target = camera.position + camera.view;
+	}
+	//room right
+	if ((camera.position.x >= 6.5) && (camera.position.z <= 18.5) && (camera.position.z >= -14.5))
+	{
+		camera.position.x = 6.5;
+		camera.target = camera.position + camera.view;
+	}
+	//room left front
+	if ((camera.position.z >= 17.5) && (camera.position.z <= 18) && (camera.position.x <= -2.5) && (camera.position.x >= -9))
+	{
+		camera.position.z = 17.5;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.z >= 18) && (camera.position.z <= 18.5) && (camera.position.x <= -2.4) && (camera.position.x >= -5.5))
+	{
+		camera.position.x = -2.4;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.z >= 18) && (camera.position.z <= 19) && (camera.position.x <= -2.5) && (camera.position.x >= -5.5))
+	{
+		camera.position.z = 19;
+		camera.target = camera.position + camera.view;
+	}
+	//room right front
+	if ((camera.position.z >= 17.5) && (camera.position.z <= 18) && (camera.position.x <= 6.5) && (camera.position.x >= 0.5))
+	{
+		camera.position.z = 17.5;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.z >= 18) && (camera.position.z <= 18.5) && (camera.position.x <= 6.5) && (camera.position.x >= 0.4))
+	{
+		camera.position.x = 0.4;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.z >= 18) && (camera.position.z <= 19) && (camera.position.x <= 3.5) && (camera.position.x >= 0.5))
+	{
+		camera.position.z = 19;
+		camera.target = camera.position + camera.view;
+	}
+	//corridor right
+	if ((camera.position.x >= 1.5) && (camera.position.z <= 33) && (camera.position.z >= 19))
+	{
+		camera.position.x = 1.5;
+		camera.target = camera.position + camera.view;
+	}
+	//corridor back
+	if ((camera.position.z >= 32.5) && (camera.position.x <= 1.5) && (camera.position.x >= -5))
+	{
+		camera.position.z = 32.5;
+		camera.target = camera.position + camera.view;
+	}
+	//coridor left
+	if ((camera.position.x <= -4.6) && (camera.position.x >= -5) && (camera.position.z <= 32.5) && (camera.position.z >= 30))
+	{
+		camera.position.x = -4.6;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.x <= -4.6) && (camera.position.x >= -5) && (camera.position.z <= 29) && (camera.position.z >= 19))
+	{
+		camera.position.x = -4.6;
+		camera.target = camera.position + camera.view;
+	}
+
+	//elvator
+	if ((camera.position.z <= 28.9) && (camera.position.z >= 28) && (camera.position.x <= -5.2) && (camera.position.x >= -7.5))
+	{
+		camera.position.z = 28.9;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.x <= -7.1) && (camera.position.z <= 31) && (camera.position.z >= 28))
+	{
+		camera.position.x = -7.1;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.z >= 30.5) && (camera.position.z <= 31) && (camera.position.x <= -5) && (camera.position.x >= -8))
+	{
+		camera.position.z = 30.5;
+		camera.target = camera.position + camera.view;
+	}
 }
 
 bool LobbyScene::IsInArcadeMachineInteraction()
@@ -482,6 +572,18 @@ void LobbyScene::Update(double dt)
 		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
 	}
 
+	static bool button = false;
+	if (!button && Application::IsKeyPressed('L'))
+	{
+		button = true;
+		std::cout << "x: " << camera.position.x << " z: " << camera.position.z << std::endl;
+	}
+	else if (button && !Application::IsKeyPressed('L'))
+	{
+		button = false;
+	}
+
+
 	//Mouse Inputs
 	static bool bLButtonState = false;
 	if (!bLButtonState && Application::IsMousePressed(0))
@@ -514,6 +616,8 @@ void LobbyScene::Update(double dt)
 		Application::ShowCursor();
 		Application::sceneState = Application::SCENE_MINIGAME;
 	}
+
+	BoundsCheck();
 
 	framePerSecond = 1.f / dt;
 }
