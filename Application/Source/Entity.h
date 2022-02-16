@@ -6,6 +6,8 @@ class Entity
 private:
 	Mesh* mesh;
 	Vector3 transform;
+	Vector3 rotationAxis;
+	float rotationAngle;
 	Vector3 scale;
 
 public:
@@ -16,9 +18,6 @@ public:
 	};
 
 	Entity();
-	Entity(Mesh* mesh);
-	Entity(Mesh* mesh, Vector3 vector, vector3Type type);
-	Entity(Mesh* mesh, Vector3 transform, Vector3 scale);
 	~Entity();
 
 	Mesh* getMesh();
@@ -29,5 +28,11 @@ public:
 
 	Vector3 getTransform();
 	void setTransform(Vector3 transform);
+
+	Vector3 getRotationAxis();
+	void setRotationAxis(Vector3 axis);
+
+	float getRotationAngle();
+	void setRotationAngle(float angle);
 };
 

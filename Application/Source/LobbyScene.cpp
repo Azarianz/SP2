@@ -53,6 +53,7 @@ void LobbyScene::RenderEntity(Entity* entity, bool enableLight)
 {
 	modelStack.PushMatrix();
 	modelStack.Translate(entity->getTransform().x, entity->getTransform().y, entity->getTransform().z);
+	modelStack.Rotate(entity->getRotationAngle(), entity->getRotationAxis().x, entity->getRotationAxis().y, entity->getRotationAxis().z);
 	modelStack.Scale(entity->getScale().x, entity->getScale().x, entity->getScale().x);
 
 	Mtx44 MVP, modelView, modelView_inverse_transpose;

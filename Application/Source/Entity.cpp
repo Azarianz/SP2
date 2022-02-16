@@ -4,37 +4,9 @@ Entity::Entity()
 {
 	mesh = nullptr;
 	transform = (0.f, 0.f, 0.f);
+	rotationAxis = (0, 0, 0);
+	rotationAngle = 0;
 	scale = (1.f, 1.f, 1.f);
-}
-
-Entity::Entity(Mesh* mesh)
-{
-	this->mesh = mesh;
-	transform = (0.f, 0.f, 0.f);
-	scale = (1.f, 1.f, 1.f);
-}
-
-Entity::Entity(Mesh* mesh, Vector3 vector, vector3Type type)
-{
-	this->mesh = mesh;
-
-	if (type == vector3Type::TRANSFORM)
-	{
-		transform = vector;
-		scale = (1.f, 1.f, 1.f);
-	}
-	else
-	{
-		transform = (0.f,0.f,0.f);
-		scale = vector;
-	}
-}
-
-Entity::Entity(Mesh* mesh, Vector3 transform, Vector3 scale)
-{
-	this->mesh = mesh;
-	this->transform = transform;
-	this->scale = scale;
 }
 
 Entity::~Entity()
@@ -69,4 +41,24 @@ Vector3 Entity::getTransform()
 void Entity::setTransform(Vector3 transform)
 {
 	this->transform = transform;
+}
+
+Vector3 Entity::getRotationAxis()
+{
+	return rotationAxis;
+}
+
+void Entity::setRotationAxis(Vector3 axis)
+{
+	rotationAxis = axis;
+}
+
+float Entity::getRotationAngle()
+{
+	return rotationAngle;
+}
+
+void Entity::setRotationAngle(float angle)
+{
+	rotationAngle = angle;
 }
