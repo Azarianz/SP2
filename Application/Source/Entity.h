@@ -15,13 +15,14 @@ public:
 		SCALE
 	};
 
-	Entity(Mesh mesh);
-	Entity(Mesh mesh, Vector3 vector, vector3Type type);
-	Entity(Mesh mesh, Vector3 transform, Vector3 scale);
+	Entity();
+	Entity(Mesh* mesh);
+	Entity(Mesh* mesh, Vector3 vector, vector3Type type);
+	Entity(Mesh* mesh, Vector3 transform, Vector3 scale);
 	~Entity();
 
 	Mesh* getMesh();
-	void setMesh(Mesh mesh);
+	void setMesh(Mesh* mesh);
 
 	Vector3 getScale();
 	void setScale(Vector3 scale);

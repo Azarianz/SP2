@@ -1,31 +1,38 @@
 #include "Entity.h"
 
-Entity::Entity(Mesh mesh)
+Entity::Entity()
 {
-	this->mesh = &mesh;
+	mesh = nullptr;
 	transform = (0.f, 0.f, 0.f);
 	scale = (1.f, 1.f, 1.f);
 }
 
-Entity::Entity(Mesh mesh, Vector3 vector, vector3Type type)
+Entity::Entity(Mesh* mesh)
 {
+	this->mesh = mesh;
+	transform = (0.f, 0.f, 0.f);
+	scale = (1.f, 1.f, 1.f);
+}
+
+Entity::Entity(Mesh* mesh, Vector3 vector, vector3Type type)
+{
+	this->mesh = mesh;
+
 	if (type == vector3Type::TRANSFORM)
 	{
-		this->mesh = &mesh;
 		transform = vector;
 		scale = (1.f, 1.f, 1.f);
 	}
 	else
 	{
-		this->mesh = &mesh;
 		transform = (0.f,0.f,0.f);
 		scale = vector;
 	}
 }
 
-Entity::Entity(Mesh mesh, Vector3 transform, Vector3 scale)
+Entity::Entity(Mesh* mesh, Vector3 transform, Vector3 scale)
 {
-	this->mesh = &mesh;
+	this->mesh = mesh;
 	this->transform = transform;
 	this->scale = scale;
 }
@@ -39,9 +46,9 @@ Mesh* Entity::getMesh()
 	return mesh;
 }
 
-void Entity::setMesh(Mesh mesh)
+void Entity::setMesh(Mesh* mesh)
 {
-	this->mesh = &mesh;
+	this->mesh = mesh;
 }
 
 Vector3 Entity::getScale()

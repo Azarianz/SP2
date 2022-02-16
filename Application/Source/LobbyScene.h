@@ -33,8 +33,13 @@ private:
 		GEO_OLDMAN,
 		GEO_LOBBY,
 		GEO_TABLES,
-		GEO_MACHINE,
 		NUM_GEOMETRY,
+	};
+
+	enum ENTITY_TYPE
+	{
+		ENTITY_MACHINE,
+		NUM_ENTITY
 	};
 
 	enum UNIFORM_TYPE
@@ -75,6 +80,7 @@ private:
 	unsigned m_parameters[U_TOTAL];
 	unsigned m_vertexArrayID;
 	Mesh* meshList[NUM_GEOMETRY];
+	Entity entityList[NUM_ENTITY];
 
 	//unsigned m_indexBuffer [Num_Geometry];
 	//unsigned m_vertexBuffer[Num_Geometry];

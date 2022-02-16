@@ -406,8 +406,11 @@ void LobbyScene::Init()
 	meshList[GEO_TABLES] = MeshBuilder::GenerateOBJMTL("Tables", "OBJ//dininghall_tables.obj", "OBJ//dininghall_tables.mtl");
 	meshList[GEO_TABLES]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_A.tga");
 
-	meshList[GEO_MACHINE] = MeshBuilder::GenerateOBJMTL("Arcade Machine", "OBJ//arcade_machine.obj", "OBJ//arcade_machine.mtl");
-	meshList[GEO_MACHINE]->textureID = LoadTGA("Image//PolygonOffice_Texture_01_AMachine.tga");
+	//Arcade Machine
+	entityList[ENTITY_MACHINE].setMesh(MeshBuilder::GenerateOBJMTL("Arcade Machine", "OBJ//arcade_machine.obj", "OBJ//arcade_machine.mtl"));
+	entityList[ENTITY_MACHINE].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_01_AMachine.tga");
+	entityList[ENTITY_MACHINE].setTransform(Vector3(4.5f, 0.f, -14.f)); //transform by default is 0,0,0
+	entityList[ENTITY_MACHINE].setScale(Vector3(1.f, 1.f, 1.f)); //scale by default is 1,1,1 so don't actually need in this case
 }
 
 void LobbyScene::Update(double dt)
@@ -578,11 +581,7 @@ void LobbyScene::Render()
 	RenderMesh(meshList[GEO_TABLES], true);
 	modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(4.5f, 0,-14);
-	modelStack.Scale(1, 1, 1);
-	RenderMesh(meshList[GEO_MACHINE], true);
-	modelStack.PopMatrix();
+	RenderEntity(&entityList[ENTITY_MACHINE], true);
 
 	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 0, 0);
 

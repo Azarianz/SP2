@@ -1,9 +1,0 @@
-﻿  LobbyScene.cpp
-D:\Work\Game Developing\NYP\Y1S2\SP2\SP2\Application\Source\LobbyScene.cpp(216,53): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Work\Game Developing\NYP\Y1S2\SP2\SP2\Application\Source\LobbyScene.cpp(223,52): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Work\Game Developing\NYP\Y1S2\SP2\SP2\Application\Source\LobbyScene.cpp(231,62): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Work\Game Developing\NYP\Y1S2\SP2\SP2\Application\Source\LobbyScene.cpp(238,61): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Work\Game Developing\NYP\Y1S2\SP2\SP2\Application\Source\LobbyScene.cpp(246,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Work\Game Developing\NYP\Y1S2\SP2\SP2\Application\Source\LobbyScene.cpp(253,39): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\Work\Game Developing\NYP\Y1S2\SP2\SP2\Application\Source\LobbyScene.cpp(488,23): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  Application.vcxproj -> D:\Work\Game Developing\NYP\Y1S2\SP2\SP2\Debug\Application.exe
