@@ -1,0 +1,56 @@
+﻿  Application.cpp
+C:\Users\antho\Desktop\DM2122\Application\Source\Application.h(5,10): fatal error C1083: Cannot open include file: 'timer.h': No such file or directory
+  Camera.cpp
+C:\Users\antho\Desktop\DM2122\Application\Source\Camera.h(4,10): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  Camera2.cpp
+c1xx : fatal error C1083: Cannot open source file: 'Source\Camera2.cpp': No such file or directory
+  Camera3.cpp
+C:\Users\antho\Desktop\DM2122\Application\Source\Camera.h(4,10): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  Light.cpp
+C:\Users\antho\Desktop\DM2122\Application\Source\Vertex.h(2,9): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  LoadOBJ.cpp
+C:\Users\antho\Desktop\DM2122\Application\Source\Vertex.h(2,9): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  LoadTGA.cpp
+C:\Users\antho\Desktop\DM2122\Application\Source\LoadTGA.cpp(4,10): fatal error C1083: Cannot open include file: 'GL\glew.h': No such file or directory
+  main.cpp
+C:\Users\antho\Desktop\DM2122\Application\Source\Application.h(5,10): fatal error C1083: Cannot open include file: 'timer.h': No such file or directory
+  Material.cpp
+  Mesh.cpp
+C:\Users\antho\Desktop\DM2122\Application\Source\Vertex.h(2,9): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  MeshBuilder.cpp
+C:\Users\antho\Desktop\DM2122\Application\Source\Vertex.h(2,9): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  Scene1.cpp
+c1xx : fatal error C1083: Cannot open source file: 'Source\Scene1.cpp': No such file or directory
+  Scene2.cpp
+c1xx : fatal error C1083: Cannot open source file: 'Source\Scene2.cpp': No such file or directory
+  Scene3.cpp
+c1xx : fatal error C1083: Cannot open source file: 'Source\Scene3.cpp': No such file or directory
+  Scene4.cpp
+c1xx : fatal error C1083: Cannot open source file: 'Source\Scene4.cpp': No such file or directory
+  Scene5.cpp
+c1xx : fatal error C1083: Cannot open source file: 'Source\Scene5.cpp': No such file or directory
+  SceneA1.cpp
+c1xx : fatal error C1083: Cannot open source file: 'Source\SceneA1.cpp': No such file or directory
+  SceneA2.cpp
+c1xx : fatal error C1083: Cannot open source file: 'Source\SceneA2.cpp': No such file or directory
+  SceneLight2.cpp
+c1xx : fatal error C1083: Cannot open source file: 'Source\SceneLight2.cpp': No such file or directory
+  SceneLight.cpp
+c1xx : fatal error C1083: Cannot open source file: 'Source\SceneLight.cpp': No such file or directory
+  Generating Code...
+  Compiling...
+  SceneModel.cpp
+c1xx : fatal error C1083: Cannot open source file: 'Source\SceneModel.cpp': No such file or directory
+  SceneSkybox.cpp
+c1xx : fatal error C1083: Cannot open source file: 'Source\SceneSkybox.cpp': No such file or directory
+  SceneText.cpp
+c1xx : fatal error C1083: Cannot open source file: 'Source\SceneText.cpp': No such file or directory
+  SceneTexture.cpp
+c1xx : fatal error C1083: Cannot open source file: 'Source\SceneTexture.cpp': No such file or directory
+  SceneUI.cpp
+C:\Users\antho\Desktop\DM2122\Application\Source\SceneUI.h(3,9): fatal error C1083: Cannot open include file: 'Mtx44.h': No such file or directory
+  shader.cpp
+C:\Users\antho\Desktop\DM2122\Application\Source\shader.cpp(12,10): fatal error C1083: Cannot open include file: 'GL/glew.h': No such file or directory
+  Utility.cpp
+C:\Users\antho\Desktop\DM2122\Application\Source\vertex.h(2,9): fatal error C1083: Cannot open include file: 'Vector3.h': No such file or directory
+  Generating Code...
