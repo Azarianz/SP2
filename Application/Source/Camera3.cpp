@@ -66,10 +66,10 @@ void Camera3::Update(double dt)
 		//camera look controls
 		if ((cameraCurrentX != cameraPrevX) && (cameraCurrentY != cameraPrevY))
 		{
-			float xoffset = static_cast<float>(cameraCurrentX - cameraPrevX);
-			float yoffset = static_cast<float>(cameraCurrentY - cameraPrevY);
+			float xoffset = static_cast<float>(cameraCurrentX - cameraPrevX) * dt;
+			float yoffset = static_cast<float>(cameraCurrentY - cameraPrevY) * dt;
 
-			float sensitivity = 0.1f;
+			float sensitivity = 2.f;
 			xoffset *= sensitivity;
 			yoffset *= sensitivity;
 
@@ -91,7 +91,6 @@ void Camera3::Update(double dt)
 			view = view.Normalized();
 			target = position + view;
 
-			
 			Application::ResetCursor();
 			Application::GetCursorPos(&cameraPrevX, &cameraPrevY);
 		}
