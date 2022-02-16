@@ -4,7 +4,7 @@ Entity::Entity()
 {
 	mesh = nullptr;
 	transform = (0.f, 0.f, 0.f);
-	rotationAxis = (0, 0, 0);
+	rotationAxis = Vector3(0, 1, 0);
 	rotationAngle = 0;
 	scale = (1.f, 1.f, 1.f);
 }
