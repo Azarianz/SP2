@@ -82,20 +82,20 @@ private:
 	Mesh* meshList[NUM_GEOMETRY];
 	Entity entityList[NUM_ENTITY];
 
-	//unsigned m_indexBuffer [Num_Geometry];
-	//unsigned m_vertexBuffer[Num_Geometry];
-	//unsigned m_colorBuffer[Num_Geometry];
 	unsigned m_programID;
 
 	Camera3 camera;
 
 	void RenderSkybox();
+	void RenderPressEToInteract();
 	void RenderMesh(Mesh* mesh, bool enableLight);
 	void RenderEntity(Entity* entity, bool enableLight);
 	void RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey);
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	bool CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft);
+	void BoundsCheck();
+	bool IsInArcadeMachineInteraction();
 
 public:
 	virtual void Init();

@@ -16,6 +16,7 @@ const unsigned char FPS = 60; // FPS of this game
 const unsigned int frameTime = 1000 / FPS; // time for each frame
 unsigned Application::m_width;
 unsigned Application::m_height;
+unsigned char Application::sceneState;
 
 //Define an error callback
 static void error_callback(int error, const char* description)
@@ -138,24 +139,34 @@ void Application::Init()
 		//return -1;
 	}
 
+	//Hide cursor on init
 	HideCursor();
+
+	//init some game variables
+	sceneState = SCENE_LOBBY;
 }
 
 void Application::Run()
 {
 	//Main Loop
 	Scene* scene1 = new LobbyScene();
+	Scene* scene2 = new SceneMiniGame();
 	Scene* scene = scene1;
+	scene2->Init();
 	scene1->Init();
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
 	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
 	{
-		if (IsKeyPressed(VK_F1))
+		if (sceneState == SCENE_LOBBY)
 		{
-			HideCursor();
 			scene = scene1;
 		}
+		else if (sceneState == SCENE_MINIGAME)
+		{
+			scene = scene2;
+		}
+
 		scene->Update(m_timer.getElapsedTime());
 		scene->Render();
 		//Swap buffers
@@ -166,7 +177,9 @@ void Application::Run()
 
 	} //Check if the ESC key had been pressed or if the window had been closed
 	scene1->Exit();
+	scene2->Exit();
 	delete scene1;
+	delete scene2;
 }
 
 void Application::Exit()

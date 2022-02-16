@@ -161,13 +161,11 @@ bool SceneMiniGame::CreateButton(float buttonTop, float buttonBottom, float butt
 	std::cout << "posX:" << posX << " , posY:" << posY << std::endl;
 	if (posX > buttonLeft && posX < buttonRight && posY > buttonBottom  && posY < buttonTop)
 	{
-		std::cout << "Hit!" << std::endl;
 		//trigger user action or function
 		return true;
 	}
 	else
 	{
-		std::cout << "Miss!" << std::endl;
 		return false;
 	}
 }
@@ -186,7 +184,7 @@ void SceneMiniGame::ResetGameVariables()
 
 	platformHeight = 2;
 	platformWidth = 10;
-	platformSpeed = 20;
+	platformSpeed = initialPlatformSpeed;
 
 	//item variables
 	for (int i = 1; i <= sizeof(itemSpawnX) / sizeof(float); ++i)
@@ -214,7 +212,7 @@ void SceneMiniGame::ResetGameVariables()
 		itemSpawnDelay[i] = (rand() % 3) + ((rand() % 100) * 0.01);
 	}
 
-	itemSpeed = 15;
+	itemSpeed = initialItemSpeed;
 }
 
 void SceneMiniGame::Init()
@@ -232,8 +230,6 @@ void SceneMiniGame::Init()
 
 	camera.Init(Vector3(4, 3, 3), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
-	ResetGameVariables();
-
 	//button variables
 	noX = 25;
 	noY = 15;
@@ -245,9 +241,11 @@ void SceneMiniGame::Init()
 	yesSizeX = 20;
 	yesSizeY = 7.5;
 
-	miniGameState = YESNOMENU;
+	miniGameState = MAINMENU;
 
-	Application::ShowCursor();
+	initialItemSpeed = 15;
+	initialPlatformSpeed = 20;
+	ResetGameVariables();
 
 	//set background color
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -312,7 +310,7 @@ void SceneMiniGame::Init()
 
 void SceneMiniGame::Update(double dt)
 {
-	if (miniGameState == YESNOMENU)
+	if (miniGameState == EXITCONFIRMATION)
 	{
 		static bool bLButtonState = false;
 		if (!bLButtonState && Application::IsMousePressed(0))
@@ -322,13 +320,14 @@ void SceneMiniGame::Update(double dt)
 			//no button
 			if (CreateButton(noY + noSizeY / 2, noY - noSizeY / 2, noX + noSizeX / 2, noX - noSizeX / 2))
 			{
-				miniGameState = END;
+				Application::HideCursor();
+				miniGameState = MAINMENU;
 			}
 
 			//yes button
 			if (CreateButton(yesY + yesSizeY / 2, yesY - yesSizeY / 2, yesX + yesSizeX / 2, yesX - yesSizeX / 2))
 			{
-				miniGameState = MAINMENU;
+				Application::sceneState = Application::SCENE_LOBBY;
 			}
 
 		}
@@ -357,12 +356,12 @@ void SceneMiniGame::Update(double dt)
 	else if (miniGameState == MINIGAME)
 	{
 		timeElapsed += dt;
-		if ((timeElapsed > 5)&& (gameSpeed < 1.5))
+		if ((timeElapsed > 5)&& (gameSpeed < 3))
 		{
 			timeElapsed = 0;
-			gameSpeed += 0.1;
-			platformSpeed = platformSpeed * gameSpeed;
-			itemSpeed = itemSpeed * gameSpeed;
+			gameSpeed += 0.2;
+			platformSpeed = initialPlatformSpeed * gameSpeed;
+			itemSpeed = initialItemSpeed * gameSpeed;
 		}
 
 		if (Application::IsKeyPressed('A') && (platformTransformX > 0 + platformWidth / 2))
@@ -572,11 +571,11 @@ void SceneMiniGame::Update(double dt)
 			ResetGameVariables();
 			miniGameState = MAINMENU;
 		}
-
 	}
-	else if (miniGameState == END)
-	{
 
+	if ((miniGameState != EXITCONFIRMATION) && (Application::IsKeyPressed('B')))
+	{
+		miniGameState = EXITCONFIRMATION;
 	}
 
 	framePerSecond = 1.f / dt;
@@ -596,13 +595,12 @@ void SceneMiniGame::Render()
 		camera.target.x, camera.target.y, camera.target.z,
 		camera.up.x, camera.up.y, camera.up.z);
 	modelStack.LoadIdentity();
-	if (miniGameState == YESNOMENU)
+	if (miniGameState == EXITCONFIRMATION)
 	{
 		meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("quad", Color(0, 0, 0), 1.f);
 
-		RenderMeshOnScreen(meshList[GEO_QUAD], 40, 30, 70, 50);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Would you like to", Color(1, 1, 1), 4, 7, 40);
-		RenderTextOnScreen(meshList[GEO_TEXT], "play the game?", Color(1, 1, 1), 4, 13, 30);
+		RenderMeshOnScreen(meshList[GEO_QUAD], 40, 30, 60, 50);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Are you sure?" ,Color(1, 1, 1), 5, 10, 35);
 
 		meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("quad", Color(1, 1, 1), 1.f);
 
@@ -620,7 +618,7 @@ void SceneMiniGame::Render()
 
 		if (timeElapsedTextToggle > 0.5)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "Insert Coin", Color(1, 1, 1), 3, 24, 5);
+			RenderTextOnScreen(meshList[GEO_TEXT], "Insert Coin", Color(1, 1, 1), 3, 24.5, 5);
 		}
 	}
 	else if (miniGameState == MINIGAME)
@@ -710,11 +708,18 @@ void SceneMiniGame::Render()
 	{
 		RenderMeshOnScreen(meshList[GEO_OVER], 40, 30, 80, 60);
 	}
+
+	if (miniGameState != EXITCONFIRMATION)
+	{
+		Application::ShowCursor();
+		RenderTextOnScreen(meshList[GEO_TEXT], "Press 'B' to exit", Color(1, 1, 1), 2, 45, 1);
+	}
+	
 }
 
 void SceneMiniGame::Exit()
 {
 	// Cleanup VBO here
 	glDeleteVertexArrays(1, &m_vertexArrayID);
-	glDeleteProgram(m_programID);		
+	glDeleteProgram(m_programID);
 }

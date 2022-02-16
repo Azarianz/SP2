@@ -257,6 +257,25 @@ void LobbyScene::RenderSkybox()
 	modelStack.PopMatrix();
 }
 
+void LobbyScene::RenderPressEToInteract()
+{
+	RenderTextOnScreen(meshList[GEO_TEXT], "Press E to interact", Color(1, 1, 1), 3, 13.5, 10);
+}
+
+void LobbyScene::BoundsCheck()
+{
+
+}
+
+bool LobbyScene::IsInArcadeMachineInteraction()
+{
+	//arcade interaction colision
+	return(camera.position.x >= entityList[ENTITY_MACHINE].getTransform().x - 3) &&
+		(camera.position.z >= entityList[ENTITY_MACHINE].getTransform().z - 3) &&
+		(camera.position.x <= entityList[ENTITY_MACHINE].getTransform().x + 3) &&
+		(camera.position.z < entityList[ENTITY_MACHINE].getTransform().z + 3);
+}
+
 void LobbyScene::Init()
 {
 	// Init VBO here
@@ -488,6 +507,13 @@ void LobbyScene::Update(double dt)
 		std::cout << "RBUTTON UP" << std::endl;
 	}
 
+	if(IsInArcadeMachineInteraction() && Application::IsKeyPressed('E'))
+	{
+		Application::ResetCursor();
+		Application::ShowCursor();
+		Application::sceneState = Application::SCENE_MINIGAME;
+	}
+
 	framePerSecond = 1.f / dt;
 }
 
@@ -582,6 +608,10 @@ void LobbyScene::Render()
 	modelStack.PopMatrix();
 
 	RenderEntity(&entityList[ENTITY_MACHINE], true);
+	if (IsInArcadeMachineInteraction())
+	{
+		RenderPressEToInteract();
+	}
 
 	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 0, 0);
 

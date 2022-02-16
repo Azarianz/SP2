@@ -17,11 +17,10 @@ class SceneMiniGame : public Scene
 private:
 	enum MINIGAME_STATE
 	{
-		YESNOMENU,
+		EXITCONFIRMATION,
 		MAINMENU,
 		MINIGAME,
 		GAMEOVER,
-		END
 	};
 
 	enum ITEM_TYPE
@@ -83,6 +82,9 @@ private:
 	float platformWidth;
 	float platformHeight;
 	float platformSpeed;
+
+	float initialPlatformSpeed;
+	float initialItemSpeed;
 
 	//item variables
 	float itemSpawnY;

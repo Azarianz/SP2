@@ -9,7 +9,6 @@
 //Include GLFW
 #include <GLFW/glfw3.h>
 
-#include "SceneUI.h"
 #include "SceneMiniGame.h"
 #include "LobbyScene.h"
 
@@ -17,8 +16,16 @@
 class Application
 {
 public:
+	enum SCENE_STATE
+	{
+		SCENE_LOBBY,
+		SCENE_MINIGAME,
+		SCENE_MINIGAMEEXIT
+	};
+
 	static unsigned m_width;
 	static unsigned m_height;
+	static unsigned char sceneState;
 
 	Application();
 	~Application();
