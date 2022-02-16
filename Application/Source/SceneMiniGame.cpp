@@ -327,6 +327,7 @@ void SceneMiniGame::Update(double dt)
 			//yes button
 			if (CreateButton(yesY + yesSizeY / 2, yesY - yesSizeY / 2, yesX + yesSizeX / 2, yesX - yesSizeX / 2))
 			{
+				Application::HideCursor();
 				Application::sceneState = Application::SCENE_LOBBY;
 			}
 
@@ -356,7 +357,7 @@ void SceneMiniGame::Update(double dt)
 	else if (miniGameState == MINIGAME)
 	{
 		timeElapsed += dt;
-		if ((timeElapsed > 5)&& (gameSpeed < 5))
+		if ((timeElapsed > 3 * gameSpeed)&& (gameSpeed < 5))
 		{
 			timeElapsed = 0;
 			gameSpeed += 0.2;
