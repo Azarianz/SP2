@@ -10,7 +10,7 @@
 #include "LoadTGA.h"
 #include "Entity.h"
 
-class CorridorScene : public Scene
+class RoomScene : public Scene
 {
 private:
 	enum GEOMETRY_TYPE
@@ -31,8 +31,14 @@ private:
 		GEO_GAMER,
 		GEO_KID,
 		GEO_OLDMAN,
-		//Corridor Stage + Assets
-		GEO_CORRIDOR,
+		//Room Layouts
+		GEO_ROOML,	//Left
+		GEO_ROOMR,	//Right
+		//Room Based Furniture
+		GEO_ROOM1_FURNITURE,	//Left 1
+		GEO_ROOM2_FURNITURE,	//Right 1
+		GEO_ROOM3_FURNITURE,	//Left 2
+		GEO_ROOM4_FURNITURE,	//Right2
 		NUM_GEOMETRY,
 	};
 
@@ -90,11 +96,9 @@ private:
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	void RenderPressEToInteract();
 	bool CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft);
-	bool IsInElevatorInteraction();
-	bool IsInDoor1Interaction();
-	bool IsInDoor2Interaction();
-	bool IsInDoor3Interaction();
-	bool IsInDoor4Interaction();
+	bool IsInDoorLInteraction();
+	bool IsInDoorRInteraction();
+
 public:
 	virtual void Init();
 	virtual void Update(double dt);

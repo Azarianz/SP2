@@ -160,6 +160,7 @@
     <ClCompile Include="Source\Material.cpp" />
     <ClCompile Include="Source\Mesh.cpp" />
     <ClCompile Include="Source\MeshBuilder.cpp" />
+    <ClCompile Include="Source\RoomScene.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\SceneMiniGame.cpp" />
     <ClCompile Include="Source\SceneUI.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="Source\Material.h" />
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
+    <ClInclude Include="Source\RoomScene.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneMiniGame.h" />
     <ClInclude Include="Source\SceneUI.h" />

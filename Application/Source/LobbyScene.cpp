@@ -258,6 +258,7 @@ void LobbyScene::RenderSkybox()
 	modelStack.PopMatrix();
 }
 
+
 void LobbyScene::RenderPressEToInteract()
 {
 	RenderTextOnScreen(meshList[GEO_TEXT], "Press E to interact", Color(1, 1, 1), 3, 13.5, 10);
@@ -677,53 +678,59 @@ void LobbyScene::Render()
 
 	RenderSkybox();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(0, 2, -20);
-	modelStack.Scale(5, 5, 5);
-	RenderText(meshList[GEO_TEXT], "Hello World", Color(0, 1, 0));
-	modelStack.PopMatrix();
+	//modelStack.PushMatrix();
+	//modelStack.Translate(0, 2, -20);
+	//modelStack.Scale(5, 5, 5);
+	//RenderText(meshList[GEO_TEXT], "Hello World", Color(0, 1, 0));
+	//modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(0, 0, -2);
-	modelStack.Scale(1, 1, 1);
-	RenderMesh(meshList[GEO_GUARD], false);
-	modelStack.PopMatrix();
+	//Characters
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(0, 0, -2);
+		modelStack.Scale(1, 1, 1);
+		RenderMesh(meshList[GEO_GUARD], false);
+		modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(2, 0, -2);
-	modelStack.Scale(1, 1, 1);
-	RenderMesh(meshList[GEO_GAMER], false);
-	modelStack.PopMatrix();
+		modelStack.PushMatrix();
+		modelStack.Translate(2, 0, -2);
+		modelStack.Scale(1, 1, 1);
+		RenderMesh(meshList[GEO_GAMER], false);
+		modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(4, 0, -2);
-	modelStack.Scale(1, 1, 1);
-	RenderMesh(meshList[GEO_KID], false);
-	modelStack.PopMatrix();
+		modelStack.PushMatrix();
+		modelStack.Translate(4, 0, -2);
+		modelStack.Scale(1, 1, 1);
+		RenderMesh(meshList[GEO_KID], false);
+		modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(-2, 0, -2);
-	modelStack.Scale(1, 1, 1);
-	RenderMesh(meshList[GEO_JANITOR], false);
-	modelStack.PopMatrix();
+		modelStack.PushMatrix();
+		modelStack.Translate(-2, 0, -2);
+		modelStack.Scale(1, 1, 1);
+		RenderMesh(meshList[GEO_JANITOR], false);
+		modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(-4, 0, -2);
-	modelStack.Scale(1, 1, 1);
-	RenderMesh(meshList[GEO_OLDMAN], false);
-	modelStack.PopMatrix();
+		modelStack.PushMatrix();
+		modelStack.Translate(-4, 0, -2);
+		modelStack.Scale(1, 1, 1);
+		RenderMesh(meshList[GEO_OLDMAN], false);
+		modelStack.PopMatrix();
+	}
 
-	modelStack.PushMatrix();
-	modelStack.Translate(-4, 0, 12);
-	modelStack.Scale(1, 1, 1);
-	RenderMesh(meshList[GEO_LOBBY], true);
-	modelStack.PopMatrix();
+	//Stage + Assets
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(-4, 0, 12);
+		modelStack.Scale(1, 1, 1);
+		RenderMesh(meshList[GEO_LOBBY], true);
+		modelStack.PopMatrix();
 
-	modelStack.PushMatrix();
-	modelStack.Translate(-4, 0, 12);
-	modelStack.Scale(1, 1, 1);
-	RenderMesh(meshList[GEO_TABLES], true);
-	modelStack.PopMatrix();
+		modelStack.PushMatrix();
+		modelStack.Translate(-4, 0, 12);
+		modelStack.Scale(1, 1, 1);
+		RenderMesh(meshList[GEO_TABLES], true);
+		modelStack.PopMatrix();
+	}
 
 	RenderEntity(&entityList[ENTITY_MACHINE], true);
 	if (IsInArcadeMachineInteraction() ||

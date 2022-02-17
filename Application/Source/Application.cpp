@@ -152,7 +152,9 @@ void Application::Run()
 	Scene* scene1 = new LobbyScene();
 	Scene* scene2 = new SceneMiniGame();
 	Scene* scene3 = new CorridorScene();
+	Scene* scene4 = new RoomScene();
 	Scene* scene = scene1;
+	scene4->Init();
 	scene3->Init();
 	scene2->Init();
 	scene1->Init();
@@ -168,9 +170,18 @@ void Application::Run()
 		{
 			scene = scene2;
 		}
-		else if (sceneState == SCENE_CORRIDOR) {
+		else if (sceneState == SCENE_CORRIDOR) 
+		{
 			scene = scene3;
 		}
+		else if (sceneState == SCENE_ROOM1 ||
+			sceneState == SCENE_ROOM2 || 
+			sceneState == SCENE_ROOM3 || 
+			sceneState == SCENE_ROOM4) 
+		{
+			scene = scene4;
+		}
+
 
 		scene->Update(m_timer.getElapsedTime());
 		scene->Render();

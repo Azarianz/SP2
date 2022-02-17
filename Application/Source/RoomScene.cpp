@@ -1,4 +1,4 @@
-#include "CorridorScene.h"
+#include "RoomScene.h"
 #include "GL\glew.h"
 
 #include "shader.hpp"
@@ -6,7 +6,7 @@
 
 #define LSPEED 20
 
-void CorridorScene::RenderMesh(Mesh* mesh, bool enableLight)
+void RoomScene::RenderMesh(Mesh* mesh, bool enableLight)
 {
 	Mtx44 MVP, modelView, modelView_inverse_transpose;
 
@@ -49,7 +49,7 @@ void CorridorScene::RenderMesh(Mesh* mesh, bool enableLight)
 	}
 }
 
-void CorridorScene::RenderEntity(Entity* entity, bool enableLight)
+void RoomScene::RenderEntity(Entity* entity, bool enableLight)
 {
 	modelStack.PushMatrix();
 	modelStack.Translate(entity->getTransform().x, entity->getTransform().y, entity->getTransform().z);
@@ -98,7 +98,7 @@ void CorridorScene::RenderEntity(Entity* entity, bool enableLight)
 	modelStack.PopMatrix();
 }
 
-void CorridorScene::RenderText(Mesh* mesh, std::string text, Color color)
+void RoomScene::RenderText(Mesh* mesh, std::string text, Color color)
 {
 	if (!mesh || mesh->textureID <= 0) //Proper error check
 	{
@@ -124,7 +124,7 @@ void CorridorScene::RenderText(Mesh* mesh, std::string text, Color color)
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
 }
 
-void CorridorScene::RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey)
+void RoomScene::RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey)
 {
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
@@ -144,7 +144,7 @@ void CorridorScene::RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex
 	glEnable(GL_DEPTH_TEST);
 }
 
-void CorridorScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y)
+void RoomScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y)
 {
 	if (!mesh || mesh->textureID <= 0) //Proper error check
 	{
@@ -185,7 +185,12 @@ void CorridorScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color
 		glEnable(GL_DEPTH_TEST);
 }
 
-bool CorridorScene::CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft)
+void RoomScene::RenderPressEToInteract()
+{
+	RenderTextOnScreen(meshList[GEO_TEXT], "Press E to interact", Color(1, 1, 1), 3, 13.5, 10);
+}
+
+bool RoomScene::CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft)
 {
 	//Converting Viewport space to UI space
 	double x, y;
@@ -208,7 +213,7 @@ bool CorridorScene::CreateButton(float buttonTop, float buttonBottom, float butt
 	}
 }
 
-void CorridorScene::RenderSkybox()
+void RoomScene::RenderSkybox()
 {
 	float scale = 400;
 
@@ -257,47 +262,21 @@ void CorridorScene::RenderSkybox()
 	modelStack.PopMatrix();
 }
 
-void CorridorScene::RenderPressEToInteract()
+bool RoomScene::IsInDoorLInteraction()
 {
-	RenderTextOnScreen(meshList[GEO_TEXT], "Press E to interact", Color(1, 1, 1), 3, 13.5, 10);
+	//LLayout Door interaction collision
+	return ((camera.position.z >= 0) && (camera.position.z <= 2) &&
+		(camera.position.x >= 3) && (camera.position.x <= 5));;
 }
 
-bool CorridorScene::IsInElevatorInteraction()
+bool RoomScene::IsInDoorRInteraction()
 {
-	//elvator interaction collision
-	return ((camera.position.z >= 1.5) && (camera.position.z <= 4) &&
-		(camera.position.x >= -5) && (camera.position.x <= -2.5));
+	//RLayout Door interaction collision
+	return ((camera.position.z >= -2.5) && (camera.position.z <= -0.5) &&
+		(camera.position.x >= 3) && (camera.position.x <= 5));
 }
 
-bool CorridorScene::IsInDoor1Interaction()
-{
-	//door1 interaction collision
-	return ((camera.position.z >= 16) && (camera.position.z <= 20) &&
-		(camera.position.x >= -2) && (camera.position.x <= 0));
-}
-
-bool CorridorScene::IsInDoor2Interaction()
-{
-	//door2 interaction collision
-	return ((camera.position.z >= 9) && (camera.position.z <= 11) &&
-		(camera.position.x >= -2) && (camera.position.x <= 0));
-}
-
-bool CorridorScene::IsInDoor3Interaction()
-{
-	//door3 interaction collision
-	return ((camera.position.z >= -10) && (camera.position.z <= -8) &&
-		(camera.position.x >= -2) && (camera.position.x <= 0));
-}
-
-bool CorridorScene::IsInDoor4Interaction()
-{
-	//door4 interaction collision
-	return ((camera.position.z >= -19) && (camera.position.z <= -16) &&
-		(camera.position.x >= -2) && (camera.position.x <= 0));
-}
-
-void CorridorScene::Init()
+void RoomScene::Init()
 {
 	// Init VBO here
 	Mtx44 projection;
@@ -443,15 +422,23 @@ void CorridorScene::Init()
 		meshList[GEO_KID]->textureID = LoadTGA("Image//PolygonKids_Texture_01_A.tga");
 	}
 
-	//Corridor Stage + Assets
+	//Room Stage + Assets
 	{
-		meshList[GEO_CORRIDOR] = MeshBuilder::GenerateOBJMTL("Corridor", "OBJ//ship_corridor.obj", "OBJ//ship_corridor.mtl");
-		meshList[GEO_CORRIDOR]->textureID = LoadTGA("Image//PolygonOffice_Texture_01_AMachine.tga");
+		meshList[GEO_ROOML] = MeshBuilder::GenerateOBJMTL("Left Room Layout", "OBJ//ship_roomL.obj", "OBJ//ship_roomL.mtl");
+		meshList[GEO_ROOML]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_A.tga");
+		meshList[GEO_ROOMR] = MeshBuilder::GenerateOBJMTL("Right Room Layout", "OBJ//ship_roomR.obj", "OBJ//ship_roomR.mtl");
+		meshList[GEO_ROOMR]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_A.tga");
+
+		//Room Furnitures
+		meshList[GEO_ROOM1_FURNITURE] = MeshBuilder::GenerateOBJMTL("Left1 Furniture", "OBJ//ship_room1_furniture.obj", "OBJ//ship_room1_furniture.mtl");
+		meshList[GEO_ROOM1_FURNITURE]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_A.tga");
+		meshList[GEO_ROOM2_FURNITURE] = MeshBuilder::GenerateOBJMTL("Right1 Furniture", "OBJ//ship_room2_furniture.obj", "OBJ//ship_room2_furniture.mtl");
+		meshList[GEO_ROOM2_FURNITURE]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_A.tga");
 	}
 
 }
 
-void CorridorScene::Update(double dt)
+void RoomScene::Update(double dt)
 {
 	if (Application::IsKeyPressed('1'))
 	{
@@ -526,43 +513,18 @@ void CorridorScene::Update(double dt)
 		std::cout << "RBUTTON UP" << std::endl;
 	}
 
-	if (IsInElevatorInteraction() && Application::IsKeyPressed('E')) {
+	//Check Door Interaction Collision
+	if ((IsInDoorLInteraction() || IsInDoorRInteraction())
+		&& Application::IsKeyPressed('E')) {
 		Application::ResetCursor();
 		Application::ShowCursor();
-		Application::sceneState = Application::SCENE_LOBBY;
-	}
-
-	//Check Door Interaction Collision
-	{
-		if ((IsInDoor1Interaction()) && Application::IsKeyPressed('E')) {
-			Application::ResetCursor();
-			Application::ShowCursor();
-			Application::sceneState = Application::SCENE_ROOM1;
-		}
-
-		if ((IsInDoor2Interaction()) && Application::IsKeyPressed('E')) {
-			Application::ResetCursor();
-			Application::ShowCursor();
-			Application::sceneState = Application::SCENE_ROOM2;
-		}
-
-		if ((IsInDoor3Interaction()) && Application::IsKeyPressed('E')) {
-			Application::ResetCursor();
-			Application::ShowCursor();
-			Application::sceneState = Application::SCENE_ROOM3;
-		}
-
-		if ((IsInDoor4Interaction()) && Application::IsKeyPressed('E')) {
-			Application::ResetCursor();
-			Application::ShowCursor();
-			Application::sceneState = Application::SCENE_ROOM4;
-		}
+		Application::sceneState = Application::SCENE_CORRIDOR;
 	}
 
 	framePerSecond = 1.f / dt;
 }
 
-void CorridorScene::Render()
+void RoomScene::Render()
 {
 	//clear color and depth buffer every frame
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -604,7 +566,7 @@ void CorridorScene::Render()
 
 	RenderSkybox();
 
-	//Main Characters
+	//Characteres
 	{
 		modelStack.PushMatrix();
 		modelStack.Translate(0, 0, -2);
@@ -635,25 +597,78 @@ void CorridorScene::Render()
 		modelStack.Scale(1, 1, 1);
 		RenderMesh(meshList[GEO_OLDMAN], false);
 		modelStack.PopMatrix();
+
 	}
 
 	//Stage + Assets
-	{
-		modelStack.PushMatrix();
-		modelStack.Translate(0, 0, 0);
-		modelStack.Scale(1, 1, 1);
-		RenderMesh(meshList[GEO_CORRIDOR], true);
-		modelStack.PopMatrix();
+	{	
+		//Room 1 (Arcade Guy)
+		if (Application::sceneState == Application::SCENE_ROOM1) {			
+			modelStack.PushMatrix();
+			modelStack.Translate(0, 0, 0);
+			modelStack.Scale(1, 1, 1);
+			RenderMesh(meshList[GEO_ROOML], true);
+			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			modelStack.Translate(0, 0, 0);
+			modelStack.Scale(1, 1, 1);
+			RenderMesh(meshList[GEO_ROOM1_FURNITURE], true);
+			modelStack.PopMatrix();
+		}
+
+		//Room 2 (Old Man)
+		else if (Application::sceneState == Application::SCENE_ROOM2) {			
+			modelStack.PushMatrix();
+			modelStack.Translate(0, 0, 0);
+			modelStack.Scale(1, 1, 1);
+			RenderMesh(meshList[GEO_ROOMR], true);
+			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			modelStack.Translate(0, 0, 0);
+			modelStack.Scale(1, 1, 1);
+			RenderMesh(meshList[GEO_ROOM2_FURNITURE], true);
+			modelStack.PopMatrix();
+		}
+
+		//Room 3 (Kid): WIP
+		else if (Application::sceneState == Application::SCENE_ROOM3) {
+			modelStack.PushMatrix();
+			modelStack.Translate(0, 0, 0);
+			modelStack.Scale(1, 1, 1);
+			RenderMesh(meshList[GEO_ROOML], true);
+			modelStack.PopMatrix();
+		}
+
+		//Room 4 (Victim's Room): WIP
+		else if (Application::sceneState == Application::SCENE_ROOM4) {
+			modelStack.PushMatrix();
+			modelStack.Translate(0, 0, 0);
+			modelStack.Scale(1, 1, 1);
+			RenderMesh(meshList[GEO_ROOMR], true);
+			modelStack.PopMatrix();
+		}
 	}
-	
-	if (IsInElevatorInteraction() || 
-		IsInDoor1Interaction() ||
-		IsInDoor2Interaction() ||
-		IsInDoor3Interaction() ||
-		IsInDoor4Interaction())
-	{
-		RenderPressEToInteract();
+
+	//Left Layout
+	if (Application::sceneState == Application::SCENE_ROOM1 ||
+		Application::sceneState == Application::SCENE_ROOM3) {
+		if (IsInDoorLInteraction())
+		{
+			RenderPressEToInteract();
+		}
 	}
+
+	//Right Layout
+	if (Application::sceneState == Application::SCENE_ROOM2 ||
+		Application::sceneState == Application::SCENE_ROOM4) {
+		if (IsInDoorRInteraction())
+		{
+			RenderPressEToInteract();
+		}
+	}
+
 
 	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 0, 0);
 	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.x), Color(0, 1, 0), 4, 0, 0);
@@ -661,7 +676,7 @@ void CorridorScene::Render()
 	//RenderMeshOnScreen(meshList[GEO_QUAD], 40, 30, 20, 10);
 }
 
-void CorridorScene::Exit()
+void RoomScene::Exit()
 {
 	// Cleanup VBO here
 	glDeleteVertexArrays(1, &m_vertexArrayID);
