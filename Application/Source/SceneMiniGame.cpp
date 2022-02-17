@@ -179,7 +179,7 @@ void SceneMiniGame::ResetGameVariables()
 	gameSpeed = 1;//game speed in times so 1x game speed
 
 	//platform variables
-	platformTransformX = Application::m_width / 10 / 2;
+	platformTransformX = Application::GetWindowWidth() / 10 / 2;
 	platformTransformY = 10;
 
 	platformHeight = 2;
@@ -245,7 +245,6 @@ void SceneMiniGame::Init()
 
 	initialItemSpeed = 15;
 	initialPlatformSpeed = 20;
-	ResetGameVariables();
 
 	//set background color
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -327,6 +326,7 @@ void SceneMiniGame::Update(double dt)
 			//yes button
 			if (CreateButton(yesY + yesSizeY / 2, yesY - yesSizeY / 2, yesX + yesSizeX / 2, yesX - yesSizeX / 2))
 			{
+				miniGameState = MAINMENU;
 				Application::HideCursor();
 				Application::sceneState = Application::SCENE_LOBBY;
 			}
@@ -350,6 +350,7 @@ void SceneMiniGame::Update(double dt)
 		
 		if (timeElapsed > 3)
 		{
+			ResetGameVariables();
 			timeElapsed = 0;
 			miniGameState = MINIGAME;
 		}
@@ -576,6 +577,8 @@ void SceneMiniGame::Update(double dt)
 
 	if ((miniGameState != EXITCONFIRMATION) && (Application::IsKeyPressed('B')))
 	{
+		Application::ResetCursor();
+		Application::ShowCursor();
 		miniGameState = EXITCONFIRMATION;
 	}
 
@@ -712,7 +715,6 @@ void SceneMiniGame::Render()
 
 	if (miniGameState != EXITCONFIRMATION)
 	{
-		Application::ShowCursor();
 		RenderTextOnScreen(meshList[GEO_TEXT], "Press 'B' to exit", Color(1, 1, 1), 2, 45, 1);
 	}
 	

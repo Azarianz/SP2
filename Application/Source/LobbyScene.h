@@ -17,6 +17,7 @@ private:
 	{
 		GEO_AXES,
 		GEO_QUAD,
+		GEO_QUAD_BUTTON,
 		GEO_SPHERE,
 		GEO_SUN,
 		GEO_LEFT,
@@ -26,18 +27,24 @@ private:
 		GEO_FRONT,
 		GEO_BACK,
 		GEO_TEXT,
-		GEO_GUARD,
 		GEO_JANITOR,
 		GEO_GAMER,
-		GEO_KID,
-		GEO_OLDMAN,
 		GEO_LOBBY,
 		GEO_TABLES,
 		NUM_GEOMETRY,
 	};
 
+	enum JOURNAL_PAGE
+	{
+		EVIDENCE_PAGE,
+		PROFILE_PAGE
+	};
+
 	enum ENTITY_TYPE
 	{
+		ENTITY_KID,
+		ENTITY_OLDMAN,
+		ENTITY_GUARD,
 		ENTITY_MACHINE,
 		NUM_ENTITY
 	};
@@ -86,14 +93,19 @@ private:
 
 	Camera3 camera;
 
+	bool isJournalOpen;
+	char journalPage;
+
 	void RenderMesh(Mesh* mesh, bool enableLight);
 	void RenderEntity(Entity* entity, bool enableLight);
 	void RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey);
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	void RenderSkybox();
-	void RenderPressEToInteract();
 	bool CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft);
+	void RenderPressEToInteract();
+	void RenderJournal();
+	void ResetJournal();
 	void BoundsCheck();
 	bool IsInArcadeMachineInteraction();
 
