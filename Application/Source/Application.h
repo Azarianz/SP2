@@ -11,6 +11,7 @@
 
 #include "SceneMiniGame.h"
 #include "LobbyScene.h"
+#include "CorridorScene.h"
 
 
 class Application
@@ -20,7 +21,8 @@ public:
 	{
 		SCENE_LOBBY,
 		SCENE_MINIGAME,
-		SCENE_MINIGAMEEXIT
+		SCENE_MINIGAMEEXIT,
+		SCENE_CORRIDOR
 	};
 
 	static unsigned m_width;
