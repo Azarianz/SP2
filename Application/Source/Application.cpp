@@ -110,9 +110,9 @@ void Application::Init()
 
 
 	//Create a window and create its OpenGL context
-	m_width = 800;
-	m_height = 600;
-	m_window = glfwCreateWindow(m_width, m_height, "Test Window", NULL, NULL);
+	m_width = 1920;
+	m_height = 1080;
+	m_window = glfwCreateWindow(m_width, m_height, "Test Window", glfwGetPrimaryMonitor(), NULL);
 
 	//If the window couldn't be created
 	if (!m_window)
@@ -151,7 +151,11 @@ void Application::Run()
 	//Main Loop
 	Scene* scene1 = new LobbyScene();
 	Scene* scene2 = new SceneMiniGame();
+	Scene* scene3 = new CorridorScene();
+	Scene* scene4 = new RoomScene();
 	Scene* scene = scene1;
+	scene4->Init();
+	scene3->Init();
 	scene2->Init();
 	scene1->Init();
 
@@ -166,6 +170,18 @@ void Application::Run()
 		{
 			scene = scene2;
 		}
+		else if (sceneState == SCENE_CORRIDOR) 
+		{
+			scene = scene3;
+		}
+		else if (sceneState == SCENE_ROOM1 ||
+			sceneState == SCENE_ROOM2 || 
+			sceneState == SCENE_ROOM3 || 
+			sceneState == SCENE_ROOM4) 
+		{
+			scene = scene4;
+		}
+
 
 		scene->Update(m_timer.getElapsedTime());
 		scene->Render();

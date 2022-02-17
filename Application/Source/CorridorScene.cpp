@@ -1,4 +1,4 @@
-#include "LobbyScene.h"
+#include "CorridorScene.h"
 #include "GL\glew.h"
 
 #include "shader.hpp"
@@ -6,7 +6,7 @@
 
 #define LSPEED 20
 
-void LobbyScene::RenderMesh(Mesh* mesh, bool enableLight)
+void CorridorScene::RenderMesh(Mesh* mesh, bool enableLight)
 {
 	Mtx44 MVP, modelView, modelView_inverse_transpose;
 
@@ -49,11 +49,10 @@ void LobbyScene::RenderMesh(Mesh* mesh, bool enableLight)
 	}
 }
 
-void LobbyScene::RenderEntity(Entity* entity, bool enableLight)
+void CorridorScene::RenderEntity(Entity* entity, bool enableLight)
 {
 	modelStack.PushMatrix();
 	modelStack.Translate(entity->getTransform().x, entity->getTransform().y, entity->getTransform().z);
-	modelStack.Rotate(entity->getRotationAngle(), entity->getRotationAxis().x, entity->getRotationAxis().y, entity->getRotationAxis().z);
 	modelStack.Scale(entity->getScale().x, entity->getScale().x, entity->getScale().x);
 
 	Mtx44 MVP, modelView, modelView_inverse_transpose;
@@ -99,7 +98,7 @@ void LobbyScene::RenderEntity(Entity* entity, bool enableLight)
 	modelStack.PopMatrix();
 }
 
-void LobbyScene::RenderText(Mesh* mesh, std::string text, Color color)
+void CorridorScene::RenderText(Mesh* mesh, std::string text, Color color)
 {
 	if (!mesh || mesh->textureID <= 0) //Proper error check
 	{
@@ -125,7 +124,7 @@ void LobbyScene::RenderText(Mesh* mesh, std::string text, Color color)
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
 }
 
-void LobbyScene::RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey)
+void CorridorScene::RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey)
 {
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
@@ -145,7 +144,7 @@ void LobbyScene::RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, f
 	glEnable(GL_DEPTH_TEST);
 }
 
-void LobbyScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y)
+void CorridorScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y)
 {
 	if (!mesh || mesh->textureID <= 0) //Proper error check
 	{
@@ -186,7 +185,7 @@ void LobbyScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, f
 		glEnable(GL_DEPTH_TEST);
 }
 
-bool LobbyScene::CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft)
+bool CorridorScene::CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft)
 {
 	//Converting Viewport space to UI space
 	double x, y;
@@ -195,18 +194,21 @@ bool LobbyScene::CreateButton(float buttonTop, float buttonBottom, float buttonR
 	unsigned h = Application::GetWindowHeight();
 	float posX = static_cast<float>(x / 10); //convert (0,800) to (0,80)
 	float posY = static_cast<float>(h / 10 - y / 10); //convert (600,0) to (0,60)
+	std::cout << "posX:" << posX << " , posY:" << posY << std::endl;
 	if (posX > buttonLeft && posX < buttonRight && posY > buttonBottom  && posY < buttonTop)
 	{
+		std::cout << "Hit!" << std::endl;
 		//trigger user action or function
 		return true;
 	}
 	else
 	{
+		std::cout << "Miss!" << std::endl;
 		return false;
 	}
 }
 
-void LobbyScene::RenderSkybox()
+void CorridorScene::RenderSkybox()
 {
 	float scale = 400;
 
@@ -255,202 +257,47 @@ void LobbyScene::RenderSkybox()
 	modelStack.PopMatrix();
 }
 
-
-void LobbyScene::RenderPressEToInteract()
+void CorridorScene::RenderPressEToInteract()
 {
 	RenderTextOnScreen(meshList[GEO_TEXT], "Press E to interact", Color(1, 1, 1), 3, 13.5, 10);
 }
 
-void LobbyScene::RenderJournal()
-{
-	float windowSizeX = Application::GetWindowWidth() / 10;
-	float windowSizeY = Application::GetWindowHeight() / 10;
-	float journalButtonHeight = windowSizeY / 5;
-	float journalButtonWidth = windowSizeX / 4;
-
-	RenderMeshOnScreen(meshList[GEO_QUAD], windowSizeX / 2, windowSizeY / 2, windowSizeX, windowSizeY);
-
-	int buttonSpacing = 4;
-		
-	RenderMeshOnScreen(meshList[GEO_QUAD_BUTTON], journalButtonWidth / 2, windowSizeY - journalButtonHeight / 2 - buttonSpacing, journalButtonWidth - buttonSpacing, journalButtonHeight);
-	int tempCount = 1;
-	RenderMeshOnScreen(meshList[GEO_QUAD_BUTTON], journalButtonWidth / 2 + journalButtonWidth *tempCount, windowSizeY - journalButtonHeight/ 2 - buttonSpacing, journalButtonWidth - buttonSpacing, journalButtonHeight);
-	++tempCount;
-	RenderMeshOnScreen(meshList[GEO_QUAD_BUTTON], journalButtonWidth / 2 + journalButtonWidth * tempCount, windowSizeY - journalButtonHeight / 2 - buttonSpacing, journalButtonWidth - buttonSpacing, journalButtonHeight);
-	++tempCount;
-	RenderMeshOnScreen(meshList[GEO_QUAD_BUTTON], journalButtonWidth / 2 + journalButtonWidth * tempCount, windowSizeY - journalButtonHeight / 2 - buttonSpacing, journalButtonWidth - buttonSpacing, journalButtonHeight);
-
-	static bool lcButtonState = false;
-	if (!lcButtonState && Application::IsMousePressed(0))
-	{
-		lcButtonState = true;
-		//button1
-		if (CreateButton(windowSizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
-			windowSizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
-			journalButtonWidth / 2 + (journalButtonWidth/2 - buttonSpacing / 2),
-			journalButtonWidth / 2 - (journalButtonWidth/2 - buttonSpacing / 2)))
-		{
-			std::cout << "journal page is: evidence" << std::endl;
-			journalPage = EVIDENCE_PAGE;
-		}
-		int tempCount = 1;
-		if (CreateButton(windowSizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
-			windowSizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
-			(journalButtonWidth / 2 + journalButtonWidth * tempCount) + (journalButtonWidth / 2 - buttonSpacing / 2),
-			(journalButtonWidth / 2 + journalButtonWidth * tempCount) - (journalButtonWidth / 2 - buttonSpacing / 2)))
-		{
-			std::cout << "journal page is: profile" << std::endl;
-			journalPage = EVIDENCE_PAGE;
-		}
-		++tempCount;
-		if (CreateButton(windowSizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
-			windowSizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
-			(journalButtonWidth / 2 + journalButtonWidth * tempCount) + (journalButtonWidth / 2 - buttonSpacing / 2),
-			(journalButtonWidth / 2 + journalButtonWidth * tempCount) - (journalButtonWidth / 2 - buttonSpacing / 2)))
-		{
-			std::cout << "journal page is: 3" << std::endl;
-			journalPage = EVIDENCE_PAGE;
-		}
-		++tempCount;
-		if (CreateButton(windowSizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
-			windowSizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
-			(journalButtonWidth / 2 + journalButtonWidth * tempCount) + (journalButtonWidth / 2 - buttonSpacing / 2),
-			(journalButtonWidth / 2 + journalButtonWidth * tempCount) - (journalButtonWidth / 2 - buttonSpacing / 2)))
-		{
-			std::cout << "journal page is: 4" << std::endl;
-			journalPage = EVIDENCE_PAGE;
-		}
-	}
-	else if (lcButtonState && !Application::IsMousePressed(0))
-	{
-		lcButtonState = false;
-	}
-
-	if (journalPage == EVIDENCE_PAGE)
-	{
-
-	}
-	else if (journalPage == PROFILE_PAGE)
-	{
-
-	}
-}
-
-void LobbyScene::ResetJournal()
-{
-}
-
-void LobbyScene::BoundsCheck()
-{
-	//room left
-	if ((camera.position.x <= -8.5) && (camera.position.z <= 18.5) && (camera.position.z >= -15))
-	{
-		camera.position.x = -8.5;
-		camera.target = camera.position + camera.view;
-	}
-	//room back
-	if ((camera.position.z <= -14.5) && (camera.position.x <= 7) && (camera.position.x >= -9))
-	{
-		camera.position.z = -14.5;
-		camera.target = camera.position + camera.view;
-	}
-	//room right
-	if ((camera.position.x >= 6.5) && (camera.position.z <= 18.5) && (camera.position.z >= -14.5))
-	{
-		camera.position.x = 6.5;
-		camera.target = camera.position + camera.view;
-	}
-	//room left front
-	if ((camera.position.z >= 17.5) && (camera.position.z <= 18) && (camera.position.x <= -2.5) && (camera.position.x >= -9))
-	{
-		camera.position.z = 17.5;
-		camera.target = camera.position + camera.view;
-	}
-	if ((camera.position.z >= 18) && (camera.position.z <= 18.5) && (camera.position.x <= -2.4) && (camera.position.x >= -5.5))
-	{
-		camera.position.x = -2.4;
-		camera.target = camera.position + camera.view;
-	}
-	if ((camera.position.z >= 18) && (camera.position.z <= 19) && (camera.position.x <= -2.5) && (camera.position.x >= -5.5))
-	{
-		camera.position.z = 19;
-		camera.target = camera.position + camera.view;
-	}
-	//room right front
-	if ((camera.position.z >= 17.5) && (camera.position.z <= 18) && (camera.position.x <= 6.5) && (camera.position.x >= 0.5))
-	{
-		camera.position.z = 17.5;
-		camera.target = camera.position + camera.view;
-	}
-	if ((camera.position.z >= 18) && (camera.position.z <= 18.5) && (camera.position.x <= 6.5) && (camera.position.x >= 0.4))
-	{
-		camera.position.x = 0.4;
-		camera.target = camera.position + camera.view;
-	}
-	if ((camera.position.z >= 18) && (camera.position.z <= 19) && (camera.position.x <= 3.5) && (camera.position.x >= 0.5))
-	{
-		camera.position.z = 19;
-		camera.target = camera.position + camera.view;
-	}
-	//corridor right
-	if ((camera.position.x >= 1.5) && (camera.position.z <= 33) && (camera.position.z >= 19))
-	{
-		camera.position.x = 1.5;
-		camera.target = camera.position + camera.view;
-	}
-	//corridor back
-	if ((camera.position.z >= 32.5) && (camera.position.x <= 1.5) && (camera.position.x >= -5))
-	{
-		camera.position.z = 32.5;
-		camera.target = camera.position + camera.view;
-	}
-	//coridor left
-	if ((camera.position.x <= -4.6) && (camera.position.x >= -5) && (camera.position.z <= 32.5) && (camera.position.z >= 30))
-	{
-		camera.position.x = -4.6;
-		camera.target = camera.position + camera.view;
-	}
-	if ((camera.position.x <= -4.6) && (camera.position.x >= -5) && (camera.position.z <= 29) && (camera.position.z >= 19))
-	{
-		camera.position.x = -4.6;
-		camera.target = camera.position + camera.view;
-	}
-
-	//elvator
-	if ((camera.position.z <= 28.9) && (camera.position.z >= 28) && (camera.position.x <= -5.2) && (camera.position.x >= -7.5))
-	{
-		camera.position.z = 28.9;
-		camera.target = camera.position + camera.view;
-	}
-	if ((camera.position.x <= -7.1) && (camera.position.z <= 31) && (camera.position.z >= 28))
-	{
-		camera.position.x = -7.1;
-		camera.target = camera.position + camera.view;
-	}
-	if ((camera.position.z >= 30.5) && (camera.position.z <= 31) && (camera.position.x <= -5) && (camera.position.x >= -8))
-	{
-		camera.position.z = 30.5;
-		camera.target = camera.position + camera.view;
-	}
-}
-
-bool LobbyScene::IsInArcadeMachineInteraction()
-{
-	//arcade interaction colision
-	return(camera.position.x >= entityList[ENTITY_MACHINE].getTransform().x - 3) &&
-		(camera.position.z >= entityList[ENTITY_MACHINE].getTransform().z - 3) &&
-		(camera.position.x <= entityList[ENTITY_MACHINE].getTransform().x + 3) &&
-		(camera.position.z < entityList[ENTITY_MACHINE].getTransform().z + 3);
-}
-
-bool LobbyScene::IsInElevatorInteraction()
+bool CorridorScene::IsInElevatorInteraction()
 {
 	//elvator interaction collision
-	return ((camera.position.z >= 28.9) && (camera.position.z <= 30.5) &&
-		(camera.position.x >= -7.1) && (camera.position.x <= -5.2));
+	return ((camera.position.z >= 1.5) && (camera.position.z <= 4) &&
+		(camera.position.x >= -5) && (camera.position.x <= -2.5));
 }
 
-void LobbyScene::Init()
+bool CorridorScene::IsInDoor1Interaction()
+{
+	//door1 interaction collision
+	return ((camera.position.z >= 16) && (camera.position.z <= 20) &&
+		(camera.position.x >= -2) && (camera.position.x <= 0));
+}
+
+bool CorridorScene::IsInDoor2Interaction()
+{
+	//door2 interaction collision
+	return ((camera.position.z >= 9) && (camera.position.z <= 11) &&
+		(camera.position.x >= -2) && (camera.position.x <= 0));
+}
+
+bool CorridorScene::IsInDoor3Interaction()
+{
+	//door3 interaction collision
+	return ((camera.position.z >= -10) && (camera.position.z <= -8) &&
+		(camera.position.x >= -2) && (camera.position.x <= 0));
+}
+
+bool CorridorScene::IsInDoor4Interaction()
+{
+	//door4 interaction collision
+	return ((camera.position.z >= -19) && (camera.position.z <= -16) &&
+		(camera.position.x >= -2) && (camera.position.x <= 0));
+}
+
+void CorridorScene::Init()
 {
 	// Init VBO here
 	Mtx44 projection;
@@ -463,7 +310,7 @@ void LobbyScene::Init()
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	camera.Init(Vector3(-7, 1.5f, 30), Vector3(-7, 1.5f, 30), Vector3(0, 1,0));
+	camera.Init(Vector3(0, 1.5f, 0), Vector3(5, 1.5f, 0), Vector3(0, 1,0));
 
 	light[0].type = Light::LIGHT_SPOT;
 	light[0].position.Set(0, 20, 0);
@@ -548,8 +395,7 @@ void LobbyScene::Init()
 		m_parameters[U_MATERIAL_SHININESS]);
 
 	meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("quad", Color(0.5, 0.5, 0.5), 1.f);
-
-	meshList[GEO_QUAD_BUTTON] = MeshBuilder::GenerateQuad("quad", Color(0, 0, 0), 1.f);
+	meshList[GEO_QUAD]->textureID = LoadTGA("Image//color.tga");
 
 	meshList[GEO_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1), 1.f);
 	meshList[GEO_FRONT]->textureID = LoadTGA("Image//front.tga");
@@ -579,43 +425,33 @@ void LobbyScene::Init()
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
 
-	meshList[GEO_GAMER] = MeshBuilder::GenerateOBJMTL("gamer", "OBJ//Gamer.obj", "OBJ//Gamer.mtl");
-	meshList[GEO_GAMER]->textureID = LoadTGA("Image//PolygonCity_Texture_01_C.tga");
+	//Main Characters
+	{
+		meshList[GEO_GUARD] = MeshBuilder::GenerateOBJMTL("guard", "OBJ//Guard.obj", "OBJ//Guard.mtl");
+		meshList[GEO_GUARD]->textureID = LoadTGA("Image//PolygonCity_Texture_01_C.tga");
 
-	meshList[GEO_JANITOR] = MeshBuilder::GenerateOBJMTL("janitor", "OBJ//Janitor.obj", "OBJ//Janitor.mtl");
-	meshList[GEO_JANITOR]->textureID = LoadTGA("Image//PolygonCity_Texture_02_B.tga");
+		meshList[GEO_GAMER] = MeshBuilder::GenerateOBJMTL("gamer", "OBJ//Gamer.obj", "OBJ//Gamer.mtl");
+		meshList[GEO_GAMER]->textureID = LoadTGA("Image//PolygonCity_Texture_01_C.tga");
 
-	meshList[GEO_LOBBY] = MeshBuilder::GenerateOBJMTL("Dining Hall", "OBJ//ship_dininghall.obj", "OBJ//ship_dininghall.mtl");
-	meshList[GEO_LOBBY]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_A.tga");
+		meshList[GEO_JANITOR] = MeshBuilder::GenerateOBJMTL("janitor", "OBJ//Janitor.obj", "OBJ//Janitor.mtl");
+		meshList[GEO_JANITOR]->textureID = LoadTGA("Image//PolygonCity_Texture_02_B.tga");
 
-	meshList[GEO_TABLES] = MeshBuilder::GenerateOBJMTL("Tables", "OBJ//dininghall_tables.obj", "OBJ//dininghall_tables.mtl");
-	meshList[GEO_TABLES]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_A.tga");
+		meshList[GEO_OLDMAN] = MeshBuilder::GenerateOBJMTL("Old Man", "OBJ//OldMan.obj", "OBJ//OldMan.mtl");
+		meshList[GEO_OLDMAN]->textureID = LoadTGA("Image//PolygonCity_Texture_01_C.tga");
 
-	//old man npc
-	entityList[ENTITY_OLDMAN].setMesh(MeshBuilder::GenerateOBJMTL("Old Man", "OBJ//OldMan.obj", "OBJ//OldMan.mtl"));
-	entityList[ENTITY_OLDMAN].getMesh()->textureID = LoadTGA("Image//PolygonCity_Texture_01_C.tga");
-	entityList[ENTITY_OLDMAN].setTransform(Vector3(-4, 0, -2));
+		meshList[GEO_KID] = MeshBuilder::GenerateOBJMTL("Kid", "OBJ//Kid.obj", "OBJ//Kid.mtl");
+		meshList[GEO_KID]->textureID = LoadTGA("Image//PolygonKids_Texture_01_A.tga");
+	}
 
-	//kid npc
-	entityList[ENTITY_KID].setMesh(MeshBuilder::GenerateOBJMTL("Kid", "OBJ//Kid.obj", "OBJ//Kid.mtl"));
-	entityList[ENTITY_KID].getMesh()->textureID = LoadTGA("Image//PolygonKids_Texture_01_A.tga");
-	entityList[ENTITY_KID].setTransform(Vector3(4, 0, -2));
+	//Corridor Stage + Assets
+	{
+		meshList[GEO_CORRIDOR] = MeshBuilder::GenerateOBJMTL("Corridor", "OBJ//ship_corridor.obj", "OBJ//ship_corridor.mtl");
+		meshList[GEO_CORRIDOR]->textureID = LoadTGA("Image//PolygonOffice_Texture_01_AMachine.tga");
+	}
 
-	//guard npc
-	entityList[ENTITY_GUARD].setMesh(MeshBuilder::GenerateOBJMTL("guard", "OBJ//Guard.obj", "OBJ//Guard.mtl"));
-	entityList[ENTITY_GUARD].getMesh()->textureID = LoadTGA("Image//PolygonCity_Texture_01_C.tga");
-	entityList[ENTITY_GUARD].setTransform(Vector3(0, 0, -2));
-
-	//Arcade Machine
-	entityList[ENTITY_MACHINE].setMesh(MeshBuilder::GenerateOBJMTL("Arcade Machine", "OBJ//arcade_machine.obj", "OBJ//arcade_machine.mtl"));
-	entityList[ENTITY_MACHINE].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_01_AMachine.tga");
-	entityList[ENTITY_MACHINE].setTransform(Vector3(4.5f, 0.f, -14.f));
-
-	isJournalOpen = false;
-	journalPage = EVIDENCE_PAGE;
 }
 
-void LobbyScene::Update(double dt)
+void CorridorScene::Update(double dt)
 {
 	if (Application::IsKeyPressed('1'))
 	{
@@ -664,43 +500,69 @@ void LobbyScene::Update(double dt)
 		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
 	}
 
-	static bool jButtonState = false;
-	if (!jButtonState && Application::IsKeyPressed('J') && !isJournalOpen)
+	//Mouse Inputs
+	static bool bLButtonState = false;
+	if (!bLButtonState && Application::IsMousePressed(0))
 	{
-		camera.DisableControl();
-		Application::ShowCursor();
-		isJournalOpen = true;
-		jButtonState = true;
-	}
-	else if (jButtonState && !Application::IsKeyPressed('J'))
-	{
-		jButtonState = false;
-	}
-	else if (!jButtonState && Application::IsKeyPressed('J') && isJournalOpen)
-	{
-		camera.EnableControl();
-		Application::HideCursor();
-		isJournalOpen = false;
-		jButtonState = true;
-	}
+		bLButtonState = true;
+		std::cout << "LBUTTON DOWN" << std::endl;
 
-	if(IsInArcadeMachineInteraction() && Application::IsKeyPressed('E'))
+		CreateButton(25 + 10 ,25, 30 + 20, 30);
+	}
+	else if (bLButtonState && !Application::IsMousePressed(0))
 	{
-		Application::sceneState = Application::SCENE_MINIGAME;
+		bLButtonState = false;
+		std::cout << "LBUTTON UP" << std::endl;
+	}
+	static bool bRButtonState = false;
+	if (!bRButtonState && Application::IsMousePressed(1))
+	{
+		bRButtonState = true;
+		std::cout << "RBUTTON DOWN" << std::endl;
+	}
+	else if (bRButtonState && !Application::IsMousePressed(1))
+	{
+		bRButtonState = false;
+		std::cout << "RBUTTON UP" << std::endl;
 	}
 
 	if (IsInElevatorInteraction() && Application::IsKeyPressed('E')) {
 		Application::ResetCursor();
 		Application::ShowCursor();
-		Application::sceneState = Application::SCENE_CORRIDOR;
+		Application::sceneState = Application::SCENE_LOBBY;
 	}
 
-	BoundsCheck();
+	//Check Door Interaction Collision
+	{
+		if ((IsInDoor1Interaction()) && Application::IsKeyPressed('E')) {
+			Application::ResetCursor();
+			Application::ShowCursor();
+			Application::sceneState = Application::SCENE_ROOM1;
+		}
+
+		if ((IsInDoor2Interaction()) && Application::IsKeyPressed('E')) {
+			Application::ResetCursor();
+			Application::ShowCursor();
+			Application::sceneState = Application::SCENE_ROOM2;
+		}
+
+		if ((IsInDoor3Interaction()) && Application::IsKeyPressed('E')) {
+			Application::ResetCursor();
+			Application::ShowCursor();
+			Application::sceneState = Application::SCENE_ROOM3;
+		}
+
+		if ((IsInDoor4Interaction()) && Application::IsKeyPressed('E')) {
+			Application::ResetCursor();
+			Application::ShowCursor();
+			Application::sceneState = Application::SCENE_ROOM4;
+		}
+	}
 
 	framePerSecond = 1.f / dt;
 }
 
-void LobbyScene::Render()
+void CorridorScene::Render()
 {
 	//clear color and depth buffer every frame
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -742,13 +604,13 @@ void LobbyScene::Render()
 
 	RenderSkybox();
 
-	//modelStack.PushMatrix();
-	//modelStack.Translate(0, 2, -20);
-	//modelStack.Scale(5, 5, 5);
-	//RenderText(meshList[GEO_TEXT], "Hello World", Color(0, 1, 0));
-	//modelStack.PopMatrix();
-
-	RenderEntity(&entityList[ENTITY_GUARD], false);
+	//Main Characters
+	{
+		modelStack.PushMatrix();
+		modelStack.Translate(0, 0, -2);
+		modelStack.Scale(1, 1, 1);
+		RenderMesh(meshList[GEO_GUARD], false);
+		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
 		modelStack.Translate(2, 0, -2);
@@ -756,7 +618,11 @@ void LobbyScene::Render()
 		RenderMesh(meshList[GEO_GAMER], false);
 		modelStack.PopMatrix();
 
-	RenderEntity(&entityList[ENTITY_KID], false);
+		modelStack.PushMatrix();
+		modelStack.Translate(4, 0, -2);
+		modelStack.Scale(1, 1, 1);
+		RenderMesh(meshList[GEO_KID], false);
+		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
 		modelStack.Translate(-2, 0, -2);
@@ -764,43 +630,38 @@ void LobbyScene::Render()
 		RenderMesh(meshList[GEO_JANITOR], false);
 		modelStack.PopMatrix();
 
-	RenderEntity(&entityList[ENTITY_OLDMAN], false);
+		modelStack.PushMatrix();
+		modelStack.Translate(-4, 0, -2);
+		modelStack.Scale(1, 1, 1);
+		RenderMesh(meshList[GEO_OLDMAN], false);
+		modelStack.PopMatrix();
+	}
 
 	//Stage + Assets
 	{
 		modelStack.PushMatrix();
-		modelStack.Translate(-4, 0, 12);
+		modelStack.Translate(0, 0, 0);
 		modelStack.Scale(1, 1, 1);
-		RenderMesh(meshList[GEO_LOBBY], true);
-		modelStack.PopMatrix();
-
-		modelStack.PushMatrix();
-		modelStack.Translate(-4, 0, 12);
-		modelStack.Scale(1, 1, 1);
-		RenderMesh(meshList[GEO_TABLES], true);
+		RenderMesh(meshList[GEO_CORRIDOR], true);
 		modelStack.PopMatrix();
 	}
-
-	RenderEntity(&entityList[ENTITY_MACHINE], true);
-	if (IsInArcadeMachineInteraction() ||
-		IsInElevatorInteraction())
+	
+	if (IsInElevatorInteraction() || 
+		IsInDoor1Interaction() ||
+		IsInDoor2Interaction() ||
+		IsInDoor3Interaction() ||
+		IsInDoor4Interaction())
 	{
 		RenderPressEToInteract();
 	}
 
-	if (isJournalOpen)
-	{
-		RenderJournal();
-	}
-
-	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 0, 0);
-	
-	/*RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.x), Color(0, 1, 0), 4, 0, 0);
-	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.z), Color(0, 1, 0), 4, 0, 2);*/
+	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 0, 0);
+	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.x), Color(0, 1, 0), 4, 0, 0);
+	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.z), Color(0, 1, 0), 4, 0, 2);
 	//RenderMeshOnScreen(meshList[GEO_QUAD], 40, 30, 20, 10);
 }
 
-void LobbyScene::Exit()
+void CorridorScene::Exit()
 {
 	// Cleanup VBO here
 	glDeleteVertexArrays(1, &m_vertexArrayID);

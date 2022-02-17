@@ -10,14 +10,13 @@
 #include "LoadTGA.h"
 #include "Entity.h"
 
-class LobbyScene : public Scene
+class CorridorScene : public Scene
 {
 private:
 	enum GEOMETRY_TYPE
 	{
 		GEO_AXES,
 		GEO_QUAD,
-		GEO_QUAD_BUTTON,
 		GEO_SPHERE,
 		GEO_SUN,
 		GEO_LEFT,
@@ -27,26 +26,14 @@ private:
 		GEO_FRONT,
 		GEO_BACK,
 		GEO_TEXT,
+		GEO_GUARD,
 		GEO_JANITOR,
 		GEO_GAMER,
-		GEO_LOBBY,
-		GEO_TABLES,
+		GEO_KID,
+		GEO_OLDMAN,
+		//Corridor Stage + Assets
+		GEO_CORRIDOR,
 		NUM_GEOMETRY,
-	};
-
-	enum JOURNAL_PAGE
-	{
-		EVIDENCE_PAGE,
-		PROFILE_PAGE
-	};
-
-	enum ENTITY_TYPE
-	{
-		ENTITY_KID,
-		ENTITY_OLDMAN,
-		ENTITY_GUARD,
-		ENTITY_MACHINE,
-		NUM_ENTITY
 	};
 
 	enum UNIFORM_TYPE
@@ -87,29 +74,27 @@ private:
 	unsigned m_parameters[U_TOTAL];
 	unsigned m_vertexArrayID;
 	Mesh* meshList[NUM_GEOMETRY];
-	Entity entityList[NUM_ENTITY];
 
+	//unsigned m_indexBuffer [Num_Geometry];
+	//unsigned m_vertexBuffer[Num_Geometry];
+	//unsigned m_colorBuffer[Num_Geometry];
 	unsigned m_programID;
 
 	Camera3 camera;
 
-	bool isJournalOpen;
-	char journalPage;
-
+	void RenderSkybox();
 	void RenderMesh(Mesh* mesh, bool enableLight);
 	void RenderEntity(Entity* entity, bool enableLight);
 	void RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey);
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
-	void RenderSkybox();
-	bool CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft);
 	void RenderPressEToInteract();
-	void RenderJournal();
-	void ResetJournal();
-	void BoundsCheck();
-	bool IsInArcadeMachineInteraction();
+	bool CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft);
 	bool IsInElevatorInteraction();
-
+	bool IsInDoor1Interaction();
+	bool IsInDoor2Interaction();
+	bool IsInDoor3Interaction();
+	bool IsInDoor4Interaction();
 public:
 	virtual void Init();
 	virtual void Update(double dt);
