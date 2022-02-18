@@ -12,6 +12,7 @@
 #include<iomanip> 
 #include<sstream>
 #include<fstream>
+#include <vector>
 
 class LobbyScene : public Scene
 {
@@ -34,6 +35,8 @@ private:
 		GEO_GAMER,
 		GEO_LOBBY,
 		GEO_TABLES,
+		GEO_DIALOGUE,
+		GEO_DIALOGUE2,
 		NUM_GEOMETRY,
 	};
 
@@ -45,9 +48,11 @@ private:
 
 	enum ENTITY_TYPE
 	{
+		ENTITY_GUARD,
+		ENTITY_JANITOR,
+		ENTITY_GAMER,
 		ENTITY_KID,
 		ENTITY_OLDMAN,
-		ENTITY_GUARD,
 		ENTITY_MACHINE,
 		NUM_ENTITY
 	};
@@ -87,6 +92,27 @@ private:
 
 	float framePerSecond;
 
+	int interval;
+	int charId; // 0 = guard, 1 = janitor, 2 = Arcader, 3 = Kid, 4 = old guy
+	int gossipId; // 0 = guard, 1 = janitor, 2 = Arcader, 3 = Kid, 4 = old guy
+	bool canInteract;
+	int interactOffset;
+	bool isTalking;
+	bool isChatting;
+	bool isDoneChat;
+	int chatCounter = 0;
+	int tempCounter = 0;
+	bool isInterrogate;
+	bool isGossiping;
+	bool printGossip;
+	std::ostringstream ss;
+	std::string screenTxt;
+	std::vector <std::string> guardChat;
+	std::vector <std::string> janitorChat;
+	std::vector <std::string> gamerChat;
+	std::vector <std::string> kidChat;
+	std::vector <std::string> oldManChat;
+
 	unsigned m_parameters[U_TOTAL];
 	unsigned m_vertexArrayID;
 	Mesh* meshList[NUM_GEOMETRY];
@@ -110,6 +136,11 @@ private:
 	void RenderPressEToInteract();
 	void RenderJournal();
 	void ResetJournal();
+	void ChatDialogueInit(std::string, std::vector<std::string>& vec);
+	void RenderInteraction();
+	void Interaction();
+	void TalkButtons();
+	void CharacterPosCheck();
 	void BoundsCheck();
 	bool IsInArcadeMachineInteraction();
 	bool IsInElevatorInteraction();
