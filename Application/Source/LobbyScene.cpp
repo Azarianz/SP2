@@ -226,7 +226,7 @@ void LobbyScene::RenderSkybox()
 	modelStack.PushMatrix();
 	modelStack.Translate(camera.position.x, scale / 2 - 0.5, camera.position.z);
 	modelStack.Scale(scale, scale, scale);
-	modelStack.Rotate(180, 0, 1, 0);
+	modelStack.Rotate(270, 0, 1, 0);
 	modelStack.Rotate(90, 1, 0, 0);
 	RenderMesh(meshList[GEO_TOP], false);
 	modelStack.PopMatrix();
@@ -234,14 +234,12 @@ void LobbyScene::RenderSkybox()
 	modelStack.PushMatrix();
 	modelStack.Translate(camera.position.x, 0, -scale / 2 + 0.5 + camera.position.z);
 	modelStack.Scale(scale, scale, scale);
-	modelStack.Rotate(-90, 0, 0, 1);
 	RenderMesh(meshList[GEO_LEFT], false);
 	modelStack.PopMatrix();
 
 	modelStack.PushMatrix();
 	modelStack.Translate(camera.position.x, 0, scale / 2 - 0.5 + camera.position.z);
 	modelStack.Scale(scale, scale, scale);
-	modelStack.Rotate(-90, 0, 0, 1);
 	modelStack.Rotate(180, 0, 1, 0);
 	RenderMesh(meshList[GEO_RIGHT], false);
 	modelStack.PopMatrix();
@@ -256,7 +254,7 @@ void LobbyScene::RenderSkybox()
 	modelStack.PushMatrix();
 	modelStack.Translate(scale / 2 - 0.5 + camera.position.x, 0, camera.position.z);
 	modelStack.Scale(scale, scale, scale);
-	modelStack.Rotate(-90, 0, 1, 0);
+	modelStack.Rotate(90, 0, 1, 0);
 	RenderMesh(meshList[GEO_FRONT], false);
 	modelStack.PopMatrix();
 }
@@ -621,6 +619,7 @@ void LobbyScene::Init()
 
 	isJournalOpen = false;
 	journalPage = EVIDENCE_PAGE;
+	rotateSkybox = 0;
 
 	//hide and reset the cursor
 	Application::ResetCursor();
@@ -703,16 +702,22 @@ void LobbyScene::Update(double dt)
 
 	if(IsInArcadeMachineInteraction() && Application::IsKeyPressed('E'))
 	{
-		Application::sceneState = Application::SCENE_MINIGAMEINIT;
+		Application::sceneState = Application::STATE_MINIGAME_INIT;
 	}
 
 	if (IsInElevatorInteraction() && Application::IsKeyPressed('E')) {
 		Application::ResetCursor();
 		Application::ShowCursor();
-		Application::sceneState = Application::SCENE_CORRIDOR;
+		Application::sceneState = Application::STATE_CORRIDOR;
 	}
 
 	BoundsCheck();
+
+	rotateSkybox -= 5 * dt;
+	if (rotateSkybox <= -360)
+	{
+		rotateSkybox = 0;
+	}
 
 	framePerSecond = 1.f / dt;
 }
@@ -757,13 +762,10 @@ void LobbyScene::Render()
 	RenderMesh(meshList[GEO_SUN], false);
 	modelStack.PopMatrix();
 
+	modelStack.PushMatrix();
+	modelStack.Rotate(rotateSkybox, 0,1,0);
 	RenderSkybox();
-
-	//modelStack.PushMatrix();
-	//modelStack.Translate(0, 2, -20);
-	//modelStack.Scale(5, 5, 5);
-	//RenderText(meshList[GEO_TEXT], "Hello World", Color(0, 1, 0));
-	//modelStack.PopMatrix();
+	modelStack.PopMatrix();
 
 	RenderEntity(&entityList[ENTITY_GUARD], false);
 
@@ -811,10 +813,6 @@ void LobbyScene::Render()
 	}
 
 	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 4, 0);
-	
-	/*RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.x), Color(0, 1, 0), 4, 0, 0);
-	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.z), Color(0, 1, 0), 4, 0, 2);*/
-	//RenderMeshOnScreen(meshList[GEO_QUAD], 40, 30, 20, 10);
 }
 
 void LobbyScene::Exit()

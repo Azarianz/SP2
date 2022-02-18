@@ -227,7 +227,7 @@ void RoomScene::RenderSkybox()
 	modelStack.PushMatrix();
 	modelStack.Translate(camera.position.x, scale / 2 - 0.5, camera.position.z);
 	modelStack.Scale(scale, scale, scale);
-	modelStack.Rotate(180, 0, 1, 0);
+	modelStack.Rotate(270, 0, 1, 0);
 	modelStack.Rotate(90, 1, 0, 0);
 	RenderMesh(meshList[GEO_TOP], false);
 	modelStack.PopMatrix();
@@ -235,14 +235,12 @@ void RoomScene::RenderSkybox()
 	modelStack.PushMatrix();
 	modelStack.Translate(camera.position.x, 0, -scale / 2 + 0.5 + camera.position.z);
 	modelStack.Scale(scale, scale, scale);
-	modelStack.Rotate(-90, 0, 0, 1);
 	RenderMesh(meshList[GEO_LEFT], false);
 	modelStack.PopMatrix();
 
 	modelStack.PushMatrix();
 	modelStack.Translate(camera.position.x, 0, scale / 2 - 0.5 + camera.position.z);
 	modelStack.Scale(scale, scale, scale);
-	modelStack.Rotate(-90, 0, 0, 1);
 	modelStack.Rotate(180, 0, 1, 0);
 	RenderMesh(meshList[GEO_RIGHT], false);
 	modelStack.PopMatrix();
@@ -257,7 +255,7 @@ void RoomScene::RenderSkybox()
 	modelStack.PushMatrix();
 	modelStack.Translate(scale / 2 - 0.5 + camera.position.x, 0, camera.position.z);
 	modelStack.Scale(scale, scale, scale);
-	modelStack.Rotate(-90, 0, 1, 0);
+	modelStack.Rotate(90, 0, 1, 0);
 	RenderMesh(meshList[GEO_FRONT], false);
 	modelStack.PopMatrix();
 }
@@ -603,7 +601,7 @@ void RoomScene::Render()
 	//Stage + Assets
 	{	
 		//Room 1 (Arcade Guy)
-		if (Application::sceneState == Application::SCENE_ROOM1) {			
+		if (Application::sceneState == Application::STATE_ROOM1) {			
 			modelStack.PushMatrix();
 			modelStack.Translate(0, 0, 0);
 			modelStack.Scale(1, 1, 1);
@@ -618,7 +616,7 @@ void RoomScene::Render()
 		}
 
 		//Room 2 (Old Man)
-		else if (Application::sceneState == Application::SCENE_ROOM2) {			
+		else if (Application::sceneState == Application::STATE_ROOM2) {			
 			modelStack.PushMatrix();
 			modelStack.Translate(0, 0, 0);
 			modelStack.Scale(1, 1, 1);
@@ -633,7 +631,7 @@ void RoomScene::Render()
 		}
 
 		//Room 3 (Kid): WIP
-		else if (Application::sceneState == Application::SCENE_ROOM3) {
+		else if (Application::sceneState == Application::STATE_ROOM3) {
 			modelStack.PushMatrix();
 			modelStack.Translate(0, 0, 0);
 			modelStack.Scale(1, 1, 1);
@@ -642,7 +640,7 @@ void RoomScene::Render()
 		}
 
 		//Room 4 (Victim's Room): WIP
-		else if (Application::sceneState == Application::SCENE_ROOM4) {
+		else if (Application::sceneState == Application::STATE_ROOM4) {
 			modelStack.PushMatrix();
 			modelStack.Translate(0, 0, 0);
 			modelStack.Scale(1, 1, 1);
@@ -652,8 +650,8 @@ void RoomScene::Render()
 	}
 
 	//Left Layout
-	if (Application::sceneState == Application::SCENE_ROOM1 ||
-		Application::sceneState == Application::SCENE_ROOM3) {
+	if (Application::sceneState == Application::STATE_ROOM1 ||
+		Application::sceneState == Application::STATE_ROOM3) {
 		if (IsInDoorLInteraction())
 		{
 			RenderPressEToInteract();
@@ -661,8 +659,8 @@ void RoomScene::Render()
 	}
 
 	//Right Layout
-	if (Application::sceneState == Application::SCENE_ROOM2 ||
-		Application::sceneState == Application::SCENE_ROOM4) {
+	if (Application::sceneState == Application::STATE_ROOM2 ||
+		Application::sceneState == Application::STATE_ROOM4) {
 		if (IsInDoorRInteraction())
 		{
 			RenderPressEToInteract();

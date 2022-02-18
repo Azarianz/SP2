@@ -70,6 +70,7 @@ private:
 	MS modelStack, viewStack, projectionStack;
 
 	float framePerSecond;
+	float rotateSkybox;
 
 	unsigned m_parameters[U_TOTAL];
 	unsigned m_vertexArrayID;

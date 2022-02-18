@@ -20,14 +20,25 @@ class Application
 public:
 	enum SCENE_STATE
 	{
+		STATE_MAINMENU_INIT,
+		STATE_MAINMENU_EXIT,
+		STATE_LOBBY,
+		STATE_MINIGAME_INIT,
+		STATE_MINIGAME_EXIT,
+		STATE_CORRIDOR,
+		STATE_ROOM1,	//Arcade Guy's Room
+		STATE_ROOM2,	//Old Man's Room
+		STATE_ROOM3,	//Kid's Room
+		STATE_ROOM4,	//Victim's Room
+	};
+
+	enum SCENE_TYPE
+	{
 		SCENE_LOBBY,
-		SCENE_MINIGAMEINIT,
-		SCENE_MINIGAMEEXIT,
+		SCENE_MINIGAME,
 		SCENE_CORRIDOR,
-		SCENE_ROOM1,	//Arcade Guy's Room
-		SCENE_ROOM2,	//Old Man's Room
-		SCENE_ROOM3,	//Kid's Room
-		SCENE_ROOM4,	//Victim's Room
+		SCENE_ROOM,
+		SCENE_NUM
 	};
 
 	static unsigned m_width;

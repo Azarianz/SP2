@@ -329,7 +329,7 @@ void SceneMiniGame::Update(double dt)
 			if (CreateButton(yesY + yesSizeY / 2, yesY - yesSizeY / 2, yesX + yesSizeX / 2, yesX - yesSizeX / 2))
 			{
 				miniGameState = MAINMENU;
-				Application::sceneState = Application::SCENE_MINIGAMEEXIT;
+				Application::sceneState = Application::STATE_MINIGAME_EXIT;
 			}
 
 		}

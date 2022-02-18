@@ -222,7 +222,7 @@ void CorridorScene::RenderSkybox()
 	modelStack.PushMatrix();
 	modelStack.Translate(camera.position.x, scale / 2 - 0.5, camera.position.z);
 	modelStack.Scale(scale, scale, scale);
-	modelStack.Rotate(180, 0, 1, 0);
+	modelStack.Rotate(270, 0, 1, 0);
 	modelStack.Rotate(90, 1, 0, 0);
 	RenderMesh(meshList[GEO_TOP], false);
 	modelStack.PopMatrix();
@@ -230,14 +230,12 @@ void CorridorScene::RenderSkybox()
 	modelStack.PushMatrix();
 	modelStack.Translate(camera.position.x, 0, -scale / 2 + 0.5 + camera.position.z);
 	modelStack.Scale(scale, scale, scale);
-	modelStack.Rotate(-90, 0, 0, 1);
 	RenderMesh(meshList[GEO_LEFT], false);
 	modelStack.PopMatrix();
 
 	modelStack.PushMatrix();
 	modelStack.Translate(camera.position.x, 0, scale / 2 - 0.5 + camera.position.z);
 	modelStack.Scale(scale, scale, scale);
-	modelStack.Rotate(-90, 0, 0, 1);
 	modelStack.Rotate(180, 0, 1, 0);
 	RenderMesh(meshList[GEO_RIGHT], false);
 	modelStack.PopMatrix();
@@ -252,7 +250,7 @@ void CorridorScene::RenderSkybox()
 	modelStack.PushMatrix();
 	modelStack.Translate(scale / 2 - 0.5 + camera.position.x, 0, camera.position.z);
 	modelStack.Scale(scale, scale, scale);
-	modelStack.Rotate(-90, 0, 1, 0);
+	modelStack.Rotate(90, 0, 1, 0);
 	RenderMesh(meshList[GEO_FRONT], false);
 	modelStack.PopMatrix();
 }
@@ -529,7 +527,7 @@ void CorridorScene::Update(double dt)
 	if (IsInElevatorInteraction() && Application::IsKeyPressed('E')) {
 		Application::ResetCursor();
 		Application::ShowCursor();
-		Application::sceneState = Application::SCENE_LOBBY;
+		Application::sceneState = Application::STATE_LOBBY;
 	}
 
 	//Check Door Interaction Collision
@@ -537,26 +535,33 @@ void CorridorScene::Update(double dt)
 		if ((IsInDoor1Interaction()) && Application::IsKeyPressed('E')) {
 			Application::ResetCursor();
 			Application::ShowCursor();
-			Application::sceneState = Application::SCENE_ROOM1;
+			Application::sceneState = Application::STATE_ROOM1;
 		}
 
 		if ((IsInDoor2Interaction()) && Application::IsKeyPressed('E')) {
 			Application::ResetCursor();
 			Application::ShowCursor();
-			Application::sceneState = Application::SCENE_ROOM2;
+			Application::sceneState = Application::STATE_ROOM2;
 		}
 
 		if ((IsInDoor3Interaction()) && Application::IsKeyPressed('E')) {
 			Application::ResetCursor();
 			Application::ShowCursor();
-			Application::sceneState = Application::SCENE_ROOM3;
+			Application::sceneState = Application::STATE_ROOM3;
 		}
 
 		if ((IsInDoor4Interaction()) && Application::IsKeyPressed('E')) {
 			Application::ResetCursor();
 			Application::ShowCursor();
-			Application::sceneState = Application::SCENE_ROOM4;
+			Application::sceneState = Application::STATE_ROOM4;
 		}
+	}
+
+	rotateSkybox += 5 * dt;
+
+	if (rotateSkybox >= 360)
+	{
+		rotateSkybox = 0;
 	}
 
 	framePerSecond = 1.f / dt;
@@ -602,7 +607,10 @@ void CorridorScene::Render()
 	RenderMesh(meshList[GEO_SUN], false);
 	modelStack.PopMatrix();
 
+	modelStack.PushMatrix();
+	modelStack.Rotate(rotateSkybox, 0, 1, 0);
 	RenderSkybox();
+	modelStack.PopMatrix();
 
 	//Main Characters
 	{

@@ -150,39 +150,41 @@ void Application::Init()
 void Application::Run()
 {
 	//Main Loop
-	Scene* scene1 = new LobbyScene();
-	Scene* sceneMiniGame = nullptr;
-	Scene* scene3 = new CorridorScene();
-	Scene* scene4 = new RoomScene();
-	Scene* scene = scene1;
-	scene4->Init();
-	scene3->Init();
-	scene1->Init();
+	Scene* sceneList[SCENE_NUM];
+	sceneList[SCENE_LOBBY] = new LobbyScene();
+	sceneList[SCENE_MINIGAME] = nullptr;
+	sceneList[SCENE_CORRIDOR] = new CorridorScene();
+	sceneList[SCENE_ROOM] = new RoomScene();
+	Scene* scene = sceneList[SCENE_LOBBY];
+	sceneList[SCENE_CORRIDOR]->Init();
+	sceneList[SCENE_ROOM]->Init();
+	sceneList[SCENE_LOBBY]->Init();
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
 	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
 	{
-		if (sceneState == SCENE_LOBBY)
+		if (sceneState == STATE_LOBBY)
 		{
-			scene = scene1;
+			scene = sceneList[SCENE_LOBBY];
 		}
-		else if (sceneState == SCENE_MINIGAMEINIT)
+		else if (sceneState == STATE_MINIGAME_INIT)
 		{
-			if (sceneMiniGame == nullptr)
+			if (sceneList[SCENE_MINIGAME] == nullptr)
 			{
 				glfwDestroyWindow(m_window);
 				m_width = 800;
 				m_height = 600;
 				m_window = glfwCreateWindow(m_width, m_height, "Test Window", NULL, NULL);
 				glfwMakeContextCurrent(m_window);
-				sceneMiniGame = new SceneMiniGame();
-				sceneMiniGame->Init();
-				scene = sceneMiniGame;
+
+				sceneList[SCENE_MINIGAME] = new SceneMiniGame();
+				sceneList[SCENE_MINIGAME]->Init();
+				scene = sceneList[SCENE_MINIGAME];
 			}
 		}
-		else if (sceneState == SCENE_MINIGAMEEXIT)
+		else if (sceneState == STATE_MINIGAME_EXIT)
 		{
-			if (sceneMiniGame != nullptr)
+			if (sceneList[SCENE_MINIGAME] != nullptr)
 			{
 				glfwDestroyWindow(m_window);
 				m_width = 1280;
@@ -190,25 +192,25 @@ void Application::Run()
 				m_window = glfwCreateWindow(m_width, m_height, "Test Window", NULL, NULL);
 				glfwMakeContextCurrent(m_window);
 
-				sceneMiniGame->Exit();
-				delete sceneMiniGame;
-				sceneMiniGame = nullptr;
+				sceneList[SCENE_MINIGAME]->Exit();
+				delete sceneList[SCENE_MINIGAME];
+				sceneList[SCENE_MINIGAME] = nullptr;
 
-				scene1->Init();
-				scene = scene1;
-				sceneState = SCENE_LOBBY;
+				sceneList[SCENE_LOBBY]->Init();
+				scene = sceneList[SCENE_LOBBY];
+				sceneState = STATE_LOBBY;
 			}
 		}
-		else if (sceneState == SCENE_CORRIDOR) 
+		else if (sceneState == STATE_CORRIDOR) 
 		{
-			scene = scene3;
+			scene = sceneList[SCENE_CORRIDOR];
 		}
-		else if (sceneState == SCENE_ROOM1 ||
-			sceneState == SCENE_ROOM2 || 
-			sceneState == SCENE_ROOM3 || 
-			sceneState == SCENE_ROOM4) 
+		else if (sceneState == STATE_ROOM1 ||
+			sceneState == STATE_ROOM2 || 
+			sceneState == STATE_ROOM3 || 
+			sceneState == STATE_ROOM4) 
 		{
-			scene = scene4;
+			scene = sceneList[SCENE_ROOM];
 		}
 
 
@@ -221,17 +223,14 @@ void Application::Run()
         m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.   
 
 	} //Check if the ESC key had been pressed or if the window had been closed
-	scene1->Exit();
-	delete scene1;
-	if (sceneMiniGame != nullptr)
+	for (int i = 0; i < SCENE_NUM; ++i)
 	{
-		sceneMiniGame->Exit();
-		delete sceneMiniGame;
+		if (sceneList[i] != nullptr)
+		{
+			sceneList[i]->Exit();
+			delete sceneList[i];
+		}
 	}
-	scene3->Exit();
-	delete scene3;
-	scene4->Exit();
-	delete scene4;
 }
 
 void Application::Exit()

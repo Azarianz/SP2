@@ -98,6 +98,7 @@ private:
 
 	bool isJournalOpen;
 	char journalPage;
+	float rotateSkybox;
 
 	void RenderMesh(Mesh* mesh, bool enableLight);
 	void RenderEntity(Entity* entity, bool enableLight);
