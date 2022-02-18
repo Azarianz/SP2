@@ -93,7 +93,7 @@ void SceneMiniGame::RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex
 {
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, Application::screenUISizeX, 0, Application::screenUISizeY, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
@@ -111,20 +111,22 @@ void SceneMiniGame::RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex
 
 void SceneMiniGame::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y)
 {
+	float spacing = 1.0f;
+
 	if (!mesh || mesh->textureID <= 0) //Proper error check
 	{
 		return;
 	}
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, Application::screenUISizeX, 0, Application::screenUISizeY, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
 	viewStack.LoadIdentity(); //No need camera for ortho mode
 	modelStack.PushMatrix();
 	modelStack.LoadIdentity(); //Reset modelStack
-	modelStack.Translate(x, y, 0);
+	modelStack.Translate(x - text.size() * (0.5f * spacing), y, 0);
 	modelStack.Scale(size, size, size);
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 1);
 	glUniform3fv(m_parameters[U_TEXT_COLOR], 1, &color.r);
@@ -135,7 +137,7 @@ void SceneMiniGame::RenderTextOnScreen(Mesh* mesh, std::string text, Color color
 	for (unsigned i = 0; i < text.length(); ++i)
 	{
 		Mtx44 characterSpacing;
-		characterSpacing.SetToTranslation(0.5f + i * 1.0f, 0.5f, 0); //1.0f is the spacing of each character, you may change this value
+		characterSpacing.SetToTranslation(0.5f + i * spacing, 0.5f, 0); //1.0f is the spacing of each character, you may change this value
 		Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top() * characterSpacing;
 		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 		mesh->Render((unsigned)text[i] * 6, 6);
@@ -179,7 +181,7 @@ void SceneMiniGame::ResetGameVariables()
 	gameSpeed = 1;//game speed in times so 1x game speed
 
 	//platform variables
-	platformTransformX = Application::GetWindowWidth() / 10 / 2;
+	platformTransformX = 80 / 2;
 	platformTransformY = 10;
 
 	platformHeight = 2;
@@ -319,7 +321,7 @@ void SceneMiniGame::Update(double dt)
 			//no button
 			if (CreateButton(noY + noSizeY / 2, noY - noSizeY / 2, noX + noSizeX / 2, noX - noSizeX / 2))
 			{
-				Application::HideCursor();
+				ResetGameVariables();
 				miniGameState = MAINMENU;
 			}
 
@@ -327,8 +329,7 @@ void SceneMiniGame::Update(double dt)
 			if (CreateButton(yesY + yesSizeY / 2, yesY - yesSizeY / 2, yesX + yesSizeX / 2, yesX - yesSizeX / 2))
 			{
 				miniGameState = MAINMENU;
-				Application::HideCursor();
-				Application::sceneState = Application::SCENE_LOBBY;
+				Application::sceneState = Application::SCENE_MINIGAMEEXIT;
 			}
 
 		}
@@ -370,7 +371,7 @@ void SceneMiniGame::Update(double dt)
 		{
 			platformTransformX -= platformSpeed * dt;
 		}
-		else if (Application::IsKeyPressed('D') && (platformTransformX < Application::m_width / 10 - platformWidth /2))
+		else if (Application::IsKeyPressed('D') && (platformTransformX < 80 - platformWidth /2))
 		{
 			platformTransformX += platformSpeed * dt;
 		}
@@ -604,7 +605,7 @@ void SceneMiniGame::Render()
 		meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("quad", Color(0, 0, 0), 1.f);
 
 		RenderMeshOnScreen(meshList[GEO_QUAD], 40, 30, 60, 50);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Are you sure?" ,Color(1, 1, 1), 5, 10, 35);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Are you sure?" ,Color(1, 1, 1), 5, 16, 35);
 
 		meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("quad", Color(1, 1, 1), 1.f);
 
@@ -622,7 +623,7 @@ void SceneMiniGame::Render()
 
 		if (timeElapsedTextToggle > 0.5)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "Insert Coin", Color(1, 1, 1), 3, 24.5, 5);
+			RenderTextOnScreen(meshList[GEO_TEXT], "Insert Coin", Color(1, 1, 1), 3, 30, 5);
 		}
 	}
 	else if (miniGameState == MINIGAME)
@@ -688,12 +689,12 @@ void SceneMiniGame::Render()
 		tempString = tempStream.str();
 		tempStream.str(std::string());
 
-		RenderTextOnScreen(meshList[GEO_TEXT], tempString, Color(0, 0, 0), 3, 4, 55);
+		RenderTextOnScreen(meshList[GEO_TEXT], tempString, Color(0, 0, 0), 3, 10, 55);
 
 		tempStream << "Game Speed " << gameSpeed << "x";
 		tempString = tempStream.str();
 
-		RenderTextOnScreen(meshList[GEO_TEXT], tempString, Color(0, 0, 0), 3, 4, 50);
+		RenderTextOnScreen(meshList[GEO_TEXT], tempString, Color(0, 0, 0), 3, 10, 50);
 
 		if (health > 0)
 		{
@@ -715,7 +716,7 @@ void SceneMiniGame::Render()
 
 	if (miniGameState != EXITCONFIRMATION)
 	{
-		RenderTextOnScreen(meshList[GEO_TEXT], "Press 'B' to exit", Color(1, 1, 1), 2, 45, 1);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Press 'B' to exit", Color(1, 1, 1), 2, 50, 1);
 	}
 	
 }

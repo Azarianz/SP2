@@ -21,7 +21,7 @@ public:
 	enum SCENE_STATE
 	{
 		SCENE_LOBBY,
-		SCENE_MINIGAME,
+		SCENE_MINIGAMEINIT,
 		SCENE_MINIGAMEEXIT,
 		SCENE_CORRIDOR,
 		SCENE_ROOM1,	//Arcade Guy's Room
@@ -32,6 +32,8 @@ public:
 
 	static unsigned m_width;
 	static unsigned m_height;
+	static float screenUISizeX;
+	static float screenUISizeY;
 	static unsigned char sceneState;
 
 	Application();

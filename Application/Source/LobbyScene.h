@@ -9,6 +9,9 @@
 #include "Utility.h"
 #include "LoadTGA.h"
 #include "Entity.h"
+#include<iomanip> 
+#include<sstream>
+#include<fstream>
 
 class LobbyScene : public Scene
 {
@@ -111,6 +114,7 @@ private:
 	bool IsInElevatorInteraction();
 
 public:
+	LobbyScene();
 	virtual void Init();
 	virtual void Update(double dt);
 	virtual void Render();

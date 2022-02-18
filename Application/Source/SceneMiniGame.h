@@ -9,8 +9,6 @@
 #include "Utility.h"
 #include "LoadTGA.h"
 #include "Entity.h"
-#include<sstream>
-#include<iomanip>
 
 class SceneMiniGame : public Scene
 {

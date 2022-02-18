@@ -129,7 +129,7 @@ void LobbyScene::RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, f
 {
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, Application::screenUISizeX, 0, Application::screenUISizeY, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
@@ -147,20 +147,22 @@ void LobbyScene::RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, f
 
 void LobbyScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y)
 {
+	float spacing = 0.6f;
+
 	if (!mesh || mesh->textureID <= 0) //Proper error check
 	{
 		return;
 	}
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
+	ortho.SetToOrtho(0, Application::screenUISizeX, 0, Application::screenUISizeY, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
 	viewStack.LoadIdentity(); //No need camera for ortho mode
 	modelStack.PushMatrix();
 	modelStack.LoadIdentity(); //Reset modelStack
-	modelStack.Translate(x, y, 0);
+	modelStack.Translate(x - text.size() * (0.5f * spacing), y, 0);
 	modelStack.Scale(size, size, size);
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 1);
 	glUniform3fv(m_parameters[U_TEXT_COLOR], 1, &color.r);
@@ -172,7 +174,8 @@ void LobbyScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, f
 	for (unsigned i = 0; i < text.length(); ++i)
 	{
 		Mtx44 characterSpacing;
-		characterSpacing.SetToTranslation(0.5f + i * 1.0f, 0.5f, 0); //1.0f is the spacing of each character, you may change this value
+		std::stringstream ss;
+		characterSpacing.SetToTranslation(0.5f + i * spacing, 0.5f, 0); //1.0f is the spacing of each character, you may change this value
 		Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top() * characterSpacing;
 		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 		mesh->Render((unsigned)text[i] * 6, 6);
@@ -195,7 +198,10 @@ bool LobbyScene::CreateButton(float buttonTop, float buttonBottom, float buttonR
 	unsigned h = Application::GetWindowHeight();
 	float posX = static_cast<float>(x / 10); //convert (0,800) to (0,80)
 	float posY = static_cast<float>(h / 10 - y / 10); //convert (600,0) to (0,60)
-	if (posX > buttonLeft && posX < buttonRight && posY > buttonBottom  && posY < buttonTop)
+	if ((posX > buttonLeft) &&
+		(posX < buttonRight) &&
+		(posY > buttonBottom) &&
+		(posY < buttonTop))
 	{
 		//trigger user action or function
 		return true;
@@ -258,35 +264,39 @@ void LobbyScene::RenderSkybox()
 
 void LobbyScene::RenderPressEToInteract()
 {
-	RenderTextOnScreen(meshList[GEO_TEXT], "Press E to interact", Color(1, 1, 1), 3, 13.5, 10);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Press E to interact", Color(1, 1, 1), 3, 29, 10);
 }
 
 void LobbyScene::RenderJournal()
 {
-	float windowSizeX = Application::GetWindowWidth() / 10;
-	float windowSizeY = Application::GetWindowHeight() / 10;
-	float journalButtonHeight = windowSizeY / 5;
-	float journalButtonWidth = windowSizeX / 4;
+	float journalButtonHeight = Application::screenUISizeY / 5;
+	float journalButtonWidth = Application::screenUISizeX / 4;
 
-	RenderMeshOnScreen(meshList[GEO_QUAD], windowSizeX / 2, windowSizeY / 2, windowSizeX, windowSizeY);
+	RenderMeshOnScreen(meshList[GEO_QUAD], Application::screenUISizeX / 2, Application::screenUISizeY / 2, Application::screenUISizeX, Application::screenUISizeY);
 
 	int buttonSpacing = 4;
 		
-	RenderMeshOnScreen(meshList[GEO_QUAD_BUTTON], journalButtonWidth / 2, windowSizeY - journalButtonHeight / 2 - buttonSpacing, journalButtonWidth - buttonSpacing, journalButtonHeight);
+	RenderMeshOnScreen(meshList[GEO_QUAD_BUTTON], journalButtonWidth / 2, Application::screenUISizeY - journalButtonHeight / 2 - buttonSpacing, journalButtonWidth - buttonSpacing, journalButtonHeight);
 	int tempCount = 1;
-	RenderMeshOnScreen(meshList[GEO_QUAD_BUTTON], journalButtonWidth / 2 + journalButtonWidth *tempCount, windowSizeY - journalButtonHeight/ 2 - buttonSpacing, journalButtonWidth - buttonSpacing, journalButtonHeight);
+	RenderMeshOnScreen(meshList[GEO_QUAD_BUTTON], journalButtonWidth / 2 + journalButtonWidth *tempCount, Application::screenUISizeY - journalButtonHeight/ 2 - buttonSpacing, journalButtonWidth - buttonSpacing, journalButtonHeight);
 	++tempCount;
-	RenderMeshOnScreen(meshList[GEO_QUAD_BUTTON], journalButtonWidth / 2 + journalButtonWidth * tempCount, windowSizeY - journalButtonHeight / 2 - buttonSpacing, journalButtonWidth - buttonSpacing, journalButtonHeight);
+	RenderMeshOnScreen(meshList[GEO_QUAD_BUTTON], journalButtonWidth / 2 + journalButtonWidth * tempCount, Application::screenUISizeY - journalButtonHeight / 2 - buttonSpacing, journalButtonWidth - buttonSpacing, journalButtonHeight);
 	++tempCount;
-	RenderMeshOnScreen(meshList[GEO_QUAD_BUTTON], journalButtonWidth / 2 + journalButtonWidth * tempCount, windowSizeY - journalButtonHeight / 2 - buttonSpacing, journalButtonWidth - buttonSpacing, journalButtonHeight);
+	RenderMeshOnScreen(meshList[GEO_QUAD_BUTTON], journalButtonWidth / 2 + journalButtonWidth * tempCount, Application::screenUISizeY - journalButtonHeight / 2 - buttonSpacing, journalButtonWidth - buttonSpacing, journalButtonHeight);
+
+	//so that button works with different resolution
+	float tempScreenUISizeX = Application::GetWindowWidth() / 10;
+	float tempScreenUISizeY = Application::GetWindowHeight() / 10;
+	journalButtonHeight = tempScreenUISizeY / 5;
+	journalButtonWidth = tempScreenUISizeX / 4;
 
 	static bool lcButtonState = false;
 	if (!lcButtonState && Application::IsMousePressed(0))
 	{
 		lcButtonState = true;
 		//button1
-		if (CreateButton(windowSizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
-			windowSizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
+		if (CreateButton(tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
+			tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
 			journalButtonWidth / 2 + (journalButtonWidth/2 - buttonSpacing / 2),
 			journalButtonWidth / 2 - (journalButtonWidth/2 - buttonSpacing / 2)))
 		{
@@ -294,8 +304,8 @@ void LobbyScene::RenderJournal()
 			journalPage = EVIDENCE_PAGE;
 		}
 		int tempCount = 1;
-		if (CreateButton(windowSizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
-			windowSizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
+		if (CreateButton(tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
+			tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
 			(journalButtonWidth / 2 + journalButtonWidth * tempCount) + (journalButtonWidth / 2 - buttonSpacing / 2),
 			(journalButtonWidth / 2 + journalButtonWidth * tempCount) - (journalButtonWidth / 2 - buttonSpacing / 2)))
 		{
@@ -303,8 +313,8 @@ void LobbyScene::RenderJournal()
 			journalPage = EVIDENCE_PAGE;
 		}
 		++tempCount;
-		if (CreateButton(windowSizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
-			windowSizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
+		if (CreateButton(tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
+			tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
 			(journalButtonWidth / 2 + journalButtonWidth * tempCount) + (journalButtonWidth / 2 - buttonSpacing / 2),
 			(journalButtonWidth / 2 + journalButtonWidth * tempCount) - (journalButtonWidth / 2 - buttonSpacing / 2)))
 		{
@@ -312,8 +322,8 @@ void LobbyScene::RenderJournal()
 			journalPage = EVIDENCE_PAGE;
 		}
 		++tempCount;
-		if (CreateButton(windowSizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
-			windowSizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
+		if (CreateButton(tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
+			tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
 			(journalButtonWidth / 2 + journalButtonWidth * tempCount) + (journalButtonWidth / 2 - buttonSpacing / 2),
 			(journalButtonWidth / 2 + journalButtonWidth * tempCount) - (journalButtonWidth / 2 - buttonSpacing / 2)))
 		{
@@ -463,8 +473,6 @@ void LobbyScene::Init()
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	camera.Init(Vector3(-7, 1.5f, 30), Vector3(-7, 1.5f, 30), Vector3(0, 1,0));
-
 	light[0].type = Light::LIGHT_SPOT;
 	light[0].position.Set(0, 20, 0);
 	light[0].color.Set(1, 1, 1);
@@ -613,6 +621,15 @@ void LobbyScene::Init()
 
 	isJournalOpen = false;
 	journalPage = EVIDENCE_PAGE;
+
+	//hide and reset the cursor
+	Application::ResetCursor();
+	Application::HideCursor();
+}
+
+LobbyScene::LobbyScene()
+{
+	camera.Init(Vector3(-7, 1.5f, 30), Vector3(-7, 1.5f, 30), Vector3(0, 1, 0));
 }
 
 void LobbyScene::Update(double dt)
@@ -686,7 +703,7 @@ void LobbyScene::Update(double dt)
 
 	if(IsInArcadeMachineInteraction() && Application::IsKeyPressed('E'))
 	{
-		Application::sceneState = Application::SCENE_MINIGAME;
+		Application::sceneState = Application::SCENE_MINIGAMEINIT;
 	}
 
 	if (IsInElevatorInteraction() && Application::IsKeyPressed('E')) {
@@ -793,7 +810,7 @@ void LobbyScene::Render()
 		RenderJournal();
 	}
 
-	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 0, 0);
+	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 4, 0);
 	
 	/*RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.x), Color(0, 1, 0), 4, 0, 0);
 	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.z), Color(0, 1, 0), 4, 0, 2);*/

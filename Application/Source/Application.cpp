@@ -16,6 +16,8 @@ const unsigned char FPS = 60; // FPS of this game
 const unsigned int frameTime = 1000 / FPS; // time for each frame
 unsigned Application::m_width;
 unsigned Application::m_height;
+float Application::screenUISizeX;
+float Application::screenUISizeY;
 unsigned char Application::sceneState;
 
 //Define an error callback
@@ -64,7 +66,7 @@ void Application::resize_callback(GLFWwindow* window, int w, int h)
 {
 	Application::m_width = w;
 	Application::m_height = h;
-	glViewport(0, 0, w, h);
+	glViewport((w - m_width / 2), 0, w, h);
 }
 
 bool Application::IsMousePressed(unsigned short key) //0 - Left, 1 - Right, 2 - Middle
@@ -110,9 +112,11 @@ void Application::Init()
 
 
 	//Create a window and create its OpenGL context
-	m_width = 1920;
-	m_height = 1080;
-	m_window = glfwCreateWindow(m_width, m_height, "Test Window", glfwGetPrimaryMonitor(), NULL);
+	m_width = 1280;
+	m_height = 720;
+	screenUISizeX = 80;
+	screenUISizeY = 60;
+	m_window = glfwCreateWindow(m_width, m_height, "Test Window", NULL, NULL);
 
 	//If the window couldn't be created
 	if (!m_window)
@@ -139,9 +143,6 @@ void Application::Init()
 		//return -1;
 	}
 
-	//Hide cursor on init
-	HideCursor();
-
 	//init some game variables
 	sceneState = SCENE_LOBBY;
 }
@@ -150,13 +151,12 @@ void Application::Run()
 {
 	//Main Loop
 	Scene* scene1 = new LobbyScene();
-	Scene* scene2 = new SceneMiniGame();
+	Scene* sceneMiniGame = nullptr;
 	Scene* scene3 = new CorridorScene();
 	Scene* scene4 = new RoomScene();
 	Scene* scene = scene1;
 	scene4->Init();
 	scene3->Init();
-	scene2->Init();
 	scene1->Init();
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
@@ -166,9 +166,38 @@ void Application::Run()
 		{
 			scene = scene1;
 		}
-		else if (sceneState == SCENE_MINIGAME)
+		else if (sceneState == SCENE_MINIGAMEINIT)
 		{
-			scene = scene2;
+			if (sceneMiniGame == nullptr)
+			{
+				glfwDestroyWindow(m_window);
+				m_width = 800;
+				m_height = 600;
+				m_window = glfwCreateWindow(m_width, m_height, "Test Window", NULL, NULL);
+				glfwMakeContextCurrent(m_window);
+				sceneMiniGame = new SceneMiniGame();
+				sceneMiniGame->Init();
+				scene = sceneMiniGame;
+			}
+		}
+		else if (sceneState == SCENE_MINIGAMEEXIT)
+		{
+			if (sceneMiniGame != nullptr)
+			{
+				glfwDestroyWindow(m_window);
+				m_width = 1280;
+				m_height = 720;
+				m_window = glfwCreateWindow(m_width, m_height, "Test Window", NULL, NULL);
+				glfwMakeContextCurrent(m_window);
+
+				sceneMiniGame->Exit();
+				delete sceneMiniGame;
+				sceneMiniGame = nullptr;
+
+				scene1->Init();
+				scene = scene1;
+				sceneState = SCENE_LOBBY;
+			}
 		}
 		else if (sceneState == SCENE_CORRIDOR) 
 		{
@@ -193,9 +222,16 @@ void Application::Run()
 
 	} //Check if the ESC key had been pressed or if the window had been closed
 	scene1->Exit();
-	scene2->Exit();
 	delete scene1;
-	delete scene2;
+	if (sceneMiniGame != nullptr)
+	{
+		sceneMiniGame->Exit();
+		delete sceneMiniGame;
+	}
+	scene3->Exit();
+	delete scene3;
+	scene4->Exit();
+	delete scene4;
 }
 
 void Application::Exit()
