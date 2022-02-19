@@ -395,24 +395,6 @@ void CorridorScene::Init()
 	meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("quad", Color(0.5, 0.5, 0.5), 1.f);
 	meshList[GEO_QUAD]->textureID = LoadTGA("Image//color.tga");
 
-	meshList[GEO_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1), 1.f);
-	meshList[GEO_FRONT]->textureID = LoadTGA("Image//front.tga");
-
-	meshList[GEO_BACK] = MeshBuilder::GenerateQuad("back", Color(1, 1, 1), 1.f);
-	meshList[GEO_BACK]->textureID = LoadTGA("Image//back.tga");
-
-	meshList[GEO_LEFT] = MeshBuilder::GenerateQuad("left", Color(1, 1, 1), 1.f);
-	meshList[GEO_LEFT]->textureID = LoadTGA("Image//left.tga");
-
-	meshList[GEO_RIGHT] = MeshBuilder::GenerateQuad("right", Color(1, 1, 1), 1.f);
-	meshList[GEO_RIGHT]->textureID = LoadTGA("Image//right.tga");
-
-	meshList[GEO_TOP] = MeshBuilder::GenerateQuad("top", Color(1, 1, 1), 1.f);
-	meshList[GEO_TOP]->textureID = LoadTGA("Image//top.tga");
-
-	meshList[GEO_BOTTOM] = MeshBuilder::GenerateQuad("bottom", Color(1, 1, 1), 1.f);
-	meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//bottom.tga");
-
 	meshList[GEO_SUN] = MeshBuilder::GenerateSphere("Sphere", Color(1.0, 1.0, 1.0), 20, 20, 0.5);
 
 	meshList[GEO_SPHERE] = MeshBuilder::GenerateSphere("Sphere", Color(0.5, 1.0, 1.0), 20, 20, 1);
@@ -423,16 +405,37 @@ void CorridorScene::Init()
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
 
+	//Skybox
+	{
+		meshList[GEO_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1), 1.f);
+		meshList[GEO_FRONT]->textureID = LoadTGA("Image//front.tga");
+
+		meshList[GEO_BACK] = MeshBuilder::GenerateQuad("back", Color(1, 1, 1), 1.f);
+		meshList[GEO_BACK]->textureID = LoadTGA("Image//back.tga");
+
+		meshList[GEO_LEFT] = MeshBuilder::GenerateQuad("left", Color(1, 1, 1), 1.f);
+		meshList[GEO_LEFT]->textureID = LoadTGA("Image//left.tga");
+
+		meshList[GEO_RIGHT] = MeshBuilder::GenerateQuad("right", Color(1, 1, 1), 1.f);
+		meshList[GEO_RIGHT]->textureID = LoadTGA("Image//right.tga");
+
+		meshList[GEO_TOP] = MeshBuilder::GenerateQuad("top", Color(1, 1, 1), 1.f);
+		meshList[GEO_TOP]->textureID = LoadTGA("Image//top.tga");
+
+		meshList[GEO_BOTTOM] = MeshBuilder::GenerateQuad("bottom", Color(1, 1, 1), 1.f);
+		meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//bottom.tga");
+	}
+
 	//Main Characters
 	{
 		meshList[GEO_GUARD] = MeshBuilder::GenerateOBJMTL("guard", "OBJ//Guard.obj", "OBJ//Guard.mtl");
-		meshList[GEO_GUARD]->textureID = LoadTGA("Image//PolygonCity_Texture_01_C.tga");
+		meshList[GEO_GUARD]->textureID = LoadTGA("Image//PolygonOffice_Texture_01_A.tga");
 
 		meshList[GEO_GAMER] = MeshBuilder::GenerateOBJMTL("gamer", "OBJ//Gamer.obj", "OBJ//Gamer.mtl");
-		meshList[GEO_GAMER]->textureID = LoadTGA("Image//PolygonCity_Texture_01_C.tga");
+		meshList[GEO_GAMER]->textureID = LoadTGA("Image//PolygonCity_Texture_03_B.tga");
 
 		meshList[GEO_JANITOR] = MeshBuilder::GenerateOBJMTL("janitor", "OBJ//Janitor.obj", "OBJ//Janitor.mtl");
-		meshList[GEO_JANITOR]->textureID = LoadTGA("Image//PolygonCity_Texture_02_B.tga");
+		meshList[GEO_JANITOR]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_C.tga");
 
 		meshList[GEO_OLDMAN] = MeshBuilder::GenerateOBJMTL("Old Man", "OBJ//OldMan.obj", "OBJ//OldMan.mtl");
 		meshList[GEO_OLDMAN]->textureID = LoadTGA("Image//PolygonCity_Texture_01_C.tga");

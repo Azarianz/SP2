@@ -1265,30 +1265,6 @@ void LobbyScene::Init()
 
 	meshList[GEO_QUAD_BUTTON] = MeshBuilder::GenerateQuad("quad", Color(0, 0, 0), 1.f);
 
-	meshList[GEO_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1), 1.f);
-	meshList[GEO_FRONT]->textureID = LoadTGA("Image//front.tga");
-
-	meshList[GEO_DIALOGUE] = MeshBuilder::GenerateQuad("dialogue", Color(0.5, 0.5, 0.5), 1.f);
-	meshList[GEO_DIALOGUE]->textureID = LoadTGA("Image//dialogue_start.tga");
-
-	meshList[GEO_DIALOGUE2] = MeshBuilder::GenerateQuad("dialogue2", Color(0.5, 0.5, 0.5), 1.f);
-	meshList[GEO_DIALOGUE2]->textureID = LoadTGA("Image//dialogue_empty.tga");
-
-	meshList[GEO_BACK] = MeshBuilder::GenerateQuad("back", Color(1, 1, 1), 1.f);
-	meshList[GEO_BACK]->textureID = LoadTGA("Image//back.tga");
-
-	meshList[GEO_LEFT] = MeshBuilder::GenerateQuad("left", Color(1, 1, 1), 1.f);
-	meshList[GEO_LEFT]->textureID = LoadTGA("Image//left.tga");
-
-	meshList[GEO_RIGHT] = MeshBuilder::GenerateQuad("right", Color(1, 1, 1), 1.f);
-	meshList[GEO_RIGHT]->textureID = LoadTGA("Image//right.tga");
-
-	meshList[GEO_TOP] = MeshBuilder::GenerateQuad("top", Color(1, 1, 1), 1.f);
-	meshList[GEO_TOP]->textureID = LoadTGA("Image//top.tga");
-
-	meshList[GEO_BOTTOM] = MeshBuilder::GenerateQuad("bottom", Color(1, 1, 1), 1.f);
-	meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//bottom.tga");
-
 	meshList[GEO_SUN] = MeshBuilder::GenerateSphere("Sphere", Color(1.0, 1.0, 1.0), 20, 20, 0.5);
 
 	meshList[GEO_SPHERE] = MeshBuilder::GenerateSphere("Sphere", Color(0.5, 1.0, 1.0), 20, 20, 1);
@@ -1299,42 +1275,70 @@ void LobbyScene::Init()
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
 
-	meshList[GEO_GAMER] = MeshBuilder::GenerateOBJMTL("gamer", "OBJ//Gamer.obj", "OBJ//Gamer.mtl");
-	meshList[GEO_GAMER]->textureID = LoadTGA("Image//PolygonCity_Texture_01_C.tga");
+	meshList[GEO_DIALOGUE] = MeshBuilder::GenerateQuad("dialogue", Color(0.5, 0.5, 0.5), 1.f);
+	meshList[GEO_DIALOGUE]->textureID = LoadTGA("Image//dialogue_start.tga");
 
-	meshList[GEO_JANITOR] = MeshBuilder::GenerateOBJMTL("janitor", "OBJ//Janitor.obj", "OBJ//Janitor.mtl");
-	meshList[GEO_JANITOR]->textureID = LoadTGA("Image//PolygonCity_Texture_02_B.tga");
+	meshList[GEO_DIALOGUE2] = MeshBuilder::GenerateQuad("dialogue2", Color(0.5, 0.5, 0.5), 1.f);
+	meshList[GEO_DIALOGUE2]->textureID = LoadTGA("Image//dialogue_empty.tga");
 
-	meshList[GEO_LOBBY] = MeshBuilder::GenerateOBJMTL("Dining Hall", "OBJ//ship_dininghall.obj", "OBJ//ship_dininghall.mtl");
-	meshList[GEO_LOBBY]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_A.tga");
+	//Skybox 
+	{
+		meshList[GEO_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1), 1.f);
+		meshList[GEO_FRONT]->textureID = LoadTGA("Image//front.tga");
 
-	meshList[GEO_TABLES] = MeshBuilder::GenerateOBJMTL("Tables", "OBJ//dininghall_tables.obj", "OBJ//dininghall_tables.mtl");
-	meshList[GEO_TABLES]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_A.tga");
-	//gamer npc
-	entityList[ENTITY_GAMER].setMesh(MeshBuilder::GenerateOBJMTL("gamer", "OBJ//Gamer.obj", "OBJ//Gamer.mtl"));
-	entityList[ENTITY_GAMER].getMesh()->textureID = LoadTGA("Image//PolygonCity_Texture_01_C.tga");
-	entityList[ENTITY_GAMER].setTransform(Vector3(2.f, 0.f, -2.f)); //transform by default is 0,0,0
-	//janitor npc
-	entityList[ENTITY_JANITOR].setMesh(MeshBuilder::GenerateOBJMTL("janitor", "OBJ//Janitor.obj", "OBJ//Janitor.mtl"));
-	entityList[ENTITY_JANITOR].getMesh()->textureID = LoadTGA("Image//PolygonCity_Texture_02_B.tga");
-	entityList[ENTITY_JANITOR].setTransform(Vector3(-2.f, 0.f, -2.f)); //transform by default is 0,0,0
-	//old man npc
-	entityList[ENTITY_OLDMAN].setMesh(MeshBuilder::GenerateOBJMTL("Old Man", "OBJ//OldMan.obj", "OBJ//OldMan.mtl"));
-	entityList[ENTITY_OLDMAN].getMesh()->textureID = LoadTGA("Image//PolygonCity_Texture_01_C.tga");
-	entityList[ENTITY_OLDMAN].setTransform(Vector3(-4.f, 0.f, -2.f)); //transform by default is 0,0,0
-	//kid npc
-	entityList[ENTITY_KID].setMesh(MeshBuilder::GenerateOBJMTL("Kid", "OBJ//Kid.obj", "OBJ//Kid.mtl"));
-	entityList[ENTITY_KID].getMesh()->textureID = LoadTGA("Image//PolygonKids_Texture_01_A.tga");
-	entityList[ENTITY_KID].setTransform(Vector3(4.f, 0.f, -2.f)); //transform by default is 0,0,0
-	//guard npc
-	entityList[ENTITY_GUARD].setMesh(MeshBuilder::GenerateOBJMTL("guard", "OBJ//Guard.obj", "OBJ//Guard.mtl"));
-	entityList[ENTITY_GUARD].getMesh()->textureID = LoadTGA("Image//PolygonCity_Texture_01_C.tga");
-	entityList[ENTITY_GUARD].setTransform(Vector3(0.f, 0.f, -2.f)); //transform by default is 0,0,0
+		meshList[GEO_BACK] = MeshBuilder::GenerateQuad("back", Color(1, 1, 1), 1.f);
+		meshList[GEO_BACK]->textureID = LoadTGA("Image//back.tga");
 
-	//Arcade Machine
-	entityList[ENTITY_MACHINE].setMesh(MeshBuilder::GenerateOBJMTL("Arcade Machine", "OBJ//arcade_machine.obj", "OBJ//arcade_machine.mtl"));
-	entityList[ENTITY_MACHINE].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_01_AMachine.tga");
-	entityList[ENTITY_MACHINE].setTransform(Vector3(4.5f, 0.f, -14.f));
+		meshList[GEO_LEFT] = MeshBuilder::GenerateQuad("left", Color(1, 1, 1), 1.f);
+		meshList[GEO_LEFT]->textureID = LoadTGA("Image//left.tga");
+
+		meshList[GEO_RIGHT] = MeshBuilder::GenerateQuad("right", Color(1, 1, 1), 1.f);
+		meshList[GEO_RIGHT]->textureID = LoadTGA("Image//right.tga");
+
+		meshList[GEO_TOP] = MeshBuilder::GenerateQuad("top", Color(1, 1, 1), 1.f);
+		meshList[GEO_TOP]->textureID = LoadTGA("Image//top.tga");
+
+		meshList[GEO_BOTTOM] = MeshBuilder::GenerateQuad("bottom", Color(1, 1, 1), 1.f);
+		meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//bottom.tga");
+	}
+
+	//Main Characters
+	{
+		//gamer npc
+		entityList[ENTITY_GAMER].setMesh(MeshBuilder::GenerateOBJMTL("gamer", "OBJ//Gamer.obj", "OBJ//Gamer.mtl"));
+		entityList[ENTITY_GAMER].getMesh()->textureID = LoadTGA("Image//PolygonCity_Texture_03_B.tga");
+		entityList[ENTITY_GAMER].setTransform(Vector3(2.f, 0.f, -2.f)); //transform by default is 0,0,0
+		//janitor npc
+		entityList[ENTITY_JANITOR].setMesh(MeshBuilder::GenerateOBJMTL("janitor", "OBJ//Janitor.obj", "OBJ//Janitor.mtl"));
+		entityList[ENTITY_JANITOR].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_02_C.tga");
+		entityList[ENTITY_JANITOR].setTransform(Vector3(-2.f, 0.f, -2.f)); //transform by default is 0,0,0
+		//old man npc
+		entityList[ENTITY_OLDMAN].setMesh(MeshBuilder::GenerateOBJMTL("Old Man", "OBJ//OldMan.obj", "OBJ//OldMan.mtl"));
+		entityList[ENTITY_OLDMAN].getMesh()->textureID = LoadTGA("Image//PolygonCity_Texture_01_C.tga");
+		entityList[ENTITY_OLDMAN].setTransform(Vector3(-4.f, 0.f, -2.f)); //transform by default is 0,0,0
+		//kid npc
+		entityList[ENTITY_KID].setMesh(MeshBuilder::GenerateOBJMTL("Kid", "OBJ//Kid.obj", "OBJ//Kid.mtl"));
+		entityList[ENTITY_KID].getMesh()->textureID = LoadTGA("Image//PolygonKids_Texture_01_A.tga");
+		entityList[ENTITY_KID].setTransform(Vector3(4.f, 0.f, -2.f)); //transform by default is 0,0,0
+		//guard npc
+		entityList[ENTITY_GUARD].setMesh(MeshBuilder::GenerateOBJMTL("guard", "OBJ//Guard.obj", "OBJ//Guard.mtl"));
+		entityList[ENTITY_GUARD].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_01_A.tga");
+		entityList[ENTITY_GUARD].setTransform(Vector3(0.f, 0.f, -2.f)); //transform by default is 0,0,0
+	}
+	
+	//Lobby Stage + Assets
+	{
+		meshList[GEO_LOBBY] = MeshBuilder::GenerateOBJMTL("Dining Hall", "OBJ//ship_dininghall.obj", "OBJ//ship_dininghall.mtl");
+		meshList[GEO_LOBBY]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_A.tga");
+
+		meshList[GEO_TABLES] = MeshBuilder::GenerateOBJMTL("Tables", "OBJ//dininghall_tables.obj", "OBJ//dininghall_tables.mtl");
+		meshList[GEO_TABLES]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_A.tga");
+
+		//Arcade Machine
+		entityList[ENTITY_MACHINE].setMesh(MeshBuilder::GenerateOBJMTL("Arcade Machine", "OBJ//arcade_machine.obj", "OBJ//arcade_machine.mtl"));
+		entityList[ENTITY_MACHINE].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_01_AMachine.tga");
+		entityList[ENTITY_MACHINE].setTransform(Vector3(4.5f, 0.f, -14.f));
+	}
 
 	isJournalOpen = false;
 	journalPage = EVIDENCE_PAGE;
