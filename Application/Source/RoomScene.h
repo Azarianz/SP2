@@ -17,6 +17,7 @@ private:
 	{
 		GEO_AXES,
 		GEO_QUAD,
+		GEO_QUAD_BUTTON,
 		GEO_SPHERE,
 		GEO_SUN,
 		GEO_LEFT,
@@ -40,6 +41,12 @@ private:
 		GEO_ROOM3_FURNITURE,	//Left 2
 		GEO_ROOM4_FURNITURE,	//Right2
 		NUM_GEOMETRY,
+	};
+
+	enum JOURNAL_PAGE
+	{
+		EVIDENCE_PAGE,
+		PROFILE_PAGE
 	};
 
 	enum UNIFORM_TYPE
@@ -87,6 +94,9 @@ private:
 	unsigned m_programID;
 
 	Camera3 camera;
+	bool isJournalOpen;
+	char journalPage;
+	int evidencePage = 1;
 
 	void RenderSkybox();
 	void RenderMesh(Mesh* mesh, bool enableLight);
@@ -95,6 +105,9 @@ private:
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	void RenderPressEToInteract();
+	void RenderJournal();
+	void ResetJournal();
+	void PrintEvidence();
 	bool CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft);
 	bool IsInDoorLInteraction();
 	bool IsInDoorRInteraction();

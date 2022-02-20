@@ -19,6 +19,8 @@ unsigned Application::m_height;
 float Application::screenUISizeX;
 float Application::screenUISizeY;
 unsigned char Application::sceneState;
+vector<string> Application::eList;
+
 
 //Define an error callback
 static void error_callback(int error, const char* description)
@@ -89,8 +91,43 @@ int Application::GetWindowHeight()
 	return m_height;
 }
 
+void Application::AddEvidence(string text) 
+{
+	bool isExisting = true; //check for existing evidence
+	if (!eList.empty())
+	{
+		for (int i = 0; i <= eList.size() - 1; i++)
+		{
+			if (eList[i] == text) {
+				isExisting = true;
+				break;
+			}
+			else {
+				isExisting = false;
+			}
+		}
+		if (!isExisting) {
+			eList.push_back(text);
+		}
+	}
+	else
+	{
+		eList.push_back(text);
+	}
+}
+
 void Application::Init()
 {
+	AddEvidence("Evidence 01: Insert Text Here");
+	AddEvidence("Evidence 02: Insert Text Here");
+	AddEvidence("Evidence 03: Insert Text Here");
+	AddEvidence("Evidence 04: Insert Text Here");
+	AddEvidence("Evidence 05: Insert Text Here");
+	AddEvidence("Evidence 06: Insert Text Here");
+	AddEvidence("Evidence 07: Insert Text Here");
+	AddEvidence("Evidence 08: Insert Text Here");
+	AddEvidence("Evidence 09: Insert Text Here");
+
 	//Set the error callback
 	glfwSetErrorCallback(error_callback);
 
@@ -212,7 +249,6 @@ void Application::Run()
 		{
 			scene = sceneList[SCENE_ROOM];
 		}
-
 
 		scene->Update(m_timer.getElapsedTime());
 		scene->Render();

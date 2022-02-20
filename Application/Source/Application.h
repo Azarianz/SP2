@@ -13,7 +13,10 @@
 #include "LobbyScene.h"
 #include "CorridorScene.h"
 #include "RoomScene.h"
+#include <vector>
+#include <string>
 
+using namespace std;
 
 class Application
 {
@@ -46,6 +49,7 @@ public:
 	static float screenUISizeX;
 	static float screenUISizeY;
 	static unsigned char sceneState;
+	static vector<string> eList;
 
 	Application();
 	~Application();
@@ -61,6 +65,7 @@ public:
 	void Run();
 	void Exit();
 	static bool IsKeyPressed(unsigned short key);
+	static void AddEvidence(string text);
 
 private:
 

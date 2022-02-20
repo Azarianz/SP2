@@ -9,9 +9,9 @@
 #include "Utility.h"
 #include "LoadTGA.h"
 #include "Entity.h"
-#include<iomanip> 
-#include<sstream>
-#include<fstream>
+#include <iomanip> 
+#include <sstream>
+#include <fstream>
 #include <vector>
 
 class LobbyScene : public Scene
@@ -125,6 +125,7 @@ private:
 	bool isJournalOpen;
 	char journalPage;
 	float rotateSkybox;
+	int evidencePage = 1;
 
 	void RenderMesh(Mesh* mesh, bool enableLight);
 	void RenderEntity(Entity* entity, bool enableLight);
@@ -136,6 +137,7 @@ private:
 	void RenderPressEToInteract();
 	void RenderJournal();
 	void ResetJournal();
+	void PrintEvidence();
 	void ChatDialogueInit(std::string, std::vector<std::string>& vec);
 	void RenderInteraction();
 	void Interaction();

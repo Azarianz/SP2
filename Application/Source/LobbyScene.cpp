@@ -267,7 +267,6 @@ void LobbyScene::RenderSkybox()
 	modelStack.PopMatrix();
 }
 
-
 void LobbyScene::RenderPressEToInteract()
 {
 	RenderTextOnScreen(meshList[GEO_TEXT], "Press E to interact", Color(1, 1, 1), 3, 29, 10);
@@ -316,7 +315,7 @@ void LobbyScene::RenderJournal()
 			(journalButtonWidth / 2 + journalButtonWidth * tempCount) - (journalButtonWidth / 2 - buttonSpacing / 2)))
 		{
 			std::cout << "journal page is: profile" << std::endl;
-			journalPage = EVIDENCE_PAGE;
+			journalPage = PROFILE_PAGE;
 		}
 		++tempCount;
 		if (CreateButton(tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
@@ -344,7 +343,7 @@ void LobbyScene::RenderJournal()
 
 	if (journalPage == EVIDENCE_PAGE)
 	{
-
+		PrintEvidence();
 	}
 	else if (journalPage == PROFILE_PAGE)
 	{
@@ -1166,6 +1165,77 @@ bool LobbyScene::IsInElevatorInteraction()
 		(camera.position.x >= -7.1) && (camera.position.x <= -5.2));
 }
 
+void LobbyScene::PrintEvidence()
+{
+	int xpos = ((Application::GetWindowWidth() / 10) / 5);
+	int yOffset = ((Application::GetWindowHeight() / 10) / 2) - 3;
+	static bool EButtonState = false;
+	static bool QButtonState = false;
+
+	if (!Application::eList.empty())
+	{
+		//evidencePage = 1;
+		int index = (evidencePage - 1) * 4;
+		int endIndex = evidencePage * 4;
+
+		if (endIndex >= Application::eList.size()) {
+			endIndex = (Application::eList.size());
+		}
+
+		//Add logic to print based on page number eg.(page 2: for (i = 8; i < i + 4; i++))
+		for (int i = index; i <= (endIndex - 1); i++)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], Application::eList[i], Color(1, 1, 1), 3, xpos, yOffset);
+			yOffset -= 8;
+		}
+
+		if (!EButtonState && Application::IsKeyPressed('E'))
+		{
+			cout << "E" << endl;
+			EButtonState = true;
+
+			if (evidencePage >= 4) {
+				evidencePage = 1;
+			}
+			else {
+				evidencePage++;
+			}
+
+			index = (evidencePage - 1) * 4;
+		}
+
+		else if (EButtonState && !Application::IsKeyPressed('E'))
+		{
+			EButtonState = false;
+		}
+
+		if (!QButtonState && Application::IsKeyPressed('Q'))
+		{
+			QButtonState = true;
+
+			if (evidencePage <= 1) {
+				evidencePage = 4;
+			}
+			else {
+				evidencePage--;
+			}
+
+			index = (evidencePage - 1) * 4;
+		}
+
+		else if (QButtonState && !Application::IsKeyPressed('Q'))
+		{
+			QButtonState = false;
+		}
+
+		RenderTextOnScreen(meshList[GEO_TEXT], "<", Color(1, 1, 1), 4, 5, 20);
+		RenderTextOnScreen(meshList[GEO_TEXT], ">", Color(1, 1, 1), 4, 75, 20);
+	}
+
+	const int i = 9;
+	int arrag[i];
+}
+
 void LobbyScene::Init()
 {
 	// Init VBO here
@@ -1363,6 +1433,8 @@ LobbyScene::LobbyScene()
 
 void LobbyScene::Update(double dt)
 {
+	cout << isJournalOpen << endl;
+
 	if (Application::IsKeyPressed('1'))
 	{
 		glEnable(GL_CULL_FACE);
@@ -1410,53 +1482,60 @@ void LobbyScene::Update(double dt)
 		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
 	}
 
-	static bool jButtonState = false;
-	if (!jButtonState && Application::IsKeyPressed('J') && !isJournalOpen)
-	{
-		camera.DisableControl();
-		Application::ShowCursor();
-		isJournalOpen = true;
-		jButtonState = true;
-	}
-	else if (jButtonState && !Application::IsKeyPressed('J'))
-	{
-		jButtonState = false;
-	}
-	else if (!jButtonState && Application::IsKeyPressed('J') && isJournalOpen)
-	{
-		camera.EnableControl();
-		Application::HideCursor();
-		isJournalOpen = false;
-		jButtonState = true;
-	}
-
-	if(IsInArcadeMachineInteraction() && Application::IsKeyPressed('E'))
-	{
-		Application::sceneState = Application::STATE_MINIGAME_INIT;
-	}
-
-	if (IsInElevatorInteraction() && Application::IsKeyPressed('E')) {
-		Application::ResetCursor();
-		Application::ShowCursor();
-		Application::sceneState = Application::STATE_CORRIDOR;
-	}
-
 	//Mouse Inputs
-	static bool bLButtonState = false;
-	if (!bLButtonState && Application::IsMousePressed(0))
 	{
-		bLButtonState = true;
-		std::cout << "LBUTTON DOWN" << std::endl;
-		TalkButtons();
+		static bool bLButtonState = false;
+		if (!bLButtonState && Application::IsMousePressed(0))
+		{
+			bLButtonState = true;
+			std::cout << "LBUTTON DOWN" << std::endl;
+			TalkButtons();
+		}
+		else if (bLButtonState && !Application::IsMousePressed(0))
+		{
+			bLButtonState = false;
+			std::cout << "LBUTTON UP" << std::endl;
+		}
 	}
-	else if (bLButtonState && !Application::IsMousePressed(0))
+
+	//Journal
 	{
-		bLButtonState = false;
-		std::cout << "LBUTTON UP" << std::endl;
+		static bool jButtonState = false;
+		if (!jButtonState && Application::IsKeyPressed('J') && !isJournalOpen)
+		{
+			camera.DisableControl();
+			Application::ShowCursor();
+			isJournalOpen = true;
+			jButtonState = true;
+		}
+		else if (jButtonState && !Application::IsKeyPressed('J'))
+		{
+			jButtonState = false;
+		}
+		else if (!jButtonState && Application::IsKeyPressed('J') && isJournalOpen)
+		{
+			camera.EnableControl();
+			Application::HideCursor();
+			isJournalOpen = false;
+			jButtonState = true;
+		}
+	}
+
+	//Check Interations
+	{
+		if (IsInArcadeMachineInteraction() && Application::IsKeyPressed('E'))
+		{
+			Application::sceneState = Application::STATE_MINIGAME_INIT;
+		}
+
+		if (IsInElevatorInteraction() && Application::IsKeyPressed('E')) {
+			Application::ResetCursor();
+			Application::ShowCursor();
+			Application::sceneState = Application::STATE_CORRIDOR;
+		}
 	}
 
 	Interaction();
-
 	BoundsCheck();
 
 	rotateSkybox -= 5 * dt;
