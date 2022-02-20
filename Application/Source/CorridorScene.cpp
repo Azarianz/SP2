@@ -263,6 +263,22 @@ void CorridorScene::RenderPressEToInteract()
 	RenderTextOnScreen(meshList[GEO_TEXT], "Press E to interact", Color(1, 1, 1), 3, 29, 10);
 }
 
+void CorridorScene::RenderHUD()
+{
+	int xpos = ((Application::GetWindowWidth() / 10) / 5) + 40;
+	int ypos = ((Application::GetWindowHeight() / 10) / 4) + 30;
+	string clues = "Clues found:" + std::to_string(Application::eList.size()) + "/20";
+	string guess = "Guesses Left:" + std::to_string(Application::playerGuesses) + "/3";
+
+	if (!isJournalOpen)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], guess, Color(1, 1, 1), 2, xpos - 58, ypos + 5);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Find the Culprit", Color(1, 1, 1), 2, xpos - 58, ypos);
+		RenderTextOnScreen(meshList[GEO_TEXT], "(J) Journal", Color(1, 1, 1), 2, xpos + 5, ypos + 5);
+		RenderTextOnScreen(meshList[GEO_TEXT], clues, Color(1, 1, 1), 2, xpos, ypos);
+	}
+}
+
 bool CorridorScene::IsInElevatorInteraction()
 {
 	//elvator interaction collision
@@ -855,10 +871,13 @@ void CorridorScene::Render()
 		RenderJournal();
 	}
 
+	RenderHUD();
+
 	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 0, 0);
 	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.x), Color(0, 1, 0), 4, 0, 0);
 	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.z), Color(0, 1, 0), 4, 0, 2);
 	//RenderMeshOnScreen(meshList[GEO_QUAD], 40, 30, 20, 10);
+
 }
 
 void CorridorScene::Exit()

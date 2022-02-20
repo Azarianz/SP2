@@ -102,6 +102,7 @@ private:
 	void RenderPressEToInteract();
 	void RenderJournal();
 	void ResetJournal();
+	void RenderHUD();
 	void PrintEvidence();
 	bool CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft);
 	bool IsInElevatorInteraction();

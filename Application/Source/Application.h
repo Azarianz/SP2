@@ -50,6 +50,7 @@ public:
 	static float screenUISizeY;
 	static unsigned char sceneState;
 	static vector<string> eList;
+	static int playerGuesses;
 
 	Application();
 	~Application();

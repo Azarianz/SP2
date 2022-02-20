@@ -20,6 +20,7 @@ float Application::screenUISizeX;
 float Application::screenUISizeY;
 unsigned char Application::sceneState;
 vector<string> Application::eList;
+int Application::playerGuesses = 3;
 
 
 //Define an error callback
@@ -200,55 +201,61 @@ void Application::Run()
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
 	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
 	{
-		if (sceneState == STATE_LOBBY)
-		{
-			scene = sceneList[SCENE_LOBBY];
-		}
-		else if (sceneState == STATE_MINIGAME_INIT)
-		{
-			if (sceneList[SCENE_MINIGAME] == nullptr)
+		if (playerGuesses > 0) {
+			if (sceneState == STATE_LOBBY)
 			{
-				glfwDestroyWindow(m_window);
-				m_width = 800;
-				m_height = 600;
-				m_window = glfwCreateWindow(m_width, m_height, "Test Window", NULL, NULL);
-				glfwMakeContextCurrent(m_window);
-
-				sceneList[SCENE_MINIGAME] = new SceneMiniGame();
-				sceneList[SCENE_MINIGAME]->Init();
-				scene = sceneList[SCENE_MINIGAME];
-			}
-		}
-		else if (sceneState == STATE_MINIGAME_EXIT)
-		{
-			if (sceneList[SCENE_MINIGAME] != nullptr)
-			{
-				glfwDestroyWindow(m_window);
-				m_width = 1280;
-				m_height = 720;
-				m_window = glfwCreateWindow(m_width, m_height, "Test Window", NULL, NULL);
-				glfwMakeContextCurrent(m_window);
-
-				sceneList[SCENE_MINIGAME]->Exit();
-				delete sceneList[SCENE_MINIGAME];
-				sceneList[SCENE_MINIGAME] = nullptr;
-
-				sceneList[SCENE_LOBBY]->Init();
 				scene = sceneList[SCENE_LOBBY];
-				sceneState = STATE_LOBBY;
+			}
+			else if (sceneState == STATE_MINIGAME_INIT)
+			{
+				if (sceneList[SCENE_MINIGAME] == nullptr)
+				{
+					glfwDestroyWindow(m_window);
+					m_width = 800;
+					m_height = 600;
+					m_window = glfwCreateWindow(m_width, m_height, "Test Window", NULL, NULL);
+					glfwMakeContextCurrent(m_window);
+
+					sceneList[SCENE_MINIGAME] = new SceneMiniGame();
+					sceneList[SCENE_MINIGAME]->Init();
+					scene = sceneList[SCENE_MINIGAME];
+				}
+			}
+			else if (sceneState == STATE_MINIGAME_EXIT)
+			{
+				if (sceneList[SCENE_MINIGAME] != nullptr)
+				{
+					glfwDestroyWindow(m_window);
+					m_width = 1280;
+					m_height = 720;
+					m_window = glfwCreateWindow(m_width, m_height, "Test Window", NULL, NULL);
+					glfwMakeContextCurrent(m_window);
+
+					sceneList[SCENE_MINIGAME]->Exit();
+					delete sceneList[SCENE_MINIGAME];
+					sceneList[SCENE_MINIGAME] = nullptr;
+
+					sceneList[SCENE_LOBBY]->Init();
+					scene = sceneList[SCENE_LOBBY];
+					sceneState = STATE_LOBBY;
+				}
+			}
+			else if (sceneState == STATE_CORRIDOR)
+			{
+				scene = sceneList[SCENE_CORRIDOR];
+			}
+			else if (sceneState == STATE_ROOM1 ||
+				sceneState == STATE_ROOM2 ||
+				sceneState == STATE_ROOM3 ||
+				sceneState == STATE_ROOM4)
+			{
+				scene = sceneList[SCENE_ROOM];
 			}
 		}
-		else if (sceneState == STATE_CORRIDOR) 
-		{
-			scene = sceneList[SCENE_CORRIDOR];
+		else {
+			//Game Over Code
 		}
-		else if (sceneState == STATE_ROOM1 ||
-			sceneState == STATE_ROOM2 || 
-			sceneState == STATE_ROOM3 || 
-			sceneState == STATE_ROOM4) 
-		{
-			scene = sceneList[SCENE_ROOM];
-		}
+
 
 		scene->Update(m_timer.getElapsedTime());
 		scene->Render();

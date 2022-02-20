@@ -267,9 +267,25 @@ void LobbyScene::RenderSkybox()
 	modelStack.PopMatrix();
 }
 
+void LobbyScene::RenderHUD() 
+{
+	int xpos = ((Application::GetWindowWidth() / 10) / 5) + 40;
+	int ypos = ((Application::GetWindowHeight() / 10) / 4) + 30;
+	string clues = "Clues found:" + std::to_string(Application::eList.size()) + "/20";
+	string guess = "Guesses Left:" + std::to_string(Application::playerGuesses) + "/3";
+
+	if (!isJournalOpen && !isTalking) 
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], guess, Color(1, 1, 1), 2, xpos - 58, ypos + 5);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Find the Culprit", Color(1, 1, 1), 2, xpos - 58, ypos);
+		RenderTextOnScreen(meshList[GEO_TEXT], "(J) Journal", Color(1, 1, 1), 2, xpos + 5, ypos + 5);
+		RenderTextOnScreen(meshList[GEO_TEXT], clues, Color(1, 1, 1), 2, xpos, ypos);
+	}
+}
+
 void LobbyScene::RenderPressEToInteract()
 {
-	RenderTextOnScreen(meshList[GEO_TEXT], "Press E to interact", Color(1, 1, 1), 3, 29, 10);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Press E to interact", Color(1, 1, 1), 3, 30, 10);
 }
 
 void LobbyScene::RenderJournal()
@@ -952,6 +968,7 @@ void LobbyScene::TalkButtons()
 		else if (CreateButton(17.5, 12.5, 111, 64)) //Interrogate button
 		{
 			std::cout << "Interrogating..." << std::endl;
+			isInterrogate = true;
 		}
 		else if (CreateButton(12.5, 7, 64, 16.5)) //Gossip button
 		{
@@ -980,6 +997,7 @@ void LobbyScene::CharacterPosCheck()
 		&& camera.position.z <= entityList[ENTITY_GUARD].getTransform().z + interactOffset)
 	{
 		screenTxt = "Press E to talk";
+
 		if (canInteract && Application::IsKeyPressed('E'))
 		{
 			charId = ENTITY_GUARD;
@@ -1163,6 +1181,40 @@ bool LobbyScene::IsInElevatorInteraction()
 	//elvator interaction collision
 	return ((camera.position.z >= 28.9) && (camera.position.z <= 30.5) &&
 		(camera.position.x >= -7.1) && (camera.position.x <= -5.2));
+}
+
+bool LobbyScene::culpritIsOldman() {
+	string evidence1 = "Evidence 01: Insert Text Here";
+	string evidence2 = "Evidence 02: Insert Text Here";
+	string evidence3 = "Evidence 03: Insert Text Here";
+	string evidence4 = "Evidence 04: Insert Text Here";
+
+	int checkCount = 0;
+
+	for (int i = 0; i <= Application::eList.size() - 1; i++) 
+	{
+		if (Application::eList[i] == evidence1) {
+			checkCount++;
+		}
+		else if (Application::eList[i] == evidence2) {
+			checkCount++;
+		}
+		else if (Application::eList[i] == evidence3) {
+			checkCount++;
+		}
+		else if (Application::eList[i] == evidence4) {
+			checkCount++;
+		}
+
+		if (checkCount >= 4) {
+			return true;
+			break;
+		}
+	}
+
+	if (checkCount < 4) {
+		return false;
+	}
 }
 
 void LobbyScene::PrintEvidence()
@@ -1433,8 +1485,6 @@ LobbyScene::LobbyScene()
 
 void LobbyScene::Update(double dt)
 {
-	cout << isJournalOpen << endl;
-
 	if (Application::IsKeyPressed('1'))
 	{
 		glEnable(GL_CULL_FACE);
@@ -1535,6 +1585,11 @@ void LobbyScene::Update(double dt)
 		}
 	}
 
+	//Debug test pin culprit
+	if (Application::IsKeyPressed(VK_F1)) {
+		Application::playerGuesses--;
+	}
+
 	Interaction();
 	BoundsCheck();
 
@@ -1628,9 +1683,10 @@ void LobbyScene::Render()
 
 	ss.str("");
 	ss << screenTxt;
-	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 25, 10);
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 30, 10);
 
 	RenderInteraction();
+	RenderHUD();
 
 	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 4, 0);
 }

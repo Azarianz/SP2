@@ -278,6 +278,22 @@ bool RoomScene::IsInDoorRInteraction()
 		(camera.position.x >= 3) && (camera.position.x <= 5));
 }
 
+void RoomScene::RenderHUD()
+{
+	int xpos = ((Application::GetWindowWidth() / 10) / 5) + 40;
+	int ypos = ((Application::GetWindowHeight() / 10) / 4) + 30;
+	string clues = "Clues found:" + std::to_string(Application::eList.size()) + "/20";
+	string guess = "Guesses Left:" + std::to_string(Application::playerGuesses) + "/3";
+
+	if (!isJournalOpen)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], guess, Color(1, 1, 1), 2, xpos - 58, ypos + 5);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Find the Culprit", Color(1, 1, 1), 2, xpos - 58, ypos);
+		RenderTextOnScreen(meshList[GEO_TEXT], "(J) Journal", Color(1, 1, 1), 2, xpos + 5, ypos + 5);
+		RenderTextOnScreen(meshList[GEO_TEXT], clues, Color(1, 1, 1), 2, xpos, ypos);
+	}
+}
+
 void RoomScene::RenderJournal()
 {
 	float journalButtonHeight = Application::screenUISizeY / 5;
@@ -447,7 +463,7 @@ void RoomScene::Init()
 
 	camera.Init(Vector3(0, 1.5f, 0), Vector3(5, 1.5f, 0), Vector3(0, 1,0));
 
-	light[0].type = Light::LIGHT_SPOT;
+	light[0].type = Light::LIGHT_POINT;
 	light[0].position.Set(0, 20, 0);
 	light[0].color.Set(1, 1, 1);
 	light[0].power = 2;
@@ -824,6 +840,12 @@ void RoomScene::Render()
 			modelStack.Scale(1, 1, 1);
 			RenderMesh(meshList[GEO_ROOML], true);
 			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			modelStack.Translate(0, 0, 0);
+			modelStack.Scale(1, 1, 1);
+			RenderMesh(meshList[GEO_ROOM1_FURNITURE], true);
+			modelStack.PopMatrix();
 		}
 
 		//Room 4 (Victim's Room): WIP
@@ -832,6 +854,12 @@ void RoomScene::Render()
 			modelStack.Translate(0, 0, 0);
 			modelStack.Scale(1, 1, 1);
 			RenderMesh(meshList[GEO_ROOMR], true);
+			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			modelStack.Translate(0, 0, 0);
+			modelStack.Scale(1, 1, 1);
+			RenderMesh(meshList[GEO_ROOM2_FURNITURE], true);
 			modelStack.PopMatrix();
 		}
 	}
@@ -859,6 +887,7 @@ void RoomScene::Render()
 		RenderJournal();
 	}
 
+	RenderHUD();
 
 	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 0, 0);
 	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.x), Color(0, 1, 0), 4, 0, 0);

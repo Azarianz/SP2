@@ -95,11 +95,9 @@ private:
 	int interval;
 	int charId; // 0 = guard, 1 = janitor, 2 = Arcader, 3 = Kid, 4 = old guy
 	int gossipId; // 0 = guard, 1 = janitor, 2 = Arcader, 3 = Kid, 4 = old guy
-	bool canInteract;
 	int interactOffset;
-	bool isTalking;
-	bool isChatting;
-	bool isDoneChat;
+	bool canInteract;
+	bool isTalking, isChatting, isDoneChat;
 	int chatCounter = 0;
 	int tempCounter = 0;
 	bool isInterrogate;
@@ -136,6 +134,7 @@ private:
 	bool CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft);
 	void RenderPressEToInteract();
 	void RenderJournal();
+	void RenderHUD();
 	void ResetJournal();
 	void PrintEvidence();
 	void ChatDialogueInit(std::string, std::vector<std::string>& vec);
@@ -146,6 +145,8 @@ private:
 	void BoundsCheck();
 	bool IsInArcadeMachineInteraction();
 	bool IsInElevatorInteraction();
+
+	bool culpritIsOldman();
 
 public:
 	LobbyScene();
