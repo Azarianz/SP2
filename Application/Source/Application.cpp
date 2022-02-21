@@ -63,7 +63,7 @@ void Application::Fullscreen()
 	IsFullscreen = true;
 	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-	glfwSetWindowMonitor(m_window, glfwGetPrimaryMonitor(), 0, 0, 1280, 720, 60);
+	glfwSetWindowMonitor(m_window, glfwGetPrimaryMonitor(), 0, 0, m_width, m_width, 60);
 }
 
 void Application::ExitFullscreen()
@@ -71,7 +71,7 @@ void Application::ExitFullscreen()
 	IsFullscreen = false;
 	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-	glfwSetWindowMonitor(m_window, nullptr, 0, 0, 1280, 720, 60);
+	glfwSetWindowMonitor(m_window, nullptr, 0, 0, m_width, m_width, 60);
 }
 
 bool Application::GetIsFullscreen()
@@ -172,7 +172,7 @@ void Application::Init()
 	glfwWindowHint(GLFW_SAMPLES, 4); //Request 4x antialiasing
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); //Request a specific OpenGL version
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3); //Request a specific OpenGL version
-	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
+	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL 
 
 
@@ -230,7 +230,8 @@ void Application::Run()
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
 	while (!glfwWindowShouldClose(m_window))
 	{
-		if (playerGuesses > 0) {
+		if (playerGuesses > 0)
+		{
 			if (sceneState == STATE_MAINMENU_INIT)
 			{
 				scene = sceneList[SCENE_MAINMENU];
@@ -291,10 +292,11 @@ void Application::Run()
 				scene = sceneList[SCENE_ROOM];
 			}
 		}
-		else {
+		else
+		{
 			//Game Over Code
 		}
-	}
+
 
 
 		scene->Update(m_timer.getElapsedTime());
@@ -303,15 +305,15 @@ void Application::Run()
 		glfwSwapBuffers(m_window);
 		//Get and organize events, like keyboard and mouse input, window resizing, etc...
 		glfwPollEvents();
-        m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.   
+		m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.   
 
 		if (IsKeyPressed(VK_ESCAPE))
 		{
 			ExitGame();
 		}
-
 	}
-	for (int i = 0; i < SCENE_NUM; ++i)
+
+	for(int i = 0; i < SCENE_NUM; ++i)
 	{
 		if (sceneList[i] != nullptr)
 		{

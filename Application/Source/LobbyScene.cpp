@@ -1577,25 +1577,25 @@ void LobbyScene::Update(double dt)
 		std::cout << "x: " << camera.target.x << "y: " << camera.target.y << "z: " << camera.target.z;
 		lButtonState = true;
 	}
-	else if (jButtonState && !Application::IsKeyPressed('L'))
+	else if (lButtonState && !Application::IsKeyPressed('L'))
 	{
 		lButtonState = false;
 	}
 
-	if(IsInArcadeMachineInteraction() && Application::IsKeyPressed('E'))
+	if (IsInArcadeMachineInteraction() && Application::IsKeyPressed('E'))
 	{
 		Application::sceneState = Application::STATE_MINIGAME_INIT;
 	}
 
-		if (IsInElevatorInteraction() && Application::IsKeyPressed('E')) {
-			Application::ResetCursor();
-			Application::ShowCursor();
-			Application::sceneState = Application::STATE_CORRIDOR;
-		}
+	if (IsInElevatorInteraction() && Application::IsKeyPressed('E')) {
+		Application::ResetCursor();
+		Application::ShowCursor();
+		Application::sceneState = Application::STATE_CORRIDOR;
 	}
 
 	//Debug test pin culprit
-	if (Application::IsKeyPressed(VK_F1)) {
+	if (Application::IsKeyPressed(VK_F1))
+	{
 		Application::playerGuesses--;
 	}
 

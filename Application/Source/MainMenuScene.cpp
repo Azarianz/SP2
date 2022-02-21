@@ -324,11 +324,11 @@ void MainMenuScene::RenderMainMenu()
 		RenderTextOnScreen(meshList[GEO_TEXT], "Fullscreen:", Color(1, 1, 1), 2, 40, 30);
 		if (Application::GetIsFullscreen())
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "On", Color(1, 1, 1), 2, 47, 30);
+			RenderTextOnScreen(meshList[GEO_TEXT], "On", Color(1, 1, 1), 2, 50, 30);
 		}
 		else
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "Off", Color(1, 1, 1), 2, 47, 30);
+			RenderTextOnScreen(meshList[GEO_TEXT], "Off", Color(1, 1, 1), 2, 50, 30);
 		}
 
 		double x, y;
