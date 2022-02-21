@@ -21,8 +21,6 @@ using namespace std;
 
 class Application
 {
-private:
-	static bool IsFullscreen;
 public:
 	enum SCENE_STATE
 	{
@@ -58,18 +56,27 @@ public:
 
 	Application();
 	~Application();
+	//mouse func
 	static bool IsMousePressed(unsigned short key);
 	static void GetCursorPos(double* xpos, double* ypos);
-	static int GetWindowWidth();
-	static int GetWindowHeight();
 	static void HideCursor();
 	static void ShowCursor();
 	static void ResetCursor();
+
+	//window width/height change
+	static int GetWindowWidth();
+	static int GetWindowHeight();
+
+	//exit game
 	static void ExitGame();
+
+	//screen func
 	static void Fullscreen();
 	static void ExitFullscreen();
 	static bool GetIsFullscreen();
-	void resize_callback(GLFWwindow* window, int w, int h);
+	static void SetResolution(float width,float height);
+
+	//other func
 	void Init();
 	void Run();
 	void Exit();
@@ -80,6 +87,9 @@ private:
 
 	//Declare a window object
 	StopWatch m_timer;
+
+	//init some variables
+	static bool IsFullscreen;
 };
 
 #endif

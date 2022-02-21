@@ -9,6 +9,7 @@
 #include "Utility.h"
 #include "LoadTGA.h"
 #include "Entity.h"
+#include <fstream>
 
 class MainMenuScene : public Scene
 {
@@ -33,7 +34,8 @@ private:
 	{
 		MAIN,
 		HOWTOPLAY,
-		OPTIONS
+		OPTIONS,
+		RESOLUTION
 	};
 
 	enum UNIFORM_TYPE
@@ -69,9 +71,13 @@ private:
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	bool CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft);
+	void LoadSettings();
+	void SaveSettings();
 	void RenderMainMenu();
 
 public:
+	MainMenuScene();
+	~MainMenuScene();
 	virtual void Init();
 	virtual void Update(double dt);
 	virtual void Render();

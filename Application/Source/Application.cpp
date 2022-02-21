@@ -38,6 +38,13 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
 
+static void resize_callback(GLFWwindow* window, int width, int height)
+{
+	Application::m_width = width;
+	Application::m_height = height;
+	glViewport(0, 0, width, height);
+}
+
 void Application::HideCursor()
 {
 	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -61,22 +68,32 @@ void Application::ExitGame()
 void Application::Fullscreen()
 {
 	IsFullscreen = true;
-	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-	glfwSetWindowMonitor(m_window, glfwGetPrimaryMonitor(), 0, 0, m_width, m_width, 60);
+	glfwSetWindowMonitor(m_window, glfwGetPrimaryMonitor(), 0, 0, m_width, m_height, 60);
 }
 
 void Application::ExitFullscreen()
 {
 	IsFullscreen = false;
-	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-	glfwSetWindowMonitor(m_window, nullptr, 0, 0, m_width, m_width, 60);
+	glfwSetWindowMonitor(m_window, NULL, 50, 50, m_width, m_height, 60);
 }
 
 bool Application::GetIsFullscreen()
 {
 	return IsFullscreen;
+}
+
+void Application::SetResolution(float width, float height)
+{
+	resize_callback(m_window, width, height);
+
+	if (IsFullscreen)
+	{
+		Fullscreen();
+	}
+	else
+	{
+		ExitFullscreen();
+	}
 }
 
 bool Application::IsKeyPressed(unsigned short key)
@@ -90,13 +107,6 @@ Application::Application()
 
 Application::~Application()
 {
-}
-
-void Application::resize_callback(GLFWwindow* window, int w, int h)
-{
-	Application::m_width = w;
-	Application::m_height = h;
-	glViewport((w - m_width / 2), 0, w, h);
 }
 
 bool Application::IsMousePressed(unsigned short key) //0 - Left, 1 - Right, 2 - Middle
@@ -159,9 +169,6 @@ void Application::Init()
 	//Set the error callback
 	glfwSetErrorCallback(error_callback);
 
-	//initialize callback with GLFW
-	//glfwSetWindowSizeCallback(m_window, resize_callback);
-
 	//Initialize GLFW
 	if (!glfwInit())
 	{
@@ -207,6 +214,9 @@ void Application::Init()
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
 		//return -1;
 	}
+
+	//initialize callback with GLFW
+	glfwSetWindowSizeCallback(m_window, resize_callback);
 
 	//init some game variables
 	sceneState = STATE_MAINMENU_INIT;

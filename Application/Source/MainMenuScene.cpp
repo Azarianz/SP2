@@ -68,9 +68,6 @@ void MainMenuScene::RenderEntity(Entity* entity, bool enableLight)
 		glUniform3fv(m_parameters[U_MATERIAL_SPECULAR], 1, &entity->getMesh()->material.kSpecular.r);
 		glUniform1f(m_parameters[U_MATERIAL_SHININESS], entity->getMesh()->material.kShininess);
 	}
-	else
-	{
-	}
 
 	if (entity->getMesh()->textureID > 0)
 	{
@@ -321,7 +318,9 @@ void MainMenuScene::RenderMainMenu()
 	else if (menuState == OPTIONS)
 	{
 		RenderTextOnScreen(meshList[GEO_TEXT], "Options", Color(1, 1, 1), 5, 40, 40);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Fullscreen:", Color(1, 1, 1), 2, 40, 30);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Fullscreen:", Color(1, 1, 1), 2, 36.5, 30);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Change Resolution", Color(1, 1, 1), 2, 40, 25);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Back", Color(1, 1, 1), 2, 40, 20);
 		if (Application::GetIsFullscreen())
 		{
 			RenderTextOnScreen(meshList[GEO_TEXT], "On", Color(1, 1, 1), 2, 50, 30);
@@ -340,7 +339,7 @@ void MainMenuScene::RenderMainMenu()
 			(x > (static_cast<double>(Application::GetWindowWidth()) / 5) * 2) &&
 			(x < (static_cast<double>(Application::GetWindowWidth()) / 5) * 3))
 		{
-			RenderMeshOnScreen(meshList[GEO_SELECT], 30, 31, 1, 1);
+			RenderMeshOnScreen(meshList[GEO_SELECT], 28, 31, 1, 1);
 
 			if (!lcButtonState && Application::IsMousePressed(0))
 			{
@@ -360,8 +359,241 @@ void MainMenuScene::RenderMainMenu()
 				lcButtonState = false;
 			}
 		}
+		else if ((y < (static_cast<double>(Application::GetWindowHeight()) / 10) * 6) &&
+			(y > (static_cast<double>(Application::GetWindowHeight()) / 10) * 5) &&
+			(x > (static_cast<double>(Application::GetWindowWidth()) / 5) * 2) &&
+			(x < (static_cast<double>(Application::GetWindowWidth()) / 5) * 3))
+		{
+			RenderMeshOnScreen(meshList[GEO_SELECT], 28, 26, 1, 1);
+
+			if (!lcButtonState && Application::IsMousePressed(0))
+			{
+				menuState = RESOLUTION;
+				lcButtonState = true;
+			}
+			else if (lcButtonState && !Application::IsMousePressed(0))
+			{
+				lcButtonState = false;
+			}
+		}
+		else if ((y < (static_cast<double>(Application::GetWindowHeight()) / 10) * 7) &&
+			(y > (static_cast<double>(Application::GetWindowHeight()) / 10) * 6) &&
+			(x > (static_cast<double>(Application::GetWindowWidth()) / 5) * 2) &&
+			(x < (static_cast<double>(Application::GetWindowWidth()) / 5) * 3))
+		{
+			RenderMeshOnScreen(meshList[GEO_SELECT], 28, 21, 1, 1);
+
+			if (!lcButtonState && Application::IsMousePressed(0))
+			{
+				menuState = MAIN;
+				lcButtonState = true;
+			}
+			else if (lcButtonState && !Application::IsMousePressed(0))
+			{
+				lcButtonState = false;
+			}
+		}
 
 	}
+	else if (menuState == RESOLUTION)
+	{
+		RenderMeshOnScreen(meshList[GEO_BACKGROUND], 0, 0, Application::screenUISizeX, Application::screenUISizeY);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Resolution", Color(1, 1, 1), 5, 40, 40);
+
+		RenderTextOnScreen(meshList[GEO_TEXT], "1920 x 1080", Color(1, 1, 1), 2, 40, 30);
+		RenderTextOnScreen(meshList[GEO_TEXT], "1280 x 720", Color(1, 1, 1), 2, 40, 25);
+		RenderTextOnScreen(meshList[GEO_TEXT], "640 x 480", Color(1, 1, 1), 2, 40, 20);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Back", Color(1, 1, 1), 2, 40, 15);
+
+		double x, y;
+		static bool lcButtonState = true;
+		Application::GetCursorPos(&x, &y);
+
+		//1920 x 1080
+		if ((y < (static_cast<double>(Application::GetWindowHeight()) / 10) * 5) &&
+			(y > (static_cast<double>(Application::GetWindowHeight()) / 10) * 4) &&
+			(x > (static_cast<double>(Application::GetWindowWidth()) / 5) * 2) &&
+			(x < (static_cast<double>(Application::GetWindowWidth()) / 5) * 3))
+		{
+			RenderMeshOnScreen(meshList[GEO_SELECT], 30, 31, 1, 1);
+
+			if (!lcButtonState && Application::IsMousePressed(0))
+			{
+				Application::SetResolution(1920, 1080);
+				lcButtonState = true;
+			}
+			else if (lcButtonState && !Application::IsMousePressed(0))
+			{
+				lcButtonState = false;
+			}
+		}
+		//1280 x 720
+		else if ((y < (static_cast<double>(Application::GetWindowHeight()) / 10) * 6) &&
+			(y > (static_cast<double>(Application::GetWindowHeight()) / 10) * 5) &&
+			(x > (static_cast<double>(Application::GetWindowWidth()) / 5) * 2) &&
+			(x < (static_cast<double>(Application::GetWindowWidth()) / 5) * 3))
+		{
+			RenderMeshOnScreen(meshList[GEO_SELECT], 30, 26, 1, 1);
+
+			if (!lcButtonState && Application::IsMousePressed(0))
+			{
+				Application::SetResolution(1280, 720);
+				lcButtonState = true;
+			}
+			else if (lcButtonState && !Application::IsMousePressed(0))
+			{
+				lcButtonState = false;
+			}
+		}
+		//640 x 480
+		else if ((y < (static_cast<double>(Application::GetWindowHeight()) / 10) * 7) &&
+			(y > (static_cast<double>(Application::GetWindowHeight()) / 10) * 6) &&
+			(x > (static_cast<double>(Application::GetWindowWidth()) / 5) * 2) &&
+			(x < (static_cast<double>(Application::GetWindowWidth()) / 5) * 3))
+		{
+			RenderMeshOnScreen(meshList[GEO_SELECT], 30, 21, 1, 1);
+
+			if (!lcButtonState && Application::IsMousePressed(0))
+			{
+				Application::SetResolution(640, 480);
+				lcButtonState = true;
+			}
+			else if (lcButtonState && !Application::IsMousePressed(0))
+			{
+				lcButtonState = false;
+			}
+		}
+		//back to options
+		else if ((y < (static_cast<double>(Application::GetWindowHeight()) / 10) * 8) &&
+			(y > (static_cast<double>(Application::GetWindowHeight()) / 10) * 7) &&
+			(x > (static_cast<double>(Application::GetWindowWidth()) / 5) * 2) &&
+			(x < (static_cast<double>(Application::GetWindowWidth()) / 5) * 3))
+		{
+			RenderMeshOnScreen(meshList[GEO_SELECT], 30, 16, 1, 1);
+
+			if (!lcButtonState && Application::IsMousePressed(0))
+			{
+				menuState = OPTIONS;
+
+				lcButtonState = true;
+			}
+			else if (lcButtonState && !Application::IsMousePressed(0))
+			{
+				lcButtonState = false;
+			}
+		}
+	}
+}
+
+MainMenuScene::MainMenuScene()
+{
+	enum READ_INDICATOR
+	{
+		FULLSCREEN = 0,
+		WIDTH,
+		HEIGHT
+	};
+
+	ifstream file("settings.csv");
+	if (!file.is_open())
+	{
+		std::cout << "Impossible to open settings.csv" << std::endl;
+		return;
+	}
+
+	std::string input;
+	char readIndicator = -1;
+
+	while (file >> input)
+	{
+		if (input == "Fullscreen:")
+		{
+			readIndicator = FULLSCREEN;
+		}
+		else if (input == "Width:")
+		{
+			readIndicator = WIDTH;
+		}
+		else if (input == "Height:")
+		{
+			readIndicator = HEIGHT;
+		}
+
+		if (readIndicator == FULLSCREEN)
+		{
+			if (input[input.size() - 1] == '1')
+			{
+				Application::Fullscreen();
+			}
+		}
+		else if (readIndicator == WIDTH)
+		{
+			input;
+
+			bool isValid = true;
+			for (int i = 0; i < input.size(); ++i)
+			{
+				if (!std::isdigit(input[i]))
+				{
+					std::cout << "Screen width data in settings.csv is invalid" << std::endl;
+					isValid = false;
+					break;
+				}
+			}
+
+			if (isValid)
+			{
+				Application::m_width = stof(input);
+			}
+			else
+			{
+				Application::m_width = 1280;
+			}
+		}
+		else if (readIndicator == HEIGHT)
+		{
+			input;
+
+			bool isValid = true;
+			for (int i = 0; i < input.size(); ++i)
+			{
+				if (!std::isdigit(input[i]))
+				{
+					std::cout << "Screen height data in settings.csv is invalid" << std::endl;
+					isValid = false;
+					break;
+				}
+			}
+
+			if (isValid)
+			{
+				Application::m_height = stof(input);
+			}
+			else
+			{
+				Application::m_height = 720;
+			}
+		}
+	}
+	Application::SetResolution(Application::m_width, Application::m_height);
+}
+
+MainMenuScene::~MainMenuScene()
+{
+	ofstream file("settings.csv");
+
+	if (Application::GetIsFullscreen())
+	{
+		file << "Fullscreen: 1\n";
+	}
+	else
+	{
+		file << "Fullscreen: 0\n";
+	}
+
+	file << "Width: " << Application::m_width << "\n";
+	file << "Height: " << Application::m_height << "\n";
+
 }
 
 void MainMenuScene::Init()
