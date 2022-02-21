@@ -24,6 +24,7 @@ class Application
 public:
 	enum SCENE_STATE
 	{
+		STATE_RUN_SCENE,
 		STATE_MAINMENU_INIT,
 		STATE_MAINMENU_EXIT,
 		STATE_LOBBY,

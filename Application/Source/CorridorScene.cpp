@@ -265,17 +265,15 @@ void CorridorScene::RenderPressEToInteract()
 
 void CorridorScene::RenderHUD()
 {
-	int xpos = ((Application::GetWindowWidth() / 10) / 5) + 40;
-	int ypos = ((Application::GetWindowHeight() / 10) / 4) + 30;
 	string clues = "Clues found:" + std::to_string(Application::eList.size()) + "/20";
 	string guess = "Guesses Left:" + std::to_string(Application::playerGuesses) + "/3";
 
 	if (!isJournalOpen)
 	{
-		RenderTextOnScreen(meshList[GEO_TEXT], guess, Color(1, 1, 1), 2, xpos - 58, ypos + 5);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Find the Culprit", Color(1, 1, 1), 2, xpos - 58, ypos);
-		RenderTextOnScreen(meshList[GEO_TEXT], "(J) Journal", Color(1, 1, 1), 2, xpos + 5, ypos + 5);
-		RenderTextOnScreen(meshList[GEO_TEXT], clues, Color(1, 1, 1), 2, xpos, ypos);
+		RenderTextOnScreen(meshList[GEO_TEXT], guess, Color(1, 1, 1), 2, 8, Application::screenUISizeY - 10);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Find the Culprit", Color(1, 1, 1), 2, 8, Application::screenUISizeY - 13);
+		RenderTextOnScreen(meshList[GEO_TEXT], "(J) Journal", Color(1, 1, 1), 2, Application::screenUISizeX - 16, Application::screenUISizeY - 10);
+		RenderTextOnScreen(meshList[GEO_TEXT], clues, Color(1, 1, 1), 2, Application::screenUISizeX - 15, Application::screenUISizeY - 13);
 	}
 }
 
@@ -399,8 +397,8 @@ void CorridorScene::ResetJournal()
 
 void CorridorScene::PrintEvidence()
 {
-	int xpos = ((Application::GetWindowWidth() / 10) / 5);
-	int yOffset = ((Application::GetWindowHeight() / 10) / 2) - 3;
+	int xpos = ((Application::screenUISizeX / 3.1));
+	int yOffset = ((Application::screenUISizeY / 1.7) - 3);
 	static bool EButtonState = false;
 	static bool QButtonState = false;
 

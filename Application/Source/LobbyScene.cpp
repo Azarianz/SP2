@@ -269,17 +269,15 @@ void LobbyScene::RenderSkybox()
 
 void LobbyScene::RenderHUD() 
 {
-	int xpos = ((Application::GetWindowWidth() / 10) / 5) + 40;
-	int ypos = ((Application::GetWindowHeight() / 10) / 4) + 30;
 	string clues = "Clues found:" + std::to_string(Application::eList.size()) + "/20";
 	string guess = "Guesses Left:" + std::to_string(Application::playerGuesses) + "/3";
 
 	if (!isJournalOpen && !isTalking) 
 	{
-		RenderTextOnScreen(meshList[GEO_TEXT], guess, Color(1, 1, 1), 2, xpos - 58, ypos + 5);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Find the Culprit", Color(1, 1, 1), 2, xpos - 58, ypos);
-		RenderTextOnScreen(meshList[GEO_TEXT], "(J) Journal", Color(1, 1, 1), 2, xpos + 5, ypos + 5);
-		RenderTextOnScreen(meshList[GEO_TEXT], clues, Color(1, 1, 1), 2, xpos, ypos);
+		RenderTextOnScreen(meshList[GEO_TEXT], guess, Color(1, 1, 1), 2, 8, Application::screenUISizeY - 10);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Find the Culprit", Color(1, 1, 1), 2, 8, Application::screenUISizeY - 13);
+		RenderTextOnScreen(meshList[GEO_TEXT], "(J) Journal", Color(1, 1, 1), 2, Application::screenUISizeX - 16, Application::screenUISizeY - 10);
+		RenderTextOnScreen(meshList[GEO_TEXT], clues, Color(1, 1, 1), 2, Application::screenUISizeX - 15, Application::screenUISizeY - 13);
 	}
 }
 
@@ -1500,8 +1498,8 @@ bool LobbyScene::culpritIsOldman() {
 
 void LobbyScene::PrintEvidence()
 {
-	int xpos = ((Application::GetWindowWidth() / 10) / 5);
-	int yOffset = ((Application::GetWindowHeight() / 10) / 2) - 3;
+	int xpos = ((Application::screenUISizeX / 3.1));
+	int yOffset = ((Application::screenUISizeY / 1.7) - 3);
 	static bool EButtonState = false;
 	static bool QButtonState = false;
 
@@ -1851,27 +1849,29 @@ void LobbyScene::Update(double dt)
 			jButtonState = true;
 		}
 	}
-
-	static bool lButtonState = false;
-	if (!lButtonState && Application::IsKeyPressed('L') && !isJournalOpen)
+	if (!isJournalOpen)
 	{
-		std::cout << "x: " << camera.target.x << "y: " << camera.target.y << "z: " << camera.target.z;
-		lButtonState = true;
-	}
-	else if (lButtonState && !Application::IsKeyPressed('L'))
-	{
-		lButtonState = false;
-	}
+		static bool lButtonState = false;
+		if (!lButtonState && Application::IsKeyPressed('L'))
+		{
+			std::cout << "x: " << camera.target.x << "y: " << camera.target.y << "z: " << camera.target.z;
+			lButtonState = true;
+		}
+		else if (lButtonState && !Application::IsKeyPressed('L'))
+		{
+			lButtonState = false;
+		}
 
-	if (IsInArcadeMachineInteraction() && Application::IsKeyPressed('E'))
-	{
-		Application::sceneState = Application::STATE_MINIGAME_INIT;
-	}
+		if (IsInArcadeMachineInteraction() && Application::IsKeyPressed('E'))
+		{
+			Application::sceneState = Application::STATE_MINIGAME_INIT;
+		}
 
-	if (IsInElevatorInteraction() && Application::IsKeyPressed('E')) {
-		Application::ResetCursor();
-		Application::ShowCursor();
-		Application::sceneState = Application::STATE_CORRIDOR;
+		if (IsInElevatorInteraction() && Application::IsKeyPressed('E')) {
+			Application::ResetCursor();
+			Application::ShowCursor();
+			Application::sceneState = Application::STATE_CORRIDOR;
+		}
 	}
 
 	//Debug test pin culprit

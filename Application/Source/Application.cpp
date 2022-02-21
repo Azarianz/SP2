@@ -225,146 +225,119 @@ void Application::Run()
 {
 	//Main Loop
 	Scene* sceneList[SCENE_NUM];
-	sceneList[SCENE_MAINMENU] = new MainMenuScene();
+	sceneList[SCENE_MAINMENU] = nullptr;
 	sceneList[SCENE_LOBBY] = new LobbyScene();
 	sceneList[SCENE_MINIGAME] = nullptr;
-	sceneList[SCENE_CORRIDOR] = nullptr;
-	sceneList[SCENE_ROOM] = nullptr;
-	Scene* scene = sceneList[SCENE_LOBBY];
-	/*sceneList[SCENE_CORRIDOR]->Init();
-	sceneList[SCENE_ROOM]->Init();*/
-	/*sceneList[SCENE_LOBBY]->Init();*/
-	sceneList[SCENE_MAINMENU]->Init();
+	sceneList[SCENE_CORRIDOR] = new CorridorScene();
+	sceneList[SCENE_ROOM] = new RoomScene();
+	Scene* scene = nullptr;
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
 	while (!glfwWindowShouldClose(m_window))
 	{
 		if (playerGuesses > 0)
 		{
-			if (sceneState == STATE_MAINMENU_INIT)
+			if (sceneState != STATE_RUN_SCENE)
 			{
-				scene = sceneList[SCENE_MAINMENU];
-			}
-			if (sceneState == STATE_MAINMENU_EXIT)
-			{
-				sceneList[SCENE_LOBBY]->Init();
-				sceneState = STATE_LOBBY;
-				scene = sceneList[SCENE_LOBBY];
-			}
-			else if (sceneState == STATE_LOBBY)
-			{
-				if (sceneList[SCENE_LOBBY] == nullptr)
+				if (sceneState == STATE_MAINMENU_INIT)
 				{
-					if (sceneList[SCENE_CORRIDOR] != nullptr) {
-						delete sceneList[SCENE_CORRIDOR];
-						sceneList[SCENE_CORRIDOR] = nullptr;
+					if (sceneList[SCENE_MAINMENU] == nullptr)
+					{
+						sceneList[SCENE_MAINMENU] = new MainMenuScene();
+						sceneList[SCENE_MAINMENU]->Init();
+						scene = sceneList[SCENE_MAINMENU];
+						sceneState = STATE_RUN_SCENE;
 					}
-
-					sceneList[SCENE_LOBBY] = new LobbyScene();
+				}
+				else if (sceneState == STATE_MAINMENU_EXIT)
+				{
+					if (sceneList[SCENE_MAINMENU] != nullptr)
+					{
+						delete sceneList[SCENE_MAINMENU];
+						sceneList[SCENE_MAINMENU] = nullptr;
+					}
+					sceneState = STATE_LOBBY;
+				}
+				else if (sceneState == STATE_LOBBY)
+				{
 					sceneList[SCENE_LOBBY]->Init();
 					scene = sceneList[SCENE_LOBBY];
+					sceneState = STATE_RUN_SCENE;
 				}
-			}
-			else if (sceneState == STATE_MINIGAME_INIT)
-			{
-				if (sceneList[SCENE_MINIGAME] == nullptr)
+				else if (sceneState == STATE_MINIGAME_INIT)
 				{
-					glfwDestroyWindow(m_window);
-					m_width = 800;
-					m_height = 600;
-					m_window = glfwCreateWindow(m_width, m_height, "Test Window", NULL, NULL);
-					glfwMakeContextCurrent(m_window);
-
-					sceneList[SCENE_MINIGAME] = new SceneMiniGame();
-					sceneList[SCENE_MINIGAME]->Init();
-					scene = sceneList[SCENE_MINIGAME];
-				}
-			}
-			else if (sceneState == STATE_MINIGAME_EXIT)
-			{
-				if (sceneList[SCENE_MINIGAME] != nullptr)
-				{
-					glfwDestroyWindow(m_window);
-					m_width = 1280;
-					m_height = 720;
-					m_window = glfwCreateWindow(m_width, m_height, "Test Window", NULL, NULL);
-					glfwMakeContextCurrent(m_window);
-
-					sceneList[SCENE_MINIGAME]->Exit();
-					delete sceneList[SCENE_MINIGAME];
-					sceneList[SCENE_MINIGAME] = nullptr;
-
-					if (sceneList[SCENE_LOBBY] == nullptr)
+					if (sceneList[SCENE_MINIGAME] == nullptr)
 					{
-						sceneList[SCENE_LOBBY] = new LobbyScene();
-						sceneList[SCENE_LOBBY]->Init();
-						scene = sceneList[SCENE_LOBBY];
-						sceneState = STATE_LOBBY;
-					}
-					else 
-					{
-						sceneList[SCENE_LOBBY]->Init();
-						scene = sceneList[SCENE_LOBBY];
-						sceneState = STATE_LOBBY;
-					}
+						sceneList[SCENE_MINIGAME] = new SceneMiniGame();
 
+						glfwDestroyWindow(m_window);
+						m_width = 800;
+						m_height = 600;
+						m_window = glfwCreateWindow(m_width, m_height, "Test Window", NULL, NULL);
+						glfwMakeContextCurrent(m_window);
+
+						sceneList[SCENE_MINIGAME]->Init();
+						scene = sceneList[SCENE_MINIGAME];
+						sceneState = STATE_RUN_SCENE;
+					}
 				}
-			}
-			else if (sceneState == STATE_CORRIDOR)
-			{
-				if (sceneList[SCENE_CORRIDOR] == nullptr)
+				else if (sceneState == STATE_MINIGAME_EXIT)
 				{
-					if (sceneList[SCENE_LOBBY] != nullptr) {
-						delete sceneList[SCENE_LOBBY];
-						sceneList[SCENE_LOBBY] = nullptr;
-					}
+					if (sceneList[SCENE_MINIGAME] != nullptr)
+					{
+						glfwDestroyWindow(m_window);
+						m_width = 1280;
+						m_height = 720;
+						m_window = glfwCreateWindow(m_width, m_height, "Test Window", NULL, NULL);
+						glfwMakeContextCurrent(m_window);
 
-					sceneList[SCENE_CORRIDOR] = new CorridorScene();
+						sceneList[SCENE_MINIGAME]->Exit();
+						delete sceneList[SCENE_MINIGAME];
+						sceneList[SCENE_MINIGAME] = nullptr;
+
+						sceneState = STATE_LOBBY;
+
+					}
+				}
+				else if (sceneState == STATE_CORRIDOR)
+				{
+					sceneState = STATE_RUN_SCENE;
 					sceneList[SCENE_CORRIDOR]->Init();
 					scene = sceneList[SCENE_CORRIDOR];
 				}
-
-			}
-			else if (sceneState == STATE_ROOM1 ||
-				sceneState == STATE_ROOM2 ||
-				sceneState == STATE_ROOM3 ||
-				sceneState == STATE_ROOM4)
-			{
-				if (sceneList[SCENE_ROOM] == nullptr)
+				else if (sceneState == STATE_ROOM1 ||
+					sceneState == STATE_ROOM2 ||
+					sceneState == STATE_ROOM3 ||
+					sceneState == STATE_ROOM4)
 				{
-					if (sceneList[SCENE_CORRIDOR] != nullptr) {
-						delete sceneList[SCENE_CORRIDOR];
-						sceneList[SCENE_CORRIDOR] = nullptr;
-					}
-
-					sceneList[SCENE_ROOM] = new RoomScene();
 					sceneList[SCENE_ROOM]->Init();
 					scene = sceneList[SCENE_ROOM];
+					sceneState = STATE_RUN_SCENE;
 				}
+			}
+			else
+			{
+				scene->Update(m_timer.getElapsedTime());
+				scene->Render();
+			}
+
+			//Swap buffers
+			glfwSwapBuffers(m_window);
+			//Get and organize events, like keyboard and mouse input, window resizing, etc...
+			glfwPollEvents();
+			m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.   
+
+			if (IsKeyPressed(VK_ESCAPE))
+			{
+				ExitGame();
 			}
 		}
 		else
 		{
 			//Game Over Code
 		}
-
-
-
-		scene->Update(m_timer.getElapsedTime());
-		scene->Render();
-		//Swap buffers
-		glfwSwapBuffers(m_window);
-		//Get and organize events, like keyboard and mouse input, window resizing, etc...
-		glfwPollEvents();
-		m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.   
-
-		if (IsKeyPressed(VK_ESCAPE))
-		{
-			ExitGame();
-		}
 	}
-
-	for(int i = 0; i < SCENE_NUM; ++i)
+	for (int i = 0; i < SCENE_NUM; ++i)
 	{
 		if (sceneList[i] != nullptr)
 		{
