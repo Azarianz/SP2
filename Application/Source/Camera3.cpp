@@ -8,6 +8,8 @@ void Camera3::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 	this->position = pos;
 	this->target = Vector3(position.x, position.y, position.z + 0.5);
 	this->up = up;
+	Application::GetCursorPos(&cameraCurrentX, &cameraCurrentY);
+	Application::GetCursorPos(&cameraPrevX, &cameraPrevY);
 	enableControl = true;
 
 	rotateMod = 0;

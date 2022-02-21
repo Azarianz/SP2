@@ -628,7 +628,7 @@ void LobbyScene::Init()
 
 LobbyScene::LobbyScene()
 {
-	camera.Init(Vector3(-7, 1.5f, 30), Vector3(-7, 1.5f, 30), Vector3(0, 1, 0));
+	camera.Init(Vector3(-7, 1.5f, 30), Vector3(0, 1, 0), Vector3(0, 1, 0));
 }
 
 void LobbyScene::Update(double dt)
@@ -698,6 +698,17 @@ void LobbyScene::Update(double dt)
 		Application::HideCursor();
 		isJournalOpen = false;
 		jButtonState = true;
+	}
+
+	static bool lButtonState = false;
+	if (!lButtonState && Application::IsKeyPressed('L') && !isJournalOpen)
+	{
+		std::cout << "x: " << camera.target.x << "y: " << camera.target.y << "z: " << camera.target.z;
+		lButtonState = true;
+	}
+	else if (jButtonState && !Application::IsKeyPressed('L'))
+	{
+		lButtonState = false;
 	}
 
 	if(IsInArcadeMachineInteraction() && Application::IsKeyPressed('E'))

@@ -13,10 +13,13 @@
 #include "LobbyScene.h"
 #include "CorridorScene.h"
 #include "RoomScene.h"
+#include "MainMenuScene.h"
 
 
 class Application
 {
+private:
+	static bool IsFullscreen;
 public:
 	enum SCENE_STATE
 	{
@@ -34,6 +37,7 @@ public:
 
 	enum SCENE_TYPE
 	{
+		SCENE_MAINMENU,
 		SCENE_LOBBY,
 		SCENE_MINIGAME,
 		SCENE_CORRIDOR,
@@ -56,6 +60,10 @@ public:
 	static void HideCursor();
 	static void ShowCursor();
 	static void ResetCursor();
+	static void ExitGame();
+	static void Fullscreen();
+	static void ExitFullscreen();
+	static bool GetIsFullscreen();
 	void resize_callback(GLFWwindow* window, int w, int h);
 	void Init();
 	void Run();

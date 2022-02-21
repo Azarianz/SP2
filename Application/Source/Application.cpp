@@ -19,6 +19,7 @@ unsigned Application::m_height;
 float Application::screenUISizeX;
 float Application::screenUISizeY;
 unsigned char Application::sceneState;
+bool Application::IsFullscreen;
 
 //Define an error callback
 static void error_callback(int error, const char* description)
@@ -47,6 +48,32 @@ void Application::ShowCursor()
 void Application::ResetCursor()
 {
 	glfwSetCursorPos(m_window, m_width / 2, m_height / 2);
+}
+
+void Application::ExitGame()
+{
+	glfwSetWindowShouldClose(m_window, GL_TRUE);
+}
+
+void Application::Fullscreen()
+{
+	IsFullscreen = true;
+	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+	glfwSetWindowMonitor(m_window, glfwGetPrimaryMonitor(), 0, 0, 1280, 720, 60);
+}
+
+void Application::ExitFullscreen()
+{
+	IsFullscreen = false;
+	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+	glfwSetWindowMonitor(m_window, nullptr, 0, 0, 1280, 720, 60);
+}
+
+bool Application::GetIsFullscreen()
+{
+	return IsFullscreen;
 }
 
 bool Application::IsKeyPressed(unsigned short key)
@@ -144,26 +171,38 @@ void Application::Init()
 	}
 
 	//init some game variables
-	sceneState = SCENE_LOBBY;
+	sceneState = STATE_MAINMENU_INIT;
 }
 
 void Application::Run()
 {
 	//Main Loop
 	Scene* sceneList[SCENE_NUM];
+	sceneList[SCENE_MAINMENU] = new MainMenuScene();
 	sceneList[SCENE_LOBBY] = new LobbyScene();
 	sceneList[SCENE_MINIGAME] = nullptr;
 	sceneList[SCENE_CORRIDOR] = new CorridorScene();
 	sceneList[SCENE_ROOM] = new RoomScene();
 	Scene* scene = sceneList[SCENE_LOBBY];
-	sceneList[SCENE_CORRIDOR]->Init();
-	sceneList[SCENE_ROOM]->Init();
-	sceneList[SCENE_LOBBY]->Init();
+	/*sceneList[SCENE_CORRIDOR]->Init();
+	sceneList[SCENE_ROOM]->Init();*/
+	/*sceneList[SCENE_LOBBY]->Init();*/
+	sceneList[SCENE_MAINMENU]->Init();
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
-	while (!glfwWindowShouldClose(m_window) && !IsKeyPressed(VK_ESCAPE))
+	while (!glfwWindowShouldClose(m_window))
 	{
-		if (sceneState == STATE_LOBBY)
+		if (sceneState == STATE_MAINMENU_INIT)
+		{
+			scene = sceneList[SCENE_MAINMENU];
+		}
+		if (sceneState == STATE_MAINMENU_EXIT)
+		{
+			sceneList[SCENE_LOBBY]->Init();
+			sceneState = STATE_LOBBY;
+			scene = sceneList[SCENE_LOBBY];
+		}
+		else if (sceneState == STATE_LOBBY)
 		{
 			scene = sceneList[SCENE_LOBBY];
 		}
@@ -222,7 +261,12 @@ void Application::Run()
 		glfwPollEvents();
         m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.   
 
-	} //Check if the ESC key had been pressed or if the window had been closed
+		if (IsKeyPressed(VK_ESCAPE))
+		{
+			ExitGame();
+		}
+
+	}
 	for (int i = 0; i < SCENE_NUM; ++i)
 	{
 		if (sceneList[i] != nullptr)
