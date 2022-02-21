@@ -393,28 +393,28 @@ void LobbyScene::RenderInteraction()
 		{
 			switch (charId)
 			{
-			case 0: // Player gossiping to guard
+			case 0: // Player interrogate guard
 				switch (interrogateId)
 				{
-				case 0: //Gossiping about Janitor
+				case 0: //interrogating about Janitor
 					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
 					ss.str("");
 					ss << "Dialogue input here";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
 					break;
-				case 1: //Gossiping about Gamer
+				case 1: //interrogating about Gamer
 					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
 					ss.str("");
 					ss << "Dialogue input here";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
 					break;
-				case 2: //Gossiping about kid
+				case 2: //interrogating about kid
 					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
 					ss.str("");
 					ss << "Dialogue input here";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
 					break;
-				case 3: //Gossiping about old man
+				case 3: //interrogating about old man
 					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
 					ss.str("");
 					ss << "Dialogue input here";
@@ -422,28 +422,28 @@ void LobbyScene::RenderInteraction()
 					break;
 				}
 				break;
-			case 1: // Player gossiping to janitor
+			case 1: // Player interrogate janitor
 				switch (interrogateId)
 				{
-				case 0://Gossiping about guard
+				case 0://interrogating about guard
 					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
 					ss.str("");
 					ss << "Dialogue input here";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
 					break;
-				case 1://Gossiping about gamer
+				case 1://interrogating about gamer
 					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
 					ss.str("");
 					ss << "Dialogue input here";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
 					break;
-				case 2://Gossiping about kid
+				case 2://interrogating about kid
 					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
 					ss.str("");
 					ss << "Dialogue input here";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
 					break;
-				case 3://Gossiping about old man
+				case 3://interrogating about old man
 					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
 					ss.str("");
 					ss << "Dialogue input here";
@@ -451,28 +451,61 @@ void LobbyScene::RenderInteraction()
 					break;
 				}
 				break;
-			case 2: // Player gossiping to gamer
+			case 2: // Player interrogate gamer
 				switch (interrogateId)
 				{
-				case 0://Gossiping about guard
+				case 0://interrogating about guard
+					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
+					ss.str("");
+					ss << "Dialogue input here";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
+					Application::arcadeEvidences[0] = true;
+					break;
+				case 1://interrogating about Janitor
+					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
+					ss.str("");
+					ss << "Dialogue input here";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
+					Application::arcadeEvidences[1] = true;
+					break;
+				case 2://interrogating about kid
+					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
+					ss.str("");
+					ss << "Dialogue input here";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
+					Application::arcadeEvidences[2] = true;
+					break;
+				case 3://interrogating about old man
+					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
+					ss.str("");
+					ss << "Dialogue input here";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
+					Application::arcadeEvidences[3] = true;
+					break;
+				}
+				break;
+			case 3: // Player interrogate kid
+				switch (interrogateId)
+				{
+				case 0://interrogating about guard
 					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
 					ss.str("");
 					ss << "Dialogue input here";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
 					break;
-				case 1://Gossiping about Janitor
+				case 1://interrogating about Janitor
 					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
 					ss.str("");
 					ss << "Dialogue input here";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
 					break;
-				case 2://Gossiping about kid
+				case 2://interrogating about gamer
 					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
 					ss.str("");
 					ss << "Dialogue input here";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
 					break;
-				case 3://Gossiping about old man
+				case 3://interrogating about old man
 					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
 					ss.str("");
 					ss << "Dialogue input here";
@@ -480,57 +513,28 @@ void LobbyScene::RenderInteraction()
 					break;
 				}
 				break;
-			case 3: // Player gossiping to kid
+			case 4: // Player interrogate old man
 				switch (interrogateId)
 				{
-				case 0://Gossiping about guard
+				case 0://interrogating about guard
 					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
 					ss.str("");
 					ss << "Dialogue input here";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
 					break;
-				case 1://Gossiping about Janitor
+				case 1://interrogating about Janitor
 					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
 					ss.str("");
 					ss << "Dialogue input here";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
 					break;
-				case 2://Gossiping about gamer
+				case 2://interrogating about gamer
 					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
 					ss.str("");
 					ss << "Dialogue input here";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
 					break;
-				case 3://Gossiping about old man
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					break;
-				}
-				break;
-			case 4: // Player gossiping to old man
-				switch (interrogateId)
-				{
-				case 0://Gossiping about guard
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					break;
-				case 1://Gossiping about Janitor
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					break;
-				case 2://Gossiping about gamer
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					break;
-				case 3://Gossiping about kid
+				case 3://interrogating about kid
 					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
 					ss.str("");
 					ss << "Dialogue input here";
@@ -1314,6 +1318,20 @@ void LobbyScene::TalkButtons()
 	}
 }
 
+bool LobbyScene::declareCulprit(int id) {
+	// 0 = guard, 1 = janitor, 2 = Arcader, 3 = Kid, 4 = old guy
+
+	//culprit is 2 (arcade gamer)
+	if (id == 2) {
+		return true;
+	}
+	//guess wrongly
+	else {
+		Application::playerGuesses--;
+		false;
+	}
+}
+
 void LobbyScene::CharacterPosCheck()
 {
 	interactOffset = 1.5;
@@ -1356,6 +1374,20 @@ void LobbyScene::CharacterPosCheck()
 		&& camera.position.z <= entityList[ENTITY_GAMER].getTransform().z + interactOffset)
 	{
 		screenTxt = "Press E to talk";
+
+		if (Application::EnoughEvidence(Application::arcadeEvidences)) 
+		{
+			culpritText = "Press C to Pin Culprit";
+
+			if (canInteract && Application::IsKeyPressed('C'))
+			{
+				if (declareCulprit(ENTITY_GAMER)) //if actual culprit (gamer)
+				{
+					Application::sceneState = Application::STATE_GAMEWIN;
+				}
+			}
+		}
+
 		if (canInteract && Application::IsKeyPressed('E'))
 		{
 			charId = ENTITY_GAMER;
@@ -1398,6 +1430,7 @@ void LobbyScene::CharacterPosCheck()
 	else
 	{
 		screenTxt = "";
+		culpritText = "";
 	}
 }
 
@@ -1897,6 +1930,11 @@ void LobbyScene::Update(double dt)
 		Application::playerGuesses--;
 	}
 
+	if (Application::playerGuesses <= 0) {
+		Application::sceneState = Application::STATE_GAMELOSE;
+	}
+
+
 	Interaction();
 	BoundsCheck();
 
@@ -1997,6 +2035,11 @@ void LobbyScene::Render()
 		ss.str("");
 		ss << screenTxt;
 		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 29, 10);
+	
+		ss.str("");
+		ss << culpritText;
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 30, 20);
+
 	}
 
 	RenderHUD();

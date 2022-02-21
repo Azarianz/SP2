@@ -152,6 +152,7 @@
     <ClCompile Include="Source\Camera3.cpp" />
     <ClCompile Include="Source\CorridorScene.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
+    <ClCompile Include="Source\GameEndScene.cpp" />
     <ClCompile Include="Source\Light.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
     <ClCompile Include="Source\LoadTGA.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="Source\Camera3.h" />
     <ClInclude Include="Source\CorridorScene.h" />
     <ClInclude Include="Source\Entity.h" />
+    <ClInclude Include="Source\GameEndScene.h" />
     <ClInclude Include="Source\Light.h" />
     <ClInclude Include="Source\LoadOBJ.h" />
     <ClInclude Include="Source\LoadTGA.h" />

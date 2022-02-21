@@ -22,6 +22,13 @@ unsigned char Application::sceneState;
 unsigned char Application::roomState;
 vector<string> Application::eList;
 int Application::playerGuesses = 3;
+
+bool Application::guardEvidences[4] = {false,false,false,false};
+bool Application::janitorEvidences[4] = { false,false,false,false };
+bool Application::arcadeEvidences[4] = { false,false,false,false };
+bool Application::kidEvidences[4] = { false,false,false,false };
+bool Application::oldguyEvidences[4] = { false,false,false,false };
+
 bool Application::IsFullscreen;
 
 //Define an error callback
@@ -154,6 +161,29 @@ void Application::AddEvidence(string text)
 	}
 }
 
+bool Application::EnoughEvidence(bool b[4])
+{
+	int check = 0;
+	for (int i = 0; i <= sizeof(b) / sizeof(b[0]); i++) 
+	{
+		if (b[i] == true) {
+			check++;
+		}
+
+		if (check >= 4) {
+			check = 4;
+			break;
+		}
+	}
+
+	if (check == 4) {
+		return true;
+	}
+	else{
+		return false;
+	}
+}
+
 void Application::Init()
 {
 	AddEvidence("Evidence 01: Insert Text Here");
@@ -232,19 +262,27 @@ void Application::Run()
 	sceneList[SCENE_MINIGAME] = nullptr;
 	sceneList[SCENE_CORRIDOR] = nullptr;
 	sceneList[SCENE_ROOM] = nullptr;
+	sceneList[SCENE_GAMEOVER] = nullptr;
 	Scene* scene = nullptr;
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
 	while (!glfwWindowShouldClose(m_window))
 	{
-		if (playerGuesses > 0)
+		if (sceneState != STATE_RUN_SCENE)
 		{
-			if (sceneState != STATE_RUN_SCENE)
-			{
+			//Game
+			if (playerGuesses > 0) {
 				if (sceneState == STATE_MAINMENU_INIT)
 				{
 					if (sceneList[SCENE_MAINMENU] == nullptr)
 					{
+						//Close Previous Scene
+						if (sceneList[SCENE_GAMEOVER] != nullptr)
+						{
+							delete sceneList[SCENE_GAMEOVER];
+							sceneList[SCENE_GAMEOVER] = nullptr;
+						}
+
 						sceneList[SCENE_MAINMENU] = new MainMenuScene();
 						sceneList[SCENE_MAINMENU]->Init();
 						scene = sceneList[SCENE_MAINMENU];
@@ -265,7 +303,7 @@ void Application::Run()
 					if (sceneList[SCENE_LOBBY] == nullptr)
 					{
 						//Close Previous Scene
-						if (sceneList[SCENE_CORRIDOR] != nullptr) 
+						if (sceneList[SCENE_CORRIDOR] != nullptr)
 						{
 							delete sceneList[SCENE_CORRIDOR];
 							sceneList[SCENE_CORRIDOR] = nullptr;
@@ -319,7 +357,7 @@ void Application::Run()
 				}
 				else if (sceneState == STATE_CORRIDOR)
 				{
-					if (sceneList[SCENE_CORRIDOR] == nullptr){
+					if (sceneList[SCENE_CORRIDOR] == nullptr) {
 						//Close Previous Scene
 						if (sceneList[SCENE_LOBBY] != nullptr)
 						{
@@ -359,28 +397,83 @@ void Application::Run()
 						sceneState = STATE_CORRIDOR;
 					}
 				}
-			}
-			else
-			{
-				scene->Update(m_timer.getElapsedTime());
-				scene->Render();
+
+				//Game End (Correct Guess)
+				else if (sceneState == STATE_GAMEWIN)
+				{
+					if (sceneList[SCENE_GAMEOVER] == nullptr)
+					{
+						if (sceneList[SCENE_LOBBY] != nullptr) {
+							delete sceneList[SCENE_LOBBY];
+							sceneList[SCENE_LOBBY] = nullptr;
+						}
+
+						sceneList[SCENE_GAMEOVER] = new GameEndScene();
+						sceneList[SCENE_GAMEOVER]->Init();
+						scene = sceneList[SCENE_GAMEOVER];
+						playerGuesses = 3;
+						sceneState = STATE_RUN_SCENE;
+					}
+				}
 			}
 
-			//Swap buffers
-			glfwSwapBuffers(m_window);
-			//Get and organize events, like keyboard and mouse input, window resizing, etc...
-			glfwPollEvents();
-			m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.   
-
-			if (IsKeyPressed(VK_ESCAPE))
+			else if (playerGuesses <= 0) 
 			{
-				ExitGame();
+				//Game End (Correct Guess)
+				if (sceneState == STATE_GAMEWIN)
+				{
+					if (sceneList[SCENE_GAMEOVER] == nullptr)
+					{
+						if (sceneList[SCENE_LOBBY] != nullptr) {
+							delete sceneList[SCENE_LOBBY];
+							sceneList[SCENE_LOBBY] = nullptr;
+						}
+
+						sceneList[SCENE_GAMEOVER] = new GameEndScene();
+						sceneList[SCENE_GAMEOVER]->Init();
+						scene = sceneList[SCENE_GAMEOVER];
+						playerGuesses = 3;
+						sceneState = STATE_RUN_SCENE;
+					}
+				}
+
+				//Game End (Out of Guesses)
+				else if (sceneState == STATE_GAMELOSE)
+				{
+					if (sceneList[SCENE_GAMEOVER] == nullptr)
+					{
+						if (sceneList[SCENE_LOBBY] != nullptr) {
+							delete sceneList[SCENE_LOBBY];
+							sceneList[SCENE_LOBBY] = nullptr;
+						}
+
+						sceneList[SCENE_GAMEOVER] = new GameEndScene();
+						sceneList[SCENE_GAMEOVER]->Init();
+						scene = sceneList[SCENE_GAMEOVER];
+						playerGuesses = 3;
+						sceneState = STATE_RUN_SCENE;
+					}
+				}
 			}
 		}
-		else
+
+		else 
 		{
-			//Game Over Code
+			scene->Update(m_timer.getElapsedTime());
+			scene->Render();
 		}
+
+		//Swap buffers
+		glfwSwapBuffers(m_window);
+		//Get and organize events, like keyboard and mouse input, window resizing, etc...
+		glfwPollEvents();
+		m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.   
+
+		if (IsKeyPressed(VK_ESCAPE))
+		{
+			ExitGame();
+		}
+
 	}
 	for (int i = 0; i < SCENE_NUM; ++i)
 	{

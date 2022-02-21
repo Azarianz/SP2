@@ -105,7 +105,7 @@ private:
 	bool isGossiping;
 	bool printGossip, printInterrogate;
 	std::ostringstream ss;
-	std::string screenTxt;
+	std::string screenTxt, culpritText;
 	std::vector <std::string> guardChat;
 	std::vector <std::string> janitorChat;
 	std::vector <std::string> gamerChat;
@@ -146,6 +146,7 @@ private:
 	void BoundsCheck();
 	bool IsInArcadeMachineInteraction();
 	bool IsInElevatorInteraction();
+	bool declareCulprit(int id);
 
 public:
 	LobbyScene();

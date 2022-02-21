@@ -14,6 +14,7 @@
 #include "CorridorScene.h"
 #include "RoomScene.h"
 #include "MainMenuScene.h"
+#include "GameEndScene.h"
 #include <vector>
 #include <string>
 
@@ -33,6 +34,8 @@ public:
 		STATE_CORRIDOR,
 		STATE_ROOM_INIT,
 		STATE_ROOM_EXIT,
+		STATE_GAMEWIN,
+		STATE_GAMELOSE,
 	};
 
 	enum ROOM_STATE
@@ -50,6 +53,7 @@ public:
 		SCENE_MINIGAME,
 		SCENE_CORRIDOR,
 		SCENE_ROOM,
+		SCENE_GAMEOVER,
 		SCENE_NUM
 	};
 
@@ -61,6 +65,12 @@ public:
 	static unsigned char roomState;
 	static vector<string> eList;
 	static int playerGuesses;
+
+	static bool guardEvidences[4];
+	static bool janitorEvidences[4];
+	static bool arcadeEvidences[4];
+	static bool kidEvidences[4];
+	static bool oldguyEvidences[4];
 
 	Application();
 	~Application();
@@ -90,6 +100,7 @@ public:
 	void Exit();
 	static bool IsKeyPressed(unsigned short key);
 	static void AddEvidence(string text);
+	static bool EnoughEvidence(bool b[4]);
 
 private:
 
