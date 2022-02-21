@@ -1,7 +1,7 @@
-# Blender MTL File: 'None'
+# Blender MTL File: 'characters.blend'
 # Material Count: 1
 
-newmtl lambert14.001
+newmtl PolygonOffice_Charaters
 Ns 179.999996
 Kd 1.000000 1.000000 1.000000
-map_Kd PolygonCity_Texture_01_C.png
+map_Kd Textures\\PolygonOffice_Texture_01_A.png

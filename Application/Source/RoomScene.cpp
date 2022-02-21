@@ -146,20 +146,22 @@ void RoomScene::RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, fl
 
 void RoomScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y)
 {
+	float spacing = 0.6f;
+
 	if (!mesh || mesh->textureID <= 0) //Proper error check
 	{
 		return;
 	}
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
-	ortho.SetToOrtho(0, Application::screenUISizeX, 0, Application::screenUISizeY, -10, 10); //size of screen UI //size of screen UI
+	ortho.SetToOrtho(0, Application::screenUISizeX, 0, Application::screenUISizeY, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
 	projectionStack.LoadMatrix(ortho);
 	viewStack.PushMatrix();
 	viewStack.LoadIdentity(); //No need camera for ortho mode
 	modelStack.PushMatrix();
 	modelStack.LoadIdentity(); //Reset modelStack
-	modelStack.Translate(x, y, 0);
+	modelStack.Translate(x - text.size() * (0.6f * spacing), y, 0);
 	modelStack.Scale(size, size, size);
 	glUniform1i(m_parameters[U_TEXT_ENABLED], 1);
 	glUniform3fv(m_parameters[U_TEXT_COLOR], 1, &color.r);
@@ -171,23 +173,25 @@ void RoomScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, fl
 	for (unsigned i = 0; i < text.length(); ++i)
 	{
 		Mtx44 characterSpacing;
-		characterSpacing.SetToTranslation(0.5f + i * 1.0f, 0.5f, 0); //1.0f is the spacing of each character, you may change this value
+		std::stringstream ss;
+		characterSpacing.SetToTranslation(0.5f + i * spacing, 0.5f, 0); //1.0f is the spacing of each character, you may change this value
 		Mtx44 MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top() * characterSpacing;
 		glUniformMatrix4fv(m_parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
 		mesh->Render((unsigned)text[i] * 6, 6);
 	}
 
-		glBindTexture(GL_TEXTURE_2D, 0);
-		glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
-		projectionStack.PopMatrix();
-		viewStack.PopMatrix();
-		modelStack.PopMatrix();
-		glEnable(GL_DEPTH_TEST);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glUniform1i(m_parameters[U_TEXT_ENABLED], 0);
+	projectionStack.PopMatrix();
+	viewStack.PopMatrix();
+	modelStack.PopMatrix();
+	glEnable(GL_DEPTH_TEST);
 }
 
 void RoomScene::RenderPressEToInteract()
 {
-	RenderTextOnScreen(meshList[GEO_TEXT], "Press E to interact", Color(1, 1, 1), 3, 13.5, 10);
+	//RenderTextOnScreen(meshList[GEO_TEXT], "Press E to interact", Color(1, 1, 1), 3, 13.5, 10);
+	RenderTextOnScreen(meshList[GEO_TEXT], "Press E to interact", Color(1, 1, 1), 3, 29, 10);
 }
 
 bool RoomScene::CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft)
@@ -274,6 +278,176 @@ bool RoomScene::IsInDoorRInteraction()
 		(camera.position.x >= 3) && (camera.position.x <= 5));
 }
 
+void RoomScene::RenderHUD()
+{
+	int xpos = ((Application::GetWindowWidth() / 10) / 5) + 40;
+	int ypos = ((Application::GetWindowHeight() / 10) / 4) + 30;
+	string clues = "Clues found:" + std::to_string(Application::eList.size()) + "/20";
+	string guess = "Guesses Left:" + std::to_string(Application::playerGuesses) + "/3";
+
+	if (!isJournalOpen)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], guess, Color(1, 1, 1), 2, xpos - 58, ypos + 5);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Find the Culprit", Color(1, 1, 1), 2, xpos - 58, ypos);
+		RenderTextOnScreen(meshList[GEO_TEXT], "(J) Journal", Color(1, 1, 1), 2, xpos + 5, ypos + 5);
+		RenderTextOnScreen(meshList[GEO_TEXT], clues, Color(1, 1, 1), 2, xpos, ypos);
+	}
+}
+
+void RoomScene::RenderJournal()
+{
+	float journalButtonHeight = Application::screenUISizeY / 5;
+	float journalButtonWidth = Application::screenUISizeX / 4;
+
+	RenderMeshOnScreen(meshList[GEO_QUAD], Application::screenUISizeX / 2, Application::screenUISizeY / 2, Application::screenUISizeX, Application::screenUISizeY);
+
+	int buttonSpacing = 4;
+
+	RenderMeshOnScreen(meshList[GEO_QUAD_BUTTON], journalButtonWidth / 2, Application::screenUISizeY - journalButtonHeight / 2 - buttonSpacing, journalButtonWidth - buttonSpacing, journalButtonHeight);
+	int tempCount = 1;
+	RenderMeshOnScreen(meshList[GEO_QUAD_BUTTON], journalButtonWidth / 2 + journalButtonWidth * tempCount, Application::screenUISizeY - journalButtonHeight / 2 - buttonSpacing, journalButtonWidth - buttonSpacing, journalButtonHeight);
+	++tempCount;
+	RenderMeshOnScreen(meshList[GEO_QUAD_BUTTON], journalButtonWidth / 2 + journalButtonWidth * tempCount, Application::screenUISizeY - journalButtonHeight / 2 - buttonSpacing, journalButtonWidth - buttonSpacing, journalButtonHeight);
+	++tempCount;
+	RenderMeshOnScreen(meshList[GEO_QUAD_BUTTON], journalButtonWidth / 2 + journalButtonWidth * tempCount, Application::screenUISizeY - journalButtonHeight / 2 - buttonSpacing, journalButtonWidth - buttonSpacing, journalButtonHeight);
+
+	//so that button works with different resolution
+	float tempScreenUISizeX = Application::GetWindowWidth() / 10;
+	float tempScreenUISizeY = Application::GetWindowHeight() / 10;
+	journalButtonHeight = tempScreenUISizeY / 5;
+	journalButtonWidth = tempScreenUISizeX / 4;
+
+	static bool lcButtonState = false;
+	if (!lcButtonState && Application::IsMousePressed(0))
+	{
+		lcButtonState = true;
+		//button1
+		if (CreateButton(tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
+			tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
+			journalButtonWidth / 2 + (journalButtonWidth / 2 - buttonSpacing / 2),
+			journalButtonWidth / 2 - (journalButtonWidth / 2 - buttonSpacing / 2)))
+		{
+			std::cout << "journal page is: evidence" << std::endl;
+			journalPage = EVIDENCE_PAGE;
+		}
+		int tempCount = 1;
+		if (CreateButton(tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
+			tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
+			(journalButtonWidth / 2 + journalButtonWidth * tempCount) + (journalButtonWidth / 2 - buttonSpacing / 2),
+			(journalButtonWidth / 2 + journalButtonWidth * tempCount) - (journalButtonWidth / 2 - buttonSpacing / 2)))
+		{
+			std::cout << "journal page is: profile" << std::endl;
+			journalPage = PROFILE_PAGE;
+		}
+		++tempCount;
+		if (CreateButton(tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
+			tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
+			(journalButtonWidth / 2 + journalButtonWidth * tempCount) + (journalButtonWidth / 2 - buttonSpacing / 2),
+			(journalButtonWidth / 2 + journalButtonWidth * tempCount) - (journalButtonWidth / 2 - buttonSpacing / 2)))
+		{
+			std::cout << "journal page is: 3" << std::endl;
+			journalPage = EVIDENCE_PAGE;
+		}
+		++tempCount;
+		if (CreateButton(tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
+			tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
+			(journalButtonWidth / 2 + journalButtonWidth * tempCount) + (journalButtonWidth / 2 - buttonSpacing / 2),
+			(journalButtonWidth / 2 + journalButtonWidth * tempCount) - (journalButtonWidth / 2 - buttonSpacing / 2)))
+		{
+			std::cout << "journal page is: 4" << std::endl;
+			journalPage = EVIDENCE_PAGE;
+		}
+	}
+	else if (lcButtonState && !Application::IsMousePressed(0))
+	{
+		lcButtonState = false;
+	}
+
+	if (journalPage == EVIDENCE_PAGE)
+	{
+		PrintEvidence();
+	}
+	else if (journalPage == PROFILE_PAGE)
+	{
+
+	}
+}
+
+void RoomScene::ResetJournal()
+{
+}
+
+void RoomScene::PrintEvidence()
+{
+	int xpos = ((Application::GetWindowWidth() / 10) / 5);
+	int yOffset = ((Application::GetWindowHeight() / 10) / 2) - 3;
+	static bool EButtonState = false;
+	static bool QButtonState = false;
+
+	if (!Application::eList.empty())
+	{
+		//evidencePage = 1;
+		int index = (evidencePage - 1) * 4;
+		int endIndex = evidencePage * 4;
+
+		if (endIndex >= Application::eList.size()) {
+			endIndex = (Application::eList.size());
+		}
+
+		//Add logic to print based on page number eg.(page 2: for (i = 8; i < i + 4; i++))
+		for (int i = index; i <= (endIndex - 1); i++)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], Application::eList[i], Color(1, 1, 1), 3, xpos, yOffset);
+			yOffset -= 8;
+		}
+
+		if (!EButtonState && Application::IsKeyPressed('E') && isJournalOpen)
+		{
+			cout << "E" << endl;
+			EButtonState = true;
+
+			if (evidencePage >= 4) {
+				evidencePage = 1;
+			}
+			else {
+				evidencePage++;
+			}
+
+			index = (evidencePage - 1) * 4;
+		}
+
+		else if (EButtonState && !Application::IsKeyPressed('E'))
+		{
+			EButtonState = false;
+		}
+
+		if (!QButtonState && Application::IsKeyPressed('Q'))
+		{
+			QButtonState = true;
+
+			if (evidencePage <= 1) {
+				evidencePage = 4;
+			}
+			else {
+				evidencePage--;
+			}
+
+			index = (evidencePage - 1) * 4;
+		}
+
+		else if (QButtonState && !Application::IsKeyPressed('Q'))
+		{
+			QButtonState = false;
+		}
+
+		RenderTextOnScreen(meshList[GEO_TEXT], "<", Color(1, 1, 1), 4, 5, 20);
+		RenderTextOnScreen(meshList[GEO_TEXT], ">", Color(1, 1, 1), 4, 75, 20);
+	}
+
+	const int i = 9;
+	int arrag[i];
+}
+
 void RoomScene::Init()
 {
 	// Init VBO here
@@ -289,7 +463,7 @@ void RoomScene::Init()
 
 	camera.Init(Vector3(0, 1.5f, 0), Vector3(5, 1.5f, 0), Vector3(0, 1,0));
 
-	light[0].type = Light::LIGHT_SPOT;
+	light[0].type = Light::LIGHT_POINT;
 	light[0].position.Set(0, 20, 0);
 	light[0].color.Set(1, 1, 1);
 	light[0].power = 2;
@@ -372,25 +546,8 @@ void RoomScene::Init()
 		m_parameters[U_MATERIAL_SHININESS]);
 
 	meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("quad", Color(0.5, 0.5, 0.5), 1.f);
-	meshList[GEO_QUAD]->textureID = LoadTGA("Image//color.tga");
 
-	meshList[GEO_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1), 1.f);
-	meshList[GEO_FRONT]->textureID = LoadTGA("Image//front.tga");
-
-	meshList[GEO_BACK] = MeshBuilder::GenerateQuad("back", Color(1, 1, 1), 1.f);
-	meshList[GEO_BACK]->textureID = LoadTGA("Image//back.tga");
-
-	meshList[GEO_LEFT] = MeshBuilder::GenerateQuad("left", Color(1, 1, 1), 1.f);
-	meshList[GEO_LEFT]->textureID = LoadTGA("Image//left.tga");
-
-	meshList[GEO_RIGHT] = MeshBuilder::GenerateQuad("right", Color(1, 1, 1), 1.f);
-	meshList[GEO_RIGHT]->textureID = LoadTGA("Image//right.tga");
-
-	meshList[GEO_TOP] = MeshBuilder::GenerateQuad("top", Color(1, 1, 1), 1.f);
-	meshList[GEO_TOP]->textureID = LoadTGA("Image//top.tga");
-
-	meshList[GEO_BOTTOM] = MeshBuilder::GenerateQuad("bottom", Color(1, 1, 1), 1.f);
-	meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//bottom.tga");
+	meshList[GEO_QUAD_BUTTON] = MeshBuilder::GenerateQuad("quad", Color(0, 0, 0), 1.f);
 
 	meshList[GEO_SUN] = MeshBuilder::GenerateSphere("Sphere", Color(1.0, 1.0, 1.0), 20, 20, 0.5);
 
@@ -402,16 +559,37 @@ void RoomScene::Init()
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
 
+	//Skybox
+	{
+		meshList[GEO_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1), 1.f);
+		meshList[GEO_FRONT]->textureID = LoadTGA("Image//front.tga");
+
+		meshList[GEO_BACK] = MeshBuilder::GenerateQuad("back", Color(1, 1, 1), 1.f);
+		meshList[GEO_BACK]->textureID = LoadTGA("Image//back.tga");
+
+		meshList[GEO_LEFT] = MeshBuilder::GenerateQuad("left", Color(1, 1, 1), 1.f);
+		meshList[GEO_LEFT]->textureID = LoadTGA("Image//left.tga");
+
+		meshList[GEO_RIGHT] = MeshBuilder::GenerateQuad("right", Color(1, 1, 1), 1.f);
+		meshList[GEO_RIGHT]->textureID = LoadTGA("Image//right.tga");
+
+		meshList[GEO_TOP] = MeshBuilder::GenerateQuad("top", Color(1, 1, 1), 1.f);
+		meshList[GEO_TOP]->textureID = LoadTGA("Image//top.tga");
+
+		meshList[GEO_BOTTOM] = MeshBuilder::GenerateQuad("bottom", Color(1, 1, 1), 1.f);
+		meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//bottom.tga");
+	}
+
 	//Main Characters
 	{
 		meshList[GEO_GUARD] = MeshBuilder::GenerateOBJMTL("guard", "OBJ//Guard.obj", "OBJ//Guard.mtl");
-		meshList[GEO_GUARD]->textureID = LoadTGA("Image//PolygonCity_Texture_01_C.tga");
+		meshList[GEO_GUARD]->textureID = LoadTGA("Image//PolygonOffice_Texture_01_A.tga");
 
 		meshList[GEO_GAMER] = MeshBuilder::GenerateOBJMTL("gamer", "OBJ//Gamer.obj", "OBJ//Gamer.mtl");
-		meshList[GEO_GAMER]->textureID = LoadTGA("Image//PolygonCity_Texture_01_C.tga");
+		meshList[GEO_GAMER]->textureID = LoadTGA("Image//PolygonCity_Texture_03_B.tga");
 
 		meshList[GEO_JANITOR] = MeshBuilder::GenerateOBJMTL("janitor", "OBJ//Janitor.obj", "OBJ//Janitor.mtl");
-		meshList[GEO_JANITOR]->textureID = LoadTGA("Image//PolygonCity_Texture_02_B.tga");
+		meshList[GEO_JANITOR]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_C.tga");
 
 		meshList[GEO_OLDMAN] = MeshBuilder::GenerateOBJMTL("Old Man", "OBJ//OldMan.obj", "OBJ//OldMan.mtl");
 		meshList[GEO_OLDMAN]->textureID = LoadTGA("Image//PolygonCity_Texture_01_C.tga");
@@ -486,29 +664,54 @@ void RoomScene::Update(double dt)
 	}
 
 	//Mouse Inputs
-	static bool bLButtonState = false;
-	if (!bLButtonState && Application::IsMousePressed(0))
 	{
-		bLButtonState = true;
-		std::cout << "LBUTTON DOWN" << std::endl;
+		static bool bLButtonState = false;
+		if (!bLButtonState && Application::IsMousePressed(0))
+		{
+			bLButtonState = true;
+			std::cout << "LBUTTON DOWN" << std::endl;
 
-		CreateButton(25 + 10 ,25, 30 + 20, 30);
+			CreateButton(25 + 10, 25, 30 + 20, 30);
+		}
+		else if (bLButtonState && !Application::IsMousePressed(0))
+		{
+			bLButtonState = false;
+			std::cout << "LBUTTON UP" << std::endl;
+		}
+		static bool bRButtonState = false;
+		if (!bRButtonState && Application::IsMousePressed(1))
+		{
+			bRButtonState = true;
+			std::cout << "RBUTTON DOWN" << std::endl;
+		}
+		else if (bRButtonState && !Application::IsMousePressed(1))
+		{
+			bRButtonState = false;
+			std::cout << "RBUTTON UP" << std::endl;
+		}
 	}
-	else if (bLButtonState && !Application::IsMousePressed(0))
+
+	//Journal
 	{
-		bLButtonState = false;
-		std::cout << "LBUTTON UP" << std::endl;
-	}
-	static bool bRButtonState = false;
-	if (!bRButtonState && Application::IsMousePressed(1))
-	{
-		bRButtonState = true;
-		std::cout << "RBUTTON DOWN" << std::endl;
-	}
-	else if (bRButtonState && !Application::IsMousePressed(1))
-	{
-		bRButtonState = false;
-		std::cout << "RBUTTON UP" << std::endl;
+		static bool jButtonState = false;
+		if (!jButtonState && Application::IsKeyPressed('J') && !isJournalOpen)
+		{
+			camera.DisableControl();
+			Application::ShowCursor();
+			isJournalOpen = true;
+			jButtonState = true;
+		}
+		else if (jButtonState && !Application::IsKeyPressed('J'))
+		{
+			jButtonState = false;
+		}
+		else if (!jButtonState && Application::IsKeyPressed('J') && isJournalOpen)
+		{
+			camera.EnableControl();
+			Application::HideCursor();
+			isJournalOpen = false;
+			jButtonState = true;
+		}
 	}
 
 	//Check Door Interaction Collision
@@ -637,6 +840,12 @@ void RoomScene::Render()
 			modelStack.Scale(1, 1, 1);
 			RenderMesh(meshList[GEO_ROOML], true);
 			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			modelStack.Translate(0, 0, 0);
+			modelStack.Scale(1, 1, 1);
+			RenderMesh(meshList[GEO_ROOM1_FURNITURE], true);
+			modelStack.PopMatrix();
 		}
 
 		//Room 4 (Victim's Room): WIP
@@ -645,6 +854,12 @@ void RoomScene::Render()
 			modelStack.Translate(0, 0, 0);
 			modelStack.Scale(1, 1, 1);
 			RenderMesh(meshList[GEO_ROOMR], true);
+			modelStack.PopMatrix();
+
+			modelStack.PushMatrix();
+			modelStack.Translate(0, 0, 0);
+			modelStack.Scale(1, 1, 1);
+			RenderMesh(meshList[GEO_ROOM2_FURNITURE], true);
 			modelStack.PopMatrix();
 		}
 	}
@@ -667,10 +882,16 @@ void RoomScene::Render()
 		}
 	}
 
+	if (isJournalOpen)
+	{
+		RenderJournal();
+	}
 
-	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 0, 0);
-	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.x), Color(0, 1, 0), 4, 0, 0);
-	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.z), Color(0, 1, 0), 4, 0, 2);
+	RenderHUD();
+
+	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 0, 0);
+	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.x), Color(0, 1, 0), 4, 0, 0);
+	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.z), Color(0, 1, 0), 4, 0, 2);
 	//RenderMeshOnScreen(meshList[GEO_QUAD], 40, 30, 20, 10);
 }
 

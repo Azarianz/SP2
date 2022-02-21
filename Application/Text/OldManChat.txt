@@ -1,0 +1,8 @@
+D:So how old is your granddaughter
+O:10 
+D:but she is not here
+O:yes she is 
+D:there are pills in your room what are they for
+O:pills? Pills… 
+D:Sir?
+O:hm? Ouh i have to take my pills soon
