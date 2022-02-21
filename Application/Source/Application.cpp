@@ -19,6 +19,7 @@ unsigned Application::m_height;
 float Application::screenUISizeX;
 float Application::screenUISizeY;
 unsigned char Application::sceneState;
+unsigned char Application::roomState;
 vector<string> Application::eList;
 int Application::playerGuesses = 3;
 bool Application::IsFullscreen;
@@ -219,6 +220,7 @@ void Application::Init()
 
 	//init some game variables
 	sceneState = STATE_MAINMENU_INIT;
+	roomState = 0;
 }
 
 void Application::Run()
@@ -305,10 +307,7 @@ void Application::Run()
 					sceneList[SCENE_CORRIDOR]->Init();
 					scene = sceneList[SCENE_CORRIDOR];
 				}
-				else if (sceneState == STATE_ROOM1 ||
-					sceneState == STATE_ROOM2 ||
-					sceneState == STATE_ROOM3 ||
-					sceneState == STATE_ROOM4)
+				else if (sceneState == STATE_ROOM_INIT)
 				{
 					sceneList[SCENE_ROOM]->Init();
 					scene = sceneList[SCENE_ROOM];

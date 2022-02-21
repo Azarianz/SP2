@@ -730,25 +730,29 @@ void CorridorScene::Update(double dt)
 		if ((IsInDoor1Interaction()) && Application::IsKeyPressed('E')) {
 			Application::ResetCursor();
 			Application::ShowCursor();
-			Application::sceneState = Application::STATE_ROOM1;
+			Application::sceneState = Application::STATE_ROOM_INIT;
+			Application::roomState = Application::ROOM4;
 		}
 
 		if ((IsInDoor2Interaction()) && Application::IsKeyPressed('E')) {
 			Application::ResetCursor();
 			Application::ShowCursor();
-			Application::sceneState = Application::STATE_ROOM2;
+			Application::sceneState = Application::STATE_ROOM_INIT;
+			Application::roomState = Application::ROOM4;
 		}
 
 		if ((IsInDoor3Interaction()) && Application::IsKeyPressed('E')) {
 			Application::ResetCursor();
 			Application::ShowCursor();
-			Application::sceneState = Application::STATE_ROOM3;
+			Application::sceneState = Application::STATE_ROOM_INIT;
+			Application::roomState = Application::ROOM4;
 		}
 
 		if ((IsInDoor4Interaction()) && Application::IsKeyPressed('E')) {
 			Application::ResetCursor();
 			Application::ShowCursor();
-			Application::sceneState = Application::STATE_ROOM4;
+			Application::sceneState = Application::STATE_ROOM_INIT;
+			Application::roomState = Application::ROOM4;
 		}
 
 		if (IsInElevatorInteraction() && Application::IsKeyPressed('E')) {

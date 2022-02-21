@@ -31,10 +31,15 @@ public:
 		STATE_MINIGAME_INIT,
 		STATE_MINIGAME_EXIT,
 		STATE_CORRIDOR,
-		STATE_ROOM1, //Arcade Guy's Room
-		STATE_ROOM2, //Old Man's Room
-		STATE_ROOM3, //Kid's Room
-		STATE_ROOM4, //Victim's Room
+		STATE_ROOM_INIT
+	};
+
+	enum ROOM_STATE
+	{
+		ROOM1, //Arcade Guy's Room
+		ROOM2, //Old Man's Room
+		ROOM3, //Kid's Room
+		ROOM4, //Victim's Room
 	};
 
 	enum SCENE_TYPE
@@ -52,6 +57,7 @@ public:
 	static float screenUISizeX;
 	static float screenUISizeY;
 	static unsigned char sceneState;
+	static unsigned char roomState;
 	static vector<string> eList;
 	static int playerGuesses;
 

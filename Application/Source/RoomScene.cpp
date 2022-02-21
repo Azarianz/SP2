@@ -478,6 +478,8 @@ void RoomScene::Init()
 	glGenVertexArrays(1, &m_vertexArrayID);
 	glBindVertexArray(m_vertexArrayID);
 
+	camera.Init(Vector3(0, 1.5f, 0), Vector3(5, 1.5f, 0), Vector3(0, 1, 0));
+
 	//load vertex and fragment shaders
 	m_programID = LoadShaders("Shader//Texture.vertexshader", "Shader//Text.fragmentshader");
 
@@ -800,7 +802,7 @@ void RoomScene::Render()
 	//Stage + Assets
 	{	
 		//Room 1 (Arcade Guy)
-		if (Application::sceneState == Application::STATE_ROOM1) {			
+		if (Application::roomState == Application::ROOM1) {			
 			modelStack.PushMatrix();
 			modelStack.Translate(0, 0, 0);
 			modelStack.Scale(1, 1, 1);
@@ -815,7 +817,7 @@ void RoomScene::Render()
 		}
 
 		//Room 2 (Old Man)
-		else if (Application::sceneState == Application::STATE_ROOM2) {			
+		else if (Application::roomState == Application::ROOM2) {			
 			modelStack.PushMatrix();
 			modelStack.Translate(0, 0, 0);
 			modelStack.Scale(1, 1, 1);
@@ -830,7 +832,7 @@ void RoomScene::Render()
 		}
 
 		//Room 3 (Kid): WIP
-		else if (Application::sceneState == Application::STATE_ROOM3) {
+		else if (Application::roomState == Application::ROOM3){
 			modelStack.PushMatrix();
 			modelStack.Translate(0, 0, 0);
 			modelStack.Scale(1, 1, 1);
@@ -845,7 +847,7 @@ void RoomScene::Render()
 		}
 
 		//Room 4 (Victim's Room): WIP
-		else if (Application::sceneState == Application::STATE_ROOM4) {
+		else if (Application::roomState == Application::ROOM4) {
 			modelStack.PushMatrix();
 			modelStack.Translate(0, 0, 0);
 			modelStack.Scale(1, 1, 1);
@@ -861,8 +863,8 @@ void RoomScene::Render()
 	}
 
 	//Left Layout
-	if (Application::sceneState == Application::STATE_ROOM1 ||
-		Application::sceneState == Application::STATE_ROOM3) {
+	if (Application::roomState == Application::ROOM1 ||
+		Application::roomState == Application::ROOM3) {
 		if (IsInDoorLInteraction())
 		{
 			RenderPressEToInteract();
@@ -870,8 +872,8 @@ void RoomScene::Render()
 	}
 
 	//Right Layout
-	if (Application::sceneState == Application::STATE_ROOM2 ||
-		Application::sceneState == Application::STATE_ROOM4) {
+	if (Application::roomState == Application::ROOM2 ||
+		Application::roomState == Application::ROOM4) {
 		if (IsInDoorRInteraction())
 		{
 			RenderPressEToInteract();
