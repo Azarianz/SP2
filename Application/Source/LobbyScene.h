@@ -95,6 +95,7 @@ private:
 	int interval;
 	int charId; // 0 = guard, 1 = janitor, 2 = Arcader, 3 = Kid, 4 = old guy
 	int gossipId; // 0 = guard, 1 = janitor, 2 = Arcader, 3 = Kid, 4 = old guy
+	int interrogateId; // 0 = guard, 1 = janitor, 2 = Arcader, 3 = Kid, 4 = old guy
 	int interactOffset;
 	bool canInteract;
 	bool isTalking, isChatting, isDoneChat;
@@ -102,7 +103,7 @@ private:
 	int tempCounter = 0;
 	bool isInterrogate;
 	bool isGossiping;
-	bool printGossip;
+	bool printGossip, printInterrogate;
 	std::ostringstream ss;
 	std::string screenTxt;
 	std::vector <std::string> guardChat;
@@ -136,7 +137,7 @@ private:
 	void RenderJournal();
 	void RenderHUD();
 	void ResetJournal();
-	void PrintEvidence();
+	void PrintEvidence();	//for journal
 	void ChatDialogueInit(std::string, std::vector<std::string>& vec);
 	void RenderInteraction();
 	void Interaction();

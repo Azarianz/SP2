@@ -32,10 +32,10 @@ public:
 		STATE_MINIGAME_INIT,
 		STATE_MINIGAME_EXIT,
 		STATE_CORRIDOR,
-		STATE_ROOM1,	//Arcade Guy's Room
-		STATE_ROOM2,	//Old Man's Room
-		STATE_ROOM3,	//Kid's Room
-		STATE_ROOM4,	//Victim's Room
+		STATE_ROOM1, //Arcade Guy's Room
+		STATE_ROOM2, //Old Man's Room
+		STATE_ROOM3, //Kid's Room
+		STATE_ROOM4, //Victim's Room
 	};
 
 	enum SCENE_TYPE

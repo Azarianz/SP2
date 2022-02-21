@@ -23,7 +23,6 @@ vector<string> Application::eList;
 int Application::playerGuesses = 3;
 bool Application::IsFullscreen;
 
-
 //Define an error callback
 static void error_callback(int error, const char* description)
 {
@@ -172,7 +171,7 @@ void Application::Init()
 	glfwWindowHint(GLFW_SAMPLES, 4); //Request 4x antialiasing
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); //Request a specific OpenGL version
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3); //Request a specific OpenGL version
-	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
+	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL 
 
 
@@ -219,8 +218,8 @@ void Application::Run()
 	sceneList[SCENE_MAINMENU] = new MainMenuScene();
 	sceneList[SCENE_LOBBY] = new LobbyScene();
 	sceneList[SCENE_MINIGAME] = nullptr;
-	sceneList[SCENE_CORRIDOR] = new CorridorScene();
-	sceneList[SCENE_ROOM] = new RoomScene();
+	sceneList[SCENE_CORRIDOR] = nullptr;
+	sceneList[SCENE_ROOM] = nullptr;
 	Scene* scene = sceneList[SCENE_LOBBY];
 	/*sceneList[SCENE_CORRIDOR]->Init();
 	sceneList[SCENE_ROOM]->Init();*/
@@ -244,7 +243,17 @@ void Application::Run()
 			}
 			else if (sceneState == STATE_LOBBY)
 			{
-				scene = sceneList[SCENE_LOBBY];
+				if (sceneList[SCENE_LOBBY] == nullptr)
+				{
+					if (sceneList[SCENE_CORRIDOR] != nullptr) {
+						delete sceneList[SCENE_CORRIDOR];
+						sceneList[SCENE_CORRIDOR] = nullptr;
+					}
+
+					sceneList[SCENE_LOBBY] = new LobbyScene();
+					sceneList[SCENE_LOBBY]->Init();
+					scene = sceneList[SCENE_LOBBY];
+				}
 			}
 			else if (sceneState == STATE_MINIGAME_INIT)
 			{
@@ -275,21 +284,53 @@ void Application::Run()
 					delete sceneList[SCENE_MINIGAME];
 					sceneList[SCENE_MINIGAME] = nullptr;
 
-					sceneList[SCENE_LOBBY]->Init();
-					scene = sceneList[SCENE_LOBBY];
-					sceneState = STATE_LOBBY;
+					if (sceneList[SCENE_LOBBY] == nullptr)
+					{
+						sceneList[SCENE_LOBBY] = new LobbyScene();
+						sceneList[SCENE_LOBBY]->Init();
+						scene = sceneList[SCENE_LOBBY];
+						sceneState = STATE_LOBBY;
+					}
+					else 
+					{
+						sceneList[SCENE_LOBBY]->Init();
+						scene = sceneList[SCENE_LOBBY];
+						sceneState = STATE_LOBBY;
+					}
+
 				}
 			}
 			else if (sceneState == STATE_CORRIDOR)
 			{
-				scene = sceneList[SCENE_CORRIDOR];
+				if (sceneList[SCENE_CORRIDOR] == nullptr)
+				{
+					if (sceneList[SCENE_LOBBY] != nullptr) {
+						delete sceneList[SCENE_LOBBY];
+						sceneList[SCENE_LOBBY] = nullptr;
+					}
+
+					sceneList[SCENE_CORRIDOR] = new CorridorScene();
+					sceneList[SCENE_CORRIDOR]->Init();
+					scene = sceneList[SCENE_CORRIDOR];
+				}
+
 			}
 			else if (sceneState == STATE_ROOM1 ||
 				sceneState == STATE_ROOM2 ||
 				sceneState == STATE_ROOM3 ||
 				sceneState == STATE_ROOM4)
 			{
-				scene = sceneList[SCENE_ROOM];
+				if (sceneList[SCENE_ROOM] == nullptr)
+				{
+					if (sceneList[SCENE_CORRIDOR] != nullptr) {
+						delete sceneList[SCENE_CORRIDOR];
+						sceneList[SCENE_CORRIDOR] = nullptr;
+					}
+
+					sceneList[SCENE_ROOM] = new RoomScene();
+					sceneList[SCENE_ROOM]->Init();
+					scene = sceneList[SCENE_ROOM];
+				}
 			}
 		}
 		else
