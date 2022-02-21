@@ -717,7 +717,7 @@ void RoomScene::Update(double dt)
 		&& Application::IsKeyPressed('E')) {
 		Application::ResetCursor();
 		Application::ShowCursor();
-		Application::sceneState = Application::SCENE_CORRIDOR;
+		Application::sceneState = Application::STATE_ROOM_EXIT;
 	}
 
 	framePerSecond = 1.f / dt;
@@ -765,7 +765,7 @@ void RoomScene::Render()
 
 	RenderSkybox();
 
-	//Characteres
+	//Characters
 	{
 		modelStack.PushMatrix();
 		modelStack.Translate(0, 0, -2);

@@ -228,10 +228,10 @@ void Application::Run()
 	//Main Loop
 	Scene* sceneList[SCENE_NUM];
 	sceneList[SCENE_MAINMENU] = nullptr;
-	sceneList[SCENE_LOBBY] = new LobbyScene();
+	sceneList[SCENE_LOBBY] = nullptr;
 	sceneList[SCENE_MINIGAME] = nullptr;
-	sceneList[SCENE_CORRIDOR] = new CorridorScene();
-	sceneList[SCENE_ROOM] = new RoomScene();
+	sceneList[SCENE_CORRIDOR] = nullptr;
+	sceneList[SCENE_ROOM] = nullptr;
 	Scene* scene = nullptr;
 
 	m_timer.startTimer();    // Start timer to calculate how long it takes to render this frame
@@ -262,9 +262,25 @@ void Application::Run()
 				}
 				else if (sceneState == STATE_LOBBY)
 				{
-					sceneList[SCENE_LOBBY]->Init();
-					scene = sceneList[SCENE_LOBBY];
-					sceneState = STATE_RUN_SCENE;
+					if (sceneList[SCENE_LOBBY] == nullptr)
+					{
+						//Close Previous Scene
+						if (sceneList[SCENE_CORRIDOR] != nullptr) 
+						{
+							delete sceneList[SCENE_CORRIDOR];
+							sceneList[SCENE_CORRIDOR] = nullptr;
+						}
+
+						sceneList[SCENE_LOBBY] = new LobbyScene();
+						sceneList[SCENE_LOBBY]->Init();
+						scene = sceneList[SCENE_LOBBY];
+						sceneState = STATE_RUN_SCENE;
+					}
+					else {
+						sceneList[SCENE_LOBBY]->Init();
+						scene = sceneList[SCENE_LOBBY];
+						sceneState = STATE_RUN_SCENE;
+					}
 				}
 				else if (sceneState == STATE_MINIGAME_INIT)
 				{
@@ -303,15 +319,45 @@ void Application::Run()
 				}
 				else if (sceneState == STATE_CORRIDOR)
 				{
-					sceneState = STATE_RUN_SCENE;
-					sceneList[SCENE_CORRIDOR]->Init();
-					scene = sceneList[SCENE_CORRIDOR];
+					if (sceneList[SCENE_CORRIDOR] == nullptr){
+						//Close Previous Scene
+						if (sceneList[SCENE_LOBBY] != nullptr)
+						{
+							delete sceneList[SCENE_LOBBY];
+							sceneList[SCENE_LOBBY] = nullptr;
+						}
+						sceneList[SCENE_CORRIDOR] = new CorridorScene();
+						sceneList[SCENE_CORRIDOR]->Init();
+						scene = sceneList[SCENE_CORRIDOR];
+						sceneState = STATE_RUN_SCENE;
+					}
+					else {
+						sceneList[SCENE_CORRIDOR]->Init();
+						scene = sceneList[SCENE_CORRIDOR];
+						sceneState = STATE_RUN_SCENE;
+					}
 				}
 				else if (sceneState == STATE_ROOM_INIT)
 				{
-					sceneList[SCENE_ROOM]->Init();
-					scene = sceneList[SCENE_ROOM];
-					sceneState = STATE_RUN_SCENE;
+					if (sceneList[SCENE_ROOM] == nullptr)
+					{
+						sceneList[SCENE_ROOM] = new RoomScene();
+						sceneList[SCENE_ROOM]->Init();
+						scene = sceneList[SCENE_ROOM];
+						sceneState = STATE_RUN_SCENE;
+					}
+				}
+				else if (sceneState == STATE_ROOM_EXIT)
+				{
+					if (sceneList[SCENE_ROOM] != nullptr)
+					{
+						sceneList[SCENE_ROOM]->Exit();
+						delete sceneList[SCENE_ROOM];
+						sceneList[SCENE_ROOM] = nullptr;
+
+						roomState = 0;
+						sceneState = STATE_CORRIDOR;
+					}
 				}
 			}
 			else

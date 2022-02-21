@@ -1511,40 +1511,6 @@ bool LobbyScene::IsInElevatorInteraction()
 		(camera.position.x >= -7.1) && (camera.position.x <= -5.2));
 }
 
-bool LobbyScene::culpritIsOldman() {
-	string evidence1 = "Evidence 01: Insert Text Here";
-	string evidence2 = "Evidence 02: Insert Text Here";
-	string evidence3 = "Evidence 03: Insert Text Here";
-	string evidence4 = "Evidence 04: Insert Text Here";
-
-	int checkCount = 0;
-
-	for (int i = 0; i <= Application::eList.size() - 1; i++) 
-	{
-		if (Application::eList[i] == evidence1) {
-			checkCount++;
-		}
-		else if (Application::eList[i] == evidence2) {
-			checkCount++;
-		}
-		else if (Application::eList[i] == evidence3) {
-			checkCount++;
-		}
-		else if (Application::eList[i] == evidence4) {
-			checkCount++;
-		}
-
-		if (checkCount >= 4) {
-			return true;
-			break;
-		}
-	}
-
-	if (checkCount < 4) {
-		return false;
-	}
-}
-
 void LobbyScene::PrintEvidence()
 {
 	int xpos = ((Application::screenUISizeX / 3.1));

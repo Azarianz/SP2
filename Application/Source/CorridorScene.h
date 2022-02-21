@@ -111,6 +111,7 @@ private:
 	bool IsInDoor3Interaction();
 	bool IsInDoor4Interaction();
 public:
+	CorridorScene();
 	virtual void Init();
 	virtual void Update(double dt);
 	virtual void Render();

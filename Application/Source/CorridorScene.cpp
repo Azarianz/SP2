@@ -466,6 +466,11 @@ void CorridorScene::PrintEvidence()
 	int arrag[i];
 }
 
+CorridorScene::CorridorScene() 
+{
+	camera.Init(Vector3(0, 1.5f, 0), Vector3(5, 1.5f, 0), Vector3(0, 1, 0));
+}
+
 void CorridorScene::Init()
 {
 	// Init VBO here
@@ -478,8 +483,6 @@ void CorridorScene::Init()
 	glEnable(GL_BLEND);
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	camera.Init(Vector3(0, 1.5f, 0), Vector3(5, 1.5f, 0), Vector3(0, 1,0));
 
 	light[0].type = Light::LIGHT_SPOT;
 	light[0].position.Set(0, 20, 0);

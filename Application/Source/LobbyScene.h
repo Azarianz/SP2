@@ -147,8 +147,6 @@ private:
 	bool IsInArcadeMachineInteraction();
 	bool IsInElevatorInteraction();
 
-	bool culpritIsOldman();
-
 public:
 	LobbyScene();
 	virtual void Init();
