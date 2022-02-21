@@ -1,5 +1,4 @@
-D:Sooo this medical condition what is it
-G:I am not willing to say
-D:you seem very calm and not worried nor pressed and
-D:not shocked when you were presented this news
-G:well its my medical condition
+D:So this medical condition. What is it?
+G:I am not willing to say.
+D:You seem very calm even after hearing this news.
+G:Well it's my medical condition.

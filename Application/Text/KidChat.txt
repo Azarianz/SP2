@@ -1,7 +1,8 @@
-D:so this game secret agent..
-D:how do you play it?
-K:its easy all you have to do is try to find a way
-K:to silence the enemy without anyone knowing
-D:so whats marv and harry’s role?
-K:well one has to be the guard and
-K:the other will be the enemy
+D:So this secret agent game..
+D:How do you play it?
+K:It's easy all you have to do is 
+K:try to find a way to silence 
+K:the enemy without anyone knowing.
+D:So what's marv and harry’s role?
+K:Well one has to be the guard and
+K:the other will be the enemy.
