@@ -970,13 +970,10 @@ void LobbyScene::RenderInteraction()
 				{
 					isChatting = false;
 					isGossiping = false;
-					isTalking = false;
+					isTalking = true;
 					printGossip = false;
 					isDoneChat = false;
 					chatCounter = 0;
-					Application::ResetCursor();
-					camera.EnableControl();
-					Application::HideCursor();
 				}
 				break;
 			case 1:
@@ -1012,13 +1009,10 @@ void LobbyScene::RenderInteraction()
 				{
 					isChatting = false;
 					isGossiping = false;
-					isTalking = false;
+					isTalking = true;
 					printGossip = false;
 					isDoneChat = false;
 					chatCounter = 0;
-					Application::ResetCursor();
-					camera.EnableControl();
-					Application::HideCursor();
 				}
 				break;
 			case 2:
@@ -1054,13 +1048,10 @@ void LobbyScene::RenderInteraction()
 				{
 					isChatting = false;
 					isGossiping = false;
-					isTalking = false;
+					isTalking = true;
 					printGossip = false;
 					isDoneChat = false;
 					chatCounter = 0;
-					Application::ResetCursor();
-					camera.EnableControl();
-					Application::HideCursor();
 				}
 				break;
 			case 3:
@@ -1096,13 +1087,10 @@ void LobbyScene::RenderInteraction()
 				{
 					isChatting = false;
 					isGossiping = false;
-					isTalking = false;
+					isTalking = true;
 					printGossip = false;
 					isDoneChat = false;
 					chatCounter = 0;
-					Application::ResetCursor();
-					camera.EnableControl();
-					Application::HideCursor();
 				}
 				break;
 			case 4:
@@ -1138,13 +1126,10 @@ void LobbyScene::RenderInteraction()
 				{
 					isChatting = false;
 					isGossiping = false;
-					isTalking = false;
+					isTalking = true;
 					printGossip = false;
 					isDoneChat = false;
 					chatCounter = 0;
-					Application::ResetCursor();
-					camera.EnableControl();
-					Application::HideCursor();
 				}
 				break;
 			}
@@ -1220,26 +1205,20 @@ void LobbyScene::TalkButtons()
 	{
 			isChatting = false;
 			isGossiping = false;
-			isTalking = false;
+			isTalking = true;
 			isInterrogate = false;
 			printGossip = false;
 			printInterrogate = false;
-			Application::ResetCursor();
-			camera.EnableControl();
-			Application::HideCursor();
 	}
 	else if (printInterrogate)
 	{
 
 		isChatting = false;
 		isGossiping = false;
-		isTalking = false;
+		isTalking = true;
 		isInterrogate = false;
 		printGossip = false;
 		printInterrogate = false;
-		Application::ResetCursor();
-		camera.EnableControl();
-		Application::HideCursor();
 	}
 	else if (isGossiping) //if gossiping
 	{
@@ -1799,7 +1778,10 @@ void LobbyScene::Init()
 
 	//hide and reset the cursor
 	Application::ResetCursor();
-	Application::HideCursor();
+	if (!isTalking)
+	{
+		Application::HideCursor();
+	}
 }
 
 LobbyScene::LobbyScene()
@@ -2029,7 +2011,7 @@ void LobbyScene::Render()
 	{
 		ss.str("");
 		ss << screenTxt;
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 29, 10);
+		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 32, 10);
 	
 		ss.str("");
 		ss << culpritText;

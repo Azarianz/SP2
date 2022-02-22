@@ -625,7 +625,6 @@ void CorridorScene::Init()
 		meshList[GEO_CORRIDOR]->textureID = LoadTGA("Image//PolygonOffice_Texture_01_AMachine.tga");
 	}
 
-
 	Application::HideCursor();
 	Application::ResetCursor();
 }
