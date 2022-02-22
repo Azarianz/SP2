@@ -1799,7 +1799,7 @@ void LobbyScene::Init()
 
 	//hide and reset the cursor
 	Application::ResetCursor();
-	/*Application::HideCursor();*/
+	Application::HideCursor();
 }
 
 LobbyScene::LobbyScene()

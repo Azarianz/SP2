@@ -60,7 +60,7 @@ void Camera3::Update(double dt)
 			target.y = previousY;
 		}
 
-		/*Application::GetCursorPos(&cameraCurrentX, &cameraCurrentY);*/
+		Application::GetCursorPos(&cameraCurrentX, &cameraCurrentY);
 		//camera look controls
 		if ((cameraCurrentX != cameraPrevX) || (cameraCurrentY != cameraPrevY))
 		{
