@@ -1786,7 +1786,7 @@ void LobbyScene::Init()
 
 LobbyScene::LobbyScene()
 {
-	camera.Init(Vector3(-7, 1.5f, 30), Vector3(0, 1, 0), Vector3(0, 1, 0));
+	camera.Init(Vector3(-6, 1.6f, 30), Vector3(0, 1.5, 0), Vector3(0, 1, 0));
 }
 
 void LobbyScene::Update(double dt)

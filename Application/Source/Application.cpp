@@ -20,6 +20,7 @@ float Application::screenUISizeX;
 float Application::screenUISizeY;
 unsigned char Application::sceneState;
 unsigned char Application::roomState;
+bool Application::skipIntro;
 vector<string> Application::eList;
 int Application::playerGuesses = 3;
 
@@ -252,6 +253,7 @@ void Application::Init()
 	sceneState = STATE_MAINMENU_INIT;
 	prevState = STATE_LOBBY;
 	roomState = 0;
+	skipIntro = false;
 }
 
 void Application::Run()

@@ -226,7 +226,16 @@ void MainMenuScene::RenderMainMenu()
 
 			if (!lcButtonState && Application::IsMousePressed(0))
 			{
-				Application::sceneState = Application::STATE_MAINMENU_EXIT;
+				if (Application::skipIntro == true)
+				{
+					Application::sceneState = Application::STATE_MAINMENU_EXIT;
+				}
+				else
+				{
+					elapsedTime = 0;
+					menuState = INTRO;
+				}
+
 				lcButtonState = true;
 			}
 			else if (lcButtonState && !Application::IsMousePressed(0))
@@ -290,6 +299,42 @@ void MainMenuScene::RenderMainMenu()
 			}
 		}
 	}
+	else if (menuState == INTRO)
+	{
+		if (elapsedTime < 2)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "June 13 2018", Color(1, 1, 1), 2.5, 40, 30);
+		}
+		else if (elapsedTime < 5)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "It was a relaxing day on the cruise I boarded", Color(1, 1, 1), 2.5, 40, 30);
+		}
+		else if (elapsedTime < 8)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "Suddenly, a man fell over and died", Color(1, 1, 1), 2.5, 40, 30);
+		}
+		else if (elapsedTime < 11)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "it seemed likely that the man was poisened", Color(1, 1, 1), 2.5, 40, 30);
+		}
+		else if (elapsedTime < 14)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "I just happened to the only detective on the ship", Color(1, 1, 1), 2.5, 40, 30);
+		}
+		else if (elapsedTime < 17)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "and so begins my investigation", Color(1, 1, 1), 2.5, 40, 30);
+		}
+		else if (elapsedTime < 20)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "Title", Color(1, 1, 1), 4, 40, 30);
+		}
+		else
+		{
+			Application::skipIntro = true;
+			Application::sceneState = Application::STATE_MAINMENU_EXIT;
+		}
+	}
 	else if (menuState == HOWTOPLAY)
 	{
 		int yOffset = 0;
@@ -321,6 +366,7 @@ void MainMenuScene::RenderMainMenu()
 		RenderTextOnScreen(meshList[GEO_TEXT], "Fullscreen:", Color(1, 1, 1), 2, 36.5, 30);
 		RenderTextOnScreen(meshList[GEO_TEXT], "Change Resolution", Color(1, 1, 1), 2, 40, 25);
 		RenderTextOnScreen(meshList[GEO_TEXT], "Back", Color(1, 1, 1), 2, 40, 20);
+
 		if (Application::GetIsFullscreen())
 		{
 			RenderTextOnScreen(meshList[GEO_TEXT], "On", Color(1, 1, 1), 2, 50, 30);
@@ -692,23 +738,10 @@ void MainMenuScene::Init()
 
 void MainMenuScene::Update(double dt)
 {
-	if (Application::IsKeyPressed('1'))
+	if (menuState == INTRO)
 	{
-		glEnable(GL_CULL_FACE);
+		elapsedTime += dt;
 	}
-	else if (Application::IsKeyPressed('2'))
-	{
-		glDisable(GL_CULL_FACE);
-	}
-	else if (Application::IsKeyPressed('3'))
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL); //default fill mode
-	}
-	else if (Application::IsKeyPressed('4'))
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
-	}
-	camera.Update(dt);
 }
 
 void MainMenuScene::Render()
