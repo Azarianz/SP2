@@ -11,8 +11,6 @@ void Camera3::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 	Application::GetCursorPos(&cameraCurrentX, &cameraCurrentY);
 	Application::GetCursorPos(&cameraPrevX, &cameraPrevY);
 	enableControl = true;
-
-	rotateMod = 0;
 }
 
 void Camera3::Reset()
@@ -26,7 +24,6 @@ void Camera3::Update(double dt)
 		view = (target - position).Normalized();
 		right = view.Cross(up);
 
-		rotateMod = 50 * dt;
 		//camera move controls
 		if (Application::IsKeyPressed('A'))
 		{
@@ -61,12 +58,11 @@ void Camera3::Update(double dt)
 			float previousY = target.y;
 			target = position + view;
 			target.y = previousY;
-
 		}
 
-		Application::GetCursorPos(&cameraCurrentX, &cameraCurrentY);
+		/*Application::GetCursorPos(&cameraCurrentX, &cameraCurrentY);*/
 		//camera look controls
-		if ((cameraCurrentX != cameraPrevX) && (cameraCurrentY != cameraPrevY))
+		if ((cameraCurrentX != cameraPrevX) || (cameraCurrentY != cameraPrevY))
 		{
 			float xoffset = static_cast<float>(cameraCurrentX - cameraPrevX) * dt;
 			float yoffset = static_cast<float>(cameraCurrentY - cameraPrevY) * dt;

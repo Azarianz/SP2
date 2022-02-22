@@ -458,8 +458,8 @@ void CorridorScene::PrintEvidence()
 			QButtonState = false;
 		}
 
-		RenderTextOnScreen(meshList[GEO_TEXT], "<", Color(1, 1, 1), 4, 5, 20);
-		RenderTextOnScreen(meshList[GEO_TEXT], ">", Color(1, 1, 1), 4, 75, 20);
+		RenderTextOnScreen(meshList[GEO_TEXT], "<Q", Color(1, 1, 1), 5, 5, 20);
+		RenderTextOnScreen(meshList[GEO_TEXT], "E>", Color(1, 1, 1), 5, 71, 20);
 	}
 
 	const int i = 9;
@@ -875,7 +875,7 @@ void CorridorScene::Render()
 
 	RenderHUD();
 
-	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 0, 0);
+	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 4, 0);
 	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.x), Color(0, 1, 0), 4, 0, 0);
 	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.z), Color(0, 1, 0), 4, 0, 2);
 	//RenderMeshOnScreen(meshList[GEO_QUAD], 40, 30, 20, 10);

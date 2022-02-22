@@ -318,13 +318,7 @@ void Application::Run()
 			{
 				scene->Update(m_timer.getElapsedTime());
 				scene->Render();
-			}
-
-			//Swap buffers
-			glfwSwapBuffers(m_window);
-			//Get and organize events, like keyboard and mouse input, window resizing, etc...
-			glfwPollEvents();
-			m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.   
+			} 
 
 			if (IsKeyPressed(VK_ESCAPE))
 			{
@@ -335,6 +329,12 @@ void Application::Run()
 		{
 			//Game Over Code
 		}
+
+		//Swap buffers
+		glfwSwapBuffers(m_window);
+		//Get and organize events, like keyboard and mouse input, window resizing, etc...
+		glfwPollEvents();
+		m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.  
 	}
 	for (int i = 0; i < SCENE_NUM; ++i)
 	{

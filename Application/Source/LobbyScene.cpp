@@ -1160,10 +1160,11 @@ void LobbyScene::Interaction()
 
 void LobbyScene::TalkButtons()
 {
+	double x = Application::m_width / 10 / 3;
+	double y = Application::m_height / 10 / 4;
+
 	if (printGossip)
 	{
-		if (CreateButton(17.5, 7, 111, 16.5)) // close gossip text button
-		{
 			isChatting = false;
 			isGossiping = false;
 			isTalking = false;
@@ -1173,38 +1174,35 @@ void LobbyScene::TalkButtons()
 			Application::ResetCursor();
 			camera.EnableControl();
 			Application::HideCursor();
-		}
 	}
 	else if (printInterrogate)
 	{
-		if (CreateButton(17.5, 7, 111, 16.5)) // close gossip text button
-		{
-			isChatting = false;
-			isGossiping = false;
-			isTalking = false;
-			isInterrogate = false;
-			printGossip = false;
-			printInterrogate = false;
-			Application::ResetCursor();
-			camera.EnableControl();
-			Application::HideCursor();
-		}
+
+		isChatting = false;
+		isGossiping = false;
+		isTalking = false;
+		isInterrogate = false;
+		printGossip = false;
+		printInterrogate = false;
+		Application::ResetCursor();
+		camera.EnableControl();
+		Application::HideCursor();
 	}
 	else if (isGossiping) //if gossiping
 	{
-		if (CreateButton(17.5, 12.5, 64, 16.5)) //1st gossip char
+		if (CreateButton(y, y - y / 3, x + (x / 4) * 2, x - x / 1.6)) //1st gossip char
 		{
 			gossipId = 0;
 		}
-		else if (CreateButton(17.5, 12.5, 111, 64)) //2md gossip char
+		else if (CreateButton(y, y - y / 3, x / 1.6 + x * 2, x)) //2md gossip char
 		{
 			gossipId = 1;
 		}
-		else if (CreateButton(12.5, 7, 64, 16.5)) //2md gossip char
+		else if (CreateButton(y - y / 3, y - (y / 3) * 2, x + (x / 4) * 2, x - x / 1.6)) //2md gossip char
 		{
 			gossipId = 2;
 		}
-		else if (CreateButton(12.5, 7, 111, 64)) //2md gossip char
+		else if (CreateButton(y - y / 3, y - (y / 3) * 2, x / 1.6 + x * 2, x)) //2md gossip char
 		{
 			gossipId = 3;
 		}
@@ -1212,19 +1210,19 @@ void LobbyScene::TalkButtons()
 	}
 	else if (isInterrogate) //if interrogating
 	{
-		if (CreateButton(17.5, 12.5, 64, 16.5)) //1st gossip char
+		if (CreateButton(y, y - y / 3, x + (x / 4) * 2, x - x / 1.6)) //1st gossip char
 		{
 			interrogateId = 0;
 		}
-		else if (CreateButton(17.5, 12.5, 111, 64)) //2md gossip char
+		else if (CreateButton(y, y - y / 3, x / 1.6 + x * 2, x)) //2md gossip char
 		{
 			interrogateId = 1;
 		}
-		else if (CreateButton(12.5, 7, 64, 16.5)) //2md gossip char
+		else if (CreateButton(y - y / 3, y - (y / 3) * 2, x + (x / 4) * 2, x - x / 1.6)) //2md gossip char
 		{
 			interrogateId = 2;
 		}
-		else if (CreateButton(12.5, 7, 111, 64)) //2md gossip char
+		else if (CreateButton(y - y / 3, y - (y / 3) * 2, x / 1.6 + x * 2, x)) //2md gossip char
 		{
 			interrogateId = 3;
 		}
@@ -1232,27 +1230,24 @@ void LobbyScene::TalkButtons()
 	}
 	else if (isChatting) // Continue chat button
 	{
-		if (CreateButton(17.5, 7, 111, 16.5))
-		{
-			chatCounter++;
-		}
+		chatCounter++;
 	}
 	else
 	{
-		if (CreateButton(17.5, 12.5, 64, 16.5)) //Chatting button
+		if (CreateButton(y , y - y / 3, x + (x / 4) * 2, x - x / 1.6)) //Chatting button
 		{
 			isChatting = true;
 		}
-		else if (CreateButton(17.5, 12.5, 111, 64)) //Interrogate button
+		else if (CreateButton(y, y - y / 3 ,x / 1.6 + x * 2, x)) //Interrogate button
 		{
 			std::cout << "Interrogating..." << std::endl;
 			isInterrogate = true;
 		}
-		else if (CreateButton(12.5, 7, 64, 16.5)) //Gossip button
+		else if (CreateButton(y - y / 3, y - (y / 3) * 2, x + (x / 4) * 2, x - x / 1.6)) //Gossip button
 		{
 			isGossiping = true;
 		}
-		else if (CreateButton(12.5, 7, 111, 64)) // Leave button
+		else if (CreateButton(y - y / 3, y - (y / 3) * 2, x / 1.6 + x * 2, x)) // Leave button
 		{
 			isChatting = false;
 			isGossiping = false;
@@ -1559,8 +1554,8 @@ void LobbyScene::PrintEvidence()
 			QButtonState = false;
 		}
 
-		RenderTextOnScreen(meshList[GEO_TEXT], "<", Color(1, 1, 1), 4, 5, 20);
-		RenderTextOnScreen(meshList[GEO_TEXT], ">", Color(1, 1, 1), 4, 75, 20);
+		RenderTextOnScreen(meshList[GEO_TEXT], "<Q", Color(1, 1, 1), 5, 5, 20);
+		RenderTextOnScreen(meshList[GEO_TEXT], "E>", Color(1, 1, 1), 5, 71, 20);
 	}
 
 	const int i = 9;
@@ -1754,7 +1749,7 @@ void LobbyScene::Init()
 
 	//hide and reset the cursor
 	Application::ResetCursor();
-	Application::HideCursor();
+	/*Application::HideCursor();*/
 }
 
 LobbyScene::LobbyScene()
@@ -1764,6 +1759,8 @@ LobbyScene::LobbyScene()
 
 void LobbyScene::Update(double dt)
 {
+	camera.Update(dt);
+
 	if (Application::IsKeyPressed('1'))
 	{
 		glEnable(GL_CULL_FACE);
@@ -1780,7 +1777,6 @@ void LobbyScene::Update(double dt)
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
 	}
-	camera.Update(dt);
 
 	if (Application::IsKeyPressed('I'))
 		light[0].position.z -= (float)(LSPEED * dt);
@@ -1867,9 +1863,8 @@ void LobbyScene::Update(double dt)
 			Application::sceneState = Application::STATE_MINIGAME_INIT;
 		}
 
-		if (IsInElevatorInteraction() && Application::IsKeyPressed('E')) {
-			Application::ResetCursor();
-			Application::ShowCursor();
+		if (IsInElevatorInteraction() && Application::IsKeyPressed('E')) 
+		{
 			Application::sceneState = Application::STATE_CORRIDOR;
 		}
 	}

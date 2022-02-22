@@ -8,8 +8,6 @@ class Camera3 : public Camera
 private:
 	bool enableControl;
 public:
-	float rotateMod;
-
 	double cameraPrevX;
 	double cameraPrevY;
 	double cameraCurrentX;
