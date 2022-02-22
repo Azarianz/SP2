@@ -307,7 +307,8 @@ void MainMenuScene::RenderMainMenu()
 		}
 		else if (elapsedTime < 5)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "It was a relaxing day on the cruise I boarded", Color(1, 1, 1), 2.5, 40, 30);
+			RenderTextOnScreen(meshList[GEO_TEXT], "It was a relaxing day on the cruise I boarded.", Color(1, 1, 1), 2.5, 40, 30);
+			RenderTextOnScreen(meshList[GEO_TEXT], "I was taking a break from my job being a detective.", Color(1, 1, 1), 2.5, 40, 25);
 		}
 		else if (elapsedTime < 8)
 		{
@@ -315,11 +316,12 @@ void MainMenuScene::RenderMainMenu()
 		}
 		else if (elapsedTime < 11)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "it seemed likely that the man was poisened", Color(1, 1, 1), 2.5, 40, 30);
+			RenderTextOnScreen(meshList[GEO_TEXT], "it seemed likely that the man was poisoned", Color(1, 1, 1), 2.5, 40, 30);
 		}
 		else if (elapsedTime < 14)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "I just happened to the only detective on the ship", Color(1, 1, 1), 2.5, 40, 30);
+			RenderTextOnScreen(meshList[GEO_TEXT], "since I was on the ship", Color(1, 1, 1), 2.5, 40, 30);
+			RenderTextOnScreen(meshList[GEO_TEXT], "I was assigned to the case", Color(1, 1, 1), 2.5, 40, 25);
 		}
 		else if (elapsedTime < 17)
 		{
