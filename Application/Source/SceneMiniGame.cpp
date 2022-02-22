@@ -359,7 +359,7 @@ void SceneMiniGame::Update(double dt)
 	else if (miniGameState == MINIGAME)
 	{
 		timeElapsed += dt;
-		if ((timeElapsed > 3 * gameSpeed)&& (gameSpeed < 5))
+		if ((timeElapsed > 3 * gameSpeed)&& (gameSpeed < 4))
 		{
 			timeElapsed = 0;
 			gameSpeed += 0.2;

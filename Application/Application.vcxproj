@@ -165,7 +165,6 @@
     <ClCompile Include="Source\RoomScene.cpp" />
     <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\SceneMiniGame.cpp" />
-    <ClCompile Include="Source\SceneUI.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
   </ItemGroup>
@@ -187,7 +186,6 @@
     <ClInclude Include="Source\RoomScene.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneMiniGame.h" />
-    <ClInclude Include="Source\SceneUI.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
