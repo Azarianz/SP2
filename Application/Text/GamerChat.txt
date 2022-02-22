@@ -1,5 +1,5 @@
-D:why do you seem so worried and sad 
-A:I have depression
-D:are you ok to tell me why
-A:well I lost alot of money thinking
-A:I got the deal of a lifetime
+D:Why do you seem so worried and sad? 
+A:I have depression.
+D:Are you okay to tell me why?
+A:Well I lost alot of money thinking
+A:I got the deal of a lifetime.
