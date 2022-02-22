@@ -470,175 +470,178 @@ void RoomScene::PrintEvidence()
 
 void RoomScene::Init()
 {
-	// Init VBO here
-	Mtx44 projection;
+		// Init VBO here
+		Mtx44 projection;
 
-	projection.SetToPerspective(60.f, 4.f / 3.f, 0.1f, 1000.f);
-	projectionStack.LoadMatrix(projection);
+		projection.SetToPerspective(60.f, 4.f / 3.f, 0.1f, 1000.f);
+		projectionStack.LoadMatrix(projection);
 
-	glDisable(GL_CULL_FACE);
-	glEnable(GL_BLEND);
+		glDisable(GL_CULL_FACE);
+		glEnable(GL_BLEND);
 
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	light[0].type = Light::LIGHT_POINT;
-	light[0].position.Set(0, 20, 0);
-	light[0].color.Set(1, 1, 1);
-	light[0].power = 2;
-	light[0].kC = 1.f;
-	light[0].kL = 0.01f;
-	light[0].kQ = 0.001f;
-	light[0].cosCutoff = cos(Math::DegreeToRadian(45));
-	light[0].cosInner = cos(Math::DegreeToRadian(30));
-	light[0].exponent = 3.f;
-	light[0].spotDirection.Set(0.f, 1.f, 0.f);
+		light[0].type = Light::LIGHT_POINT;
+		light[0].position.Set(0, 20, 0);
+		light[0].color.Set(1, 1, 1);
+		light[0].power = 2;
+		light[0].kC = 1.f;
+		light[0].kL = 0.01f;
+		light[0].kQ = 0.001f;
+		light[0].cosCutoff = cos(Math::DegreeToRadian(45));
+		light[0].cosInner = cos(Math::DegreeToRadian(30));
+		light[0].exponent = 3.f;
+		light[0].spotDirection.Set(0.f, 1.f, 0.f);
 
-	//set background color
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		//set background color
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-	//generate default VAO for now
-	glGenVertexArrays(1, &m_vertexArrayID);
-	glBindVertexArray(m_vertexArrayID);
+		//generate default VAO for now
+		glGenVertexArrays(1, &m_vertexArrayID);
+		glBindVertexArray(m_vertexArrayID);
 
-	camera.Init(Vector3(0, 1.5f, 0), Vector3(5, 1.5f, 0), Vector3(0, 1, 0));
+		camera.Init(Vector3(0, 1.5f, 0), Vector3(5, 1.5f, 0), Vector3(0, 1, 0));
 
-	//load vertex and fragment shaders
-	m_programID = LoadShaders("Shader//Texture.vertexshader", "Shader//Text.fragmentshader");
+		//load vertex and fragment shaders
+		m_programID = LoadShaders("Shader//Texture.vertexshader", "Shader//Text.fragmentshader");
 
-	m_parameters[U_LIGHT0_TYPE] = glGetUniformLocation(m_programID, "lights[0].type");
-	m_parameters[U_LIGHT0_SPOTDIRECTION] = glGetUniformLocation(m_programID, "lights[0].spotDirection");
-	m_parameters[U_LIGHT0_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[0].cosCutoff");
-	m_parameters[U_LIGHT0_COSINNER] = glGetUniformLocation(m_programID, "lights[0].cosInner");
-	m_parameters[U_LIGHT0_EXPONENT] = glGetUniformLocation(m_programID, "lights[0].exponent");
-	m_parameters[U_NUMLIGHTS] = glGetUniformLocation(m_programID, "numLights");
-	m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
-	m_parameters[U_MODELVIEW] = glGetUniformLocation(m_programID, "MV");
-	m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE] = glGetUniformLocation(m_programID, "MV_inverse_transpose");
-	m_parameters[U_MATERIAL_AMBIENT] = glGetUniformLocation(m_programID, "material.kAmbient");
-	m_parameters[U_MATERIAL_DIFFUSE] = glGetUniformLocation(m_programID, "material.kDiffuse");
-	m_parameters[U_MATERIAL_SPECULAR] = glGetUniformLocation(m_programID, "material.kSpecular");
-	m_parameters[U_MATERIAL_SHININESS] = glGetUniformLocation(m_programID, "material.kShininess");
-	m_parameters[U_LIGHT0_POSITION] = glGetUniformLocation(m_programID, "lights[0].position_cameraspace");
-	m_parameters[U_LIGHT0_COLOR] = glGetUniformLocation(m_programID, "lights[0].color");
-	m_parameters[U_LIGHT0_POWER] = glGetUniformLocation(m_programID, "lights[0].power");
-	m_parameters[U_LIGHT0_KC] = glGetUniformLocation(m_programID, "lights[0].kC");
-	m_parameters[U_LIGHT0_KL] = glGetUniformLocation(m_programID, "lights[0].kL");
-	m_parameters[U_LIGHT0_KQ] = glGetUniformLocation(m_programID, "lights[0].kQ");
-	m_parameters[U_LIGHTENABLED] = glGetUniformLocation(m_programID, "lightEnabled");
+		m_parameters[U_LIGHT0_TYPE] = glGetUniformLocation(m_programID, "lights[0].type");
+		m_parameters[U_LIGHT0_SPOTDIRECTION] = glGetUniformLocation(m_programID, "lights[0].spotDirection");
+		m_parameters[U_LIGHT0_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[0].cosCutoff");
+		m_parameters[U_LIGHT0_COSINNER] = glGetUniformLocation(m_programID, "lights[0].cosInner");
+		m_parameters[U_LIGHT0_EXPONENT] = glGetUniformLocation(m_programID, "lights[0].exponent");
+		m_parameters[U_NUMLIGHTS] = glGetUniformLocation(m_programID, "numLights");
+		m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
+		m_parameters[U_MODELVIEW] = glGetUniformLocation(m_programID, "MV");
+		m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE] = glGetUniformLocation(m_programID, "MV_inverse_transpose");
+		m_parameters[U_MATERIAL_AMBIENT] = glGetUniformLocation(m_programID, "material.kAmbient");
+		m_parameters[U_MATERIAL_DIFFUSE] = glGetUniformLocation(m_programID, "material.kDiffuse");
+		m_parameters[U_MATERIAL_SPECULAR] = glGetUniformLocation(m_programID, "material.kSpecular");
+		m_parameters[U_MATERIAL_SHININESS] = glGetUniformLocation(m_programID, "material.kShininess");
+		m_parameters[U_LIGHT0_POSITION] = glGetUniformLocation(m_programID, "lights[0].position_cameraspace");
+		m_parameters[U_LIGHT0_COLOR] = glGetUniformLocation(m_programID, "lights[0].color");
+		m_parameters[U_LIGHT0_POWER] = glGetUniformLocation(m_programID, "lights[0].power");
+		m_parameters[U_LIGHT0_KC] = glGetUniformLocation(m_programID, "lights[0].kC");
+		m_parameters[U_LIGHT0_KL] = glGetUniformLocation(m_programID, "lights[0].kL");
+		m_parameters[U_LIGHT0_KQ] = glGetUniformLocation(m_programID, "lights[0].kQ");
+		m_parameters[U_LIGHTENABLED] = glGetUniformLocation(m_programID, "lightEnabled");
 
-	// Get a handle for our "colorTexture" uniform
-	m_parameters[U_COLOR_TEXTURE_ENABLED] = glGetUniformLocation(m_programID, "colorTextureEnabled");
-	m_parameters[U_COLOR_TEXTURE] = glGetUniformLocation(m_programID, "colorTexture");
+		// Get a handle for our "colorTexture" uniform
+		m_parameters[U_COLOR_TEXTURE_ENABLED] = glGetUniformLocation(m_programID, "colorTextureEnabled");
+		m_parameters[U_COLOR_TEXTURE] = glGetUniformLocation(m_programID, "colorTexture");
 
-	// Get a handle for our "textColor" uniform
-	m_parameters[U_TEXT_ENABLED] = glGetUniformLocation(m_programID, "textEnabled");
-	m_parameters[U_TEXT_COLOR] = glGetUniformLocation(m_programID, "textColor");
+		// Get a handle for our "textColor" uniform
+		m_parameters[U_TEXT_ENABLED] = glGetUniformLocation(m_programID, "textEnabled");
+		m_parameters[U_TEXT_COLOR] = glGetUniformLocation(m_programID, "textColor");
 
-	//use our shader
-	glUseProgram(m_programID);
+		//use our shader
+		glUseProgram(m_programID);
 
-	// Make sure you pass uniform parameters after glUseProgram()
-	glUniform1i(m_parameters[U_NUMLIGHTS], 1);
-	//light[0].type = Light::LIGHT_DIRECTIONAL;
-	glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	glUniform3fv(m_parameters[U_LIGHT0_COLOR], 1, &light[0].color.r);
-	glUniform1f(m_parameters[U_LIGHT0_POWER], light[0].power);
+		// Make sure you pass uniform parameters after glUseProgram()
+		glUniform1i(m_parameters[U_NUMLIGHTS], 1);
+		//light[0].type = Light::LIGHT_DIRECTIONAL;
+		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
+		glUniform3fv(m_parameters[U_LIGHT0_COLOR], 1, &light[0].color.r);
+		glUniform1f(m_parameters[U_LIGHT0_POWER], light[0].power);
 
-	//light[0].type = Light::LIGHT_POINT;
-	glUniform1f(m_parameters[U_LIGHT0_KC], light[0].kC);
-	glUniform1f(m_parameters[U_LIGHT0_KL], light[0].kL);
-	glUniform1f(m_parameters[U_LIGHT0_KQ], light[0].kQ);
+		//light[0].type = Light::LIGHT_POINT;
+		glUniform1f(m_parameters[U_LIGHT0_KC], light[0].kC);
+		glUniform1f(m_parameters[U_LIGHT0_KL], light[0].kL);
+		glUniform1f(m_parameters[U_LIGHT0_KQ], light[0].kQ);
 
-	//light[0].type = Light::LIGHT_SPOT;
-	glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF], light[0].cosCutoff);
-	glUniform1f(m_parameters[U_LIGHT0_COSINNER], light[0].cosInner);
-	glUniform1f(m_parameters[U_LIGHT0_EXPONENT], light[0].exponent);
+		//light[0].type = Light::LIGHT_SPOT;
+		glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF], light[0].cosCutoff);
+		glUniform1f(m_parameters[U_LIGHT0_COSINNER], light[0].cosInner);
+		glUniform1f(m_parameters[U_LIGHT0_EXPONENT], light[0].exponent);
 
-	//Enable depth test
-	glEnable(GL_DEPTH_TEST);
+		//Enable depth test
+		glEnable(GL_DEPTH_TEST);
 
-	//Get a handle for our "MVP" uniform
-	m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
+		//Get a handle for our "MVP" uniform
+		m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
 
-	Mesh::SetMaterialLoc(m_parameters[U_MATERIAL_AMBIENT],
-		m_parameters[U_MATERIAL_DIFFUSE],
-		m_parameters[U_MATERIAL_SPECULAR],
-		m_parameters[U_MATERIAL_SHININESS]);
+		Mesh::SetMaterialLoc(m_parameters[U_MATERIAL_AMBIENT],
+			m_parameters[U_MATERIAL_DIFFUSE],
+			m_parameters[U_MATERIAL_SPECULAR],
+			m_parameters[U_MATERIAL_SHININESS]);
 
-	meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("quad", Color(0.5, 0.5, 0.5), 1.f);
+		meshList[GEO_QUAD] = MeshBuilder::GenerateQuad("quad", Color(0.5, 0.5, 0.5), 1.f);
 
-	meshList[GEO_QUAD_BUTTON] = MeshBuilder::GenerateQuad("quad", Color(0, 0, 0), 1.f);
+		meshList[GEO_QUAD_BUTTON] = MeshBuilder::GenerateQuad("quad", Color(0, 0, 0), 1.f);
 
-	meshList[GEO_SUN] = MeshBuilder::GenerateSphere("Sphere", Color(1.0, 1.0, 1.0), 20, 20, 0.5);
+		meshList[GEO_SUN] = MeshBuilder::GenerateSphere("Sphere", Color(1.0, 1.0, 1.0), 20, 20, 0.5);
 
-	meshList[GEO_SPHERE] = MeshBuilder::GenerateSphere("Sphere", Color(0.5, 1.0, 1.0), 20, 20, 1);
-	meshList[GEO_SPHERE]->textureID = LoadTGA("Image//color.tga");
+		meshList[GEO_SPHERE] = MeshBuilder::GenerateSphere("Sphere", Color(0.5, 1.0, 1.0), 20, 20, 1);
+		meshList[GEO_SPHERE]->textureID = LoadTGA("Image//color.tga");
 
-	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference");
+		meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference");
 
-	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
-	meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
+		meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
+		meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
 
 
-	//evidence
-	{
-		meshList[GEO_PILLS] = MeshBuilder::GenerateOBJMTL("Pills", "OBJ//pill.obj", "OBJ//pill.mtl");
-		meshList[GEO_PILLS]->textureID = LoadTGA("Image//PolygonCity_Texture_02_B.tga");
-	}
+		//evidence
+		{
+			meshList[GEO_PILLS] = MeshBuilder::GenerateOBJMTL("Pills", "OBJ//pill.obj", "OBJ//pill.mtl");
+			meshList[GEO_PILLS]->textureID = LoadTGA("Image//PolygonCity_Texture_02_B.tga");
+		}
 
-	//Skybox
-	{
-		meshList[GEO_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1), 1.f);
-		meshList[GEO_FRONT]->textureID = LoadTGA("Image//front.tga");
+		//Skybox
+		{
+			meshList[GEO_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1), 1.f);
+			meshList[GEO_FRONT]->textureID = LoadTGA("Image//front.tga");
 
-		meshList[GEO_BACK] = MeshBuilder::GenerateQuad("back", Color(1, 1, 1), 1.f);
-		meshList[GEO_BACK]->textureID = LoadTGA("Image//back.tga");
+			meshList[GEO_BACK] = MeshBuilder::GenerateQuad("back", Color(1, 1, 1), 1.f);
+			meshList[GEO_BACK]->textureID = LoadTGA("Image//back.tga");
 
-		meshList[GEO_LEFT] = MeshBuilder::GenerateQuad("left", Color(1, 1, 1), 1.f);
-		meshList[GEO_LEFT]->textureID = LoadTGA("Image//left.tga");
+			meshList[GEO_LEFT] = MeshBuilder::GenerateQuad("left", Color(1, 1, 1), 1.f);
+			meshList[GEO_LEFT]->textureID = LoadTGA("Image//left.tga");
 
-		meshList[GEO_RIGHT] = MeshBuilder::GenerateQuad("right", Color(1, 1, 1), 1.f);
-		meshList[GEO_RIGHT]->textureID = LoadTGA("Image//right.tga");
+			meshList[GEO_RIGHT] = MeshBuilder::GenerateQuad("right", Color(1, 1, 1), 1.f);
+			meshList[GEO_RIGHT]->textureID = LoadTGA("Image//right.tga");
 
-		meshList[GEO_TOP] = MeshBuilder::GenerateQuad("top", Color(1, 1, 1), 1.f);
-		meshList[GEO_TOP]->textureID = LoadTGA("Image//top.tga");
+			meshList[GEO_TOP] = MeshBuilder::GenerateQuad("top", Color(1, 1, 1), 1.f);
+			meshList[GEO_TOP]->textureID = LoadTGA("Image//top.tga");
 
-		meshList[GEO_BOTTOM] = MeshBuilder::GenerateQuad("bottom", Color(1, 1, 1), 1.f);
-		meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//bottom.tga");
-	}
+			meshList[GEO_BOTTOM] = MeshBuilder::GenerateQuad("bottom", Color(1, 1, 1), 1.f);
+			meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//bottom.tga");
+		}
 
-	//Main Characters
-	{
-		meshList[GEO_GUARD] = MeshBuilder::GenerateOBJMTL("guard", "OBJ//Guard.obj", "OBJ//Guard.mtl");
-		meshList[GEO_GUARD]->textureID = LoadTGA("Image//PolygonOffice_Texture_01_A.tga");
+		//Main Characters
+		{
+			meshList[GEO_GUARD] = MeshBuilder::GenerateOBJMTL("guard", "OBJ//Guard.obj", "OBJ//Guard.mtl");
+			meshList[GEO_GUARD]->textureID = LoadTGA("Image//PolygonOffice_Texture_01_A.tga");
 
-		meshList[GEO_GAMER] = MeshBuilder::GenerateOBJMTL("gamer", "OBJ//Gamer.obj", "OBJ//Gamer.mtl");
-		meshList[GEO_GAMER]->textureID = LoadTGA("Image//PolygonCity_Texture_03_B.tga");
+			meshList[GEO_GAMER] = MeshBuilder::GenerateOBJMTL("gamer", "OBJ//Gamer.obj", "OBJ//Gamer.mtl");
+			meshList[GEO_GAMER]->textureID = LoadTGA("Image//PolygonCity_Texture_03_B.tga");
 
-		meshList[GEO_JANITOR] = MeshBuilder::GenerateOBJMTL("janitor", "OBJ//Janitor.obj", "OBJ//Janitor.mtl");
-		meshList[GEO_JANITOR]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_C.tga");
+			meshList[GEO_JANITOR] = MeshBuilder::GenerateOBJMTL("janitor", "OBJ//Janitor.obj", "OBJ//Janitor.mtl");
+			meshList[GEO_JANITOR]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_C.tga");
 
-		meshList[GEO_OLDMAN] = MeshBuilder::GenerateOBJMTL("Old Man", "OBJ//OldMan.obj", "OBJ//OldMan.mtl");
-		meshList[GEO_OLDMAN]->textureID = LoadTGA("Image//PolygonCity_Texture_01_C.tga");
+			meshList[GEO_OLDMAN] = MeshBuilder::GenerateOBJMTL("Old Man", "OBJ//OldMan.obj", "OBJ//OldMan.mtl");
+			meshList[GEO_OLDMAN]->textureID = LoadTGA("Image//PolygonCity_Texture_01_C.tga");
 
-		meshList[GEO_KID] = MeshBuilder::GenerateOBJMTL("Kid", "OBJ//Kid.obj", "OBJ//Kid.mtl");
-		meshList[GEO_KID]->textureID = LoadTGA("Image//PolygonKids_Texture_01_A.tga");
-	}
+			meshList[GEO_KID] = MeshBuilder::GenerateOBJMTL("Kid", "OBJ//Kid.obj", "OBJ//Kid.mtl");
+			meshList[GEO_KID]->textureID = LoadTGA("Image//PolygonKids_Texture_01_A.tga");
+		}
 
-	//Room Stage + Assets
-	{
-		meshList[GEO_ROOML] = MeshBuilder::GenerateOBJMTL("Left Room Layout", "OBJ//ship_roomL.obj", "OBJ//ship_roomL.mtl");
-		meshList[GEO_ROOML]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_A.tga");
-		meshList[GEO_ROOMR] = MeshBuilder::GenerateOBJMTL("Right Room Layout", "OBJ//ship_roomR.obj", "OBJ//ship_roomR.mtl");
-		meshList[GEO_ROOMR]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_A.tga");
+		//Room Stage + Assets
+		{
+			meshList[GEO_ROOML] = MeshBuilder::GenerateOBJMTL("Left Room Layout", "OBJ//ship_roomL.obj", "OBJ//ship_roomL.mtl");
+			meshList[GEO_ROOML]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_A.tga");
+			meshList[GEO_ROOMR] = MeshBuilder::GenerateOBJMTL("Right Room Layout", "OBJ//ship_roomR.obj", "OBJ//ship_roomR.mtl");
+			meshList[GEO_ROOMR]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_A.tga");
 
-		//Room Furnitures
-		meshList[GEO_ROOM1_FURNITURE] = MeshBuilder::GenerateOBJMTL("Left1 Furniture", "OBJ//ship_room1_furniture.obj", "OBJ//ship_room1_furniture.mtl");
-		meshList[GEO_ROOM1_FURNITURE]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_A.tga");
-		meshList[GEO_ROOM2_FURNITURE] = MeshBuilder::GenerateOBJMTL("Right1 Furniture", "OBJ//ship_room2_furniture.obj", "OBJ//ship_room2_furniture.mtl");
-		meshList[GEO_ROOM2_FURNITURE]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_A.tga");
-	}
+			//Room Furnitures
+			meshList[GEO_ROOM1_FURNITURE] = MeshBuilder::GenerateOBJMTL("Left1 Furniture", "OBJ//ship_room1_furniture.obj", "OBJ//ship_room1_furniture.mtl");
+			meshList[GEO_ROOM1_FURNITURE]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_A.tga");
+			meshList[GEO_ROOM2_FURNITURE] = MeshBuilder::GenerateOBJMTL("Right1 Furniture", "OBJ//ship_room2_furniture.obj", "OBJ//ship_room2_furniture.mtl");
+			meshList[GEO_ROOM2_FURNITURE]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_A.tga");
+		}
 
+		//hide and reset the cursor
+		Application::ResetCursor();
+		Application::HideCursor();
 }
 
 void RoomScene::Update(double dt)

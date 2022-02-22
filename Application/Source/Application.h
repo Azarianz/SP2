@@ -109,6 +109,11 @@ private:
 
 	//init some variables
 	static bool IsFullscreen;
+	unsigned char prevState;
+
+	//some resolution variables for minigame
+	unsigned prevWindowWidth;
+	unsigned prevWindowHeight;
 };
 
 #endif

@@ -250,6 +250,7 @@ void Application::Init()
 
 	//init some game variables
 	sceneState = STATE_MAINMENU_INIT;
+	prevState = STATE_LOBBY;
 	roomState = 0;
 }
 
@@ -270,8 +271,14 @@ void Application::Run()
 	{
 		if (sceneState != STATE_RUN_SCENE)
 		{
+			if((sceneState != STATE_MAINMENU_EXIT) && (sceneState != STATE_MAINMENU_INIT))
+			{
+				prevState = sceneState;
+			}
+
 			//Game
-			if (playerGuesses > 0) {
+			if (playerGuesses > 0) 
+			{
 				if (sceneState == STATE_MAINMENU_INIT)
 				{
 					if (sceneList[SCENE_MAINMENU] == nullptr)
@@ -288,6 +295,10 @@ void Application::Run()
 						scene = sceneList[SCENE_MAINMENU];
 						sceneState = STATE_RUN_SCENE;
 					}
+					else
+					{
+						sceneState = STATE_RUN_SCENE;
+					}
 				}
 				else if (sceneState == STATE_MAINMENU_EXIT)
 				{
@@ -296,7 +307,7 @@ void Application::Run()
 						delete sceneList[SCENE_MAINMENU];
 						sceneList[SCENE_MAINMENU] = nullptr;
 					}
-					sceneState = STATE_LOBBY;
+					sceneState = prevState;
 				}
 				else if (sceneState == STATE_LOBBY)
 				{
@@ -314,7 +325,8 @@ void Application::Run()
 						scene = sceneList[SCENE_LOBBY];
 						sceneState = STATE_RUN_SCENE;
 					}
-					else {
+					else 
+					{
 						sceneList[SCENE_LOBBY]->Init();
 						scene = sceneList[SCENE_LOBBY];
 						sceneState = STATE_RUN_SCENE;
@@ -324,13 +336,10 @@ void Application::Run()
 				{
 					if (sceneList[SCENE_MINIGAME] == nullptr)
 					{
+						prevWindowWidth = m_width;
+						prevWindowHeight = m_height;
 						sceneList[SCENE_MINIGAME] = new SceneMiniGame();
-
-						glfwDestroyWindow(m_window);
-						m_width = 800;
-						m_height = 600;
-						m_window = glfwCreateWindow(m_width, m_height, "Test Window", NULL, NULL);
-						glfwMakeContextCurrent(m_window);
+						SetResolution(800, 600);
 
 						sceneList[SCENE_MINIGAME]->Init();
 						scene = sceneList[SCENE_MINIGAME];
@@ -341,11 +350,7 @@ void Application::Run()
 				{
 					if (sceneList[SCENE_MINIGAME] != nullptr)
 					{
-						glfwDestroyWindow(m_window);
-						m_width = 1280;
-						m_height = 720;
-						m_window = glfwCreateWindow(m_width, m_height, "Test Window", NULL, NULL);
-						glfwMakeContextCurrent(m_window);
+						SetResolution(prevWindowWidth, prevWindowHeight);
 
 						sceneList[SCENE_MINIGAME]->Exit();
 						delete sceneList[SCENE_MINIGAME];
@@ -369,7 +374,8 @@ void Application::Run()
 						scene = sceneList[SCENE_CORRIDOR];
 						sceneState = STATE_RUN_SCENE;
 					}
-					else {
+					else 
+					{
 						sceneList[SCENE_CORRIDOR]->Init();
 						scene = sceneList[SCENE_CORRIDOR];
 						sceneState = STATE_RUN_SCENE;
@@ -380,6 +386,12 @@ void Application::Run()
 					if (sceneList[SCENE_ROOM] == nullptr)
 					{
 						sceneList[SCENE_ROOM] = new RoomScene();
+						sceneList[SCENE_ROOM]->Init();
+						scene = sceneList[SCENE_ROOM];
+						sceneState = STATE_RUN_SCENE;
+					}
+					else
+					{
 						sceneList[SCENE_ROOM]->Init();
 						scene = sceneList[SCENE_ROOM];
 						sceneState = STATE_RUN_SCENE;
@@ -461,6 +473,17 @@ void Application::Run()
 		{
 			scene->Update(m_timer.getElapsedTime());
 			scene->Render();
+
+			static bool isEscapePressed = false;
+			if (IsKeyPressed(VK_ESCAPE) && !isEscapePressed && prevState != STATE_MINIGAME_INIT)
+			{
+				isEscapePressed = true;
+				sceneState = STATE_MAINMENU_INIT;
+			}
+			else if (!IsKeyPressed(VK_ESCAPE) && isEscapePressed)
+			{
+				isEscapePressed = false;
+			}
 		}
 
 		//Swap buffers
@@ -468,11 +491,6 @@ void Application::Run()
 		//Get and organize events, like keyboard and mouse input, window resizing, etc...
 		glfwPollEvents();
 		m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.   
-
-		if (IsKeyPressed(VK_ESCAPE))
-		{
-			ExitGame();
-		}
 
 	}
 	for (int i = 0; i < SCENE_NUM; ++i)
