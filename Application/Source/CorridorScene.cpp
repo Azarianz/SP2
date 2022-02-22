@@ -734,21 +734,21 @@ void CorridorScene::Update(double dt)
 			Application::ResetCursor();
 			Application::ShowCursor();
 			Application::sceneState = Application::STATE_ROOM_INIT;
-			Application::roomState = Application::ROOM4;
+			Application::roomState = Application::ROOM1;
 		}
 
 		if ((IsInDoor2Interaction()) && Application::IsKeyPressed('E')) {
 			Application::ResetCursor();
 			Application::ShowCursor();
 			Application::sceneState = Application::STATE_ROOM_INIT;
-			Application::roomState = Application::ROOM4;
+			Application::roomState = Application::ROOM2;
 		}
 
 		if ((IsInDoor3Interaction()) && Application::IsKeyPressed('E')) {
 			Application::ResetCursor();
 			Application::ShowCursor();
 			Application::sceneState = Application::STATE_ROOM_INIT;
-			Application::roomState = Application::ROOM4;
+			Application::roomState = Application::ROOM3;
 		}
 
 		if ((IsInDoor4Interaction()) && Application::IsKeyPressed('E')) {
