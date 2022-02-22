@@ -188,6 +188,28 @@ void CorridorScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color
 	glEnable(GL_DEPTH_TEST);
 }
 
+void CorridorScene::InspectEvidenceOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float rotatez, float rotatex)
+{
+	glDisable(GL_DEPTH_TEST);
+	Mtx44 ortho;
+	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
+	projectionStack.PushMatrix();
+	projectionStack.LoadMatrix(ortho);
+	viewStack.PushMatrix();
+	viewStack.LoadIdentity(); //No need camera for ortho mode
+	modelStack.PushMatrix();
+	modelStack.LoadIdentity(); //Reset modelStack
+	modelStack.Translate(x, y, 0);
+	modelStack.Scale(sizex, sizey, 1);
+	modelStack.Rotate(rotatex, 1, 0, 0);
+	modelStack.Rotate(rotatez, 0, 1, 0);
+	RenderMesh(mesh, false);
+	projectionStack.PopMatrix();
+	viewStack.PopMatrix();
+	modelStack.PopMatrix();
+	glEnable(GL_DEPTH_TEST);
+}
+
 bool CorridorScene::CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft)
 {
 	//Converting Viewport space to UI space
@@ -466,6 +488,64 @@ void CorridorScene::PrintEvidence()
 	int arrag[i];
 }
 
+void CorridorScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ) {
+	//inspect
+	{
+		if (Pickup == false)
+		{
+			RenderEntity(entity, true);
+		}
+
+		cout << "Entity X:" << entity->getTransform().x << endl;
+		cout << "Entity Z:" << entity->getTransform().z << endl;
+
+		if (camera.position.x >= entity->getTransform().x - rangeX
+			&& camera.position.x <= entity->getTransform().x + rangeX
+			&& camera.position.z >= entity->getTransform().z - rangeZ
+			&& camera.position.z <= entity->getTransform().z + rangeZ)
+		{
+			if (!Inspect)
+			{
+				RenderTextOnScreen(meshList[GEO_TEXT], "Press F To Inspect", Color(1, 1, 1), 4, 25, 6);
+
+				if (Application::IsKeyPressed('F') && (Interacted == false))
+				{
+					Inspect = true;
+					Interacted = true;
+					Pickup = true;
+					camera.DisableControl();
+
+					return;
+				}
+				else if (!Application::IsKeyPressed('F') && (Interacted == true))
+				{
+					Interacted = false;
+				}
+			}
+			else if (Inspect)
+			{
+				if (Application::IsKeyPressed('F') && (Interacted == false))
+				{
+					text = false;
+					Inspect = false;
+					Pickup = false;
+					Interacted = true;
+					camera.EnableControl();
+				}
+				else if (!Application::IsKeyPressed('F') && (Interacted == true))
+				{
+					Interacted = false;
+				}
+
+				RenderTextOnScreen(meshList[GEO_TEXT], "Press F To Stop Inspecting", Color(1, 1, 1), 3, 27, 8);
+				RenderTextOnScreen(meshList[GEO_TEXT], "Arrow Keys To Turn The Object", Color(1, 1, 1), 1.5, 60, 30);
+
+				InspectEvidenceOnScreen(entity->getMesh(), 40, 15, 20, 20, rotateZ, rotateX);
+			}
+		}
+	}
+}
+
 CorridorScene::CorridorScene() 
 {
 	camera.Init(Vector3(0, 1.5f, 0), Vector3(5, 1.5f, 0), Vector3(0, 1, 0));
@@ -601,22 +681,11 @@ void CorridorScene::Init()
 		meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//bottom.tga");
 	}
 
-	//Main Characters
+	//evidence
 	{
-		meshList[GEO_GUARD] = MeshBuilder::GenerateOBJMTL("guard", "OBJ//Guard.obj", "OBJ//Guard.mtl");
-		meshList[GEO_GUARD]->textureID = LoadTGA("Image//PolygonOffice_Texture_01_A.tga");
-
-		meshList[GEO_GAMER] = MeshBuilder::GenerateOBJMTL("gamer", "OBJ//Gamer.obj", "OBJ//Gamer.mtl");
-		meshList[GEO_GAMER]->textureID = LoadTGA("Image//PolygonCity_Texture_03_B.tga");
-
-		meshList[GEO_JANITOR] = MeshBuilder::GenerateOBJMTL("janitor", "OBJ//Janitor.obj", "OBJ//Janitor.mtl");
-		meshList[GEO_JANITOR]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_C.tga");
-
-		meshList[GEO_OLDMAN] = MeshBuilder::GenerateOBJMTL("Old Man", "OBJ//OldMan.obj", "OBJ//OldMan.mtl");
-		meshList[GEO_OLDMAN]->textureID = LoadTGA("Image//PolygonCity_Texture_01_C.tga");
-
-		meshList[GEO_KID] = MeshBuilder::GenerateOBJMTL("Kid", "OBJ//Kid.obj", "OBJ//Kid.mtl");
-		meshList[GEO_KID]->textureID = LoadTGA("Image//PolygonKids_Texture_01_A.tga");
+		entityList[ENTITY_CLEANER_CART].setMesh(MeshBuilder::GenerateOBJMTL("cleaner cart", "OBJ//evidence//cleaning_cart.obj", "OBJ//evidence//cleaning_cart.mtl"));
+		entityList[ENTITY_CLEANER_CART].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_03_B.tga");
+		entityList[ENTITY_CLEANER_CART].setTransform(Vector3(0, 0, -20)); //transform by default is 0,0,0
 	}
 
 	//Corridor Stage + Assets
@@ -705,6 +774,27 @@ void CorridorScene::Update(double dt)
 			std::cout << "RBUTTON UP" << std::endl;
 		}
 
+	}
+
+	//Rotate Inspect Item
+	{
+		//rotate item
+		if (Application::IsKeyPressed(VK_UP))
+		{
+			rotateX += 90 * dt;
+		}
+		else if (Application::IsKeyPressed(VK_DOWN))
+		{
+			rotateX -= 90 * dt;
+		}
+		if (Application::IsKeyPressed(VK_LEFT))
+		{
+			rotateZ += 110 * dt;
+		}
+		else if (Application::IsKeyPressed(VK_RIGHT))
+		{
+			rotateZ -= 110 * dt;
+		}
 	}
 
 	//Journal
@@ -822,39 +912,6 @@ void CorridorScene::Render()
 	RenderSkybox();
 	modelStack.PopMatrix();
 
-	//Main Characters
-	{
-		modelStack.PushMatrix();
-		modelStack.Translate(0, 0, -2);
-		modelStack.Scale(1, 1, 1);
-		RenderMesh(meshList[GEO_GUARD], false);
-		modelStack.PopMatrix();
-
-		modelStack.PushMatrix();
-		modelStack.Translate(2, 0, -2);
-		modelStack.Scale(1, 1, 1);
-		RenderMesh(meshList[GEO_GAMER], false);
-		modelStack.PopMatrix();
-
-		modelStack.PushMatrix();
-		modelStack.Translate(4, 0, -2);
-		modelStack.Scale(1, 1, 1);
-		RenderMesh(meshList[GEO_KID], false);
-		modelStack.PopMatrix();
-
-		modelStack.PushMatrix();
-		modelStack.Translate(-2, 0, -2);
-		modelStack.Scale(1, 1, 1);
-		RenderMesh(meshList[GEO_JANITOR], false);
-		modelStack.PopMatrix();
-
-		modelStack.PushMatrix();
-		modelStack.Translate(-4, 0, -2);
-		modelStack.Scale(1, 1, 1);
-		RenderMesh(meshList[GEO_OLDMAN], false);
-		modelStack.PopMatrix();
-	}
-
 	//Stage + Assets
 	{
 		modelStack.PushMatrix();
@@ -862,6 +919,8 @@ void CorridorScene::Render()
 		modelStack.Scale(1, 1, 1);
 		RenderMesh(meshList[GEO_CORRIDOR], true);
 		modelStack.PopMatrix();
+
+		RenderEvidenceObject(&entityList[ENTITY_CLEANER_CART], 1, 1);
 	}
 	
 	if (IsInElevatorInteraction() || 

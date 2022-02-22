@@ -48,12 +48,19 @@ private:
 
 	enum ENTITY_TYPE
 	{
+		//Characters
 		ENTITY_GUARD,
 		ENTITY_JANITOR,
 		ENTITY_GAMER,
 		ENTITY_KID,
 		ENTITY_OLDMAN,
+		//Minigame
 		ENTITY_MACHINE,
+		//Evidence
+		ENTITY_NOTES,
+		ENTITY_ALCHOHOL_BOTTLE,
+		ENTITY_BOTTLEMIX,
+		ENTITY_KNIFE,
 		NUM_ENTITY
 	};
 
@@ -125,12 +132,20 @@ private:
 	char journalPage;
 	float rotateSkybox;
 	int evidencePage = 1;
+	bool Pickup = false;
+	bool Interacted = false;
+	bool text = false;
+	float rotateX = 0;
+	float rotateZ = 0;
+	bool Inspect;
 
 	void RenderMesh(Mesh* mesh, bool enableLight);
 	void RenderEntity(Entity* entity, bool enableLight);
 	void RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey);
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
+	void RenderEvidenceObject(Entity* entity, float rangeX, float rangeY);
+	void InspectEvidenceOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float rotatez, float rotatex);
 	void RenderSkybox();
 	bool CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft);
 	void RenderPressEToInteract();

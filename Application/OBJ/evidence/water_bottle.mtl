@@ -1,0 +1,11 @@
+# Blender MTL File: 'hotel_lobby.blend'
+# Material Count: 2
+
+newmtl lambert1.003
+Ns 179.999996
+Kd 1.000000 1.000000 1.000000
+map_Kd PolygonTown_Texture_01_A.png
+
+newmtl lambert8
+Ns 179.999996
+Kd 0.500000 0.500000 0.500000
