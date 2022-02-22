@@ -970,7 +970,7 @@ void LobbyScene::RenderInteraction()
 				{
 					isChatting = false;
 					isGossiping = false;
-					isTalking = true;
+					isTalking = false;
 					printGossip = false;
 					isDoneChat = false;
 					chatCounter = 0;
@@ -1009,7 +1009,7 @@ void LobbyScene::RenderInteraction()
 				{
 					isChatting = false;
 					isGossiping = false;
-					isTalking = true;
+					isTalking = false;
 					printGossip = false;
 					isDoneChat = false;
 					chatCounter = 0;
@@ -1048,7 +1048,7 @@ void LobbyScene::RenderInteraction()
 				{
 					isChatting = false;
 					isGossiping = false;
-					isTalking = true;
+					isTalking = false;
 					printGossip = false;
 					isDoneChat = false;
 					chatCounter = 0;
@@ -1087,7 +1087,7 @@ void LobbyScene::RenderInteraction()
 				{
 					isChatting = false;
 					isGossiping = false;
-					isTalking = true;
+					isTalking = false;
 					printGossip = false;
 					isDoneChat = false;
 					chatCounter = 0;
