@@ -166,6 +166,18 @@ void Application::AddEvidence(string text)
 	}
 }
 
+bool Application::CheckEvidence(string text)
+{
+	for (int i = 0; i <= eList.size() - 1; i++)
+	{
+		if (eList[i] == text)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 bool Application::EnoughEvidence(bool b[4])
 {
 	int check = 0;
@@ -191,7 +203,7 @@ bool Application::EnoughEvidence(bool b[4])
 
 void Application::Init()
 {
-	AddEvidence("Evidence 01: Insert Text Here");
+	/*AddEvidence("Evidence 01: Insert Text Here");
 	AddEvidence("Evidence 02: Insert Text Here");
 	AddEvidence("Evidence 03: Insert Text Here");
 	AddEvidence("Evidence 04: Insert Text Here");
@@ -199,7 +211,7 @@ void Application::Init()
 	AddEvidence("Evidence 06: Insert Text Here");
 	AddEvidence("Evidence 07: Insert Text Here");
 	AddEvidence("Evidence 08: Insert Text Here");
-	AddEvidence("Evidence 09: Insert Text Here");
+	AddEvidence("Evidence 09: Insert Text Here");*/
 
 	//Set the error callback
 	glfwSetErrorCallback(error_callback);

@@ -107,12 +107,12 @@ private:
 	int interrogateId; // 0 = guard, 1 = janitor, 2 = Arcader, 3 = Kid, 4 = old guy
 	int interactOffset;
 	bool canInteract;
-	bool isTalking, isChatting, isDoneChat;
+	bool isTalking, isChatting, isAbleToTalk, isAbleToPin;
 	int chatCounter = 0;
 	int tempCounter = 0;
 	bool isInterrogate;
 	bool isGossiping;
-	bool printGossip, printInterrogate;
+	bool printGossip, printInterrogate, haveEvidence;
 	std::ostringstream ss;
 	std::string screenTxt, culpritText;
 	std::vector <std::string> guardChat;
@@ -150,7 +150,7 @@ private:
 	void InspectEvidenceOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float rotatez, float rotatex);
 	void RenderSkybox();
 	bool CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft);
-	void RenderPressEToInteract();
+	void RenderPressEToInteract(char btn, std::string input, float x, float y);
 	void RenderJournal();
 	void RenderHUD();
 	void ResetJournal();

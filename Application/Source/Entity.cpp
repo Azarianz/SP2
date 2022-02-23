@@ -7,6 +7,7 @@ Entity::Entity()
 	rotationAxis = Vector3(0, 1, 0);
 	rotationAngle = 0;
 	scale = (1.f, 1.f, 1.f);
+	pinable = true;
 }
 
 Entity::~Entity()
@@ -61,4 +62,13 @@ float Entity::getRotationAngle()
 void Entity::setRotationAngle(float angle)
 {
 	rotationAngle = angle;
+}
+
+bool Entity::getPinable()
+{
+	return pinable;
+}
+void Entity::setPinable(bool pin)
+{
+	pinable = pin;
 }
