@@ -336,6 +336,13 @@ void MainMenuScene::RenderMainMenu()
 			Application::skipIntro = true;
 			Application::sceneState = Application::STATE_MAINMENU_EXIT;
 		}
+
+		RenderTextOnScreen(meshList[GEO_TEXT], "Press 'B' to skip", Color(1, 1, 1), 2, 65, 5);
+
+		if (Application::IsKeyPressed('B'))
+		{
+			elapsedTime = 20;
+		}
 	}
 	else if (menuState == HOWTOPLAY)
 	{
