@@ -289,14 +289,14 @@ bool RoomScene::IsInDoorLInteraction()
 {
 	//LLayout Door interaction collision
 	return ((camera.position.z >= 0) && (camera.position.z <= 2) &&
-		(camera.position.x >= 3) && (camera.position.x <= 5));;
+		(camera.position.x >= 4.5) && (camera.position.x <= 5));;
 }
 
 bool RoomScene::IsInDoorRInteraction()
 {
 	//RLayout Door interaction collision
 	return ((camera.position.z >= -2.5) && (camera.position.z <= -0.5) &&
-		(camera.position.x >= 3) && (camera.position.x <= 5));
+		(camera.position.x >= 4.5) && (camera.position.x <= 5));
 }
 
 void RoomScene::RenderHUD()
@@ -532,17 +532,115 @@ void RoomScene::Init()
 
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		light[0].type = Light::LIGHT_POINT;
-		light[0].position.Set(0, 20, 0);
-		light[0].color.Set(1, 1, 1);
-		light[0].power = 2;
-		light[0].kC = 1.f;
-		light[0].kL = 0.01f;
-		light[0].kQ = 0.001f;
-		light[0].cosCutoff = cos(Math::DegreeToRadian(45));
-		light[0].cosInner = cos(Math::DegreeToRadian(30));
-		light[0].exponent = 3.f;
-		light[0].spotDirection.Set(0.f, 1.f, 0.f);
+		//Light Settings
+		{
+			//Arcade Guy Room
+			if (Application::roomState == Application::ROOM1) 
+			{
+				//Light 1 (Bathroom L)
+				light[0].type = Light::LIGHT_SPOT;
+				light[0].position.Set(3, 3.5, -3.5);
+				light[0].color.Set(1, 1, 1);
+				light[0].power = 1.4f;
+				light[0].kC = 1.f;
+				light[0].kL = 0.01f;
+				light[0].kQ = 0.001f;
+				light[0].cosCutoff = cos(Math::DegreeToRadian(45));
+				light[0].cosInner = cos(Math::DegreeToRadian(30));
+				light[0].exponent = 3.f;
+				light[0].spotDirection.Set(0.f, 1.f, 0.f);
+
+				//Light 2 (Bedroom L)
+				light[1].type = Light::LIGHT_SPOT;
+				light[1].position.Set(-2.8, 7, 3);
+				light[1].color.Set(1, 1, 1);
+				light[1].power = 1.5f;
+				light[1].kC = 1.f;
+				light[1].kL = 0.01f;
+				light[1].kQ = 0.001f;
+				light[1].cosCutoff = cos(Math::DegreeToRadian(45));
+				light[1].cosInner = cos(Math::DegreeToRadian(30));
+				light[1].exponent = 3.f;
+				light[1].spotDirection.Set(0.f, 1.f, 0.f);
+			}
+
+			//Kid Room
+			if (Application::roomState == Application::ROOM3)
+			{
+				//Light 1 (Bathroom L)
+				light[0].type = Light::LIGHT_SPOT;
+				light[0].position.Set(3, 3.5, -3.5);
+				light[0].color.Set(1, 1, 1);
+				light[0].power = 1.4f;
+				light[0].kC = 1.f;
+				light[0].kL = 0.01f;
+				light[0].kQ = 0.001f;
+				light[0].cosCutoff = cos(Math::DegreeToRadian(45));
+				light[0].cosInner = cos(Math::DegreeToRadian(30));
+				light[0].exponent = 3.f;
+				light[0].spotDirection.Set(0.f, 1.f, 0.f);
+			}
+
+			//Old Man
+			if (Application::roomState == Application::ROOM2)
+			{
+				//Light 1 (Bathroom R)
+				light[0].type = Light::LIGHT_SPOT;
+				light[0].position.Set(2.5, 3.5, 2.5);
+				light[0].color.Set(1, 1, 1);
+				light[0].power = 1.4f;
+				light[0].kC = 1.f;
+				light[0].kL = 0.01f;
+				light[0].kQ = 0.001f;
+				light[0].cosCutoff = cos(Math::DegreeToRadian(45));
+				light[0].cosInner = cos(Math::DegreeToRadian(30));
+				light[0].exponent = 3.f;
+				light[0].spotDirection.Set(0.f, 1.f, 0.f);
+
+				//Light 2 (Bedroom R)
+				light[1].type = Light::LIGHT_SPOT;
+				light[1].position.Set(-2.5, 2.6, 2.5);
+				light[1].color.Set(1, 1, 1);
+				light[1].power = 1.5f;
+				light[1].kC = 1.f;
+				light[1].kL = 0.01f;
+				light[1].kQ = 0.001f;
+				light[1].cosCutoff = cos(Math::DegreeToRadian(50));
+				light[1].cosInner = cos(Math::DegreeToRadian(30));
+				light[1].exponent = 3.f;
+				light[1].spotDirection.Set(0.f, 1.f, 0.f);
+			}
+
+			//Victim Room
+			if (Application::roomState == Application::ROOM4)
+			{
+				//Light 1 (Bathroom R)
+				light[0].type = Light::LIGHT_SPOT;
+				light[0].position.Set(2.5, 3.5, 2.5);
+				light[0].color.Set(1, 1, 1);
+				light[0].power = 1.4f;
+				light[0].kC = 1.f;
+				light[0].kL = 0.01f;
+				light[0].kQ = 0.001f;
+				light[0].cosCutoff = cos(Math::DegreeToRadian(45));
+				light[0].cosInner = cos(Math::DegreeToRadian(30));
+				light[0].exponent = 3.f;
+				light[0].spotDirection.Set(0.f, 1.f, 0.f);
+
+				//Light 2 (Bedroom R)
+				light[1].type = Light::LIGHT_SPOT;
+				light[1].position.Set(-2, 2.6f, -3);
+				light[1].color.Set(1, 1, 1);
+				light[1].power = 1.5f;
+				light[1].kC = 1.f;
+				light[1].kL = 0.01f;
+				light[1].kQ = 0.001f;
+				light[1].cosCutoff = cos(Math::DegreeToRadian(45));
+				light[1].cosInner = cos(Math::DegreeToRadian(30));
+				light[1].exponent = 3.f;
+				light[1].spotDirection.Set(0.f, 1.f, 0.f);
+			}
+		}
 
 		//set background color
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -565,13 +663,6 @@ void RoomScene::Init()
 
 		//load vertex and fragment shaders
 		m_programID = LoadShaders("Shader//Texture.vertexshader", "Shader//Text.fragmentshader");
-
-		m_parameters[U_LIGHT0_TYPE] = glGetUniformLocation(m_programID, "lights[0].type");
-		m_parameters[U_LIGHT0_SPOTDIRECTION] = glGetUniformLocation(m_programID, "lights[0].spotDirection");
-		m_parameters[U_LIGHT0_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[0].cosCutoff");
-		m_parameters[U_LIGHT0_COSINNER] = glGetUniformLocation(m_programID, "lights[0].cosInner");
-		m_parameters[U_LIGHT0_EXPONENT] = glGetUniformLocation(m_programID, "lights[0].exponent");
-		m_parameters[U_NUMLIGHTS] = glGetUniformLocation(m_programID, "numLights");
 		m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
 		m_parameters[U_MODELVIEW] = glGetUniformLocation(m_programID, "MV");
 		m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE] = glGetUniformLocation(m_programID, "MV_inverse_transpose");
@@ -579,12 +670,35 @@ void RoomScene::Init()
 		m_parameters[U_MATERIAL_DIFFUSE] = glGetUniformLocation(m_programID, "material.kDiffuse");
 		m_parameters[U_MATERIAL_SPECULAR] = glGetUniformLocation(m_programID, "material.kSpecular");
 		m_parameters[U_MATERIAL_SHININESS] = glGetUniformLocation(m_programID, "material.kShininess");
-		m_parameters[U_LIGHT0_POSITION] = glGetUniformLocation(m_programID, "lights[0].position_cameraspace");
-		m_parameters[U_LIGHT0_COLOR] = glGetUniformLocation(m_programID, "lights[0].color");
-		m_parameters[U_LIGHT0_POWER] = glGetUniformLocation(m_programID, "lights[0].power");
-		m_parameters[U_LIGHT0_KC] = glGetUniformLocation(m_programID, "lights[0].kC");
-		m_parameters[U_LIGHT0_KL] = glGetUniformLocation(m_programID, "lights[0].kL");
-		m_parameters[U_LIGHT0_KQ] = glGetUniformLocation(m_programID, "lights[0].kQ");
+
+		//Lights mpram
+		{
+			m_parameters[U_LIGHT0_TYPE] = glGetUniformLocation(m_programID, "lights[0].type");
+			m_parameters[U_LIGHT0_SPOTDIRECTION] = glGetUniformLocation(m_programID, "lights[0].spotDirection");
+			m_parameters[U_LIGHT0_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[0].cosCutoff");
+			m_parameters[U_LIGHT0_COSINNER] = glGetUniformLocation(m_programID, "lights[0].cosInner");
+			m_parameters[U_LIGHT0_EXPONENT] = glGetUniformLocation(m_programID, "lights[0].exponent");
+			m_parameters[U_LIGHT0_POSITION] = glGetUniformLocation(m_programID, "lights[0].position_cameraspace");
+			m_parameters[U_LIGHT0_COLOR] = glGetUniformLocation(m_programID, "lights[0].color");
+			m_parameters[U_LIGHT0_POWER] = glGetUniformLocation(m_programID, "lights[0].power");
+			m_parameters[U_LIGHT0_KC] = glGetUniformLocation(m_programID, "lights[0].kC");
+			m_parameters[U_LIGHT0_KL] = glGetUniformLocation(m_programID, "lights[0].kL");
+			m_parameters[U_LIGHT0_KQ] = glGetUniformLocation(m_programID, "lights[0].kQ");
+
+			m_parameters[U_LIGHT1_TYPE] = glGetUniformLocation(m_programID, "lights[1].type");
+			m_parameters[U_LIGHT1_SPOTDIRECTION] = glGetUniformLocation(m_programID, "lights[1].spotDirection");
+			m_parameters[U_LIGHT1_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[1].cosCutoff");
+			m_parameters[U_LIGHT1_COSINNER] = glGetUniformLocation(m_programID, "lights[1].cosInner");
+			m_parameters[U_LIGHT1_EXPONENT] = glGetUniformLocation(m_programID, "lights[1].exponent");
+			m_parameters[U_LIGHT1_POSITION] = glGetUniformLocation(m_programID, "lights[1].position_cameraspace");
+			m_parameters[U_LIGHT1_COLOR] = glGetUniformLocation(m_programID, "lights[1].color");
+			m_parameters[U_LIGHT1_POWER] = glGetUniformLocation(m_programID, "lights[1].power");
+			m_parameters[U_LIGHT1_KC] = glGetUniformLocation(m_programID, "lights[1].kC");
+			m_parameters[U_LIGHT1_KL] = glGetUniformLocation(m_programID, "lights[1].kL");
+			m_parameters[U_LIGHT1_KQ] = glGetUniformLocation(m_programID, "lights[1].kQ");
+		}
+
+		m_parameters[U_NUMLIGHTS] = glGetUniformLocation(m_programID, "numLights");
 		m_parameters[U_LIGHTENABLED] = glGetUniformLocation(m_programID, "lightEnabled");
 
 		// Get a handle for our "colorTexture" uniform
@@ -599,21 +713,40 @@ void RoomScene::Init()
 		glUseProgram(m_programID);
 
 		// Make sure you pass uniform parameters after glUseProgram()
-		glUniform1i(m_parameters[U_NUMLIGHTS], 1);
-		//light[0].type = Light::LIGHT_DIRECTIONAL;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-		glUniform3fv(m_parameters[U_LIGHT0_COLOR], 1, &light[0].color.r);
-		glUniform1f(m_parameters[U_LIGHT0_POWER], light[0].power);
+		glUniform1i(m_parameters[U_NUMLIGHTS], 2);
 
-		//light[0].type = Light::LIGHT_POINT;
-		glUniform1f(m_parameters[U_LIGHT0_KC], light[0].kC);
-		glUniform1f(m_parameters[U_LIGHT0_KL], light[0].kL);
-		glUniform1f(m_parameters[U_LIGHT0_KQ], light[0].kQ);
+		//Lights glparam
+		{
+			//light[0].type = Light::LIGHT_DIRECTIONAL;
+			glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
+			glUniform3fv(m_parameters[U_LIGHT0_COLOR], 1, &light[0].color.r);
+			glUniform1f(m_parameters[U_LIGHT0_POWER], light[0].power);
 
-		//light[0].type = Light::LIGHT_SPOT;
-		glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF], light[0].cosCutoff);
-		glUniform1f(m_parameters[U_LIGHT0_COSINNER], light[0].cosInner);
-		glUniform1f(m_parameters[U_LIGHT0_EXPONENT], light[0].exponent);
+			//light[0].type = Light::LIGHT_POINT;
+			glUniform1f(m_parameters[U_LIGHT0_KC], light[0].kC);
+			glUniform1f(m_parameters[U_LIGHT0_KL], light[0].kL);
+			glUniform1f(m_parameters[U_LIGHT0_KQ], light[0].kQ);
+
+			//light[0].type = Light::LIGHT_SPOT;
+			glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF], light[0].cosCutoff);
+			glUniform1f(m_parameters[U_LIGHT0_COSINNER], light[0].cosInner);
+			glUniform1f(m_parameters[U_LIGHT0_EXPONENT], light[0].exponent);
+
+			//light[1].type = Light::LIGHT_DIRECTIONAL;
+			glUniform1i(m_parameters[U_LIGHT1_TYPE], light[1].type);
+			glUniform3fv(m_parameters[U_LIGHT1_COLOR], 1, &light[1].color.r);
+			glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
+
+			//light[1].type = Light::LIGHT_POINT;
+			glUniform1f(m_parameters[U_LIGHT1_KC], light[1].kC);
+			glUniform1f(m_parameters[U_LIGHT1_KL], light[1].kL);
+			glUniform1f(m_parameters[U_LIGHT1_KQ], light[1].kQ);
+
+			//light[1].type = Light::LIGHT_SPOT;
+			glUniform1f(m_parameters[U_LIGHT1_COSCUTOFF], light[1].cosCutoff);
+			glUniform1f(m_parameters[U_LIGHT1_COSINNER], light[1].cosInner);
+			glUniform1f(m_parameters[U_LIGHT1_EXPONENT], light[1].exponent);
+		}
 
 		//Enable depth test
 		glEnable(GL_DEPTH_TEST);
@@ -653,23 +786,19 @@ void RoomScene::Init()
 		{
 			entityList[ENTITY_DEMENTIA_PILLS].setMesh(MeshBuilder::GenerateOBJMTL("dementia pills", "OBJ//evidence//bottle_pills.obj", "OBJ//evidence//bottle_pills.mtl"));
 			entityList[ENTITY_DEMENTIA_PILLS].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_03_B.tga");
-			entityList[ENTITY_DEMENTIA_PILLS].setTransform(Vector3(0, 0, 0)); //transform by default is 0,0,0
+			entityList[ENTITY_DEMENTIA_PILLS].setTransform(Vector3(0.5, 1.02, 1.9)); //transform by default is 0,0,0
 
 			entityList[ENTITY_ANTIDEPRESSANT_PILLS].setMesh(MeshBuilder::GenerateOBJMTL("anti-depressants", "OBJ//evidence//pills.obj", "OBJ//evidence//pills.mtl"));
 			entityList[ENTITY_ANTIDEPRESSANT_PILLS].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_03_B.tga");
 			entityList[ENTITY_ANTIDEPRESSANT_PILLS].setTransform(Vector3(-1, 0.5f, -3.4f)); //transform by default is 0,0,0
 
-			entityList[ENTITY_PSYCHO_PILLS].setMesh(MeshBuilder::GenerateOBJMTL("psycho pills", "OBJ//evidence//psycho_pills.obj", "OBJ//evidence//psycho_pills.mtl"));
-			entityList[ENTITY_PSYCHO_PILLS].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_04_C.tga");
-			entityList[ENTITY_PSYCHO_PILLS].setTransform(Vector3(0, 0, 0)); //transform by default is 0,0,0
-
 			entityList[ENTITY_GUNCASE].setMesh(MeshBuilder::GenerateOBJMTL("", "OBJ//evidence//gun_briefcase.obj", "OBJ//evidence//gun_briefcase.mtl"));
 			entityList[ENTITY_GUNCASE].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_03_B.tga");
-			entityList[ENTITY_GUNCASE].setTransform(Vector3(-4, 0, -2)); //transform by default is 0,0,0
+			entityList[ENTITY_GUNCASE].setTransform(Vector3(-4.3, 0.3, 3)); //transform by default is 0,0,0
 
 			entityList[ENTITY_LAPTOP].setMesh(MeshBuilder::GenerateOBJMTL("cleaner cart", "OBJ//evidence//laptop.obj", "OBJ//evidence//laptop.mtl"));
 			entityList[ENTITY_LAPTOP].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_03_B.tga");
-			entityList[ENTITY_LAPTOP].setTransform(Vector3(-3, 0, -1)); //transform by default is 0,0,0
+			entityList[ENTITY_LAPTOP].setTransform(Vector3(-3, 0.7, 1.5)); //transform by default is 0,0,0
 
 			entityList[ENTITY_CREEPYDRAWING].setMesh(MeshBuilder::GenerateOBJMTL("creepy drawing", "OBJ//evidence//creepy_drawing.obj", "OBJ//evidence//creepy_drawing.mtl"));
 			entityList[ENTITY_CREEPYDRAWING].getMesh()->textureID = LoadTGA("Image//creepy_drawing.tga");
@@ -863,31 +992,17 @@ void RoomScene::Render()
 		camera.up.x, camera.up.y, camera.up.z);
 	modelStack.LoadIdentity();
 
-	if (light[0].type == Light::LIGHT_DIRECTIONAL)
-	{
-		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);
-		Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDirection_cameraspace.x);
-	}
-	else if (light[0].type == Light::LIGHT_SPOT)
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * light[0].position;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
-		Vector3 spotDirection_cameraspace = viewStack.Top() * light[0].spotDirection;
-		glUniform3fv(m_parameters[U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
-	}
-	else
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * light[0].position;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
-	}
+	Position lightPosition_cameraspace = viewStack.Top() * light[0].position;
+	glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
+	Vector3 spotDirection_cameraspace = viewStack.Top() * light[0].spotDirection;
+	glUniform3fv(m_parameters[U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
+
+	lightPosition_cameraspace = viewStack.Top() * light[1].position;
+	glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPosition_cameraspace.x);
+	spotDirection_cameraspace = viewStack.Top() * light[1].spotDirection;
+	glUniform3fv(m_parameters[U_LIGHT1_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
 
 	RenderMesh(meshList[GEO_AXES], false);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
-	RenderMesh(meshList[GEO_SUN], false);
-	modelStack.PopMatrix();
 
 	RenderSkybox();
 
@@ -1029,9 +1144,9 @@ void RoomScene::Render()
 
 	RenderHUD();
 
-	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 4, 0);
-	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.x), Color(0, 1, 0), 4, 4, 3);
-	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.z), Color(0, 1, 0), 4, 4, 6);
+	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 4, 0);
+	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.x), Color(0, 1, 0), 4, 4, 3);
+	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.z), Color(0, 1, 0), 4, 4, 6);
 	//RenderMeshOnScreen(meshList[GEO_QUAD], 40, 30, 20, 10);
 }
 

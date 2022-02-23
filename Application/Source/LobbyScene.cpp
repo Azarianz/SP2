@@ -2148,17 +2148,61 @@ void LobbyScene::Init()
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	light[0].type = Light::LIGHT_SPOT;
-	light[0].position.Set(0, 20, 0);
-	light[0].color.Set(1, 1, 1);
-	light[0].power = 2;
-	light[0].kC = 1.f;
-	light[0].kL = 0.01f;
-	light[0].kQ = 0.001f;
-	light[0].cosCutoff = cos(Math::DegreeToRadian(45));
-	light[0].cosInner = cos(Math::DegreeToRadian(30));
-	light[0].exponent = 3.f;
-	light[0].spotDirection.Set(0.f, 1.f, 0.f);
+	//Light Settings
+	{
+		//1st Light (Window)
+		light[0].type = Light::LIGHT_SPOT;
+		light[0].position.Set(18, 20, 0);
+		light[0].color.Set(1, 1, 1);
+		light[0].power = 2;
+		light[0].kC = 1.f;
+		light[0].kL = 0.01f;
+		light[0].kQ = 0.001f;
+		light[0].cosCutoff = cos(Math::DegreeToRadian(45));
+		light[0].cosInner = cos(Math::DegreeToRadian(30));
+		light[0].exponent = 3.f;
+		light[0].spotDirection.Set(0.f, 1.f, 0.f);
+
+		//2nd Light (Bar)
+		light[1].type = Light::LIGHT_SPOT;
+		light[1].position.Set(-15, 12, 3);
+		light[1].color.Set(1, 1, 1);
+		light[1].power = 3;
+		light[1].kC = 1.f;
+		light[1].kL = 0.01f;
+		light[1].kQ = 0.001f;
+		light[1].cosCutoff = cos(Math::DegreeToRadian(60));
+		light[1].cosInner = cos(Math::DegreeToRadian(45));
+		light[1].exponent = 3.f;
+		light[1].spotDirection.Set(0.f, 1.f, 0.f);
+
+		//3rd Light (Arcade)
+		light[2].type = Light::LIGHT_SPOT;
+		light[2].position.Set(4.5, 4, -14);
+		light[2].color.Set(1, 1, 1);
+		light[2].power = 1.8f;
+		light[2].kC = 1.f;
+		light[2].kL = 0.01f;
+		light[2].kQ = 0.001f;
+		light[2].cosCutoff = cos(Math::DegreeToRadian(45));
+		light[2].cosInner = cos(Math::DegreeToRadian(30));
+		light[2].exponent = 3.f;
+		light[2].spotDirection.Set(0.f, 1.f, 0.f);
+
+		//4th Light (Lift)
+		light[3].type = Light::LIGHT_SPOT;
+		light[3].position.Set(-3, 9, 27);
+		light[3].color.Set(1, 1, 1);
+		light[3].power = 1.8f;
+		light[3].kC = 1.f;
+		light[3].kL = 0.01f;
+		light[3].kQ = 0.001f;
+		light[3].cosCutoff = cos(Math::DegreeToRadian(45));
+		light[3].cosInner = cos(Math::DegreeToRadian(30));
+		light[3].exponent = 3.f;
+		light[3].spotDirection.Set(0.f, 1.f, 0.f);
+	}
+
 
 	//set background color
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -2170,25 +2214,70 @@ void LobbyScene::Init()
 	//load vertex and fragment shaders
 	m_programID = LoadShaders("Shader//Texture.vertexshader", "Shader//Text.fragmentshader");
 
-	m_parameters[U_LIGHT0_TYPE] = glGetUniformLocation(m_programID, "lights[0].type");
-	m_parameters[U_LIGHT0_SPOTDIRECTION] = glGetUniformLocation(m_programID, "lights[0].spotDirection");
-	m_parameters[U_LIGHT0_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[0].cosCutoff");
-	m_parameters[U_LIGHT0_COSINNER] = glGetUniformLocation(m_programID, "lights[0].cosInner");
-	m_parameters[U_LIGHT0_EXPONENT] = glGetUniformLocation(m_programID, "lights[0].exponent");
+	//Lights m_params
+	{
+		m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
+		m_parameters[U_MODELVIEW] = glGetUniformLocation(m_programID, "MV");
+		m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE] = glGetUniformLocation(m_programID, "MV_inverse_transpose");
+		m_parameters[U_MATERIAL_AMBIENT] = glGetUniformLocation(m_programID, "material.kAmbient");
+		m_parameters[U_MATERIAL_DIFFUSE] = glGetUniformLocation(m_programID, "material.kDiffuse");
+		m_parameters[U_MATERIAL_SPECULAR] = glGetUniformLocation(m_programID, "material.kSpecular");
+		m_parameters[U_MATERIAL_SHININESS] = glGetUniformLocation(m_programID, "material.kShininess");
+
+		//1st Light (Window)
+		m_parameters[U_LIGHT0_TYPE] = glGetUniformLocation(m_programID, "lights[0].type");
+		m_parameters[U_LIGHT0_SPOTDIRECTION] = glGetUniformLocation(m_programID, "lights[0].spotDirection");
+		m_parameters[U_LIGHT0_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[0].cosCutoff");
+		m_parameters[U_LIGHT0_COSINNER] = glGetUniformLocation(m_programID, "lights[0].cosInner");
+		m_parameters[U_LIGHT0_EXPONENT] = glGetUniformLocation(m_programID, "lights[0].exponent");
+		m_parameters[U_LIGHT0_POSITION] = glGetUniformLocation(m_programID, "lights[0].position_cameraspace");
+		m_parameters[U_LIGHT0_COLOR] = glGetUniformLocation(m_programID, "lights[0].color");
+		m_parameters[U_LIGHT0_POWER] = glGetUniformLocation(m_programID, "lights[0].power");
+		m_parameters[U_LIGHT0_KC] = glGetUniformLocation(m_programID, "lights[0].kC");
+		m_parameters[U_LIGHT0_KL] = glGetUniformLocation(m_programID, "lights[0].kL");
+		m_parameters[U_LIGHT0_KQ] = glGetUniformLocation(m_programID, "lights[0].kQ");
+		
+		//2nd Light (Bar)
+		m_parameters[U_LIGHT1_TYPE] = glGetUniformLocation(m_programID, "lights[1].type");
+		m_parameters[U_LIGHT1_SPOTDIRECTION] = glGetUniformLocation(m_programID, "lights[1].spotDirection");
+		m_parameters[U_LIGHT1_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[1].cosCutoff");
+		m_parameters[U_LIGHT1_COSINNER] = glGetUniformLocation(m_programID, "lights[1].cosInner");
+		m_parameters[U_LIGHT1_EXPONENT] = glGetUniformLocation(m_programID, "lights[1].exponent");
+		m_parameters[U_LIGHT1_POSITION] = glGetUniformLocation(m_programID, "lights[1].position_cameraspace");
+		m_parameters[U_LIGHT1_COLOR] = glGetUniformLocation(m_programID, "lights[1].color");
+		m_parameters[U_LIGHT1_POWER] = glGetUniformLocation(m_programID, "lights[1].power");
+		m_parameters[U_LIGHT1_KC] = glGetUniformLocation(m_programID, "lights[1].kC");
+		m_parameters[U_LIGHT1_KL] = glGetUniformLocation(m_programID, "lights[1].kL");
+		m_parameters[U_LIGHT1_KQ] = glGetUniformLocation(m_programID, "lights[1].kQ");
+
+		//3rd Light (Arcade)
+		m_parameters[U_LIGHT2_TYPE] = glGetUniformLocation(m_programID, "lights[2].type");
+		m_parameters[U_LIGHT2_SPOTDIRECTION] = glGetUniformLocation(m_programID, "lights[2].spotDirection");
+		m_parameters[U_LIGHT2_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[2].cosCutoff");
+		m_parameters[U_LIGHT2_COSINNER] = glGetUniformLocation(m_programID, "lights[2].cosInner");
+		m_parameters[U_LIGHT2_EXPONENT] = glGetUniformLocation(m_programID, "lights[2].exponent");
+		m_parameters[U_LIGHT2_POSITION] = glGetUniformLocation(m_programID, "lights[2].position_cameraspace");
+		m_parameters[U_LIGHT2_COLOR] = glGetUniformLocation(m_programID, "lights[2].color");
+		m_parameters[U_LIGHT2_POWER] = glGetUniformLocation(m_programID, "lights[2].power");
+		m_parameters[U_LIGHT2_KC] = glGetUniformLocation(m_programID, "lights[2].kC");
+		m_parameters[U_LIGHT2_KL] = glGetUniformLocation(m_programID, "lights[2].kL");
+		m_parameters[U_LIGHT2_KQ] = glGetUniformLocation(m_programID, "lights[2].kQ");
+
+		//4th Light (Lift)
+		m_parameters[U_LIGHT3_TYPE] = glGetUniformLocation(m_programID, "lights[3].type");
+		m_parameters[U_LIGHT3_SPOTDIRECTION] = glGetUniformLocation(m_programID, "lights[3].spotDirection");
+		m_parameters[U_LIGHT3_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[3].cosCutoff");
+		m_parameters[U_LIGHT3_COSINNER] = glGetUniformLocation(m_programID, "lights[3].cosInner");
+		m_parameters[U_LIGHT3_EXPONENT] = glGetUniformLocation(m_programID, "lights[3].exponent");
+		m_parameters[U_LIGHT3_POSITION] = glGetUniformLocation(m_programID, "lights[3].position_cameraspace");
+		m_parameters[U_LIGHT3_COLOR] = glGetUniformLocation(m_programID, "lights[3].color");
+		m_parameters[U_LIGHT3_POWER] = glGetUniformLocation(m_programID, "lights[3].power");
+		m_parameters[U_LIGHT3_KC] = glGetUniformLocation(m_programID, "lights[3].kC");
+		m_parameters[U_LIGHT3_KL] = glGetUniformLocation(m_programID, "lights[3].kL");
+		m_parameters[U_LIGHT3_KQ] = glGetUniformLocation(m_programID, "lights[3].kQ");
+	}
+
 	m_parameters[U_NUMLIGHTS] = glGetUniformLocation(m_programID, "numLights");
-	m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
-	m_parameters[U_MODELVIEW] = glGetUniformLocation(m_programID, "MV");
-	m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE] = glGetUniformLocation(m_programID, "MV_inverse_transpose");
-	m_parameters[U_MATERIAL_AMBIENT] = glGetUniformLocation(m_programID, "material.kAmbient");
-	m_parameters[U_MATERIAL_DIFFUSE] = glGetUniformLocation(m_programID, "material.kDiffuse");
-	m_parameters[U_MATERIAL_SPECULAR] = glGetUniformLocation(m_programID, "material.kSpecular");
-	m_parameters[U_MATERIAL_SHININESS] = glGetUniformLocation(m_programID, "material.kShininess");
-	m_parameters[U_LIGHT0_POSITION] = glGetUniformLocation(m_programID, "lights[0].position_cameraspace");
-	m_parameters[U_LIGHT0_COLOR] = glGetUniformLocation(m_programID, "lights[0].color");
-	m_parameters[U_LIGHT0_POWER] = glGetUniformLocation(m_programID, "lights[0].power");
-	m_parameters[U_LIGHT0_KC] = glGetUniformLocation(m_programID, "lights[0].kC");
-	m_parameters[U_LIGHT0_KL] = glGetUniformLocation(m_programID, "lights[0].kL");
-	m_parameters[U_LIGHT0_KQ] = glGetUniformLocation(m_programID, "lights[0].kQ");
 	m_parameters[U_LIGHTENABLED] = glGetUniformLocation(m_programID, "lightEnabled");
 
 	// Get a handle for our "colorTexture" uniform
@@ -2203,21 +2292,82 @@ void LobbyScene::Init()
 	glUseProgram(m_programID);
 
 	// Make sure you pass uniform parameters after glUseProgram()
-	glUniform1i(m_parameters[U_NUMLIGHTS], 1);
-	//light[0].type = Light::LIGHT_DIRECTIONAL;
-	glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	glUniform3fv(m_parameters[U_LIGHT0_COLOR], 1, &light[0].color.r);
-	glUniform1f(m_parameters[U_LIGHT0_POWER], light[0].power);
+	glUniform1i(m_parameters[U_NUMLIGHTS], 4);
 
-	//light[0].type = Light::LIGHT_POINT;
-	glUniform1f(m_parameters[U_LIGHT0_KC], light[0].kC);
-	glUniform1f(m_parameters[U_LIGHT0_KL], light[0].kL);
-	glUniform1f(m_parameters[U_LIGHT0_KQ], light[0].kQ);
+	//Lights glParams
+	{
+		//Light 0 (Window)
+		{
+			//light[0].type = Light::LIGHT_DIRECTIONAL;
+			glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
+			glUniform3fv(m_parameters[U_LIGHT0_COLOR], 1, &light[0].color.r);
+			glUniform1f(m_parameters[U_LIGHT0_POWER], light[0].power);
 
-	//light[0].type = Light::LIGHT_SPOT;
-	glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF], light[0].cosCutoff);
-	glUniform1f(m_parameters[U_LIGHT0_COSINNER], light[0].cosInner);
-	glUniform1f(m_parameters[U_LIGHT0_EXPONENT], light[0].exponent);
+			//light[0].type = Light::LIGHT_POINT;
+			glUniform1f(m_parameters[U_LIGHT0_KC], light[0].kC);
+			glUniform1f(m_parameters[U_LIGHT0_KL], light[0].kL);
+			glUniform1f(m_parameters[U_LIGHT0_KQ], light[0].kQ);
+
+			//light[0].type = Light::LIGHT_SPOT;
+			glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF], light[0].cosCutoff);
+			glUniform1f(m_parameters[U_LIGHT0_COSINNER], light[0].cosInner);
+			glUniform1f(m_parameters[U_LIGHT0_EXPONENT], light[0].exponent);
+		}
+
+		//Light 1 (Bar)
+		{
+			//light[1].type = Light::LIGHT_DIRECTIONAL;
+			glUniform1i(m_parameters[U_LIGHT1_TYPE], light[1].type);
+			glUniform3fv(m_parameters[U_LIGHT1_COLOR], 1, &light[1].color.r);
+			glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
+
+			//light[1].type = Light::LIGHT_POINT;
+			glUniform1f(m_parameters[U_LIGHT1_KC], light[1].kC);
+			glUniform1f(m_parameters[U_LIGHT1_KL], light[1].kL);
+			glUniform1f(m_parameters[U_LIGHT1_KQ], light[1].kQ);
+
+			//light[1].type = Light::LIGHT_SPOT;
+			glUniform1f(m_parameters[U_LIGHT1_COSCUTOFF], light[1].cosCutoff);
+			glUniform1f(m_parameters[U_LIGHT1_COSINNER], light[1].cosInner);
+			glUniform1f(m_parameters[U_LIGHT1_EXPONENT], light[1].exponent);
+		}
+
+		//Light 2 (Arcade)
+		{
+			//light[2].type = Light::LIGHT_DIRECTIONAL;
+			glUniform1i(m_parameters[U_LIGHT2_TYPE], light[2].type);
+			glUniform3fv(m_parameters[U_LIGHT2_COLOR], 1, &light[2].color.r);
+			glUniform1f(m_parameters[U_LIGHT2_POWER], light[2].power);
+
+			//light[2].type = Light::LIGHT_POINT;
+			glUniform1f(m_parameters[U_LIGHT2_KC], light[2].kC);
+			glUniform1f(m_parameters[U_LIGHT2_KL], light[2].kL);
+			glUniform1f(m_parameters[U_LIGHT2_KQ], light[2].kQ);
+
+			//light[2].type = Light::LIGHT_SPOT;
+			glUniform1f(m_parameters[U_LIGHT2_COSCUTOFF], light[2].cosCutoff);
+			glUniform1f(m_parameters[U_LIGHT2_COSINNER], light[2].cosInner);
+			glUniform1f(m_parameters[U_LIGHT2_EXPONENT], light[2].exponent);
+		}
+
+		//Light 3 (Lift)
+		{
+			//light[3].type = Light::LIGHT_DIRECTIONAL;
+			glUniform1i(m_parameters[U_LIGHT3_TYPE], light[3].type);
+			glUniform3fv(m_parameters[U_LIGHT3_COLOR], 1, &light[3].color.r);
+			glUniform1f(m_parameters[U_LIGHT3_POWER], light[3].power);
+
+			//light[3].type = Light::LIGHT_POINT;
+			glUniform1f(m_parameters[U_LIGHT3_KC], light[3].kC);
+			glUniform1f(m_parameters[U_LIGHT3_KL], light[3].kL);
+			glUniform1f(m_parameters[U_LIGHT3_KQ], light[3].kQ);
+
+			//light[3].type = Light::LIGHT_SPOT;
+			glUniform1f(m_parameters[U_LIGHT3_COSCUTOFF], light[3].cosCutoff);
+			glUniform1f(m_parameters[U_LIGHT3_COSINNER], light[3].cosInner);
+			glUniform1f(m_parameters[U_LIGHT3_EXPONENT], light[3].exponent);
+		}
+	}
 
 	//Enable depth test
 	glEnable(GL_DEPTH_TEST);
@@ -2322,13 +2472,17 @@ void LobbyScene::Init()
 
 	//evidence
 	{
+		entityList[ENTITY_PSYCHO_PILLS].setMesh(MeshBuilder::GenerateOBJMTL("psycho pills", "OBJ//evidence//psycho_pills.obj", "OBJ//evidence//psycho_pills.mtl"));
+		entityList[ENTITY_PSYCHO_PILLS].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_04_C.tga");
+		entityList[ENTITY_PSYCHO_PILLS].setTransform(Vector3(-8, 0.9, 15)); //transform by default is 0,0,0
+
 		entityList[ENTITY_NOTES].setMesh(MeshBuilder::GenerateOBJMTL("oldman notes", "OBJ//evidence//writing_notes.obj", "OBJ//evidence//writing_notes.mtl"));
 		entityList[ENTITY_NOTES].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_03_B.tga");
 		entityList[ENTITY_NOTES].setTransform(Vector3(-8, 0.9f, 10.f)); //transform by default is 0,0,0
 
 		entityList[ENTITY_ALCHOHOL_BOTTLE].setMesh(MeshBuilder::GenerateOBJMTL("alchohol bottle", "OBJ//evidence//drinking_bottle.obj", "OBJ//evidence//drinking_bottle.mtl"));
 		entityList[ENTITY_ALCHOHOL_BOTTLE].getMesh()->textureID = LoadTGA("Image//PolygonTown_Texture_01_A.tga");
-		entityList[ENTITY_ALCHOHOL_BOTTLE].setTransform(Vector3(-8, 0.9f, 12.f)); //transform by default is 0,0,0
+		entityList[ENTITY_ALCHOHOL_BOTTLE].setTransform(Vector3(-8, 0.9f, 11.5f)); //transform by default is 0,0,0
 
 		entityList[ENTITY_BOTTLEMIX].setMesh(MeshBuilder::GenerateOBJMTL("bottle mix", "OBJ//evidence//water_bottle.obj", "OBJ//evidence//water_bottle.mtl"));
 		entityList[ENTITY_BOTTLEMIX].getMesh()->textureID = LoadTGA("Image//PolygonTown_Texture_01_A.tga");
@@ -2385,35 +2539,6 @@ void LobbyScene::Update(double dt)
 	else if (Application::IsKeyPressed('4'))
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
-	}
-
-	if (Application::IsKeyPressed('I'))
-		light[0].position.z -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('K'))
-		light[0].position.z += (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('J'))
-		light[0].position.x -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('L'))
-		light[0].position.x += (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('O'))
-		light[0].position.y -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('P'))
-		light[0].position.y += (float)(LSPEED * dt);
-
-	if (Application::IsKeyPressed('5'))
-	{
-		light[0].type = Light::LIGHT_POINT;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	}
-	else if (Application::IsKeyPressed('6'))
-	{
-		light[0].type = Light::LIGHT_DIRECTIONAL;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	}
-	else if (Application::IsKeyPressed('7'))
-	{
-		light[0].type = Light::LIGHT_SPOT;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
 	}
 
 	//Mouse Inputs
@@ -2536,31 +2661,30 @@ void LobbyScene::Render()
 		camera.up.x, camera.up.y, camera.up.z);
 	modelStack.LoadIdentity();
 
-	if (light[0].type == Light::LIGHT_DIRECTIONAL)
-	{
-		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);
-		Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDirection_cameraspace.x);
-	}
-	else if (light[0].type == Light::LIGHT_SPOT)
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * light[0].position;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
-		Vector3 spotDirection_cameraspace = viewStack.Top() * light[0].spotDirection;
-		glUniform3fv(m_parameters[U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
-	}
-	else
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * light[0].position;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
-	}
+	Position lightPosition_cameraspace = viewStack.Top() * light[0].position;
+	glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
+	Vector3 spotDirection_cameraspace = viewStack.Top() * light[0].spotDirection;
+	glUniform3fv(m_parameters[U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
+
+	//2nd Light Parameters
+	lightPosition_cameraspace = viewStack.Top() * light[1].position;
+	glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPosition_cameraspace.x);
+	spotDirection_cameraspace = viewStack.Top() * light[1].spotDirection;
+	glUniform3fv(m_parameters[U_LIGHT1_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
+
+	//3rd Light Parameters
+	lightPosition_cameraspace = viewStack.Top() * light[2].position;
+	glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPosition_cameraspace.x);
+	spotDirection_cameraspace = viewStack.Top() * light[2].spotDirection;
+	glUniform3fv(m_parameters[U_LIGHT2_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
+
+	//4th Light Parameters
+	lightPosition_cameraspace = viewStack.Top() * light[3].position;
+	glUniform3fv(m_parameters[U_LIGHT3_POSITION], 1, &lightPosition_cameraspace.x);
+	spotDirection_cameraspace = viewStack.Top() * light[3].spotDirection;
+	glUniform3fv(m_parameters[U_LIGHT3_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
 
 	RenderMesh(meshList[GEO_AXES], false);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
-	RenderMesh(meshList[GEO_SUN], false);
-	modelStack.PopMatrix();
 
 	modelStack.PushMatrix();
 	modelStack.Rotate(rotateSkybox, 0,1,0);
@@ -2582,12 +2706,13 @@ void LobbyScene::Render()
 		modelStack.PopMatrix();
 	}
 
-	RenderEntity(&entityList[ENTITY_GUARD], false);
-	RenderEntity(&entityList[ENTITY_JANITOR], false);
-	RenderEntity(&entityList[ENTITY_GAMER], false);
-	RenderEntity(&entityList[ENTITY_KID], false);
-	RenderEntity(&entityList[ENTITY_OLDMAN], false);
+	RenderEntity(&entityList[ENTITY_GUARD], true);
+	RenderEntity(&entityList[ENTITY_JANITOR], true);
+	RenderEntity(&entityList[ENTITY_GAMER], true);
+	RenderEntity(&entityList[ENTITY_KID], true);
+	RenderEntity(&entityList[ENTITY_OLDMAN], true);
 	RenderEntity(&entityList[ENTITY_MACHINE], true);
+	RenderEvidenceObject(&entityList[ENTITY_PSYCHO_PILLS], 0.5f, 0.5f);
 	RenderEvidenceObject(&entityList[ENTITY_NOTES], 0.5f, 0.5f);
 	RenderEvidenceObject(&entityList[ENTITY_ALCHOHOL_BOTTLE], 0.5f, 0.5f);
 	RenderEvidenceObject(&entityList[ENTITY_BOTTLEMIX], 0.5f, 0.5f);
@@ -2624,7 +2749,7 @@ void LobbyScene::Render()
 
 	RenderHUD();
 
-	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 4, 0);
+	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 4, 0);
 }
 
 void LobbyScene::Exit()

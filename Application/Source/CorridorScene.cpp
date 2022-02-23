@@ -310,28 +310,28 @@ bool CorridorScene::IsInDoor1Interaction()
 {
 	//door1 interaction collision
 	return ((camera.position.z >= 16) && (camera.position.z <= 20) &&
-		(camera.position.x >= -2) && (camera.position.x <= 0));
+		(camera.position.x >= -2) && (camera.position.x <= -1));
 }
 
 bool CorridorScene::IsInDoor2Interaction()
 {
 	//door2 interaction collision
 	return ((camera.position.z >= 9) && (camera.position.z <= 11) &&
-		(camera.position.x >= -2) && (camera.position.x <= 0));
+		(camera.position.x >= -2) && (camera.position.x <= -1));
 }
 
 bool CorridorScene::IsInDoor3Interaction()
 {
 	//door3 interaction collision
 	return ((camera.position.z >= -10) && (camera.position.z <= -8) &&
-		(camera.position.x >= -2) && (camera.position.x <= 0));
+		(camera.position.x >= -2) && (camera.position.x <= -1));
 }
 
 bool CorridorScene::IsInDoor4Interaction()
 {
 	//door4 interaction collision
 	return ((camera.position.z >= -19) && (camera.position.z <= -16) &&
-		(camera.position.x >= -2) && (camera.position.x <= 0));
+		(camera.position.x >= -2) && (camera.position.x <= -1));
 }
 
 void CorridorScene::RenderJournal()
@@ -559,7 +559,7 @@ void CorridorScene::Init()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	light[0].type = Light::LIGHT_SPOT;
-	light[0].position.Set(0, 20, 0);
+	light[0].position.Set(12, 30, 0);
 	light[0].color.Set(1, 1, 1);
 	light[0].power = 2;
 	light[0].kC = 1.f;
@@ -721,35 +721,6 @@ void CorridorScene::Update(double dt)
 	}
 	camera.Update(dt);
 
-	if (Application::IsKeyPressed('I'))
-		light[0].position.z -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('K'))
-		light[0].position.z += (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('J'))
-		light[0].position.x -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('L'))
-		light[0].position.x += (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('O'))
-		light[0].position.y -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('P'))
-		light[0].position.y += (float)(LSPEED * dt);
-
-	if (Application::IsKeyPressed('5'))
-	{
-		light[0].type = Light::LIGHT_POINT;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	}
-	else if (Application::IsKeyPressed('6'))
-	{
-		light[0].type = Light::LIGHT_DIRECTIONAL;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	}
-	else if (Application::IsKeyPressed('7'))
-	{
-		light[0].type = Light::LIGHT_SPOT;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	}
-
 	//Mouse Inputs
 	{
 		static bool bLButtonState = false;
@@ -885,24 +856,10 @@ void CorridorScene::Render()
 		camera.up.x, camera.up.y, camera.up.z);
 	modelStack.LoadIdentity();
 
-	if (light[0].type == Light::LIGHT_DIRECTIONAL)
-	{
-		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);
-		Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDirection_cameraspace.x);
-	}
-	else if (light[0].type == Light::LIGHT_SPOT)
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * light[0].position;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
-		Vector3 spotDirection_cameraspace = viewStack.Top() * light[0].spotDirection;
-		glUniform3fv(m_parameters[U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
-	}
-	else
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * light[0].position;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
-	}
+	Position lightPosition_cameraspace = viewStack.Top() * light[0].position;
+	glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
+	Vector3 spotDirection_cameraspace = viewStack.Top() * light[0].spotDirection;
+	glUniform3fv(m_parameters[U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
 
 	RenderMesh(meshList[GEO_AXES], false);
 
@@ -943,7 +900,7 @@ void CorridorScene::Render()
 
 	RenderHUD();
 
-	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 4, 0);
+	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 4, 0);
 	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.x), Color(0, 1, 0), 4, 0, 0);
 	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.z), Color(0, 1, 0), 4, 0, 2);
 	//RenderMeshOnScreen(meshList[GEO_QUAD], 40, 30, 20, 10);
