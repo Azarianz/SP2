@@ -60,6 +60,30 @@ void Camera3::Update(double dt)
 			target.y = previousY;
 		}
 
+
+		//footstep 
+		static bool IsMove = false;
+		if (((Application::IsKeyPressed('A')) ||
+			(Application::IsKeyPressed('D')) ||
+			(Application::IsKeyPressed('S')) ||
+			(Application::IsKeyPressed('W'))) &&
+			!IsMove)
+		{
+			IsMove = true;
+			PlaySound(TEXT("Recording (16).wav"), NULL, SND_LOOP | SND_ASYNC);
+		}
+		else if (!((Application::IsKeyPressed('A')) ||
+			(Application::IsKeyPressed('D')) ||
+			(Application::IsKeyPressed('S')) ||
+			(Application::IsKeyPressed('W'))) &&
+			IsMove)
+		{
+			IsMove = false;
+			PlaySound(NULL, NULL,NULL);
+		}
+
+
+
 		Application::GetCursorPos(&cameraCurrentX, &cameraCurrentY);
 		//camera look controls
 		if ((cameraCurrentX != cameraPrevX) || (cameraCurrentY != cameraPrevY))

@@ -743,6 +743,12 @@ void MainMenuScene::Init()
 	Application::ShowCursor();
 
 	menuState = MAIN;
+
+	//main menu bgm
+	//if (Application::skipIntro == false)
+	//{
+	//	PlaySound(TEXT("blah.wav"), NULL, SND_LOOP | SND_ASYNC);
+	//}
 }
 
 void MainMenuScene::Update(double dt)

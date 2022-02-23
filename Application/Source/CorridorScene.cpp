@@ -696,6 +696,9 @@ void CorridorScene::Init()
 
 	Application::HideCursor();
 	Application::ResetCursor();
+
+	//bgm
+	//PlaySound(TEXT("blah.wav"), NULL, SND_LOOP | SND_ASYNC);
 }
 
 void CorridorScene::Update(double dt)
