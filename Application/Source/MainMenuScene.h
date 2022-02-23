@@ -67,10 +67,12 @@ private:
 	char menuState;
 
 	float elapsedTime;
+	float rotateSkybox;
 
 	void RenderMesh(Mesh* mesh, bool enableLight);
 	void RenderEntity(Entity* entity, bool enableLight);
 	void RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey);
+	void RenderSkybox();
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	bool CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft);

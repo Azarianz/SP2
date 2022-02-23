@@ -202,15 +202,17 @@ bool MainMenuScene::CreateButton(float buttonTop, float buttonBottom, float butt
 
 void MainMenuScene::RenderMainMenu()
 {
+	Color textColor = Color(0.6, 0.6, 0.7);
+
 	if (menuState == MAIN)
 	{
-		RenderMeshOnScreen(meshList[GEO_BACKGROUND], 0, 0, Application::screenUISizeX, Application::screenUISizeY);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Title", Color(1, 1, 1), 5, 40, 40);
+		//RenderMeshOnScreen(meshList[GEO_BACKGROUND], 0, 0, Application::screenUISizeX + 100, Application::screenUISizeY + 100);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Title", textColor, 6, 40, 40);
 
-		RenderTextOnScreen(meshList[GEO_TEXT], "Play Game", Color(1, 1, 1), 2, 40, 30);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Options", Color(1, 1, 1), 2, 40, 25);
-		RenderTextOnScreen(meshList[GEO_TEXT], "How To Play", Color(1, 1, 1), 2, 40, 20);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Quit", Color(1, 1, 1), 2, 40, 15);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Play Game", textColor, 2, 40, 30);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Options", textColor, 2, 40, 25);
+		RenderTextOnScreen(meshList[GEO_TEXT], "How To Play", textColor, 2, 40, 20);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Quit", textColor, 2, 40, 15);
 
 		double x, y;
 		static bool lcButtonState = true;
@@ -301,6 +303,7 @@ void MainMenuScene::RenderMainMenu()
 	}
 	else if (menuState == INTRO)
 	{
+		RenderMeshOnScreen(meshList[GEO_BACKGROUND], 0, 0, Application::screenUISizeX + 100, Application::screenUISizeY + 100);
 		if (elapsedTime < 2)
 		{
 			RenderTextOnScreen(meshList[GEO_TEXT], "June 13 2018", Color(1, 1, 1), 2.5, 40, 30);
@@ -350,16 +353,16 @@ void MainMenuScene::RenderMainMenu()
 	else if (menuState == HOWTOPLAY)
 	{
 		int yOffset = 0;
-		RenderTextOnScreen(meshList[GEO_TEXT], "How To Play", Color(1, 1, 1), 5, 40, 50 + yOffset);
+		RenderTextOnScreen(meshList[GEO_TEXT], "How To Play", textColor, 5, 40, 50 + yOffset);
 		yOffset -= 8;
-		RenderTextOnScreen(meshList[GEO_TEXT], "WASD - Move", Color(1, 1, 1), 2.5, 40, 50 + yOffset);
+		RenderTextOnScreen(meshList[GEO_TEXT], "WASD - Move", textColor, 2.5, 40, 50 + yOffset);
 		yOffset -= 8;
-		RenderTextOnScreen(meshList[GEO_TEXT], "E - Interact", Color(1, 1, 1), 2.5, 40, 50 + yOffset);
+		RenderTextOnScreen(meshList[GEO_TEXT], "E - Interact", textColor, 2.5, 40, 50 + yOffset);
 		yOffset -= 8;
-		RenderTextOnScreen(meshList[GEO_TEXT], "Left/Right Arrow - Rotate Inspect Object", Color(1, 1, 1), 2.5, 40, 50 + yOffset);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Left/Right Arrow - Rotate Inspect Object", textColor, 2.5, 40, 50 + yOffset);
 		yOffset -= 8;
-		RenderTextOnScreen(meshList[GEO_TEXT], "J - Journal", Color(1, 1, 1), 2.5, 40, 50 + yOffset);
-		RenderTextOnScreen(meshList[GEO_TEXT], "B or left click to leave this menu", Color(0.8, 0.8, 0.8), 2, 21, 3);
+		RenderTextOnScreen(meshList[GEO_TEXT], "J - Journal", textColor, 2.5, 40, 50 + yOffset);
+		RenderTextOnScreen(meshList[GEO_TEXT], "B or left click to leave this menu", textColor, 2, 21, 3);
 
 		static bool buttonState = true;
 		if (!buttonState && Application::IsMousePressed(0) || (Application::IsKeyPressed('B')))
@@ -374,18 +377,18 @@ void MainMenuScene::RenderMainMenu()
 	}
 	else if (menuState == OPTIONS)
 	{
-		RenderTextOnScreen(meshList[GEO_TEXT], "Options", Color(1, 1, 1), 5, 40, 40);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Fullscreen:", Color(1, 1, 1), 2, 36.5, 30);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Change Resolution", Color(1, 1, 1), 2, 40, 25);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Back", Color(1, 1, 1), 2, 40, 20);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Options", textColor, 5, 40, 40);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Fullscreen:", textColor, 2, 36.5, 30);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Change Resolution", textColor, 2, 40, 25);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Back", textColor, 2, 40, 20);
 
 		if (Application::GetIsFullscreen())
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "On", Color(1, 1, 1), 2, 50, 30);
+			RenderTextOnScreen(meshList[GEO_TEXT], "On", textColor, 2, 50, 30);
 		}
 		else
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "Off", Color(1, 1, 1), 2, 50, 30);
+			RenderTextOnScreen(meshList[GEO_TEXT], "Off", textColor, 2, 50, 30);
 		}
 
 		double x, y;
@@ -455,13 +458,13 @@ void MainMenuScene::RenderMainMenu()
 	}
 	else if (menuState == RESOLUTION)
 	{
-		RenderMeshOnScreen(meshList[GEO_BACKGROUND], 0, 0, Application::screenUISizeX, Application::screenUISizeY);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Resolution", Color(1, 1, 1), 5, 40, 40);
+		//RenderMeshOnScreen(meshList[GEO_BACKGROUND], 0, 0, Application::screenUISizeX, Application::screenUISizeY);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Resolution", textColor, 5, 40, 40);
 
-		RenderTextOnScreen(meshList[GEO_TEXT], "1920 x 1080", Color(1, 1, 1), 2, 40, 30);
-		RenderTextOnScreen(meshList[GEO_TEXT], "1280 x 720", Color(1, 1, 1), 2, 40, 25);
-		RenderTextOnScreen(meshList[GEO_TEXT], "640 x 480", Color(1, 1, 1), 2, 40, 20);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Back", Color(1, 1, 1), 2, 40, 15);
+		RenderTextOnScreen(meshList[GEO_TEXT], "1920 x 1080", textColor, 2, 40, 30);
+		RenderTextOnScreen(meshList[GEO_TEXT], "1280 x 720", textColor, 2, 40, 25);
+		RenderTextOnScreen(meshList[GEO_TEXT], "640 x 480", textColor, 2, 40, 20);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Back", textColor, 2, 40, 15);
 
 		double x, y;
 		static bool lcButtonState = true;
@@ -541,6 +544,53 @@ void MainMenuScene::RenderMainMenu()
 			}
 		}
 	}
+}
+
+void MainMenuScene::RenderSkybox()
+{
+	float scale = 400;
+
+	modelStack.PushMatrix();
+	modelStack.Translate(camera.position.x, -scale / 2 + 0.5, camera.position.z);
+	modelStack.Scale(scale, scale, scale);
+	modelStack.Rotate(-90, 1, 0, 0);
+	RenderMesh(meshList[GEO_BOTTOM], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(camera.position.x, scale / 2 - 0.5, camera.position.z);
+	modelStack.Scale(scale, scale, scale);
+	modelStack.Rotate(270, 0, 1, 0);
+	modelStack.Rotate(90, 1, 0, 0);
+	RenderMesh(meshList[GEO_TOP], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(camera.position.x, 0, -scale / 2 + 0.5 + camera.position.z);
+	modelStack.Scale(scale, scale, scale);
+	RenderMesh(meshList[GEO_LEFT], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(camera.position.x, 0, scale / 2 - 0.5 + camera.position.z);
+	modelStack.Scale(scale, scale, scale);
+	modelStack.Rotate(180, 0, 1, 0);
+	RenderMesh(meshList[GEO_RIGHT], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-scale / 2 + 0.5 + camera.position.x, 0, camera.position.z);
+	modelStack.Scale(scale, scale, scale);
+	modelStack.Rotate(90, 0, 1, 0);
+	RenderMesh(meshList[GEO_BACK], false);
+	modelStack.PopMatrix();
+
+	modelStack.PushMatrix();
+	modelStack.Translate(scale / 2 - 0.5 + camera.position.x, 0, camera.position.z);
+	modelStack.Scale(scale, scale, scale);
+	modelStack.Rotate(90, 0, 1, 0);
+	RenderMesh(meshList[GEO_FRONT], false);
+	modelStack.PopMatrix();
 }
 
 MainMenuScene::MainMenuScene()
@@ -665,13 +715,13 @@ void MainMenuScene::Init()
 	// Init VBO here
 	Mtx44 projection;
 
-	projection.SetToPerspective(60.f, 4.f / 3.f, 0.1f, 1000.f);
+	projection.SetToPerspective(40.f, 4.f / 3.f, 0.1f, 1000.f);
 	projectionStack.LoadMatrix(projection);
 
 	glDisable(GL_CULL_FACE);
 	glEnable(GL_BLEND);
 
-	camera.Init(Vector3(4, 3, 3), Vector3(0, 0, 0), Vector3(0, 1, 0));
+	camera.Init(Vector3(0, 1, 3), Vector3(3, 2, 0), Vector3(0, 1, 0));
 	camera.DisableControl();
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -746,7 +796,6 @@ void MainMenuScene::Init()
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
 
-
 	//hide and reset the cursor
 	Application::ResetCursor();
 	Application::ShowCursor();
@@ -767,6 +816,12 @@ void MainMenuScene::Update(double dt)
 	{
 		elapsedTime += dt;
 	}
+
+	rotateSkybox -= 3 * dt;
+	if (rotateSkybox <= -360)
+	{
+		rotateSkybox = 0;
+	}
 }
 
 void MainMenuScene::Render()
@@ -782,6 +837,11 @@ void MainMenuScene::Render()
 		camera.target.x, camera.target.y, camera.target.z,
 		camera.up.x, camera.up.y, camera.up.z);
 	modelStack.LoadIdentity();
+
+	modelStack.PushMatrix();
+	modelStack.Rotate(rotateSkybox, 0, 1, 0);
+	RenderSkybox();
+	modelStack.PopMatrix();
 
 	RenderMainMenu();
 }
