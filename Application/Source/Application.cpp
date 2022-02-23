@@ -24,6 +24,10 @@ bool Application::skipIntro;
 vector<string> Application::eList;
 int Application::playerGuesses = 3;
 
+//sound variables
+Sound Application::soundManager;
+FMOD::Sound *Application::soundList[SOUND_NUM];
+
 bool Application::guardEvidences[4] = {false,false,false,false};
 bool Application::janitorEvidences[4] = { false,false,false,false };
 bool Application::arcadeEvidences[4] = { false,false,false,false };
@@ -306,6 +310,7 @@ void Application::Run()
 				{
 					if (sceneList[SCENE_MAINMENU] != nullptr)
 					{
+						sceneList[SCENE_MAINMENU]->Exit();
 						delete sceneList[SCENE_MAINMENU];
 						sceneList[SCENE_MAINMENU] = nullptr;
 					}
@@ -495,6 +500,12 @@ void Application::Run()
 		m_timer.waitUntil(frameTime);       // Frame rate limiter. Limits each frame to a specified time in ms.   
 
 	}
+
+	for (int i = 0; i < SOUND_NUM; ++i)
+	{
+		soundManager.ReleaseSound(soundList[i]);
+	}
+
 	for (int i = 0; i < SCENE_NUM; ++i)
 	{
 		if (sceneList[i] != nullptr)

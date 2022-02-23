@@ -309,7 +309,9 @@ void SceneMiniGame::Init()
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
 
 	//bgm
-	PlaySound(TEXT("Sound/MiniGame.wav"), NULL, SND_LOOP | SND_ASYNC);
+	Application::soundManager.ReleaseSound(Application::soundList[Application::SOUND_MAINGAME]);
+	Application::soundManager.CreateSound(&Application::soundList[Application::SOUND_MINIGAME], "Sound/MiniGame.wav");
+	Application::soundManager.RunSound(Application::soundList[Application::SOUND_MINIGAME]);
 }
 
 void SceneMiniGame::Update(double dt)
@@ -726,6 +728,9 @@ void SceneMiniGame::Render()
 
 void SceneMiniGame::Exit()
 {
+	Application::soundManager.ReleaseSound(Application::soundList[Application::SOUND_MINIGAME]);
+	Application::soundManager.CreateSound(&Application::soundList[Application::SOUND_MAINGAME], "Sound/MainGame.wav");
+	Application::soundManager.RunSound(Application::soundList[Application::SOUND_MAINGAME]);
 	// Cleanup VBO here
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);

@@ -333,6 +333,9 @@ void MainMenuScene::RenderMainMenu()
 		}
 		else
 		{
+			Application::soundManager.ReleaseSound(Application::soundList[Application::SOUND_MAINMENU]);
+			Application::soundManager.CreateSound(&Application::soundList[Application::SOUND_MAINGAME], "Sound/MainGame.wav");
+			Application::soundManager.RunSound(Application::soundList[Application::SOUND_MAINGAME], true);
 			Application::skipIntro = true;
 			Application::sceneState = Application::STATE_MAINMENU_EXIT;
 		}
@@ -583,7 +586,10 @@ MainMenuScene::MainMenuScene()
 		}
 		else if (readIndicator == WIDTH)
 		{
-			input;
+			if (input == "Width:")
+			{
+				break;
+			}
 
 			bool isValid = true;
 			for (int i = 0; i < input.size(); ++i)
@@ -607,7 +613,10 @@ MainMenuScene::MainMenuScene()
 		}
 		else if (readIndicator == HEIGHT)
 		{
-			input;
+			if (input == "Height:")
+			{
+				break;
+			}
 
 			bool isValid = true;
 			for (int i = 0; i < input.size(); ++i)
@@ -744,10 +753,11 @@ void MainMenuScene::Init()
 
 	menuState = MAIN;
 
-	/*main menu bgm*/
+	//main menu bgm
 	if (Application::skipIntro == false)
 	{
-		PlaySound(TEXT("sound/MainMenu.wav"), NULL, SND_LOOP | SND_ASYNC);
+		Application::soundManager.CreateSound(&Application::soundList[Application::SOUND_MAINMENU], "Sound/MainMenu.wav");
+		Application::soundManager.RunSound(Application::soundList[Application::SOUND_MAINMENU], true);
 	}
 }
 

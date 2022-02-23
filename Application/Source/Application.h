@@ -9,6 +9,9 @@
 //Include GLFW
 #include <GLFW/glfw3.h>
 
+//include audio manager
+#include "Sound.h"
+
 #include "SceneMiniGame.h"
 #include "LobbyScene.h"
 #include "CorridorScene.h"
@@ -57,6 +60,15 @@ public:
 		SCENE_NUM
 	};
 
+	enum SOUNDS
+	{
+		SOUND_MAINMENU,
+		SOUND_FOOTSTEP,
+		SOUND_MINIGAME,
+		SOUND_MAINGAME,
+		SOUND_NUM
+	};
+
 	static unsigned m_width;
 	static unsigned m_height;
 	static float screenUISizeX;
@@ -102,6 +114,10 @@ public:
 	static bool IsKeyPressed(unsigned short key);
 	static void AddEvidence(string text);
 	static bool EnoughEvidence(bool b[4]);
+
+	//sound manager
+	static Sound soundManager;	
+	static FMOD::Sound *soundList[SOUND_NUM];
 
 private:
 

@@ -1884,9 +1884,6 @@ void LobbyScene::Init()
 	{
 		Application::HideCursor();
 	}
-
-	//bgm
-	PlaySound(TEXT("Sound/MainGame.wav"), NULL, SND_LOOP | SND_ASYNC);
 }
 
 LobbyScene::LobbyScene()

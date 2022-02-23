@@ -70,7 +70,8 @@ void Camera3::Update(double dt)
 			!IsMove)
 		{
 			IsMove = true;
-			PlaySound(TEXT("Sound/Footstep.wav"), NULL, SND_LOOP | SND_ASYNC);
+			Application::soundManager.CreateSound(&Application::soundList[Application::SOUND_FOOTSTEP], "Sound/Footstep.wav");
+			Application::soundManager.RunSound(Application::soundList[Application::SOUND_FOOTSTEP], true);
 		}
 		else if (!((Application::IsKeyPressed('A')) ||
 			(Application::IsKeyPressed('D')) ||
@@ -79,7 +80,7 @@ void Camera3::Update(double dt)
 			IsMove)
 		{
 			IsMove = false;
-			PlaySound(NULL, NULL,NULL);
+			Application::soundManager.ReleaseSound(Application::soundList[Application::SOUND_FOOTSTEP]);
 		}
 
 
