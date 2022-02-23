@@ -744,11 +744,11 @@ void MainMenuScene::Init()
 
 	menuState = MAIN;
 
-	//main menu bgm
-	//if (Application::skipIntro == false)
-	//{
-	//	PlaySound(TEXT("blah.wav"), NULL, SND_LOOP | SND_ASYNC);
-	//}
+	/*main menu bgm*/
+	if (Application::skipIntro == false)
+	{
+		PlaySound(TEXT("sound/MainMenu.wav"), NULL, SND_LOOP | SND_ASYNC);
+	}
 }
 
 void MainMenuScene::Update(double dt)

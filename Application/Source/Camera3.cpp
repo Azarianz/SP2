@@ -70,7 +70,7 @@ void Camera3::Update(double dt)
 			!IsMove)
 		{
 			IsMove = true;
-			PlaySound(TEXT("Recording (16).wav"), NULL, SND_LOOP | SND_ASYNC);
+			PlaySound(TEXT("Sound/Footstep.wav"), NULL, SND_LOOP | SND_ASYNC);
 		}
 		else if (!((Application::IsKeyPressed('A')) ||
 			(Application::IsKeyPressed('D')) ||

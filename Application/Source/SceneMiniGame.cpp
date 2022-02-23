@@ -309,7 +309,7 @@ void SceneMiniGame::Init()
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
 
 	//bgm
-	PlaySound(TEXT("miniGame.wav"), NULL, SND_LOOP | SND_ASYNC);
+	PlaySound(TEXT("Sound/MiniGame.wav"), NULL, SND_LOOP | SND_ASYNC);
 }
 
 void SceneMiniGame::Update(double dt)

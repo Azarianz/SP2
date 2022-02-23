@@ -701,9 +701,6 @@ void RoomScene::Init()
 		//hide and reset the cursor
 		Application::ResetCursor();
 		Application::HideCursor();
-
-	//bgm
-	//PlaySound(TEXT("blah.wav"), NULL, SND_LOOP | SND_ASYNC);
 }
 
 void RoomScene::Update(double dt)

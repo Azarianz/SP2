@@ -1883,8 +1883,7 @@ void LobbyScene::Init()
 	}
 
 	//bgm
-	PlaySound(NULL, NULL, NULL);
-	//PlaySound(TEXT("blah.wav"), NULL, SND_LOOP | SND_ASYNC);
+	PlaySound(TEXT("Sound/MainGame.wav"), NULL, SND_LOOP | SND_ASYNC);
 }
 
 LobbyScene::LobbyScene()
