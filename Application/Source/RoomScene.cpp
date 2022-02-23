@@ -188,7 +188,7 @@ void RoomScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, fl
 	glEnable(GL_DEPTH_TEST);
 }
 
-void RoomScene::RenderObjectOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float rotatez, float rotatex)
+void RoomScene::InspectEvidenceOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float rotatez, float rotatex)
 {
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
@@ -209,7 +209,6 @@ void RoomScene::RenderObjectOnScreen(Mesh* mesh, float x, float y, float sizex, 
 	modelStack.PopMatrix();
 	glEnable(GL_DEPTH_TEST);
 }
-
 
 void RoomScene::RenderPressEToInteract()
 {
@@ -468,6 +467,64 @@ void RoomScene::PrintEvidence()
 	int arrag[i];
 }
 
+void RoomScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ) {
+	//inspect
+	{
+		if (Pickup == false)
+		{
+			RenderEntity(entity, true);
+		}
+
+		cout << "Entity X:" << entity->getTransform().x << endl;
+		cout << "Entity Z:" << entity->getTransform().z << endl;
+
+		if (camera.position.x >= entity->getTransform().x - rangeX
+			&& camera.position.x <= entity->getTransform().x + rangeX
+			&& camera.position.z >= entity->getTransform().z - rangeZ
+			&& camera.position.z <= entity->getTransform().z + rangeZ)
+		{
+			if (!Inspect)
+			{
+				RenderTextOnScreen(meshList[GEO_TEXT], "Press F To Inspect", Color(1, 1, 1), 4, 25, 6);
+
+				if (Application::IsKeyPressed('F') && (Interacted == false))
+				{
+					Inspect = true;
+					Interacted = true;
+					Pickup = true;
+					camera.DisableControl();
+
+					return;
+				}
+				else if (!Application::IsKeyPressed('F') && (Interacted == true))
+				{
+					Interacted = false;
+				}
+			}
+			else if (Inspect)
+			{
+				if (Application::IsKeyPressed('F') && (Interacted == false))
+				{
+					text = false;
+					Inspect = false;
+					Pickup = false;
+					Interacted = true;
+					camera.EnableControl();
+				}
+				else if (!Application::IsKeyPressed('F') && (Interacted == true))
+				{
+					Interacted = false;
+				}
+
+				RenderTextOnScreen(meshList[GEO_TEXT], "Press F To Stop Inspecting", Color(1, 1, 1), 3, 27, 8);
+				RenderTextOnScreen(meshList[GEO_TEXT], "Arrow Keys To Turn The Object", Color(1, 1, 1), 1.5, 60, 30);
+
+				InspectEvidenceOnScreen(entity->getMesh(), 40, 30, 60, 60, rotateZ, rotateX);
+			}
+		}
+	}
+}
+
 void RoomScene::Init()
 {
 		// Init VBO here
@@ -579,11 +636,31 @@ void RoomScene::Init()
 		meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 		meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
 
-
 		//evidence
 		{
-			meshList[GEO_PILLS] = MeshBuilder::GenerateOBJMTL("Pills", "OBJ//pill.obj", "OBJ//pill.mtl");
-			meshList[GEO_PILLS]->textureID = LoadTGA("Image//PolygonCity_Texture_02_B.tga");
+			entityList[ENTITY_DEMENTIA_PILLS].setMesh(MeshBuilder::GenerateOBJMTL("dementia pills", "OBJ//evidence//bottle_pills.obj", "OBJ//evidence//bottle_pills.mtl"));
+			entityList[ENTITY_DEMENTIA_PILLS].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_03_B.tga");
+			entityList[ENTITY_DEMENTIA_PILLS].setTransform(Vector3(0, 0, 0)); //transform by default is 0,0,0
+
+			entityList[ENTITY_ANTIDEPRESSANT_PILLS].setMesh(MeshBuilder::GenerateOBJMTL("anti-depressants", "OBJ//evidence//pills.obj", "OBJ//evidence//pills.mtl"));
+			entityList[ENTITY_ANTIDEPRESSANT_PILLS].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_03_B.tga");
+			entityList[ENTITY_ANTIDEPRESSANT_PILLS].setTransform(Vector3(-1, 0.5f, -3.4f)); //transform by default is 0,0,0
+
+			entityList[ENTITY_PSYCHO_PILLS].setMesh(MeshBuilder::GenerateOBJMTL("psycho pills", "OBJ//evidence//psycho_pills.obj", "OBJ//evidence//psycho_pills.mtl"));
+			entityList[ENTITY_PSYCHO_PILLS].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_04_C.tga");
+			entityList[ENTITY_PSYCHO_PILLS].setTransform(Vector3(0, 0, 0)); //transform by default is 0,0,0
+
+			entityList[ENTITY_GUNCASE].setMesh(MeshBuilder::GenerateOBJMTL("", "OBJ//evidence//gun_briefcase.obj", "OBJ//evidence//gun_briefcase.mtl"));
+			entityList[ENTITY_GUNCASE].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_03_B.tga");
+			entityList[ENTITY_GUNCASE].setTransform(Vector3(-4, 0, -2)); //transform by default is 0,0,0
+
+			entityList[ENTITY_LAPTOP].setMesh(MeshBuilder::GenerateOBJMTL("cleaner cart", "OBJ//evidence//laptop.obj", "OBJ//evidence//laptop.mtl"));
+			entityList[ENTITY_LAPTOP].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_03_B.tga");
+			entityList[ENTITY_LAPTOP].setTransform(Vector3(-3, 0, -1)); //transform by default is 0,0,0
+
+			entityList[ENTITY_CREEPYDRAWING].setMesh(MeshBuilder::GenerateOBJMTL("creepy drawing", "OBJ//evidence//creepy_drawing.obj", "OBJ//evidence//creepy_drawing.mtl"));
+			entityList[ENTITY_CREEPYDRAWING].getMesh()->textureID = LoadTGA("Image//creepy_drawing.tga");
+			entityList[ENTITY_CREEPYDRAWING].setTransform(Vector3(0, 0.2f, 0)); //transform by default is 0,0,0
 		}
 
 		//Skybox
@@ -605,24 +682,6 @@ void RoomScene::Init()
 
 			meshList[GEO_BOTTOM] = MeshBuilder::GenerateQuad("bottom", Color(1, 1, 1), 1.f);
 			meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//bottom.tga");
-		}
-
-		//Main Characters
-		{
-			meshList[GEO_GUARD] = MeshBuilder::GenerateOBJMTL("guard", "OBJ//Guard.obj", "OBJ//Guard.mtl");
-			meshList[GEO_GUARD]->textureID = LoadTGA("Image//PolygonOffice_Texture_01_A.tga");
-
-			meshList[GEO_GAMER] = MeshBuilder::GenerateOBJMTL("gamer", "OBJ//Gamer.obj", "OBJ//Gamer.mtl");
-			meshList[GEO_GAMER]->textureID = LoadTGA("Image//PolygonCity_Texture_03_B.tga");
-
-			meshList[GEO_JANITOR] = MeshBuilder::GenerateOBJMTL("janitor", "OBJ//Janitor.obj", "OBJ//Janitor.mtl");
-			meshList[GEO_JANITOR]->textureID = LoadTGA("Image//PolygonOffice_Texture_02_C.tga");
-
-			meshList[GEO_OLDMAN] = MeshBuilder::GenerateOBJMTL("Old Man", "OBJ//OldMan.obj", "OBJ//OldMan.mtl");
-			meshList[GEO_OLDMAN]->textureID = LoadTGA("Image//PolygonCity_Texture_01_C.tga");
-
-			meshList[GEO_KID] = MeshBuilder::GenerateOBJMTL("Kid", "OBJ//Kid.obj", "OBJ//Kid.mtl");
-			meshList[GEO_KID]->textureID = LoadTGA("Image//PolygonKids_Texture_01_A.tga");
 		}
 
 		//Room Stage + Assets
@@ -721,24 +780,26 @@ void RoomScene::Update(double dt)
 		}
 	}
 
-	//rotate item
-	if (Application::IsKeyPressed(VK_UP))
+	//Rotate Inspect Item
 	{
-		rotateX += 90 * dt;
+		//rotate item
+		if (Application::IsKeyPressed(VK_UP))
+		{
+			rotateX += 90 * dt;
+		}
+		else if (Application::IsKeyPressed(VK_DOWN))
+		{
+			rotateX -= 90 * dt;
+		}
+		if (Application::IsKeyPressed(VK_LEFT))
+		{
+			rotateZ += 110 * dt;
+		}
+		else if (Application::IsKeyPressed(VK_RIGHT))
+		{
+			rotateZ -= 110 * dt;
+		}
 	}
-	else if (Application::IsKeyPressed(VK_DOWN))
-	{
-		rotateX -= 90 * dt;
-	}
-	if (Application::IsKeyPressed(VK_LEFT))
-	{
-		rotateZ += 110 * dt;
-	}
-	else if (Application::IsKeyPressed(VK_RIGHT))
-	{
-		rotateZ -= 110 * dt;
-	}
-
 
 	//Journal
 	{
@@ -816,44 +877,10 @@ void RoomScene::Render()
 
 	RenderSkybox();
 
-	//Characters
-	{
-		modelStack.PushMatrix();
-		modelStack.Translate(0, 0, -2);
-		modelStack.Scale(1, 1, 1);
-		RenderMesh(meshList[GEO_GUARD], false);
-		modelStack.PopMatrix();
-
-		modelStack.PushMatrix();
-		modelStack.Translate(2, 0, -2);
-		modelStack.Scale(1, 1, 1);
-		RenderMesh(meshList[GEO_GAMER], false);
-		modelStack.PopMatrix();
-
-		modelStack.PushMatrix();
-		modelStack.Translate(4, 0, -2);
-		modelStack.Scale(1, 1, 1);
-		RenderMesh(meshList[GEO_KID], false);
-		modelStack.PopMatrix();
-
-		modelStack.PushMatrix();
-		modelStack.Translate(-2, 0, -2);
-		modelStack.Scale(1, 1, 1);
-		RenderMesh(meshList[GEO_JANITOR], false);
-		modelStack.PopMatrix();
-
-		modelStack.PushMatrix();
-		modelStack.Translate(-4, 0, -2);
-		modelStack.Scale(1, 1, 1);
-		RenderMesh(meshList[GEO_OLDMAN], false);
-		modelStack.PopMatrix();
-
-	}
-
 	//Stage + Assets
 	{	
 		//Room 1 (Arcade Guy)
-		if (Application::roomState == Application::ROOM1) {			
+		if (Application::roomState == Application::ROOM1) {
 			modelStack.PushMatrix();
 			modelStack.Translate(0, 0, 0);
 			modelStack.Scale(1, 1, 1);
@@ -866,115 +893,7 @@ void RoomScene::Render()
 			RenderMesh(meshList[GEO_ROOM1_FURNITURE], true);
 			modelStack.PopMatrix();
 
-			//WALLS 
-			{
-				if ((camera.position.z >= 3.8) && (camera.position.x <= 5) && (camera.position.x >= -5))
-				{
-					camera.position.z = 3.8;
-					camera.target = camera.position + camera.view;
-				}
-				if ((camera.position.z <= -3.5) && (camera.position.x <= 0) && (camera.position.x >= -5))
-				{
-					camera.position.z = -3.5;
-					camera.target = camera.position + camera.view;
-				}
-				if ((camera.position.x <= -0.05) && (camera.position.x >= 0) && (camera.position.z <= -0.2) && (camera.position.z >= -5))
-				{
-					camera.position.x = -0.05;
-					camera.target = camera.position + camera.view;
-				}
-				/*if ((camera.position.x >= 0) && (camera.position.z <= -0.2) && (camera.position.z >= -5))
-				{
-					camera.position.x = 0;
-					camera.target = camera.position + camera.view;
-				}*/
-				if ((camera.position.z <= -4.4))
-				{
-					camera.position.z = -4.4;
-					camera.target = camera.position + camera.view;
-				}
-				if ((camera.position.x >= 4.86) && (camera.position.z <= 4) && (camera.position.z >= -5))
-				{
-					camera.position.x = 4.86;
-					camera.target = camera.position + camera.view;
-				}
-				if ((camera.position.x <= -4.4) && (camera.position.z <= 4) && (camera.position.z >= -5))
-				{
-					camera.position.x = -4.4;
-					camera.target = camera.position + camera.view;
-				}
-			}
-			//inspect
-			{
-				if ((camera.position.x > -1.6 && camera.position.x < -.3 && camera.position.z < -2 && camera.position.z > -3.5))
-				{
-
-					if (Inspect == false)
-					{
-
-						if (Application::IsKeyPressed('F') && (Interacted == false))
-						{
-
-							text = true;
-							Inspect = true;
-							Interacted = true;
-							Pickup = true;
-							camera.DisableControl();
-
-
-							return;
-						}
-						else if (!Application::IsKeyPressed('F') && (Interacted == true))
-						{
-							Interacted = false;
-						}
-					}
-					else if (Inspect == true)
-					{
-
-						if (Application::IsKeyPressed('F') && (Interacted == false))
-						{
-							text = false;
-							Inspect = false;
-							Pickup = false;
-							Interacted = true;
-							camera.EnableControl();
-						}
-						else if (!Application::IsKeyPressed('F') && (Interacted == true))
-						{
-							Interacted = false;
-						}
-					}
-
-				}
-				if (Pickup == false)
-				{
-					modelStack.PushMatrix();
-					modelStack.Translate(-0.95, 0.65, -3.2);
-					modelStack.Scale(0.5, 0.5, 0.5);
-					RenderMesh(meshList[GEO_PILLS], true);
-					modelStack.PopMatrix();
-				}
-				if (text == false && camera.position.x > -1.6 && camera.position.x < -.3 && camera.position.z < -2 && camera.position.z > -3.5)
-				{
-					RenderTextOnScreen(meshList[GEO_TEXT], "Press F To Inspect", Color(1, 1, 1), 4, 25, 6);
-				}
-				else if (text == true)
-				{
-					/*RenderTextOnScreen(meshList[GEO_TEXT], "Arrow up to turn the object Up", Color(1, 1, 1), 1.5, 0.5, 57);
-					RenderTextOnScreen(meshList[GEO_TEXT], "Arrow Left to turn the object Left", Color(1, 1, 1), 1.5, 0.5, 51);
-					RenderTextOnScreen(meshList[GEO_TEXT], "Arrow Down to turn the object Down", Color(1, 1, 1), 1.5, 0.5, 54);
-					RenderTextOnScreen(meshList[GEO_TEXT], "Arrow Right to turn the object Right", Color(1, 1, 1), 1.5, 0.5, 48);*/
-					RenderTextOnScreen(meshList[GEO_TEXT], "Press F To Stop Inspecting", Color(1, 1, 1), 3, 27, 8);
-
-					RenderTextOnScreen(meshList[GEO_TEXT], "Arrow Keys To Turn The Object", Color(1, 1, 1), 1.5,60, 30);
-				}
-
-				if (Inspect == true)
-				{
-					RenderObjectOnScreen(meshList[GEO_PILLS], 40, 30, 60, 60, rotateZ, rotateX);
-				}
-			}
+			RenderEvidenceObject(&entityList[ENTITY_ANTIDEPRESSANT_PILLS], 1, 1);
 		}
 
 		//Room 2 (Old Man)
@@ -990,9 +909,12 @@ void RoomScene::Render()
 			modelStack.Scale(1, 1, 1);
 			RenderMesh(meshList[GEO_ROOM2_FURNITURE], true);
 			modelStack.PopMatrix();
+
+			RenderEvidenceObject(&entityList[ENTITY_GUNCASE], 1, 1);
+			RenderEvidenceObject(&entityList[ENTITY_DEMENTIA_PILLS], 1, 1);
 		}
 
-		//Room 3 (Kid): WIP
+		//Room 3 (Kid):
 		else if (Application::roomState == Application::ROOM3){
 			modelStack.PushMatrix();
 			modelStack.Translate(0, 0, 0);
@@ -1005,6 +927,8 @@ void RoomScene::Render()
 			modelStack.Scale(1, 1, 1);
 			RenderMesh(meshList[GEO_ROOM1_FURNITURE], true);
 			modelStack.PopMatrix();
+
+			RenderEvidenceObject(&entityList[ENTITY_CREEPYDRAWING], 1, 1);
 		}
 
 		//Room 4 (Victim's Room): WIP
@@ -1020,15 +944,58 @@ void RoomScene::Render()
 			modelStack.Scale(1, 1, 1);
 			RenderMesh(meshList[GEO_ROOM2_FURNITURE], true);
 			modelStack.PopMatrix();
+
+			RenderEvidenceObject(&entityList[ENTITY_LAPTOP], 1, 1);
 		}
 	}
 
+	//TODO COLLISIONS FOR ROOM WALLS (WITHOUT FURNITURE)
 	//Left Layout
 	if (Application::roomState == Application::ROOM1 ||
 		Application::roomState == Application::ROOM3) {
+
 		if (IsInDoorLInteraction())
 		{
 			RenderPressEToInteract();
+		}
+
+		//WALLS 
+		{
+			if ((camera.position.z >= 3.8) && (camera.position.x <= 5) && (camera.position.x >= -5))
+			{
+				camera.position.z = 3.8;
+				camera.target = camera.position + camera.view;
+			}
+			if ((camera.position.z <= -3.5) && (camera.position.x <= 0) && (camera.position.x >= -5))
+			{
+				camera.position.z = -3.5;
+				camera.target = camera.position + camera.view;
+			}
+			if ((camera.position.x <= -0.05) && (camera.position.x >= 0) && (camera.position.z <= -0.2) && (camera.position.z >= -5))
+			{
+				camera.position.x = -0.05;
+				camera.target = camera.position + camera.view;
+			}
+			/*if ((camera.position.x >= 0) && (camera.position.z <= -0.2) && (camera.position.z >= -5))
+			{
+				camera.position.x = 0;
+				camera.target = camera.position + camera.view;
+			}*/
+			if ((camera.position.z <= -4.4))
+			{
+				camera.position.z = -4.4;
+				camera.target = camera.position + camera.view;
+			}
+			if ((camera.position.x >= 4.86) && (camera.position.z <= 4) && (camera.position.z >= -5))
+			{
+				camera.position.x = 4.86;
+				camera.target = camera.position + camera.view;
+			}
+			if ((camera.position.x <= -4.4) && (camera.position.z <= 4) && (camera.position.z >= -5))
+			{
+				camera.position.x = -4.4;
+				camera.target = camera.position + camera.view;
+			}
 		}
 	}
 

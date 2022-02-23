@@ -40,8 +40,18 @@ private:
 		GEO_ROOM2_FURNITURE,	//Right 1
 		GEO_ROOM3_FURNITURE,	//Left 2
 		GEO_ROOM4_FURNITURE,	//Right2
-		GEO_PILLS,
 		NUM_GEOMETRY,
+	};
+
+	enum ENTITY_TYPE 
+	{
+		ENTITY_DEMENTIA_PILLS,
+		ENTITY_ANTIDEPRESSANT_PILLS,
+		ENTITY_PSYCHO_PILLS,
+		ENTITY_GUNCASE,
+		ENTITY_LAPTOP,
+		ENTITY_CREEPYDRAWING,
+		NUM_ENTITY
 	};
 
 	enum JOURNAL_PAGE
@@ -88,6 +98,7 @@ private:
 	unsigned m_parameters[U_TOTAL];
 	unsigned m_vertexArrayID;
 	Mesh* meshList[NUM_GEOMETRY];
+	Entity entityList[NUM_ENTITY];
 
 	//unsigned m_indexBuffer [Num_Geometry];
 	//unsigned m_vertexBuffer[Num_Geometry];
@@ -111,7 +122,8 @@ private:
 	void RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey);
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
-	void RenderObjectOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float rotatez, float rotatex);
+	void RenderEvidenceObject(Entity* entity, float rangeX, float rangeY);
+	void InspectEvidenceOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float rotatez, float rotatex);
 	void RenderPressEToInteract();
 	void RenderHUD();
 	void RenderJournal();

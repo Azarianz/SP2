@@ -196,6 +196,28 @@ void LobbyScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, f
 		glEnable(GL_DEPTH_TEST);
 }
 
+void LobbyScene::InspectEvidenceOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float rotatez, float rotatex)
+{
+	glDisable(GL_DEPTH_TEST);
+	Mtx44 ortho;
+	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
+	projectionStack.PushMatrix();
+	projectionStack.LoadMatrix(ortho);
+	viewStack.PushMatrix();
+	viewStack.LoadIdentity(); //No need camera for ortho mode
+	modelStack.PushMatrix();
+	modelStack.LoadIdentity(); //Reset modelStack
+	modelStack.Translate(x, y, 0);
+	modelStack.Scale(sizex, sizey, 1);
+	modelStack.Rotate(rotatex, 1, 0, 0);
+	modelStack.Rotate(rotatez, 0, 1, 0);
+	RenderMesh(mesh, false);
+	projectionStack.PopMatrix();
+	viewStack.PopMatrix();
+	modelStack.PopMatrix();
+	glEnable(GL_DEPTH_TEST);
+}
+
 bool LobbyScene::CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft)
 {
 	//Converting Viewport space to UI space
@@ -1589,6 +1611,64 @@ void LobbyScene::PrintEvidence()
 	int arrag[i];
 }
 
+void LobbyScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ) {
+	//inspect
+	{
+		if (Pickup == false)
+		{
+			RenderEntity(entity, true);
+		}
+
+		cout << "Entity X:" << entity->getTransform().x << endl;
+		cout << "Entity Z:" << entity->getTransform().z << endl;
+
+		if (camera.position.x >= entity->getTransform().x - rangeX
+			&& camera.position.x <= entity->getTransform().x + rangeX
+			&& camera.position.z >= entity->getTransform().z - rangeZ
+			&& camera.position.z <= entity->getTransform().z + rangeZ)
+		{
+			if (!Inspect)
+			{
+				RenderTextOnScreen(meshList[GEO_TEXT], "Press F To Inspect", Color(1, 1, 1), 4, 25, 6);
+
+				if (Application::IsKeyPressed('F') && (Interacted == false))
+				{
+					Inspect = true;
+					Interacted = true;
+					Pickup = true;
+					camera.DisableControl();
+
+					return;
+				}
+				else if (!Application::IsKeyPressed('F') && (Interacted == true))
+				{
+					Interacted = false;
+				}
+			}
+			else if (Inspect)
+			{
+				if (Application::IsKeyPressed('F') && (Interacted == false))
+				{
+					text = false;
+					Inspect = false;
+					Pickup = false;
+					Interacted = true;
+					camera.EnableControl();
+				}
+				else if (!Application::IsKeyPressed('F') && (Interacted == true))
+				{
+					Interacted = false;
+				}
+
+				RenderTextOnScreen(meshList[GEO_TEXT], "Press F To Stop Inspecting", Color(1, 1, 1), 3, 27, 8);
+				RenderTextOnScreen(meshList[GEO_TEXT], "Arrow Keys To Turn The Object", Color(1, 1, 1), 1.5, 60, 30);
+
+				InspectEvidenceOnScreen(entity->getMesh(), 40, 20, 60, 60, rotateZ, rotateX);
+			}
+		}
+	}
+}
+
 void LobbyScene::Init()
 {
 	// Init VBO here
@@ -1765,6 +1845,25 @@ void LobbyScene::Init()
 		entityList[ENTITY_MACHINE].setTransform(Vector3(4.5f, 0.f, -14.f));
 	}
 
+	//evidence
+	{
+		entityList[ENTITY_NOTES].setMesh(MeshBuilder::GenerateOBJMTL("oldman notes", "OBJ//evidence//writing_notes.obj", "OBJ//evidence//writing_notes.mtl"));
+		entityList[ENTITY_NOTES].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_03_B.tga");
+		entityList[ENTITY_NOTES].setTransform(Vector3(-8, 0.9f, 10.f)); //transform by default is 0,0,0
+
+		entityList[ENTITY_ALCHOHOL_BOTTLE].setMesh(MeshBuilder::GenerateOBJMTL("alchohol bottle", "OBJ//evidence//drinking_bottle.obj", "OBJ//evidence//drinking_bottle.mtl"));
+		entityList[ENTITY_ALCHOHOL_BOTTLE].getMesh()->textureID = LoadTGA("Image//PolygonTown_Texture_01_A.tga");
+		entityList[ENTITY_ALCHOHOL_BOTTLE].setTransform(Vector3(-8, 0.9f, 12.f)); //transform by default is 0,0,0
+
+		entityList[ENTITY_BOTTLEMIX].setMesh(MeshBuilder::GenerateOBJMTL("bottle mix", "OBJ//evidence//water_bottle.obj", "OBJ//evidence//water_bottle.mtl"));
+		entityList[ENTITY_BOTTLEMIX].getMesh()->textureID = LoadTGA("Image//PolygonTown_Texture_01_A.tga");
+		entityList[ENTITY_BOTTLEMIX].setTransform(Vector3(-8, 0.8f, 13.f)); //transform by default is 0,0,0
+
+		entityList[ENTITY_KNIFE].setMesh(MeshBuilder::GenerateOBJMTL("pocket knife", "OBJ//evidence//cutlery_knife.obj", "OBJ//evidence//cutlery_knife.mtl"));
+		entityList[ENTITY_KNIFE].getMesh()->textureID = LoadTGA("Image//PolygonTown_Texture_01_A.tga");
+		entityList[ENTITY_KNIFE].setTransform(Vector3(-8, 0.9f, 14.f)); //transform by default is 0,0,0
+	}
+
 	isJournalOpen = false;
 	journalPage = EVIDENCE_PAGE;
 	rotateSkybox = 0;
@@ -1855,6 +1954,27 @@ void LobbyScene::Update(double dt)
 		}
 	}
 
+	//Rotate Inspect Item
+	{
+		//rotate item
+		if (Application::IsKeyPressed(VK_UP))
+		{
+			rotateX += 90 * dt;
+		}
+		else if (Application::IsKeyPressed(VK_DOWN))
+		{
+			rotateX -= 90 * dt;
+		}
+		if (Application::IsKeyPressed(VK_LEFT))
+		{
+			rotateZ += 110 * dt;
+		}
+		else if (Application::IsKeyPressed(VK_RIGHT))
+		{
+			rotateZ -= 110 * dt;
+		}
+	}
+
 	//Journal
 	{
 		static bool jButtonState = false;
@@ -1910,7 +2030,6 @@ void LobbyScene::Update(double dt)
 	if (Application::playerGuesses <= 0) {
 		Application::sceneState = Application::STATE_GAMELOSE;
 	}
-
 
 	Interaction();
 	BoundsCheck();
@@ -1990,8 +2109,11 @@ void LobbyScene::Render()
 	RenderEntity(&entityList[ENTITY_KID], false);
 	RenderEntity(&entityList[ENTITY_OLDMAN], false);
 	RenderEntity(&entityList[ENTITY_MACHINE], true);
+	RenderEvidenceObject(&entityList[ENTITY_NOTES], 0.5f, 0.5f);
+	RenderEvidenceObject(&entityList[ENTITY_ALCHOHOL_BOTTLE], 0.5f, 0.5f);
+	RenderEvidenceObject(&entityList[ENTITY_BOTTLEMIX], 0.5f, 0.5f);
+	RenderEvidenceObject(&entityList[ENTITY_KNIFE], 0.5f, 0.5f);
 
-	RenderEntity(&entityList[ENTITY_MACHINE], true);
 	if (IsInArcadeMachineInteraction() ||
 		IsInElevatorInteraction())
 	{

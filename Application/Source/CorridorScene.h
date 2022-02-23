@@ -27,14 +27,15 @@ private:
 		GEO_FRONT,
 		GEO_BACK,
 		GEO_TEXT,
-		GEO_GUARD,
-		GEO_JANITOR,
-		GEO_GAMER,
-		GEO_KID,
-		GEO_OLDMAN,
 		//Corridor Stage + Assets
 		GEO_CORRIDOR,
 		NUM_GEOMETRY,
+	};
+
+	enum ENTITY_TYPE 
+	{
+		ENTITY_CLEANER_CART,
+		NUM_ENTITY
 	};
 
 	enum JOURNAL_PAGE
@@ -82,6 +83,7 @@ private:
 	unsigned m_parameters[U_TOTAL];
 	unsigned m_vertexArrayID;
 	Mesh* meshList[NUM_GEOMETRY];
+	Entity entityList[NUM_ENTITY];
 
 	//unsigned m_indexBuffer [Num_Geometry];
 	//unsigned m_vertexBuffer[Num_Geometry];
@@ -92,6 +94,12 @@ private:
 	bool isJournalOpen;
 	char journalPage;
 	int evidencePage = 1;
+	bool Pickup = false;
+	bool Interacted = false;
+	bool text = false;
+	float rotateX = 0;
+	float rotateZ = 0;
+	bool Inspect;
 
 	void RenderSkybox();
 	void RenderMesh(Mesh* mesh, bool enableLight);
@@ -99,6 +107,8 @@ private:
 	void RenderMeshOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey);
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
+	void RenderEvidenceObject(Entity* entity, float rangeX, float rangeY);
+	void InspectEvidenceOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float rotatez, float rotatex);
 	void RenderPressEToInteract();
 	void RenderJournal();
 	void ResetJournal();
