@@ -13,10 +13,6 @@ void Camera3::Init(const Vector3& pos, const Vector3& target, const Vector3& up)
 	enableControl = true;
 }
 
-void Camera3::Reset()
-{
-}
-
 void Camera3::Update(double dt)
 {
 	if (enableControl)
