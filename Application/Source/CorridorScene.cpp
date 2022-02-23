@@ -336,67 +336,58 @@ bool CorridorScene::IsInDoor4Interaction()
 
 void CorridorScene::RenderJournal()
 {
-	float journalButtonHeight = Application::screenUISizeY / 5;
-	float journalButtonWidth = Application::screenUISizeX / 4;
+	float journalButtonHeight = (Application::screenUISizeY / 10);
+	float journalButtonWidth = (Application::screenUISizeX / 6);
 
-	RenderMeshOnScreen(meshList[GEO_QUAD], Application::screenUISizeX / 2, Application::screenUISizeY / 2, Application::screenUISizeX, Application::screenUISizeY);
-
-	int buttonSpacing = 4;
-
-	RenderMeshOnScreen(meshList[GEO_QUAD_BUTTON], journalButtonWidth / 2, Application::screenUISizeY - journalButtonHeight / 2 - buttonSpacing, journalButtonWidth - buttonSpacing, journalButtonHeight);
-	int tempCount = 1;
-	RenderMeshOnScreen(meshList[GEO_QUAD_BUTTON], journalButtonWidth / 2 + journalButtonWidth * tempCount, Application::screenUISizeY - journalButtonHeight / 2 - buttonSpacing, journalButtonWidth - buttonSpacing, journalButtonHeight);
-	++tempCount;
-	RenderMeshOnScreen(meshList[GEO_QUAD_BUTTON], journalButtonWidth / 2 + journalButtonWidth * tempCount, Application::screenUISizeY - journalButtonHeight / 2 - buttonSpacing, journalButtonWidth - buttonSpacing, journalButtonHeight);
-	++tempCount;
-	RenderMeshOnScreen(meshList[GEO_QUAD_BUTTON], journalButtonWidth / 2 + journalButtonWidth * tempCount, Application::screenUISizeY - journalButtonHeight / 2 - buttonSpacing, journalButtonWidth - buttonSpacing, journalButtonHeight);
+	int buttonSpacing = 2;
 
 	//so that button works with different resolution
 	float tempScreenUISizeX = Application::GetWindowWidth() / 10;
 	float tempScreenUISizeY = Application::GetWindowHeight() / 10;
-	journalButtonHeight = tempScreenUISizeY / 5;
-	journalButtonWidth = tempScreenUISizeX / 4;
+	journalButtonHeight = tempScreenUISizeY / 10;
+	journalButtonWidth = tempScreenUISizeX / 6;
 
 	static bool lcButtonState = false;
 	if (!lcButtonState && Application::IsMousePressed(0))
 	{
 		lcButtonState = true;
 		//button1
+		int tempCount = 1;
 		if (CreateButton(tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
 			tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
-			journalButtonWidth / 2 + (journalButtonWidth / 2 - buttonSpacing / 2),
-			journalButtonWidth / 2 - (journalButtonWidth / 2 - buttonSpacing / 2)))
+			(journalButtonWidth / 2 + journalButtonWidth * (tempCount + 0.45)) + (journalButtonWidth / 2 - buttonSpacing / 2),
+			(journalButtonWidth / 2 + journalButtonWidth * (tempCount + 0.45)) - (journalButtonWidth / 2 - buttonSpacing / 2)))
 		{
 			std::cout << "journal page is: evidence" << std::endl;
 			journalPage = EVIDENCE_PAGE;
 		}
-		int tempCount = 1;
+		++tempCount;
 		if (CreateButton(tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
 			tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
-			(journalButtonWidth / 2 + journalButtonWidth * tempCount) + (journalButtonWidth / 2 - buttonSpacing / 2),
-			(journalButtonWidth / 2 + journalButtonWidth * tempCount) - (journalButtonWidth / 2 - buttonSpacing / 2)))
+			(journalButtonWidth / 2 + journalButtonWidth * (tempCount + 0.35)) + (journalButtonWidth / 2 - buttonSpacing / 2),
+			(journalButtonWidth / 2 + journalButtonWidth * (tempCount + 0.35)) - (journalButtonWidth / 2 - buttonSpacing / 2)))
 		{
 			std::cout << "journal page is: profile" << std::endl;
 			journalPage = PROFILE_PAGE;
 		}
-		++tempCount;
-		if (CreateButton(tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
-			tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
-			(journalButtonWidth / 2 + journalButtonWidth * tempCount) + (journalButtonWidth / 2 - buttonSpacing / 2),
-			(journalButtonWidth / 2 + journalButtonWidth * tempCount) - (journalButtonWidth / 2 - buttonSpacing / 2)))
-		{
-			std::cout << "journal page is: 3" << std::endl;
-			journalPage = EVIDENCE_PAGE;
-		}
-		++tempCount;
-		if (CreateButton(tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
-			tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
-			(journalButtonWidth / 2 + journalButtonWidth * tempCount) + (journalButtonWidth / 2 - buttonSpacing / 2),
-			(journalButtonWidth / 2 + journalButtonWidth * tempCount) - (journalButtonWidth / 2 - buttonSpacing / 2)))
-		{
-			std::cout << "journal page is: 4" << std::endl;
-			journalPage = EVIDENCE_PAGE;
-		}
+
+		//if (CreateButton(tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
+		//	tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
+		//	(journalButtonWidth / 2 + journalButtonWidth * tempCount) + (journalButtonWidth / 2 - buttonSpacing / 2),
+		//	(journalButtonWidth / 2 + journalButtonWidth * tempCount) - (journalButtonWidth / 2 - buttonSpacing / 2)))
+		//{
+		//	std::cout << "journal page is: 3" << std::endl;
+		//	journalPage = EVIDENCE_PAGE;
+		//}
+		//++tempCount;
+		//if (CreateButton(tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
+		//	tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
+		//	(journalButtonWidth / 2 + journalButtonWidth * tempCount) + (journalButtonWidth / 2 - buttonSpacing / 2),
+		//	(journalButtonWidth / 2 + journalButtonWidth * tempCount) - (journalButtonWidth / 2 - buttonSpacing / 2)))
+		//{
+		//	std::cout << "journal page is: 4" << std::endl;
+		//	journalPage = EVIDENCE_PAGE;
+		//}
 	}
 	else if (lcButtonState && !Application::IsMousePressed(0))
 	{
@@ -405,30 +396,33 @@ void CorridorScene::RenderJournal()
 
 	if (journalPage == EVIDENCE_PAGE)
 	{
+		RenderMeshOnScreen(meshList[GEO_JOURNAL_PAGE1], 40, 30, 40, 55);
 		PrintEvidence();
 	}
 	else if (journalPage == PROFILE_PAGE)
 	{
-
+		RenderMeshOnScreen(meshList[GEO_JOURNAL_PAGE2], 40, 30, 40, 55);
 	}
 }
 
 void CorridorScene::ResetJournal()
 {
+	journalPage = EVIDENCE_PAGE;
+	evidencePage = 1;
 }
 
 void CorridorScene::PrintEvidence()
 {
-	int xpos = ((Application::screenUISizeX / 3.1));
-	int yOffset = ((Application::screenUISizeY / 1.7) - 3);
+	int xpos = ((Application::screenUISizeX / 2)) - 7;
+	int yOffset = ((Application::screenUISizeY / 1.7) + 7);
 	static bool EButtonState = false;
 	static bool QButtonState = false;
 
 	if (!Application::eList.empty())
 	{
 		//evidencePage = 1;
-		int index = (evidencePage - 1) * 4;
-		int endIndex = evidencePage * 4;
+		int index = (evidencePage - 1) * 5;
+		int endIndex = evidencePage * 5;
 
 		if (endIndex >= Application::eList.size()) {
 			endIndex = (Application::eList.size());
@@ -437,7 +431,7 @@ void CorridorScene::PrintEvidence()
 		//Add logic to print based on page number eg.(page 2: for (i = 8; i < i + 4; i++))
 		for (int i = index; i <= (endIndex - 1); i++)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], Application::eList[i], Color(1, 1, 1), 3, xpos, yOffset);
+			RenderTextOnScreen(meshList[GEO_TEXT], Application::eList[i], Color(0, 0, 0), 2, xpos, yOffset);
 			yOffset -= 8;
 		}
 
@@ -453,7 +447,7 @@ void CorridorScene::PrintEvidence()
 				evidencePage++;
 			}
 
-			index = (evidencePage - 1) * 4;
+			index = (evidencePage - 1) * 5;
 		}
 
 		else if (EButtonState && !Application::IsKeyPressed('E'))
@@ -472,7 +466,7 @@ void CorridorScene::PrintEvidence()
 				evidencePage--;
 			}
 
-			index = (evidencePage - 1) * 4;
+			index = (evidencePage - 1) * 5;
 		}
 
 		else if (QButtonState && !Application::IsKeyPressed('Q'))
@@ -546,9 +540,9 @@ void CorridorScene::RenderEvidenceObject(Entity* entity, float rangeX, float ran
 	}
 }
 
-CorridorScene::CorridorScene() 
+CorridorScene::CorridorScene()
 {
-	camera.Init(Vector3(0, 1.5f, 0), Vector3(5, 1.5f, 0), Vector3(0, 1, 0));
+	camera.Init(Vector3(-4, 1.5f, 3), Vector3(2, 1.5f, 3), Vector3(0, 1, 0));
 }
 
 void CorridorScene::Init()
@@ -679,6 +673,15 @@ void CorridorScene::Init()
 
 		meshList[GEO_BOTTOM] = MeshBuilder::GenerateQuad("bottom", Color(1, 1, 1), 1.f);
 		meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//bottom.tga");
+	}
+
+	//Journal
+	{
+		meshList[GEO_JOURNAL_PAGE1] = MeshBuilder::GenerateQuad("Journal Page 1", Color(1, 1, 1), 1.f);
+		meshList[GEO_JOURNAL_PAGE1]->textureID = LoadTGA("Image//journal_1.tga");
+
+		meshList[GEO_JOURNAL_PAGE2] = MeshBuilder::GenerateQuad("Journal Page 2", Color(1, 1, 1), 1.f);
+		meshList[GEO_JOURNAL_PAGE2]->textureID = LoadTGA("Image//journal_2.tga");
 	}
 
 	//evidence
@@ -817,6 +820,7 @@ void CorridorScene::Update(double dt)
 			Application::HideCursor();
 			isJournalOpen = false;
 			jButtonState = true;
+			ResetJournal();
 		}
 	}
 

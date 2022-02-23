@@ -27,6 +27,8 @@ private:
 		GEO_FRONT,
 		GEO_BACK,
 		GEO_TEXT,
+		GEO_JOURNAL_PAGE1,
+		GEO_JOURNAL_PAGE2,
 		//Corridor Stage + Assets
 		GEO_CORRIDOR,
 		NUM_GEOMETRY,
