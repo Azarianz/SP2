@@ -2,6 +2,6 @@
 # Material Count: 1
 
 newmtl Material.001
-Ns 225.000000
+Ns 0.000000
 Kd 0.800000 0.800000 0.800000
 map_Kd creepy_drawing.png

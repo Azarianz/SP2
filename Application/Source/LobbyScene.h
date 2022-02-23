@@ -39,6 +39,7 @@ private:
 		GEO_TABLES,
 		GEO_DIALOGUE,
 		GEO_DIALOGUE2,
+		GEO_OFFICERS,
 		NUM_GEOMETRY,
 	};
 
@@ -64,6 +65,7 @@ private:
 		ENTITY_BOTTLEMIX,
 		ENTITY_KNIFE,
 		ENTITY_PSYCHO_PILLS,
+		ENTITY_CHIEF,
 		NUM_ENTITY
 	};
 
@@ -191,6 +193,7 @@ private:
 	void RenderSkybox();
 	bool CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft);
 	void RenderPressEToInteract(char btn, std::string input, float x, float y);
+	void RenderOfficers();
 	void RenderJournal();
 	void RenderHUD();
 	void ResetJournal();

@@ -482,6 +482,128 @@ void CorridorScene::PrintEvidence()
 	int arrag[i];
 }
 
+void CorridorScene::BoundsCheck()
+{
+	if ((camera.position.x >= 2))
+	{
+		camera.position.x = 2;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.x <= -2.1) && (camera.position.z >= 4))
+	{
+		camera.position.x = -2.1;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.x <= -2.1) && (camera.position.z <= 1.6))
+	{
+		camera.position.x = -2.1;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.x <= -4))
+	{
+		camera.position.x = -4;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.z >= 3.7) && (camera.position.x <= -2.5))
+	{
+		camera.position.z = 3.7;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.z <= 2) && (camera.position.x <= -2.5))
+	{
+		camera.position.z = 2;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.z <= -24))
+	{
+		camera.position.z = -24;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.z >= 24))
+	{
+		camera.position.z = 24;
+		camera.target = camera.position + camera.view;
+	}
+}
+
+void CorridorScene::RenderOfficers()
+{
+	//cart officer
+
+	modelStack.PushMatrix();
+	modelStack.Translate(1.5, 0, -21.6);
+	modelStack.Scale(1, 1, 1);
+	RenderMesh(meshList[GEO_OFFICER], false);
+	modelStack.PopMatrix();
+	RenderHUD();
+
+	if (camera.position.x > 0 && camera.position.x < 3 && camera.position.z > -23.1 && camera.position.z < -20.1)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is the janitor's cart"), Color(1, 1, 1), 2, 35, 8);
+		RenderTextOnScreen(meshList[GEO_TEXT], ("there may be some evidence here"), Color(1, 1, 1), 2, 35, 5.5);
+	}
+
+	//victim officer
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-2, 0, -16.4);
+	modelStack.Scale(1, 1, 1);
+	modelStack.Rotate(90, 0, 1, 0);
+	RenderMesh(meshList[GEO_OFFICER], false);
+	modelStack.PopMatrix();
+	RenderHUD();
+
+	if (camera.position.x > -3.5 && camera.position.x < -.5 && camera.position.z > -17.9 && camera.position.z < -14.9)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is the Victim's room"), Color(1, 1, 1), 2, 35, 8);
+	}
+
+	//Kid officer
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-2, 0, -8.2);
+	modelStack.Scale(1, 1, 1);
+	modelStack.Rotate(90, 0, 1, 0);
+	RenderMesh(meshList[GEO_OFFICER], false);
+	modelStack.PopMatrix();
+	RenderHUD();
+
+	if (camera.position.x > -3.5 && camera.position.x < -.5 && camera.position.z > -9.7 && camera.position.z < -6.7)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is Kevin's room"), Color(1, 1, 1), 2, 35, 8);
+	}
+
+	//Oldman officer
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-2, 0, 9.5);
+	modelStack.Scale(1, 1, 1);
+	modelStack.Rotate(90, 0, 1, 0);
+	RenderMesh(meshList[GEO_OFFICER], false);
+	modelStack.PopMatrix();
+	RenderHUD();
+
+	if (camera.position.x > -3.5 && camera.position.x < -.5 && camera.position.z > 8 && camera.position.z < 11)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is Izan's room"), Color(1, 1, 1), 2, 35, 8);
+	}
+
+	//Arcade officer
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-2, 0, 17.5);
+	modelStack.Scale(1, 1, 1);
+	modelStack.Rotate(90, 0, 1, 0);
+	RenderMesh(meshList[GEO_OFFICER], false);
+	modelStack.PopMatrix();
+	RenderHUD();
+
+	if (camera.position.x > -3.5 && camera.position.x < -.5 && camera.position.z > 16 && camera.position.z < 19)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is Ivan sonny's room"), Color(1, 1, 1), 2, 35, 8);
+	}
+}
+
 void CorridorScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ) {
 	//inspect
 	{
@@ -653,6 +775,10 @@ void CorridorScene::Init()
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
+
+	//Officer
+	meshList[GEO_OFFICER] = MeshBuilder::GenerateOBJMTL("gamer", "OBJ//Guard.obj", "OBJ//Guard.mtl");
+	meshList[GEO_OFFICER]->textureID = LoadTGA("Image//PolygonOffice_Texture_01_A.tga");
 
 	//Skybox
 	{
@@ -840,6 +966,7 @@ void CorridorScene::Update(double dt)
 	}
 
 	framePerSecond = 1.f / dt;
+	BoundsCheck();
 }
 
 void CorridorScene::Render()
@@ -897,7 +1024,7 @@ void CorridorScene::Render()
 	{
 		RenderJournal();
 	}
-
+	RenderOfficers();
 	RenderHUD();
 
 	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 4, 0);

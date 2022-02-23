@@ -461,6 +461,129 @@ void RoomScene::PrintEvidence()
 	int arrag[i];
 }
 
+void RoomScene::RoomCollision1()
+{
+	if ((camera.position.z >= 3.4))
+	{
+		camera.position.z = 3.4;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.z <= -3.5) && (camera.position.x <= 0) && (camera.position.x >= -5))
+	{
+		camera.position.z = -3.5;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.x <= -0.05) && (camera.position.x >= 0) && (camera.position.z <= -0.2) && (camera.position.z >= -5))
+	{
+		camera.position.x = -0.05;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.z <= -4.2))
+	{
+		camera.position.z = -4.2;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.x >= 4.86))
+	{
+		camera.position.x = 4.86;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.x <= -4.2))
+	{
+		camera.position.x = -4.2;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.z <= 0.3) && (camera.position.x >= -0.1) && (camera.position.x <= 0.2))
+	{
+		camera.position.x = -0.1;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.z <= 0.3) && (camera.position.x >= 0.2) && (camera.position.x <= 0.7))
+	{
+		camera.position.x = 0.7;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.x >= 3.5) && (camera.position.z <= 0.3) && (camera.position.z >= -0.7))
+	{
+		camera.position.z = 0.1;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.x >= 3.5) && (camera.position.z <= -0.7) && (camera.position.z >= -1.1))
+	{
+		camera.position.z = -1.1;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.x <= 2.5) && (camera.position.x >= -0.1) && (camera.position.z <= 0.3) && (camera.position.z >= -0.7))
+	{
+		camera.position.z = 0.3;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.x <= 2.5) && (camera.position.x >= -0.1) && (camera.position.z <= -0.7) && (camera.position.z >= -1.1))
+	{
+		camera.position.z = -1.1;
+		camera.target = camera.position + camera.view;
+	}
+}
+
+void RoomScene::RoomCollision2()
+{
+	if ((camera.position.z >= 4.5))
+	{
+		camera.position.z = 4.5;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.z <= -3.9))
+	{
+		camera.position.z = -3.9;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.x <= -4))
+	{
+		camera.position.x = -4;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.x >= 4.4))
+	{
+		camera.position.x = 4.4;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.z >= 3) && (camera.position.x <= -0.27))
+	{
+		camera.position.z = 3;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.z >= 0.1) && (camera.position.x >= -0.27) && (camera.position.x <= 0))
+	{
+		camera.position.x = -0.27;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.z >= 0.1) && (camera.position.x >= 0) && (camera.position.x <= 0.7))
+	{
+		camera.position.x = 0.7;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.x >= 3.2) && (camera.position.z >= 0.1) && (camera.position.z <= 0.3))
+	{
+		camera.position.z = 0.1;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.x >= 3.2) && (camera.position.z >= 0.3) && (camera.position.z <= 0.9))
+	{
+		camera.position.z = 0.9;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.x >= -0.27) && (camera.position.x <= 2.2) && (camera.position.z >= 0.1) && (camera.position.z <= 0.3))
+	{
+		camera.position.z = 0.1;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.x >= -0.27) && (camera.position.x <= 2.2) && (camera.position.z >= 0.3) && (camera.position.z <= 0.9))
+	{
+		camera.position.z = 0.9;
+		camera.target = camera.position + camera.view;
+	}
+}
+
 void RoomScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ) {
 	//inspect
 	{
@@ -1087,45 +1210,7 @@ void RoomScene::Render()
 		{
 			RenderPressEToInteract();
 		}
-
-		//WALLS 
-		{
-			if ((camera.position.z >= 3.8) && (camera.position.x <= 5) && (camera.position.x >= -5))
-			{
-				camera.position.z = 3.8;
-				camera.target = camera.position + camera.view;
-			}
-			if ((camera.position.z <= -3.5) && (camera.position.x <= 0) && (camera.position.x >= -5))
-			{
-				camera.position.z = -3.5;
-				camera.target = camera.position + camera.view;
-			}
-			if ((camera.position.x <= -0.05) && (camera.position.x >= 0) && (camera.position.z <= -0.2) && (camera.position.z >= -5))
-			{
-				camera.position.x = -0.05;
-				camera.target = camera.position + camera.view;
-			}
-			/*if ((camera.position.x >= 0) && (camera.position.z <= -0.2) && (camera.position.z >= -5))
-			{
-				camera.position.x = 0;
-				camera.target = camera.position + camera.view;
-			}*/
-			if ((camera.position.z <= -4.4))
-			{
-				camera.position.z = -4.4;
-				camera.target = camera.position + camera.view;
-			}
-			if ((camera.position.x >= 4.86) && (camera.position.z <= 4) && (camera.position.z >= -5))
-			{
-				camera.position.x = 4.86;
-				camera.target = camera.position + camera.view;
-			}
-			if ((camera.position.x <= -4.4) && (camera.position.z <= 4) && (camera.position.z >= -5))
-			{
-				camera.position.x = -4.4;
-				camera.target = camera.position + camera.view;
-			}
-		}
+		RoomCollision1();
 	}
 
 	//Right Layout
@@ -1135,6 +1220,7 @@ void RoomScene::Render()
 		{
 			RenderPressEToInteract();
 		}
+		RoomCollision2();
 	}
 
 	if (isJournalOpen)

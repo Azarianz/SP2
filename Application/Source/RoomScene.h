@@ -143,6 +143,8 @@ private:
 	void RenderJournal();
 	void ResetJournal();
 	void PrintEvidence();
+	void RoomCollision1();
+	void RoomCollision2();
 	bool CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft);
 	bool IsInDoorLInteraction();
 	bool IsInDoorRInteraction();

@@ -196,6 +196,113 @@ void LobbyScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, f
 		glEnable(GL_DEPTH_TEST);
 }
 
+void LobbyScene::RenderOfficers()
+{
+	//chief
+	if (camera.position.x - 1.5 <= entityList[ENTITY_CHIEF].getTransform().x + interactOffset
+		&& camera.position.z + 1.5 >= entityList[ENTITY_CHIEF].getTransform().z - interactOffset
+		&& camera.position.x + 1.5 >= entityList[ENTITY_CHIEF].getTransform().x - interactOffset
+		&& camera.position.z - 1.5 <= entityList[ENTITY_CHIEF].getTransform().z + interactOffset)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], ("you can go and take a look at it"), Color(1, 1, 1), 2, 35, 2);
+		RenderTextOnScreen(meshList[GEO_TEXT], ("on your left, you will find a table with evidence we have found here"), Color(1, 1, 1), 2, 22, 4.5);
+		RenderTextOnScreen(meshList[GEO_TEXT], ("go to the officers,they will inform you about the suspects"), Color(1, 1, 1), 2, 25, 7);
+		RenderTextOnScreen(meshList[GEO_TEXT], ("Sir, welcome to the cime scene"), Color(1, 1, 1), 2, 33, 9.5);
+	}
+	//officers
+	{
+		//janitor
+
+		modelStack.PushMatrix();
+		modelStack.Translate(-7, 0, 9);
+		modelStack.Scale(1, 1, 1);
+		modelStack.Rotate(90, 0, 1, 0);
+		RenderMesh(meshList[GEO_OFFICERS], false);
+		modelStack.PopMatrix();
+		if (camera.position.x > -8.5 && camera.position.x < -5.5 && camera.position.z > 7.5 && camera.position.z < 10.5)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is the janitor, Gertrude"), Color(1, 1, 1), 2, 35, 8);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("She was the last one to exit the victims room"), Color(1, 1, 1), 2, 31, 5.5);
+		}
+
+		//guard
+
+		modelStack.PushMatrix();
+		modelStack.Translate(-5.5, 0, 3.2);
+		modelStack.Scale(1, 1, 1);
+		modelStack.Rotate(90, 0, 1, 0);
+		RenderMesh(meshList[GEO_OFFICERS], false);
+		modelStack.PopMatrix();
+
+		if (camera.position.x > -7 && camera.position.x < -4 && camera.position.z > 1.7 && camera.position.z < 4.7)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], ("Akkop this is the detective"), Color(1, 1, 1), 2, 35, 8);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("Detective this is Akkop he was sitting "), Color(1, 1, 1), 2, 34, 5.5);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("with the victim before he died"), Color(1, 1, 1), 2, 34.5, 3);
+		}
+
+		//oldman
+		modelStack.PushMatrix();
+		modelStack.Translate(5.5, 0, 3.2);
+		modelStack.Scale(1, 1, 1);
+		modelStack.Rotate(-180, 0, 1, 0);
+		RenderMesh(meshList[GEO_OFFICERS], false);
+		modelStack.PopMatrix();
+
+		if (camera.position.x > 4 && camera.position.x < 7 && camera.position.z > 1.7 && camera.position.z < 4.7)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], ("Um this's Izan"), Color(1, 1, 1), 2, 35, 8);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("he was the closest to the victim when he fell"), Color(1, 1, 1), 2, 31, 5.5);
+		}
+		//kid
+
+		modelStack.PushMatrix();
+		modelStack.Translate(4.5, 0, -5);
+		modelStack.Scale(1, 1, 1);
+		RenderMesh(meshList[GEO_OFFICERS], false);
+		modelStack.PopMatrix();
+
+		if (camera.position.x > 3 && camera.position.x < 6 && camera.position.z > -6.5 && camera.position.z < -3.5)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], ("This is Kevin"), Color(1, 1, 1), 2, 35, 8);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("he caught having many run-ins with the victim"), Color(1, 1, 1), 2, 31, 5.5);
+		}
+		//arcade
+
+		modelStack.PushMatrix();
+		modelStack.Translate(2, 0, -14);
+		modelStack.Scale(1, 1, 1);
+		RenderMesh(meshList[GEO_OFFICERS], false);
+		modelStack.PopMatrix();
+
+		if (camera.position.x > 0.5 && camera.position.x < 3.5 && camera.position.z > -15.5 && camera.position.z < -12.5)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], ("Hi sir this is Ivan"), Color(1, 1, 1), 2, 35, 8);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("he was just playing the arcade game when the victim died"), Color(1, 1, 1), 2, 31, 5.5);
+		}
+
+		//lift
+		modelStack.PushMatrix();
+		modelStack.Translate(1.1, 0, 30.5);
+		modelStack.Scale(1, 1, 1);
+		RenderMesh(meshList[GEO_OFFICERS], false);
+		modelStack.PopMatrix();
+
+		modelStack.PushMatrix();
+		modelStack.Translate(1.1, 0, 32);
+		modelStack.Scale(1, 1, 1);
+		modelStack.Rotate(-180, 0, 1, 0);
+		RenderMesh(meshList[GEO_OFFICERS], false);
+		modelStack.PopMatrix();
+
+		if (camera.position.x > -0.8 && camera.position.x < 5 && camera.position.z > 29 && camera.position.z < 40)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], ("Hi sir, the chief will brief you on this case"), Color(1, 1, 1), 2, 30, 8);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("he is at the entrance"), Color(1, 1, 1), 2, 35, 5.5);
+		}
+	}
+}
+
 void LobbyScene::InspectEvidenceOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float rotatez, float rotatex)
 {
 	glDisable(GL_DEPTH_TEST);
@@ -2394,6 +2501,9 @@ void LobbyScene::Init()
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
 
+	meshList[GEO_OFFICERS]=MeshBuilder::GenerateOBJMTL("CHIEF", "OBJ//Guard.obj", "OBJ//Guard.mtl");
+	meshList[GEO_OFFICERS]->textureID = LoadTGA("Image//PolygonOffice_Texture_01_A.tga");
+
 	//Journal
 	{
 		meshList[GEO_JOURNAL_PAGE1] = MeshBuilder::GenerateQuad("Journal Page 1", Color(1, 1, 1), 1.f);
@@ -2437,23 +2547,33 @@ void LobbyScene::Init()
 		//gamer npc
 		entityList[ENTITY_GAMER].setMesh(MeshBuilder::GenerateOBJMTL("gamer", "OBJ//Gamer.obj", "OBJ//Gamer.mtl"));
 		entityList[ENTITY_GAMER].getMesh()->textureID = LoadTGA("Image//PolygonCity_Texture_03_B.tga");
-		entityList[ENTITY_GAMER].setTransform(Vector3(2.f, 0.f, -2.f)); //transform by default is 0,0,0
+		entityList[ENTITY_GAMER].setTransform(Vector3(3.f, 0.f, -14.f)); //transform by default is 0,0,0
+
 		//janitor npc
 		entityList[ENTITY_JANITOR].setMesh(MeshBuilder::GenerateOBJMTL("janitor", "OBJ//Janitor.obj", "OBJ//Janitor.mtl"));
 		entityList[ENTITY_JANITOR].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_02_C.tga");
-		entityList[ENTITY_JANITOR].setTransform(Vector3(-2.f, 0.f, -2.f)); //transform by default is 0,0,0
+		entityList[ENTITY_JANITOR].setTransform(Vector3(-7.f, 0.f, 10.5f)); //transform by default is 0,0,0
+		entityList[ENTITY_JANITOR].setRotationAngle(float(90.f));
+		entityList[ENTITY_JANITOR].setRotationAxis(Vector3(0.f, 3.f, 0.f));
+
 		//old man npc
 		entityList[ENTITY_OLDMAN].setMesh(MeshBuilder::GenerateOBJMTL("Old Man", "OBJ//OldMan.obj", "OBJ//OldMan.mtl"));
 		entityList[ENTITY_OLDMAN].getMesh()->textureID = LoadTGA("Image//PolygonCity_Texture_01_C.tga");
-		entityList[ENTITY_OLDMAN].setTransform(Vector3(-4.f, 0.f, -2.f)); //transform by default is 0,0,0
+		entityList[ENTITY_OLDMAN].setTransform(Vector3(5.6f, 0.f, 0.5f)); //transform by default is 0,0,0
 		//kid npc
 		entityList[ENTITY_KID].setMesh(MeshBuilder::GenerateOBJMTL("Kid", "OBJ//Kid.obj", "OBJ//Kid.mtl"));
 		entityList[ENTITY_KID].getMesh()->textureID = LoadTGA("Image//PolygonKids_Texture_01_A.tga");
-		entityList[ENTITY_KID].setTransform(Vector3(4.f, 0.f, -2.f)); //transform by default is 0,0,0
+		entityList[ENTITY_KID].setTransform(Vector3(5.5f, 0.f, -5.f)); //transform by default is 0,0,0
 		//guard npc
 		entityList[ENTITY_GUARD].setMesh(MeshBuilder::GenerateOBJMTL("guard", "OBJ//Guard.obj", "OBJ//Guard.mtl"));
 		entityList[ENTITY_GUARD].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_01_A.tga");
-		entityList[ENTITY_GUARD].setTransform(Vector3(0.f, 0.f, -2.f)); //transform by default is 0,0,0
+		entityList[ENTITY_GUARD].setTransform(Vector3(-5.6f, 0.f, 1.3f)); //transform by default is 0,0,0
+		entityList[ENTITY_GUARD].setRotationAngle(float(-90.f));
+		entityList[ENTITY_GUARD].setRotationAxis(Vector3(0.f, 1.f, 0.f));
+		//chief
+		entityList[ENTITY_CHIEF].setMesh(MeshBuilder::GenerateOBJMTL("CHIEF", "OBJ//Guard.obj", "OBJ//Guard.mtl"));
+		entityList[ENTITY_CHIEF].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_01_A.tga");
+		entityList[ENTITY_CHIEF].setTransform(Vector3(-1.1f, 0.f, 14.5f)); //transform by default is 0,0,0
 	}
 	
 	//Lobby Stage + Assets
@@ -2746,7 +2866,7 @@ void LobbyScene::Render()
 			RenderPressEToInteract('C', "pin culprit", 30, 15);
 		}
 	}
-
+	RenderOfficers();
 	RenderHUD();
 
 	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 4, 0);
