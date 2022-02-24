@@ -2476,11 +2476,6 @@ void LobbyScene::Init()
 
 	meshList[GEO_SUN] = MeshBuilder::GenerateSphere("Sphere", Color(1.0, 1.0, 1.0), 20, 20, 0.5);
 
-	meshList[GEO_SPHERE] = MeshBuilder::GenerateSphere("Sphere", Color(0.5, 1.0, 1.0), 20, 20, 1);
-	meshList[GEO_SPHERE]->textureID = LoadTGA("Image//color.tga");
-
-	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference");
-
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
 
