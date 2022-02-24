@@ -85,8 +85,6 @@ public:
 	static bool kidEvidences[4];
 	static bool oldguyEvidences[4];
 
-	Application();
-	~Application();
 	//mouse func
 	static bool IsMousePressed(unsigned short key);
 	static void GetCursorPos(double* xpos, double* ypos);

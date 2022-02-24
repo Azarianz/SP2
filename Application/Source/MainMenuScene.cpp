@@ -763,7 +763,7 @@ void MainMenuScene::Init()
 		m_parameters[U_MATERIAL_SPECULAR],
 		m_parameters[U_MATERIAL_SHININESS]);
 
-	textColor = Color(0.6, 0.6, 0.7);
+	textColor = Color(0, 0, 0);
 
 	meshList[GEO_BACKGROUND] = MeshBuilder::GenerateQuad("quad", Color(0, 0, 0), 1.f);
 
