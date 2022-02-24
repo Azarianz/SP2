@@ -113,6 +113,7 @@ public:
 	static void AddEvidence(string text);
 	static bool CheckEvidence(string text);
 	static bool EnoughEvidence(bool b[4]);
+	static void SetCanPause(bool isAble);
 
 	//sound manager
 	static Sound soundManager;	
@@ -126,6 +127,7 @@ private:
 	//init some variables
 	static bool IsFullscreen;
 	unsigned char prevState;
+	static bool CanPause;
 
 	//some resolution variables for minigame
 	unsigned prevWindowWidth;

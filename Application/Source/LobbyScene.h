@@ -19,7 +19,6 @@ class LobbyScene : public Scene
 private:
 	enum GEOMETRY_TYPE
 	{
-		GEO_AXES,
 		GEO_QUAD,
 		GEO_QUAD_BUTTON,
 		GEO_SUN,
@@ -141,8 +140,6 @@ private:
 	Light light[4];
 
 	MS modelStack, viewStack, projectionStack;
-
-	float framePerSecond;
 
 	int interval;
 	int charId; // 0 = guard, 1 = janitor, 2 = Arcader, 3 = Kid, 4 = old guy

@@ -35,6 +35,7 @@ bool Application::kidEvidences[4] = { false,false,false,false };
 bool Application::oldguyEvidences[4] = { false,false,false,false };
 
 bool Application::IsFullscreen;
+bool Application::CanPause;
 
 //Define an error callback
 static void error_callback(int error, const char* description)
@@ -193,6 +194,11 @@ bool Application::EnoughEvidence(bool b[4])
 	}
 }
 
+void Application::SetCanPause(bool isAble)
+{
+	CanPause = isAble;
+}
+
 void Application::Init()
 {
 	/*AddEvidence("Evidence 01: Insert Text Here");
@@ -262,6 +268,7 @@ void Application::Init()
 	prevState = STATE_LOBBY;
 	roomState = 0;
 	skipIntro = false;
+	CanPause = true;
 }
 
 void Application::Run()
@@ -486,7 +493,7 @@ void Application::Run()
 			scene->Render();
 
 			static bool isEscapePressed = false;
-			if (IsKeyPressed(VK_ESCAPE) && !isEscapePressed && prevState != STATE_MINIGAME_INIT)
+			if (IsKeyPressed(VK_ESCAPE) && !isEscapePressed && CanPause)
 			{
 				isEscapePressed = true;
 				sceneState = STATE_MAINMENU_INIT;

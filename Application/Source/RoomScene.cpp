@@ -190,7 +190,6 @@ void RoomScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, fl
 
 void RoomScene::InspectEvidenceOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float rotatez, float rotatex)
 {
-	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
 	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
@@ -207,7 +206,6 @@ void RoomScene::InspectEvidenceOnScreen(Mesh* mesh, float x, float y, float size
 	projectionStack.PopMatrix();
 	viewStack.PopMatrix();
 	modelStack.PopMatrix();
-	glEnable(GL_DEPTH_TEST);
 }
 
 void RoomScene::RenderPressEToInteract()
@@ -609,6 +607,7 @@ void RoomScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ)
 					Inspect = true;
 					Interacted = true;
 					Pickup = true;
+					Application::SetCanPause(false);
 					camera.DisableControl();
 
 					return;
@@ -626,6 +625,7 @@ void RoomScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ)
 					Inspect = false;
 					Pickup = false;
 					Interacted = true;
+					Application::SetCanPause(true);
 					camera.EnableControl();
 				}
 				else if (!Application::IsKeyPressed('F') && (Interacted == true))
@@ -633,10 +633,10 @@ void RoomScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ)
 					Interacted = false;
 				}
 
+				InspectEvidenceOnScreen(entity->getMesh(), 40, 30, 60, 60, rotateZ, rotateX);
+
 				RenderTextOnScreen(meshList[GEO_TEXT], "Press F To Stop Inspecting", Color(1, 1, 1), 3, 27, 8);
 				RenderTextOnScreen(meshList[GEO_TEXT], "Arrow Keys To Turn The Object", Color(1, 1, 1), 1.5, 60, 30);
-
-				InspectEvidenceOnScreen(entity->getMesh(), 40, 30, 60, 60, rotateZ, rotateX);
 			}
 		}
 	}
@@ -888,8 +888,6 @@ void RoomScene::Init()
 
 		meshList[GEO_SUN] = MeshBuilder::GenerateSphere("Sphere", Color(1.0, 1.0, 1.0), 20, 20, 0.5);
 
-		meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference");
-
 		meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 		meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
 
@@ -1094,8 +1092,6 @@ void RoomScene::Update(double dt)
 		Application::ShowCursor();
 		Application::sceneState = Application::STATE_ROOM_EXIT;
 	}
-
-	framePerSecond = 1.f / dt;
 }
 
 void RoomScene::Render()
@@ -1121,8 +1117,6 @@ void RoomScene::Render()
 	glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPosition_cameraspace.x);
 	spotDirection_cameraspace = viewStack.Top() * light[1].spotDirection;
 	glUniform3fv(m_parameters[U_LIGHT1_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
-
-	RenderMesh(meshList[GEO_AXES], false);
 
 	RenderSkybox();
 

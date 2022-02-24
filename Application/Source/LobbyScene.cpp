@@ -218,7 +218,7 @@ void LobbyScene::RenderOfficers()
 		modelStack.Translate(-7, 0, 8.2);
 		modelStack.Scale(1, 1, 1);
 		modelStack.Rotate(90, 0, 1, 0);
-		RenderMesh(meshList[GEO_OFFICER_F], false);
+		RenderMesh(meshList[GEO_OFFICER_F], true);
 		modelStack.PopMatrix();
 		if (camera.position.x > -8.5 && camera.position.x < -5.5 && camera.position.z > 7.5 && camera.position.z < 10.5)
 		{
@@ -232,7 +232,7 @@ void LobbyScene::RenderOfficers()
 		modelStack.Translate(-5.5, 0, 3.2);
 		modelStack.Scale(1, 1, 1);
 		modelStack.Rotate(90, 0, 1, 0);
-		RenderMesh(meshList[GEO_OFFICER_M], false);
+		RenderMesh(meshList[GEO_OFFICER_M], true);
 		modelStack.PopMatrix();
 
 		if (camera.position.x > -7 && camera.position.x < -4 && camera.position.z > 1.7 && camera.position.z < 4.7)
@@ -247,7 +247,7 @@ void LobbyScene::RenderOfficers()
 		modelStack.Translate(5.5, 0, 3.2);
 		modelStack.Scale(1, 1, 1);
 		modelStack.Rotate(-180, 0, 1, 0);
-		RenderMesh(meshList[GEO_OFFICER_M], false);
+		RenderMesh(meshList[GEO_OFFICER_M], true);
 		modelStack.PopMatrix();
 
 		if (camera.position.x > 4 && camera.position.x < 7 && camera.position.z > 1.7 && camera.position.z < 4.7)
@@ -260,7 +260,7 @@ void LobbyScene::RenderOfficers()
 		modelStack.PushMatrix();
 		modelStack.Translate(4.5, 0, -5);
 		modelStack.Scale(1, 1, 1);
-		RenderMesh(meshList[GEO_OFFICER_F], false);
+		RenderMesh(meshList[GEO_OFFICER_F], true);
 		modelStack.PopMatrix();
 
 		if (camera.position.x > 3 && camera.position.x < 6 && camera.position.z > -6.5 && camera.position.z < -3.5)
@@ -273,7 +273,7 @@ void LobbyScene::RenderOfficers()
 		modelStack.PushMatrix();
 		modelStack.Translate(2, 0, -14);
 		modelStack.Scale(1, 1, 1);
-		RenderMesh(meshList[GEO_OFFICER_M], false);
+		RenderMesh(meshList[GEO_OFFICER_M], true);
 		modelStack.PopMatrix();
 
 		if (camera.position.x > 0.5 && camera.position.x < 3.5 && camera.position.z > -15.5 && camera.position.z < -12.5)
@@ -286,14 +286,14 @@ void LobbyScene::RenderOfficers()
 		modelStack.PushMatrix();
 		modelStack.Translate(1.1, 0, 30.5);
 		modelStack.Scale(1, 1, 1);
-		RenderMesh(meshList[GEO_OFFICER_F], false);
+		RenderMesh(meshList[GEO_OFFICER_F], true);
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
 		modelStack.Translate(1.1, 0, 32);
 		modelStack.Scale(1, 1, 1);
 		modelStack.Rotate(-180, 0, 1, 0);
-		RenderMesh(meshList[GEO_OFFICER_M], false);
+		RenderMesh(meshList[GEO_OFFICER_M], true);
 		modelStack.PopMatrix();
 
 		if (camera.position.x > -0.8 && camera.position.x < 5 && camera.position.z > 29 && camera.position.z < 40)
@@ -335,7 +335,6 @@ bool LobbyScene::CreateButton(float buttonTop, float buttonBottom, float buttonR
 	unsigned h = Application::GetWindowHeight();
 	float posX = static_cast<float>(x / 10); //convert (0,800) to (0,80)
 	float posY = static_cast<float>(h / 10 - y / 10); //convert (600,0) to (0,60)
-	std::cout << posX << " : " << posY << std::endl;
 	if ((posX > buttonLeft) &&
 		(posX < buttonRight) &&
 		(posY > buttonBottom) &&
@@ -455,23 +454,6 @@ void LobbyScene::RenderJournal()
 			journalPage = PROFILE_PAGE;
 		}
 
-		//if (CreateButton(tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
-		//	tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
-		//	(journalButtonWidth / 2 + journalButtonWidth * tempCount) + (journalButtonWidth / 2 - buttonSpacing / 2),
-		//	(journalButtonWidth / 2 + journalButtonWidth * tempCount) - (journalButtonWidth / 2 - buttonSpacing / 2)))
-		//{
-		//	std::cout << "journal page is: 3" << std::endl;
-		//	journalPage = EVIDENCE_PAGE;
-		//}
-		//++tempCount;
-		//if (CreateButton(tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
-		//	tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
-		//	(journalButtonWidth / 2 + journalButtonWidth * tempCount) + (journalButtonWidth / 2 - buttonSpacing / 2),
-		//	(journalButtonWidth / 2 + journalButtonWidth * tempCount) - (journalButtonWidth / 2 - buttonSpacing / 2)))
-		//{
-		//	std::cout << "journal page is: 4" << std::endl;
-		//	journalPage = EVIDENCE_PAGE;
-		//}
 	}
 	else if (lcButtonState && !Application::IsMousePressed(0))
 	{
@@ -2757,8 +2739,6 @@ void LobbyScene::Update(double dt)
 	{
 		rotateSkybox = 0;
 	}
-
-	framePerSecond = 1.f / dt;
 }
 
 void LobbyScene::Render()
@@ -2797,8 +2777,6 @@ void LobbyScene::Render()
 	glUniform3fv(m_parameters[U_LIGHT3_POSITION], 1, &lightPosition_cameraspace.x);
 	spotDirection_cameraspace = viewStack.Top() * light[3].spotDirection;
 	glUniform3fv(m_parameters[U_LIGHT3_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
-
-	RenderMesh(meshList[GEO_AXES], false);
 
 	modelStack.PushMatrix();
 	modelStack.Rotate(rotateSkybox, 0,1,0);
@@ -2865,9 +2843,10 @@ void LobbyScene::Render()
 	}
 	RenderHUD();
 
-	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 4, 0);
-	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.x), Color(0, 1, 0), 4, 4, 3);
-	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.z), Color(0, 1, 0), 4, 4, 6);
+	if (isJournalOpen)
+	{
+		RenderJournal();
+	}
 }
 
 void LobbyScene::Exit()

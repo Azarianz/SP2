@@ -308,6 +308,9 @@ void SceneMiniGame::Init()
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
 
+	//disable pause
+	Application::SetCanPause(false);
+
 	//bgm
 	Application::soundManager.ReleaseSound(Application::soundList[Application::SOUND_MAINGAME]);
 	Application::soundManager.CreateSound(&Application::soundList[Application::SOUND_MINIGAME], "Sound/MiniGame.wav");
@@ -728,6 +731,7 @@ void SceneMiniGame::Render()
 
 void SceneMiniGame::Exit()
 {
+	Application::SetCanPause(true);
 	Application::soundManager.ReleaseSound(Application::soundList[Application::SOUND_MINIGAME]);
 	Application::soundManager.CreateSound(&Application::soundList[Application::SOUND_MAINGAME], "Sound/MainGame.wav");
 	Application::soundManager.RunSound(Application::soundList[Application::SOUND_MAINGAME]);

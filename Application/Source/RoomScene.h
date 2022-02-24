@@ -15,7 +15,6 @@ class RoomScene : public Scene
 private:
 	enum GEOMETRY_TYPE
 	{
-		GEO_AXES,
 		GEO_QUAD,
 		GEO_QUAD_BUTTON,
 		GEO_SUN,
@@ -105,8 +104,6 @@ private:
 	Light light[2];
 
 	MS modelStack, viewStack, projectionStack;
-
-	float framePerSecond;
 
 	unsigned m_parameters[U_TOTAL];
 	unsigned m_vertexArrayID;
