@@ -2710,7 +2710,7 @@ void LobbyScene::Update(double dt)
 
 		if (IsInElevatorInteraction() && Application::IsKeyPressed('E')) 
 		{
-			Application::sceneState = Application::STATE_CORRIDOR;
+			Application::sceneState = Application::STATE_CORRIDOR_INIT;
 		}
 	}
 
@@ -2844,10 +2844,6 @@ void LobbyScene::Render()
 
 void LobbyScene::Exit()
 {
-	for (int i = 0; i < NUM_GEOMETRY; ++i)
-	{
-		delete meshList[i];
-	}
 	// Cleanup VBO here
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);

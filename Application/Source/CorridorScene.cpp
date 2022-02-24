@@ -219,16 +219,13 @@ bool CorridorScene::CreateButton(float buttonTop, float buttonBottom, float butt
 	unsigned h = Application::GetWindowHeight();
 	float posX = static_cast<float>(x / 10); //convert (0,800) to (0,80)
 	float posY = static_cast<float>(h / 10 - y / 10); //convert (600,0) to (0,60)
-	std::cout << "posX:" << posX << " , posY:" << posY << std::endl;
 	if (posX > buttonLeft && posX < buttonRight && posY > buttonBottom  && posY < buttonTop)
 	{
-		std::cout << "Hit!" << std::endl;
 		//trigger user action or function
 		return true;
 	}
 	else
 	{
-		std::cout << "Miss!" << std::endl;
 		return false;
 	}
 }
@@ -595,9 +592,6 @@ void CorridorScene::RenderEvidenceObject(Entity* entity, float rangeX, float ran
 			RenderEntity(entity, true);
 		}
 
-		cout << "Entity X:" << entity->getTransform().x << endl;
-		cout << "Entity Z:" << entity->getTransform().z << endl;
-
 		if (camera.position.x >= entity->getTransform().x - rangeX
 			&& camera.position.x <= entity->getTransform().x + rangeX
 			&& camera.position.z >= entity->getTransform().z - rangeZ
@@ -915,6 +909,7 @@ void CorridorScene::Update(double dt)
 			Application::ShowCursor();
 			Application::sceneState = Application::STATE_ROOM_INIT;
 			Application::roomState = Application::ROOM2;
+
 		}
 
 		if ((IsInDoor3Interaction()) && Application::IsKeyPressed('E')) {
@@ -1003,7 +998,6 @@ void CorridorScene::Render()
 	}
 
 	RenderHUD();
-
 }
 
 void CorridorScene::Exit()

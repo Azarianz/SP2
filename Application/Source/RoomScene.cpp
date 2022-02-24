@@ -222,16 +222,13 @@ bool RoomScene::CreateButton(float buttonTop, float buttonBottom, float buttonRi
 	unsigned h = Application::GetWindowHeight();
 	float posX = static_cast<float>(x / 10); //convert (0,800) to (0,80)
 	float posY = static_cast<float>(h / 10 - y / 10); //convert (600,0) to (0,60)
-	std::cout << "posX:" << posX << " , posY:" << posY << std::endl;
 	if (posX > buttonLeft && posX < buttonRight && posY > buttonBottom  && posY < buttonTop)
 	{
-		std::cout << "Hit!" << std::endl;
 		//trigger user action or function
 		return true;
 	}
 	else
 	{
-		std::cout << "Miss!" << std::endl;
 		return false;
 	}
 }
@@ -589,9 +586,6 @@ void RoomScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ)
 		{
 			RenderEntity(entity, true);
 		}
-
-		cout << "Entity X:" << entity->getTransform().x << endl;
-		cout << "Entity Z:" << entity->getTransform().z << endl;
 
 		if (camera.position.x >= entity->getTransform().x - rangeX
 			&& camera.position.x <= entity->getTransform().x + rangeX
@@ -1220,11 +1214,6 @@ void RoomScene::Render()
 	}
 
 	RenderHUD();
-
-	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 4, 0);
-	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.x), Color(0, 1, 0), 4, 4, 3);
-	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.z), Color(0, 1, 0), 4, 4, 6);
-	//RenderMeshOnScreen(meshList[GEO_QUAD], 40, 30, 20, 10);
 }
 
 void RoomScene::Exit()

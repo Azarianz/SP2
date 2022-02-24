@@ -378,7 +378,7 @@ void Application::Run()
 
 					}
 				}
-				else if (sceneState == STATE_CORRIDOR)
+				else if (sceneState == STATE_CORRIDOR_INIT)
 				{
 					if (sceneList[SCENE_CORRIDOR] == nullptr) {
 						//Close Previous Scene
@@ -408,6 +408,12 @@ void Application::Run()
 						scene = sceneList[SCENE_ROOM];
 						sceneState = STATE_RUN_SCENE;
 					}
+					else
+					{
+						sceneList[SCENE_ROOM]->Init();
+						scene = sceneList[SCENE_ROOM];
+						sceneState = STATE_RUN_SCENE;
+					}
 				}
 				else if (sceneState == STATE_ROOM_EXIT)
 				{
@@ -418,7 +424,7 @@ void Application::Run()
 						sceneList[SCENE_ROOM] = nullptr;
 
 						roomState = 0;
-						sceneState = STATE_CORRIDOR;
+						sceneState = STATE_CORRIDOR_INIT;
 					}
 				}
 
