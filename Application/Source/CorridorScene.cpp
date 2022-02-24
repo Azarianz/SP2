@@ -282,7 +282,7 @@ void CorridorScene::RenderSkybox()
 
 void CorridorScene::RenderPressEToInteract()
 {
-	RenderTextOnScreen(meshList[GEO_TEXT], "Press E to interact", Color(1, 1, 1), 3, 29, 10);
+	RenderTextOnScreen(meshList[GEO_TEXT], "[E] interact", Color(1, 1, 1), 3, 35, 10);
 }
 
 void CorridorScene::RenderHUD()
