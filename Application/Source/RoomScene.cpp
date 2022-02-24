@@ -344,24 +344,6 @@ void RoomScene::RenderJournal()
 			std::cout << "journal page is: profile" << std::endl;
 			journalPage = PROFILE_PAGE;
 		}
-
-		//if (CreateButton(tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
-		//	tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
-		//	(journalButtonWidth / 2 + journalButtonWidth * tempCount) + (journalButtonWidth / 2 - buttonSpacing / 2),
-		//	(journalButtonWidth / 2 + journalButtonWidth * tempCount) - (journalButtonWidth / 2 - buttonSpacing / 2)))
-		//{
-		//	std::cout << "journal page is: 3" << std::endl;
-		//	journalPage = EVIDENCE_PAGE;
-		//}
-		//++tempCount;
-		//if (CreateButton(tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
-		//	tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
-		//	(journalButtonWidth / 2 + journalButtonWidth * tempCount) + (journalButtonWidth / 2 - buttonSpacing / 2),
-		//	(journalButtonWidth / 2 + journalButtonWidth * tempCount) - (journalButtonWidth / 2 - buttonSpacing / 2)))
-		//{
-		//	std::cout << "journal page is: 4" << std::endl;
-		//	journalPage = EVIDENCE_PAGE;
-		//}
 	}
 	else if (lcButtonState && !Application::IsMousePressed(0))
 	{
@@ -1111,34 +1093,6 @@ void RoomScene::Update(double dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
 	}
 	camera.Update(dt);
-
-	//Mouse Inputs
-	{
-		static bool bLButtonState = false;
-		if (!bLButtonState && Application::IsMousePressed(0))
-		{
-			bLButtonState = true;
-			std::cout << "LBUTTON DOWN" << std::endl;
-
-			CreateButton(25 + 10, 25, 30 + 20, 30);
-		}
-		else if (bLButtonState && !Application::IsMousePressed(0))
-		{
-			bLButtonState = false;
-			std::cout << "LBUTTON UP" << std::endl;
-		}
-		static bool bRButtonState = false;
-		if (!bRButtonState && Application::IsMousePressed(1))
-		{
-			bRButtonState = true;
-			std::cout << "RBUTTON DOWN" << std::endl;
-		}
-		else if (bRButtonState && !Application::IsMousePressed(1))
-		{
-			bRButtonState = false;
-			std::cout << "RBUTTON UP" << std::endl;
-		}
-	}
 
 	//Rotate Inspect Item
 	{

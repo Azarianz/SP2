@@ -190,7 +190,6 @@ void CorridorScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color
 
 void CorridorScene::InspectEvidenceOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float rotatez, float rotatex)
 {
-	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
 	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
@@ -207,7 +206,6 @@ void CorridorScene::InspectEvidenceOnScreen(Mesh* mesh, float x, float y, float 
 	projectionStack.PopMatrix();
 	viewStack.PopMatrix();
 	modelStack.PopMatrix();
-	glEnable(GL_DEPTH_TEST);
 }
 
 bool CorridorScene::CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft)
@@ -613,7 +611,7 @@ void CorridorScene::RenderOfficers()
 	modelStack.PushMatrix();
 	modelStack.Translate(1.5, 0, -20);
 	modelStack.Scale(1, 1, 1);
-	RenderMesh(meshList[GEO_OFFICER_F], false);
+	RenderMesh(meshList[GEO_OFFICER_F], true);
 	modelStack.PopMatrix();
 	RenderHUD();
 
@@ -629,7 +627,7 @@ void CorridorScene::RenderOfficers()
 	modelStack.Translate(-2, 0, -16.4);
 	modelStack.Scale(1, 1, 1);
 	modelStack.Rotate(90, 0, 1, 0);
-	RenderMesh(meshList[GEO_OFFICER_M], false);
+	RenderMesh(meshList[GEO_OFFICER_M], true);
 	modelStack.PopMatrix();
 	RenderHUD();
 
@@ -644,7 +642,7 @@ void CorridorScene::RenderOfficers()
 	modelStack.Translate(-2, 0, -8.2);
 	modelStack.Scale(1, 1, 1);
 	modelStack.Rotate(90, 0, 1, 0);
-	RenderMesh(meshList[GEO_OFFICER_F], false);
+	RenderMesh(meshList[GEO_OFFICER_F], true);
 	modelStack.PopMatrix();
 	RenderHUD();
 
@@ -659,7 +657,7 @@ void CorridorScene::RenderOfficers()
 	modelStack.Translate(-2, 0, 9.5);
 	modelStack.Scale(1, 1, 1);
 	modelStack.Rotate(90, 0, 1, 0);
-	RenderMesh(meshList[GEO_OFFICER_M], false);
+	RenderMesh(meshList[GEO_OFFICER_M], true);
 	modelStack.PopMatrix();
 	RenderHUD();
 
@@ -674,7 +672,7 @@ void CorridorScene::RenderOfficers()
 	modelStack.Translate(-2, 0, 17.5);
 	modelStack.Scale(1, 1, 1);
 	modelStack.Rotate(90, 0, 1, 0);
-	RenderMesh(meshList[GEO_OFFICER_M], false);
+	RenderMesh(meshList[GEO_OFFICER_M], true);
 	modelStack.PopMatrix();
 	RenderHUD();
 
@@ -940,35 +938,6 @@ void CorridorScene::Update(double dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
 	}
 	camera.Update(dt);
-
-	//Mouse Inputs
-	{
-		static bool bLButtonState = false;
-		if (!bLButtonState && Application::IsMousePressed(0))
-		{
-			bLButtonState = true;
-			std::cout << "LBUTTON DOWN" << std::endl;
-
-			CreateButton(25 + 10, 25, 30 + 20, 30);
-		}
-		else if (bLButtonState && !Application::IsMousePressed(0))
-		{
-			bLButtonState = false;
-			std::cout << "LBUTTON UP" << std::endl;
-		}
-		static bool bRButtonState = false;
-		if (!bRButtonState && Application::IsMousePressed(1))
-		{
-			bRButtonState = true;
-			std::cout << "RBUTTON DOWN" << std::endl;
-		}
-		else if (bRButtonState && !Application::IsMousePressed(1))
-		{
-			bRButtonState = false;
-			std::cout << "RBUTTON UP" << std::endl;
-		}
-
-	}
 
 	//Rotate Inspect Item
 	{

@@ -305,7 +305,6 @@ void LobbyScene::RenderOfficers()
 
 void LobbyScene::InspectEvidenceOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float rotatez, float rotatex)
 {
-	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
 	ortho.SetToOrtho(0, 80, 0, 60, -10, 10); //size of screen UI
 	projectionStack.PushMatrix();
@@ -322,7 +321,6 @@ void LobbyScene::InspectEvidenceOnScreen(Mesh* mesh, float x, float y, float siz
 	projectionStack.PopMatrix();
 	viewStack.PopMatrix();
 	modelStack.PopMatrix();
-	glEnable(GL_DEPTH_TEST);
 }
 
 bool LobbyScene::CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft)
@@ -2099,10 +2097,10 @@ void LobbyScene::BoundsCheck()
 bool LobbyScene::IsInArcadeMachineInteraction()
 {
 	//arcade interaction colision
-	return(camera.position.x >= entityList[ENTITY_MACHINE].getTransform().x - 3) &&
-		(camera.position.z >= entityList[ENTITY_MACHINE].getTransform().z - 3) &&
-		(camera.position.x <= entityList[ENTITY_MACHINE].getTransform().x + 3) &&
-		(camera.position.z < entityList[ENTITY_MACHINE].getTransform().z + 3);
+	return(camera.position.x >= entityList[ENTITY_MACHINE].getTransform().x - 1) &&
+		(camera.position.z >= entityList[ENTITY_MACHINE].getTransform().z - 1) &&
+		(camera.position.x <= entityList[ENTITY_MACHINE].getTransform().x + 1) &&
+		(camera.position.z < entityList[ENTITY_MACHINE].getTransform().z + 1);
 }
 
 bool LobbyScene::IsInElevatorInteraction()
@@ -2797,13 +2795,11 @@ void LobbyScene::Update(double dt)
 		if (!bLButtonState && Application::IsMousePressed(0))
 		{
 			bLButtonState = true;
-			//std::cout << "LBUTTON DOWN" << std::endl;
 			TalkButtons();
 		}
 		else if (bLButtonState && !Application::IsMousePressed(0))
 		{
 			bLButtonState = false;
-			//std::cout << "LBUTTON UP" << std::endl;
 		}
 	}
 
