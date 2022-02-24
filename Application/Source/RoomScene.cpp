@@ -985,7 +985,7 @@ void RoomScene::Init()
 		meshList[GEO_SUN] = MeshBuilder::GenerateSphere("Sphere", Color(1.0, 1.0, 1.0), 20, 20, 0.5);
 
 		meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
-		meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
+		meshList[GEO_TEXT]->textureID = LoadTGA("Image//typewriter.tga");
 
 		//Journal
 		{

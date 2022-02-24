@@ -204,10 +204,10 @@ void LobbyScene::RenderOfficers()
 		&& camera.position.x + 1.5 >= entityList[ENTITY_CHIEF].getTransform().x - interactOffset
 		&& camera.position.z - 1.5 <= entityList[ENTITY_CHIEF].getTransform().z + interactOffset)
 	{
-		RenderTextOnScreen(meshList[GEO_TEXT], ("you can go and take a look at it"), Color(1, 1, 1), 2, 35, 2);
-		RenderTextOnScreen(meshList[GEO_TEXT], ("On your left, you will find a table with evidence we have confiscated"), Color(1, 1, 1), 2, 22, 4.5);
-		RenderTextOnScreen(meshList[GEO_TEXT], ("Go to the officers, they will inform you about the suspects."), Color(1, 1, 1), 2, 25, 7);
-		RenderTextOnScreen(meshList[GEO_TEXT], ("Welcome to the crime scene detective."), Color(1, 1, 1), 2, 33, 9.5);
+		RenderTextOnScreen(meshList[GEO_TEXT], ("You can have a look at them."), Color(1, 1, 1), 2, 35, 2);
+		RenderTextOnScreen(meshList[GEO_TEXT], ("On your left, you'll find a table of confiscated evidences."), Color(1, 1, 1), 2, 22, 4.5);
+		RenderTextOnScreen(meshList[GEO_TEXT], ("Go to the officers, they'll inform you about the suspects."), Color(1, 1, 1), 2, 25, 7);
+		RenderTextOnScreen(meshList[GEO_TEXT], ("Welcome to the crime scene Detective."), Color(1, 1, 1), 2, 33, 9.5);
 	}
 	//officers
 	{
@@ -221,8 +221,8 @@ void LobbyScene::RenderOfficers()
 		modelStack.PopMatrix();
 		if (camera.position.x > -8.5 && camera.position.x < -5.5 && camera.position.z > 6.5 && camera.position.z < 8.5)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is the janitor, Gertrude"), Color(1, 1, 1), 2, 35, 8);
-			RenderTextOnScreen(meshList[GEO_TEXT], ("She was the last one to exit the victims room"), Color(1, 1, 1), 2, 31, 5.5);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("This is Gertrude, the janitor."), Color(1, 1, 1), 2, 35, 8);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("She's the last one seen to exit the victim's room."), Color(1, 1, 1), 2, 31, 5.5);
 		}
 
 		//guard
@@ -236,9 +236,9 @@ void LobbyScene::RenderOfficers()
 
 		if (camera.position.x > -7 && camera.position.x < -4 && camera.position.z > 1.7 && camera.position.z < 4.7)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], ("Akkop this is the detective"), Color(1, 1, 1), 2, 35, 8);
-			RenderTextOnScreen(meshList[GEO_TEXT], ("Detective this is Akkop he was sitting "), Color(1, 1, 1), 2, 34, 5.5);
-			RenderTextOnScreen(meshList[GEO_TEXT], ("with the victim before he died"), Color(1, 1, 1), 2, 34.5, 3);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("Akkop, this is the detective."), Color(1, 1, 1), 2, 35, 8);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("Detective, this is Akkop. He was sitting"), Color(1, 1, 1), 2, 34, 5.5);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("with the victim before he died."), Color(1, 1, 1), 2, 34.5, 3);
 		}
 
 		//oldman
@@ -251,8 +251,8 @@ void LobbyScene::RenderOfficers()
 
 		if (camera.position.x > 4 && camera.position.x < 7 && camera.position.z > 1.7 && camera.position.z < 4.7)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], ("Um this is Izan"), Color(1, 1, 1), 2, 35, 8);
-			RenderTextOnScreen(meshList[GEO_TEXT], ("he was the closest to the victim when he fell"), Color(1, 1, 1), 2, 31, 5.5);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("This is Izan."), Color(1, 1, 1), 2, 35, 8);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("He was the closest to the victim when he fell."), Color(1, 1, 1), 2, 31, 5.5);
 		}
 		//kid
 
@@ -264,8 +264,8 @@ void LobbyScene::RenderOfficers()
 
 		if (camera.position.x > 3 && camera.position.x < 6 && camera.position.z > -6.5 && camera.position.z < -3.5)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], ("This is Kevin"), Color(1, 1, 1), 2, 35, 8);
-			RenderTextOnScreen(meshList[GEO_TEXT], ("he was caught having many run-ins with the victim"), Color(1, 1, 1), 2, 31, 5.5);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("This is Kevin."), Color(1, 1, 1), 2, 35, 8);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("He was caught having many run-ins with the victim."), Color(1, 1, 1), 2, 31, 5.5);
 		}
 		//arcade
 
@@ -277,8 +277,8 @@ void LobbyScene::RenderOfficers()
 
 		if (camera.position.x > 0.5 && camera.position.x < 3.5 && camera.position.z > -15.5 && camera.position.z < -12.5)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], ("Hi sir this is Ivan"), Color(1, 1, 1), 2, 35, 8);
-			RenderTextOnScreen(meshList[GEO_TEXT], ("he was just playing the arcade machine when the victim died"), Color(1, 1, 1), 2, 31, 5.5);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("Good Evening Detective. This is Ivan."), Color(1, 1, 1), 2, 35, 8);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("He was just playing the arcade machine when the victim died."), Color(1, 1, 1), 2, 31, 5.5);
 		}
 
 		//lift
@@ -297,8 +297,8 @@ void LobbyScene::RenderOfficers()
 
 		if (camera.position.x > -0.8 && camera.position.x < 5 && camera.position.z > 29 && camera.position.z < 40)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], ("Hi sir, the chief will brief you on this case"), Color(1, 1, 1), 2, 30, 8);
-			RenderTextOnScreen(meshList[GEO_TEXT], ("he is at the entrance"), Color(1, 1, 1), 2, 35, 5.5);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("Hello sir. The chief will brief you on this case."), Color(1, 1, 1), 2, 30, 8);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("He'll be at the entrance."), Color(1, 1, 1), 2, 35, 5.5);
 		}
 	}
 }
@@ -824,10 +824,10 @@ void LobbyScene::RenderInteraction()
 				case 0://Gossiping about guard
 					ss.str("");
 					ss << "He's been working here for a long time now.";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 11);
 					ss.str("");
-					ss << "I always see him drinking in the bar during his duty.";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
+					ss << "I always see him drinking in the bar on his duty.";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 9);
 					Application::AddEvidence("In the bar", "Guard");
 					break;
 				case 1://Gossiping about gamer
@@ -2608,7 +2608,7 @@ void LobbyScene::Init()
 	meshList[GEO_QUAD_BUTTON] = MeshBuilder::GenerateQuad("quad", Color(0, 0, 0), 1.f);
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
-	meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
+	meshList[GEO_TEXT]->textureID = LoadTGA("Image//Typewriter.tga");
 
 	meshList[GEO_OFFICER_M]=MeshBuilder::GenerateOBJMTL("CHIEF", "OBJ//officer_male.obj", "OBJ//officer_male.mtl");
 	meshList[GEO_OFFICER_M]->textureID = LoadTGA("Image//PolygonOffice_Texture_01_A.tga");

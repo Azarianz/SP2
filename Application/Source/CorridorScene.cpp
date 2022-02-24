@@ -846,7 +846,7 @@ void CorridorScene::Init()
 	meshList[GEO_QUAD_BUTTON] = MeshBuilder::GenerateQuad("quad", Color(0, 0, 0), 1.f);
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
-	meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
+	meshList[GEO_TEXT]->textureID = LoadTGA("Image//typewriter.tga");
 
 	//officer
 	meshList[GEO_OFFICER_M] = MeshBuilder::GenerateOBJMTL("CHIEF", "OBJ//officer_male.obj", "OBJ//officer_male.mtl");

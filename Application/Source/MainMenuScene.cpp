@@ -788,7 +788,7 @@ void MainMenuScene::Init()
 	meshList[GEO_BOTTOM]->textureID = LoadTGA("Image//bottom.tga");
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
-	meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
+	meshList[GEO_TEXT]->textureID = LoadTGA("Image//typewriter.tga");
 
 	//hide and reset the cursor
 	Application::ResetCursor();
