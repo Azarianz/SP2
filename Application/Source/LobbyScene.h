@@ -39,6 +39,7 @@ private:
 		GEO_TABLES,
 		GEO_DIALOGUE,
 		GEO_DIALOGUE2,
+		GEO_OFFICERS,
 		NUM_GEOMETRY,
 	};
 
@@ -63,11 +64,14 @@ private:
 		ENTITY_ALCHOHOL_BOTTLE,
 		ENTITY_BOTTLEMIX,
 		ENTITY_KNIFE,
+		ENTITY_PSYCHO_PILLS,
+		ENTITY_CHIEF,
 		NUM_ENTITY
 	};
 
 	enum UNIFORM_TYPE
 	{
+		//Models
 		U_MVP = 0,
 		U_MODELVIEW,
 		U_MODELVIEW_INVERSE_TRANSPOSE,
@@ -75,18 +79,56 @@ private:
 		U_MATERIAL_DIFFUSE,
 		U_MATERIAL_SPECULAR,
 		U_MATERIAL_SHININESS,
+		//Lights 1 (Window)
 		U_LIGHT0_POSITION,
 		U_LIGHT0_COLOR,
 		U_LIGHT0_POWER,
 		U_LIGHT0_KC,
 		U_LIGHT0_KL,
 		U_LIGHT0_KQ,
-		U_LIGHTENABLED,
 		U_LIGHT0_TYPE,
 		U_LIGHT0_SPOTDIRECTION,
 		U_LIGHT0_COSCUTOFF,
 		U_LIGHT0_COSINNER,
 		U_LIGHT0_EXPONENT,
+		//Lights 2 (Bar)
+		U_LIGHT1_POSITION,
+		U_LIGHT1_COLOR,
+		U_LIGHT1_POWER,
+		U_LIGHT1_KC,
+		U_LIGHT1_KL,
+		U_LIGHT1_KQ,
+		U_LIGHT1_TYPE,
+		U_LIGHT1_SPOTDIRECTION,
+		U_LIGHT1_COSCUTOFF,
+		U_LIGHT1_COSINNER,
+		U_LIGHT1_EXPONENT,
+		//Lights 3 (Arcade)
+		U_LIGHT2_POSITION,
+		U_LIGHT2_COLOR,
+		U_LIGHT2_POWER,
+		U_LIGHT2_KC,
+		U_LIGHT2_KL,
+		U_LIGHT2_KQ,
+		U_LIGHT2_TYPE,
+		U_LIGHT2_SPOTDIRECTION,
+		U_LIGHT2_COSCUTOFF,
+		U_LIGHT2_COSINNER,
+		U_LIGHT2_EXPONENT,
+		//Lights 4 (Lift)
+		U_LIGHT3_POSITION,
+		U_LIGHT3_COLOR,
+		U_LIGHT3_POWER,
+		U_LIGHT3_KC,
+		U_LIGHT3_KL,
+		U_LIGHT3_KQ,
+		U_LIGHT3_TYPE,
+		U_LIGHT3_SPOTDIRECTION,
+		U_LIGHT3_COSCUTOFF,
+		U_LIGHT3_COSINNER,
+		U_LIGHT3_EXPONENT,
+		//Others
+		U_LIGHTENABLED,
 		U_NUMLIGHTS,
 		U_COLOR_TEXTURE_ENABLED,
 		U_COLOR_TEXTURE,
@@ -95,7 +137,7 @@ private:
 		U_TOTAL,
 	};
 
-	Light light[1];
+	Light light[4];
 
 	MS modelStack, viewStack, projectionStack;
 
@@ -107,12 +149,12 @@ private:
 	int interrogateId; // 0 = guard, 1 = janitor, 2 = Arcader, 3 = Kid, 4 = old guy
 	int interactOffset;
 	bool canInteract;
-	bool isTalking, isChatting, isDoneChat;
+	bool isTalking, isChatting, isAbleToTalk, isAbleToPin;
 	int chatCounter = 0;
 	int tempCounter = 0;
 	bool isInterrogate;
 	bool isGossiping;
-	bool printGossip, printInterrogate;
+	bool printGossip, printInterrogate, haveEvidence;
 	std::ostringstream ss;
 	std::string screenTxt, culpritText;
 	std::vector <std::string> guardChat;
@@ -150,7 +192,8 @@ private:
 	void InspectEvidenceOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float rotatez, float rotatex);
 	void RenderSkybox();
 	bool CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft);
-	void RenderPressEToInteract();
+	void RenderPressEToInteract(char btn, std::string input, float x, float y);
+	void RenderOfficers();
 	void RenderJournal();
 	void RenderHUD();
 	void ResetJournal();

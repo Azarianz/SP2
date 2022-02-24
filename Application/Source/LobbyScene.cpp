@@ -196,6 +196,113 @@ void LobbyScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, f
 		glEnable(GL_DEPTH_TEST);
 }
 
+void LobbyScene::RenderOfficers()
+{
+	//chief
+	if (camera.position.x - 1.5 <= entityList[ENTITY_CHIEF].getTransform().x + interactOffset
+		&& camera.position.z + 1.5 >= entityList[ENTITY_CHIEF].getTransform().z - interactOffset
+		&& camera.position.x + 1.5 >= entityList[ENTITY_CHIEF].getTransform().x - interactOffset
+		&& camera.position.z - 1.5 <= entityList[ENTITY_CHIEF].getTransform().z + interactOffset)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], ("you can go and take a look at it"), Color(1, 1, 1), 2, 35, 2);
+		RenderTextOnScreen(meshList[GEO_TEXT], ("on your left, you will find a table with evidence we have found here"), Color(1, 1, 1), 2, 22, 4.5);
+		RenderTextOnScreen(meshList[GEO_TEXT], ("go to the officers,they will inform you about the suspects"), Color(1, 1, 1), 2, 25, 7);
+		RenderTextOnScreen(meshList[GEO_TEXT], ("Sir, welcome to the cime scene"), Color(1, 1, 1), 2, 33, 9.5);
+	}
+	//officers
+	{
+		//janitor
+
+		modelStack.PushMatrix();
+		modelStack.Translate(-7, 0, 9);
+		modelStack.Scale(1, 1, 1);
+		modelStack.Rotate(90, 0, 1, 0);
+		RenderMesh(meshList[GEO_OFFICERS], false);
+		modelStack.PopMatrix();
+		if (camera.position.x > -8.5 && camera.position.x < -5.5 && camera.position.z > 7.5 && camera.position.z < 10.5)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is the janitor, Gertrude"), Color(1, 1, 1), 2, 35, 8);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("She was the last one to exit the victims room"), Color(1, 1, 1), 2, 31, 5.5);
+		}
+
+		//guard
+
+		modelStack.PushMatrix();
+		modelStack.Translate(-5.5, 0, 3.2);
+		modelStack.Scale(1, 1, 1);
+		modelStack.Rotate(90, 0, 1, 0);
+		RenderMesh(meshList[GEO_OFFICERS], false);
+		modelStack.PopMatrix();
+
+		if (camera.position.x > -7 && camera.position.x < -4 && camera.position.z > 1.7 && camera.position.z < 4.7)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], ("Akkop this is the detective"), Color(1, 1, 1), 2, 35, 8);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("Detective this is Akkop he was sitting "), Color(1, 1, 1), 2, 34, 5.5);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("with the victim before he died"), Color(1, 1, 1), 2, 34.5, 3);
+		}
+
+		//oldman
+		modelStack.PushMatrix();
+		modelStack.Translate(5.5, 0, 3.2);
+		modelStack.Scale(1, 1, 1);
+		modelStack.Rotate(-180, 0, 1, 0);
+		RenderMesh(meshList[GEO_OFFICERS], false);
+		modelStack.PopMatrix();
+
+		if (camera.position.x > 4 && camera.position.x < 7 && camera.position.z > 1.7 && camera.position.z < 4.7)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], ("Um this's Izan"), Color(1, 1, 1), 2, 35, 8);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("he was the closest to the victim when he fell"), Color(1, 1, 1), 2, 31, 5.5);
+		}
+		//kid
+
+		modelStack.PushMatrix();
+		modelStack.Translate(4.5, 0, -5);
+		modelStack.Scale(1, 1, 1);
+		RenderMesh(meshList[GEO_OFFICERS], false);
+		modelStack.PopMatrix();
+
+		if (camera.position.x > 3 && camera.position.x < 6 && camera.position.z > -6.5 && camera.position.z < -3.5)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], ("This is Kevin"), Color(1, 1, 1), 2, 35, 8);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("he caught having many run-ins with the victim"), Color(1, 1, 1), 2, 31, 5.5);
+		}
+		//arcade
+
+		modelStack.PushMatrix();
+		modelStack.Translate(2, 0, -14);
+		modelStack.Scale(1, 1, 1);
+		RenderMesh(meshList[GEO_OFFICERS], false);
+		modelStack.PopMatrix();
+
+		if (camera.position.x > 0.5 && camera.position.x < 3.5 && camera.position.z > -15.5 && camera.position.z < -12.5)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], ("Hi sir this is Ivan"), Color(1, 1, 1), 2, 35, 8);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("he was just playing the arcade game when the victim died"), Color(1, 1, 1), 2, 31, 5.5);
+		}
+
+		//lift
+		modelStack.PushMatrix();
+		modelStack.Translate(1.1, 0, 30.5);
+		modelStack.Scale(1, 1, 1);
+		RenderMesh(meshList[GEO_OFFICERS], false);
+		modelStack.PopMatrix();
+
+		modelStack.PushMatrix();
+		modelStack.Translate(1.1, 0, 32);
+		modelStack.Scale(1, 1, 1);
+		modelStack.Rotate(-180, 0, 1, 0);
+		RenderMesh(meshList[GEO_OFFICERS], false);
+		modelStack.PopMatrix();
+
+		if (camera.position.x > -0.8 && camera.position.x < 5 && camera.position.z > 29 && camera.position.z < 40)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], ("Hi sir, the chief will brief you on this case"), Color(1, 1, 1), 2, 30, 8);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("he is at the entrance"), Color(1, 1, 1), 2, 35, 5.5);
+		}
+	}
+}
+
 void LobbyScene::InspectEvidenceOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float rotatez, float rotatex)
 {
 	glDisable(GL_DEPTH_TEST);
@@ -303,9 +410,11 @@ void LobbyScene::RenderHUD()
 	}
 }
 
-void LobbyScene::RenderPressEToInteract()
+void LobbyScene::RenderPressEToInteract(char btn, std::string input, float x, float y)
 {
-	RenderTextOnScreen(meshList[GEO_TEXT], "Press E to interact", Color(1, 1, 1), 3, 30, 10);
+	ss.str("");
+	ss << "[" << btn << "] " << input;
+	RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, x, y);
 }
 
 void LobbyScene::RenderJournal()
@@ -405,157 +514,256 @@ void LobbyScene::RenderInteraction()
 {
 	if (isTalking)
 	{
-		if (printInterrogate)
+		if (printInterrogate)//print interrogate dialogue
 		{
+			RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
 			switch (charId)
 			{
 			case 0: // Player interrogate guard
+				ss.str("");
+				ss << "Akkop P.";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 13, 15.5);
 				switch (interrogateId)
 				{
 				case 0: //interrogating about Janitor
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					break;
+					if (Application::CheckEvidence("Carmanadezpine pills"))
+					{
+						ss.str("");
+						ss << "I have a medical condition.";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						Application::guardEvidences[0] = true;
+						break;
+					}
 				case 1: //interrogating about Gamer
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					break;
+					if (Application::CheckEvidence("In the bar"))
+					{
+						ss.str("");
+						ss << "I just want to rest.";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						ss.str("");
+						ss << "Everyone here gets to relax, why can't I?";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
+						Application::guardEvidences[1] = true;
+						break;
+					}
 				case 2: //interrogating about kid
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					break;
+					if (Application::CheckEvidence("Calm about incident"))
+					{
+						ss.str("");
+						ss << "In my field of work, I've seen worse.";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						Application::guardEvidences[2] = true;
+						break;
+					}
 				case 3: //interrogating about old man
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					break;
+					if (Application::CheckEvidence("Drug Dealing"))
+					{
+						ss.str("");
+						ss << "He sells drugs. That's all I'll tell you.";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						ss.str("");
+						ss << "And whatever he says about me is false.";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
+						Application::guardEvidences[3] = true;
+						break;
+					}
 				}
 				break;
 			case 1: // Player interrogate janitor
+				ss.str("");
+				ss << "Gertrude H.";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 13, 15.5);
 				switch (interrogateId)
 				{
 				case 0://interrogating about guard
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					break;
+					if (Application::CheckEvidence("Anger towards the victim"))
+					{
+						ss.str("");
+						ss << "Of course I'm angry. He's got no respect for me.";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						Application::janitorEvidences[0] = true;
+						break;
+					}
 				case 1://interrogating about gamer
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					break;
+					if (Application::CheckEvidence("Access to the victims room"))
+					{
+						ss.str("");
+						ss << "Yeah? I have to clean people's rooms?";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						Application::janitorEvidences[1] = true;
+						break;
+					}
 				case 2://interrogating about kid
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					break;
+					if (Application::CheckEvidence("Trolley toxic detergent"))
+					{
+						ss.str("");
+						ss << "Yeah! To clean people's rooms.";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						ss.str("");
+						ss << "What else am I gonna use? Your piss!?";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
+						Application::janitorEvidences[2] = true;
+						break;
+					}
 				case 3://interrogating about old man
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					break;
+					if (Application::CheckEvidence("Getting rid of the bottle"))
+					{
+						ss.str("");
+						ss << "If there's an empty bottle,";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						ss.str("");
+						ss << "I have to clean it. I am the cleaner...";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
+						Application::janitorEvidences[3] = true;
+						break;
+					}
 				}
 				break;
 			case 2: // Player interrogate gamer
+				ss.str("");
+				ss << "Ivan S.";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 13, 15.5);
 				switch (interrogateId)
 				{
 				case 0://interrogating about guard
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					Application::arcadeEvidences[0] = true;
-					break;
+					if (Application::CheckEvidence("Antidepressant pills"))
+					{
+						ss.str("");
+						ss << "I have severe depression okay? Stop pushing it.";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						ss.str("");
+						ss << "That's also the reason why I'm here, to enjoy.";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
+						Application::arcadeEvidences[0] = true;
+						break;
+					}
 				case 1://interrogating about Janitor
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					Application::arcadeEvidences[1] = true;
-					break;
+					if (Application::CheckEvidence("Laptop/Phone Messages"))
+					{
+						ss.str("");
+						ss << "It's from my company.";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						Application::arcadeEvidences[1] = true;
+						break;
+					}
 				case 2://interrogating about kid
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					Application::arcadeEvidences[2] = true;
-					break;
+					if (Application::CheckEvidence("Pocket Knife"))
+					{
+						ss.str("");
+						ss << "A man's gotta be prepared for anything.";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						ss.str("");
+						ss << "What happens if you want to peel an apple?";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
+						Application::arcadeEvidences[2] = true;
+						break;
+					}
 				case 3://interrogating about old man
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					Application::arcadeEvidences[3] = true;
-					break;
+					if (Application::CheckEvidence("Suspicious to everybody"))
+					{
+						ss.str("");
+						ss << "And you believe them?";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						ss.str("");
+						ss << "They're the suspicious ones I tell ya.";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
+						Application::arcadeEvidences[3] = true;
+						break;
+					}
 				}
 				break;
 			case 3: // Player interrogate kid
+				ss.str("");
+				ss << "Kevin M.";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 13, 15.5);
 				switch (interrogateId)
 				{
 				case 0://interrogating about guard
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					break;
+					if (Application::CheckEvidence("Imaginary friends"))
+					{
+						ss.str("");
+						ss << "Marv and Harry? They're here with me.";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						Application::kidEvidences[0] = true;
+						break;
+					}
 				case 1://interrogating about Janitor
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					break;
+					if (Application::CheckEvidence("Guest list: Kids"))
+					{
+						ss.str("");
+						ss << "THEY ARE HERE WITH ME! Am I right Marv?";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						Application::kidEvidences[1] = true;
+						break;
+					}
 				case 2://interrogating about gamer
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					break;
+					if (Application::CheckEvidence("Drawing of demonic friends"))
+					{
+						ss.str("");
+						ss << "That's a drawing I made for me and my friends.";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						Application::kidEvidences[2] = true;
+						break;
+					}
 				case 3://interrogating about old man
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					break;
+					if (Application::CheckEvidence("Bottle of weird mixtures"))
+					{
+						ss.str("");
+						ss << "It's part of the spy game.";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						ss.str("");
+						ss << "We create mixtures to poison our enemy.";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
+						Application::kidEvidences[3] = true;
+						break;
+					}
 				}
 				break;
 			case 4: // Player interrogate old man
+				ss.str("");
+				ss << "Izan E.";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 13, 15.5);
 				switch (interrogateId)
 				{
-				case 0://interrogating about guard
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					break;
-				case 1://interrogating about Janitor
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					break;
-				case 2://interrogating about gamer
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					break;
-				case 3://interrogating about kid
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
-					ss.str("");
-					ss << "Dialogue input here";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 11.5);
-					break;
+				case 0://interrogating about pills
+					if (Application::CheckEvidence("Dementia pills"))
+					{
+						ss.str("");
+						ss << "Oh, my dementia pills.";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						ss.str("");
+						ss << "Almost forgot to take them.";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
+						Application::oldguyEvidences[0] = true;
+						break;
+					}
+				case 1://interrogating about letter
+					if (Application::CheckEvidence("Written notes"))
+					{
+						ss.str("");
+						ss << "My sweet sweet letter from my granddaughter.";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						Application::oldguyEvidences[1] = true;
+						break;
+					}
+				case 2://interrogating about guest list
+					if (Application::CheckEvidence("Guest list: daughter"))
+					{
+						ss.str("");
+						ss << "Well my granddaughter is here I tell you.";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						Application::oldguyEvidences[2] = true;
+						break;
+					}
+				case 3://interrogating about gun
+					if (Application::CheckEvidence("Gun in his room"))
+					{
+						ss.str("");
+						ss << "Back in my day, I used to be a veteran spy.";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						Application::oldguyEvidences[3] = true;
+						break;
+					}
 				}
 				break;
 			}
@@ -856,7 +1064,7 @@ void LobbyScene::RenderInteraction()
 				break;
 			}
 		}
-		else if (isInterrogate)
+		else if (isInterrogate)//Print Evidence buttons
 		{
 		RenderMeshOnScreen(meshList[GEO_DIALOGUE], 40, 12, 60, 13);
 		switch (charId)
@@ -865,86 +1073,221 @@ void LobbyScene::RenderInteraction()
 			ss.str("");
 			ss << "Akkop P.";
 			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 13, 15.5);
-			ss.str("");
-			ss << "Evidence 1";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 19, 11.5);
-			ss.str("");
-			ss << "Evidence 2";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 49, 11.5);
-			ss.str("");
-			ss << "Evidence 3";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 19, 7);
-			ss.str("");
-			ss << "Evidence 4";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 49, 7);
+			if (Application::CheckEvidence("Carmanadezpine pills") ||
+				Application::CheckEvidence("In the bar") ||
+				Application::CheckEvidence("Calm about incident") ||
+				Application::CheckEvidence("Drug Dealing"))
+			{
+				if (Application::CheckEvidence("Carmanadezpine pills"))
+				{
+					ss.str("");
+					ss << "Carmanadezpine pills";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 13.5, 11.5);
+				}
+				if (Application::CheckEvidence("In the bar"))
+				{
+					ss.str("");
+					ss << "In the bar";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 49, 11.5);
+				}
+				if (Application::CheckEvidence("Calm about incident"))
+				{
+					ss.str("");
+					ss << "Calm about incident";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 7);
+				}
+				if (Application::CheckEvidence("Drug Dealing"))
+				{
+					ss.str("");
+					ss << "Drug Dealing";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 47.5, 7);
+				}
+				haveEvidence = true;
+			}
+			else
+			{
+				RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
+				ss.str("");
+				ss << "No evidence currently found";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 25, 11);
+				haveEvidence = false;
+			}
 			break;
 		case 1:
 			ss.str("");
 			ss << "Gertrude H.";
 			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 13, 15.5);
-			ss.str("");
-			ss << "Evidence 1";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 19, 11.5);
-			ss.str("");
-			ss << "Evidence 2";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 49, 11.5);
-			ss.str("");
-			ss << "Evidence 3";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 19, 7);
-			ss.str("");
-			ss << "Evidence 4";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 49, 7);
+			if (Application::CheckEvidence("Anger towards the victim") ||
+				Application::CheckEvidence("Access to the victims room") ||
+				Application::CheckEvidence("Trolley toxic detergent") ||
+				Application::CheckEvidence("Getting rid of the bottle"))
+			{
+				if (Application::CheckEvidence("Anger towards the victim"))
+				{
+					ss.str("");
+					ss << "Angry at victim";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 16, 11.5);
+				}
+				if (Application::CheckEvidence("Access to the victims room"))
+				{
+					ss.str("");
+					ss << "Access to victim's room";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 41, 11.5);
+				}
+				if (Application::CheckEvidence("Trolley toxic detergent"))
+				{
+					ss.str("");
+					ss << "Trolley toxic detergent";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 7);
+				}
+				if (Application::CheckEvidence("Getting rid of the bottle"))
+				{
+					ss.str("");
+					ss << "Getting rid of bottle";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 42, 7);
+				}
+				haveEvidence = true;
+			}
+			else
+			{
+				RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
+				ss.str("");
+				ss << "No evidence currently found";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 25, 11);
+				haveEvidence = false;
+			}
 			break;
 		case 2:
 			ss.str("");
 			ss << "Ivan S.";
 			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 13, 15.5);
-			ss.str("");
-			ss << "Evidence 1";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 19, 11.5);
-			ss.str("");
-			ss << "Evidence 2";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 49, 11.5);
-			ss.str("");
-			ss << "Evidence 3";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 19, 7);
-			ss.str("");
-			ss << "Evidence 4";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 49, 7);
+			if (Application::CheckEvidence("Antidepressant pills") ||
+				Application::CheckEvidence("Laptop/Phone Messages") ||
+				Application::CheckEvidence("Pocket Knife") ||
+				Application::CheckEvidence("Suspicious to everybody"))
+			{
+				if (Application::CheckEvidence("Antidepressant pills"))
+				{
+					ss.str("");
+					ss << "Antidepressant pills";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 13, 11.5);
+				}
+				if (Application::CheckEvidence("Laptop/Phone Messages"))
+				{
+					ss.str("");
+					ss << "Laptop/Phone Messages";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 43, 11.5);
+				}
+				if (Application::CheckEvidence("Pocket Knife"))
+				{
+					ss.str("");
+					ss << "Pocket Knife";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 19, 7);
+				}
+				if (Application::CheckEvidence("Suspicious to everybody"))
+				{
+					ss.str("");
+					ss << "Suspicious to everybody";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 41, 7);
+				}
+				haveEvidence = true;
+			}
+			else
+			{
+				RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
+				ss.str("");
+				ss << "No evidence currently found";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 25, 11);
+				haveEvidence = false;
+			}
 			break;
 		case 3:
 			ss.str("");
 			ss << "Kevin M.";
 			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 13, 15.5);
-			ss.str("");
-			ss << "Evidence 1";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 19, 11.5);
-			ss.str("");
-			ss << "Evidence 2";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 49, 11.5);
-			ss.str("");
-			ss << "Evidence 3";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 19, 7);
-			ss.str("");
-			ss << "Evidence 4";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 49, 7);
+			if (Application::CheckEvidence("Imaginary friends") ||
+				Application::CheckEvidence("Guest list: Kids") ||
+				Application::CheckEvidence("Drawing of demonic friends") ||
+				Application::CheckEvidence("Bottle of weird mixtures"))
+			{
+				if (Application::CheckEvidence("Imaginary friends"))
+				{
+					ss.str("");
+					ss << "Imaginary friends";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 15, 11.5);
+				}
+				if (Application::CheckEvidence("Guest list: Kids"))
+				{
+					ss.str("");
+					ss << "Guest list: Kids";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 45, 11.5);
+				}
+				if (Application::CheckEvidence("Drawing of demonic friends"))
+				{
+					ss.str("");
+					ss << "Demonic Friends Drawing";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11.5, 7);
+				}
+				if (Application::CheckEvidence("Bottle of weird mixtures"))
+				{
+					ss.str("");
+					ss << "Bottle of weird mixtures";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 41, 7);
+				}
+				haveEvidence = true;
+			}
+			else
+			{
+				RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
+				ss.str("");
+				ss << "No evidence currently found";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 25, 11);
+				haveEvidence = false;
+			}
 			break;
 		case 4:
 			ss.str("");
 			ss << "Izan E.";
 			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 13, 15.5);
-			ss.str("");
-			ss << "Evidence 1";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 19, 11.5);
-			ss.str("");
-			ss << "Evidence 2";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 49, 11.5);
-			ss.str("");
-			ss << "Evidence 3";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 19, 7);
-			ss.str("");
-			ss << "Evidence 4";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 49, 7);
+			if (Application::CheckEvidence("Dementia pills") ||
+				Application::CheckEvidence("Written notes") ||
+				Application::CheckEvidence("Guest list: daughter") ||
+				Application::CheckEvidence("Gun in his room"))
+			{
+				if (Application::CheckEvidence("Dementia pills"))
+				{
+					ss.str("");
+					ss << "Dementia pills";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 17, 11.5);
+				}
+				if (Application::CheckEvidence("Written notes"))
+				{
+					ss.str("");
+					ss << "Written notes";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 48, 11.5);
+				}
+				if (Application::CheckEvidence("Guest list: daughter"))
+				{
+					ss.str("");
+					ss << "Guest list: Daughter";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 13, 7);
+				}
+				if (Application::CheckEvidence("Gun in his room"))
+				{
+					ss.str("");
+					ss << "Gun in his room";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 46.5, 7);
+				}
+				haveEvidence = true;
+			}
+			else
+			{
+				RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
+				ss.str("");
+				ss << "No evidence currently found";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 25, 11);
+				haveEvidence = false;
+			}
 			break;
 		}
 		}
@@ -960,7 +1303,7 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "Detective";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2, 13, 15.5); //charId of the person we talking to
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2, 15, 15.5); //charId of the person we talking to
 						ss.str("");
 						tempCounter = chatCounter + 1;
 						ss << guardChat[tempCounter];
@@ -970,7 +1313,7 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "Akkop P.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 2, 13, 15.5);//charId of the person we talking to
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 2, 15, 15.5);//charId of the person we talking to
 						ss.str("");
 						tempCounter = chatCounter + 1;
 						ss << guardChat[tempCounter];
@@ -984,11 +1327,14 @@ void LobbyScene::RenderInteraction()
 				}
 				else
 				{
+					Application::AddEvidence("Carmanadezpine pills");
+					Application::AddEvidence("In the bar");
+					Application::AddEvidence("Calm about incident");
+					Application::AddEvidence("Drug Dealing");
 					isChatting = false;
 					isGossiping = false;
 					isTalking = true;
 					printGossip = false;
-					isDoneChat = false;
 					chatCounter = 0;
 				}
 				break;
@@ -999,7 +1345,7 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "Detective";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2, 13, 15.5);//charId of the person we talking to
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2, 15, 15.5);//charId of the person we talking to
 						ss.str("");
 						tempCounter = chatCounter + 1;
 						ss << janitorChat[tempCounter];
@@ -1009,7 +1355,7 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "Gertrude H.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 2, 13, 15.5); //charId of the person we talking to
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 2, 15, 15.5); //charId of the person we talking to
 						ss.str("");
 						tempCounter = chatCounter + 1;
 						ss << janitorChat[tempCounter];
@@ -1023,11 +1369,14 @@ void LobbyScene::RenderInteraction()
 				}
 				else
 				{
+					Application::AddEvidence("Anger towards the victim");
+					Application::AddEvidence("Access to the victims room");
+					Application::AddEvidence("Trolley toxic detergent");
+					Application::AddEvidence("Getting rid of the bottle");
 					isChatting = false;
 					isGossiping = false;
 					isTalking = true;
 					printGossip = false;
-					isDoneChat = false;
 					chatCounter = 0;
 				}
 				break;
@@ -1038,7 +1387,7 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "Detective";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2, 13, 15.5); //charId of the person we talking to
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2, 15, 15.5); //charId of the person we talking to
 						ss.str("");
 						tempCounter = chatCounter + 1;
 						ss << gamerChat[tempCounter];
@@ -1048,7 +1397,7 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "Ivan S.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 2, 13, 15.5);//charId of the person we talking to
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 2, 15, 15.5);//charId of the person we talking to
 						ss.str("");
 						tempCounter = chatCounter + 1;
 						ss << gamerChat[tempCounter];
@@ -1062,11 +1411,14 @@ void LobbyScene::RenderInteraction()
 				}
 				else
 				{
+					Application::AddEvidence("Antidepressant pills");
+					Application::AddEvidence("Laptop/Phone Messages");
+					Application::AddEvidence("Pocket Knife");
+					Application::AddEvidence("Suspicious to everybody Knife");
 					isChatting = false;
 					isGossiping = false;
 					isTalking = true;
 					printGossip = false;
-					isDoneChat = false;
 					chatCounter = 0;
 				}
 				break;
@@ -1077,7 +1429,7 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "Detective";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2, 13, 15.5); //charId of the person we talking to
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2, 15, 15.5); //charId of the person we talking to
 						ss.str("");
 						tempCounter = chatCounter + 1;
 						ss << kidChat[tempCounter];
@@ -1087,7 +1439,7 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "Kevin M.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 2, 13, 15.5); //charId of the person we talking to
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 2, 15, 15.5); //charId of the person we talking to
 						ss.str("");
 						tempCounter = chatCounter + 1;
 						ss << kidChat[tempCounter];
@@ -1101,11 +1453,13 @@ void LobbyScene::RenderInteraction()
 				}
 				else
 				{
+					Application::AddEvidence("Imaginary friends");
+					Application::AddEvidence("Drawing of demonic friends");
+					Application::AddEvidence("Bottle of weird mixtures");
 					isChatting = false;
 					isGossiping = false;
 					isTalking = true;
 					printGossip = false;
-					isDoneChat = false;
 					chatCounter = 0;
 				}
 				break;
@@ -1116,7 +1470,7 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "Detective";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2, 13, 15.5);//charId of the person we talking to
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2, 15, 15.5);//charId of the person we talking to
 						ss.str("");
 						tempCounter = chatCounter + 1;
 						ss << oldManChat[tempCounter];
@@ -1126,7 +1480,7 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "Izan E.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 2, 13, 15.5);//charId of the person we talking to
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 2, 15, 15.5);//charId of the person we talking to
 						ss.str("");
 						tempCounter = chatCounter + 1;
 						ss << oldManChat[tempCounter];
@@ -1140,11 +1494,13 @@ void LobbyScene::RenderInteraction()
 				}
 				else
 				{
+					Application::AddEvidence("Dementia pills");
+					Application::AddEvidence("Written notes");
+					Application::AddEvidence("Gun in his room");
 					isChatting = false;
 					isGossiping = false;
 					isTalking = true;
 					printGossip = false;
-					isDoneChat = false;
 					chatCounter = 0;
 				}
 				break;
@@ -1189,7 +1545,7 @@ void LobbyScene::RenderInteraction()
 			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 49, 11.5);
 			ss.str("");
 			ss << "Gossip";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 21.5, 7);
+			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 22, 7);
 			ss.str("");
 			ss << "Leave";
 			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 52, 7);
@@ -1219,16 +1575,15 @@ void LobbyScene::TalkButtons()
 
 	if (printGossip)
 	{
-			isChatting = false;
-			isGossiping = false;
-			isTalking = true;
-			isInterrogate = false;
-			printGossip = false;
-			printInterrogate = false;
+		isChatting = false;
+		isGossiping = false;
+		isTalking = true;
+		isInterrogate = false;
+		printGossip = false;
+		printInterrogate = false;
 	}
 	else if (printInterrogate)
 	{
-
 		isChatting = false;
 		isGossiping = false;
 		isTalking = true;
@@ -1260,21 +1615,177 @@ void LobbyScene::TalkButtons()
 	{
 		if (CreateButton(y, y - y / 3, x + (x / 4) * 2, x - x / 1.6)) //1st gossip char
 		{
-			interrogateId = 0;
+			switch (charId)
+			{
+			case 0:
+				if (Application::CheckEvidence("Carmanadezpine pills"))
+				{
+					interrogateId = 0;
+					printInterrogate = true;
+				}
+				break;
+			case 1:
+				if (Application::CheckEvidence("Anger towards the victim"))
+				{
+					interrogateId = 0;
+					printInterrogate = true;
+				}
+				break;
+			case 2:
+				if (Application::CheckEvidence("Antidepressant pills"))
+				{
+					interrogateId = 0;
+					printInterrogate = true;
+				}
+				break;
+			case 3:
+				if (Application::CheckEvidence("Imaginary friends"))
+				{
+					interrogateId = 0;
+					printInterrogate = true;
+				}
+				break;
+			case 4:
+				if (Application::CheckEvidence("Dementia pills"))
+				{
+					interrogateId = 0;
+					printInterrogate = true;
+				}
+				break;
+			}
 		}
 		else if (CreateButton(y, y - y / 3, x / 1.6 + x * 2, x)) //2md gossip char
 		{
-			interrogateId = 1;
+			switch (charId)
+			{
+			case 0:
+				if (Application::CheckEvidence("In the bar"))
+				{
+					interrogateId = 1;
+					printInterrogate = true;
+				}
+				break;
+			case 1:
+				if (Application::CheckEvidence("Access to the victims room"))
+				{
+					interrogateId = 1;
+					printInterrogate = true;
+				}
+				break;
+			case 2:
+				if (Application::CheckEvidence("Laptop/Phone Messages"))
+				{
+					interrogateId = 1;
+					printInterrogate = true;
+				}
+				break;
+			case 3:
+				if (Application::CheckEvidence("Guest list: Kids"))
+				{
+					interrogateId = 1;
+					printInterrogate = true;
+				}
+				break;
+			case 4:
+				if (Application::CheckEvidence("Written notes"))
+				{
+					interrogateId = 1;
+					printInterrogate = true;
+				}
+				break;
+			}
 		}
 		else if (CreateButton(y - y / 3, y - (y / 3) * 2, x + (x / 4) * 2, x - x / 1.6)) //2md gossip char
 		{
-			interrogateId = 2;
+			switch (charId)
+			{
+			case 0:
+				if (Application::CheckEvidence("Calm about incident"))
+				{
+					interrogateId = 2;
+					printInterrogate = true;
+				}
+				break;
+			case 1:
+				if (Application::CheckEvidence("Trolley toxic detergent"))
+				{
+					interrogateId = 2;
+					printInterrogate = true;
+				}
+				break;
+			case 2:
+				if (Application::CheckEvidence("Pocket Knife"))
+				{
+					interrogateId = 2;
+					printInterrogate = true;
+				}
+				break;
+			case 3:
+				if (Application::CheckEvidence("Drawing of demonic friends"))
+				{
+					interrogateId = 2;
+					printInterrogate = true;
+				}
+				break;
+			case 4:
+				if (Application::CheckEvidence("Guest list: daughter"))
+				{
+					interrogateId = 2;
+					printInterrogate = true;
+				}
+				break;
+			}
 		}
 		else if (CreateButton(y - y / 3, y - (y / 3) * 2, x / 1.6 + x * 2, x)) //2md gossip char
 		{
-			interrogateId = 3;
+		switch (charId)
+		{
+		case 0:
+			if (Application::CheckEvidence("Drug Dealing"))
+			{
+				interrogateId = 3;
+				printInterrogate = true;
+			}
+			break;
+		case 1:
+			if (Application::CheckEvidence("Getting rid of the bottle"))
+			{
+				interrogateId = 3;
+				printInterrogate = true;
+			}
+			break;
+		case 2:
+			if (Application::CheckEvidence("Suspicious to everybody"))
+			{
+				interrogateId = 3;
+				printInterrogate = true;
+			}
+			break;
+		case 3:
+			if (Application::CheckEvidence("Bottle of weird mixtures"))
+			{
+				interrogateId = 3;
+				printInterrogate = true;
+			}
+			break;
+		case 4:
+			if (Application::CheckEvidence("Gun in his room"))
+			{
+				interrogateId = 3;
+				printInterrogate = true;
+			}
+			break;
 		}
-		printInterrogate = true;
+		}
+		if (!haveEvidence)
+		{
+			isChatting = false;
+			isGossiping = false;
+			isTalking = true;
+			isInterrogate = false;
+			printGossip = false;
+			printInterrogate = false;
+		}
 	}
 	else if (isChatting) // Continue chat button
 	{
@@ -1312,13 +1823,15 @@ bool LobbyScene::declareCulprit(int id) {
 	// 0 = guard, 1 = janitor, 2 = Arcader, 3 = Kid, 4 = old guy
 
 	//culprit is 2 (arcade gamer)
-	if (id == 2) {
+	if (id == 2) 
+	{
 		return true;
 	}
 	//guess wrongly
-	else {
+	else
+	{
 		Application::playerGuesses--;
-		false;
+		return false;
 	}
 }
 
@@ -1332,8 +1845,23 @@ void LobbyScene::CharacterPosCheck()
 		&& camera.position.x >= entityList[ENTITY_GUARD].getTransform().x - interactOffset
 		&& camera.position.z <= entityList[ENTITY_GUARD].getTransform().z + interactOffset)
 	{
-		screenTxt = "Press E to talk";
-
+		isAbleToTalk = true;
+		if (Application::EnoughEvidence(Application::guardEvidences) && entityList[ENTITY_GUARD].getPinable())
+		{
+			isAbleToPin = true;
+			if (canInteract && Application::IsKeyPressed('C'))
+			{
+				if (declareCulprit(ENTITY_GUARD)) //if actual culprit (guard)
+				{
+					Application::sceneState = Application::STATE_GAMEWIN;
+				}
+				else
+				{
+					entityList[ENTITY_GUARD].setPinable(false);
+					isAbleToPin = false;
+				}
+			}
+		}
 		if (canInteract && Application::IsKeyPressed('E'))
 		{
 			charId = ENTITY_GUARD;
@@ -1348,7 +1876,23 @@ void LobbyScene::CharacterPosCheck()
 		&& camera.position.x >= entityList[ENTITY_JANITOR].getTransform().x - interactOffset
 		&& camera.position.z <= entityList[ENTITY_JANITOR].getTransform().z + interactOffset)
 	{
-		screenTxt = "Press E to talk";
+		isAbleToTalk = true;
+		if (Application::EnoughEvidence(Application::janitorEvidences) && entityList[ENTITY_JANITOR].getPinable())
+		{
+			isAbleToPin = true;
+			if (canInteract && Application::IsKeyPressed('C'))
+			{
+				if (declareCulprit(ENTITY_JANITOR)) //if actual culprit (janitor)
+				{
+					Application::sceneState = Application::STATE_GAMEWIN;
+				}
+				else
+				{
+					entityList[ENTITY_JANITOR].setPinable(false);
+					isAbleToPin = false;
+				}
+			}
+		}
 		if (canInteract && Application::IsKeyPressed('E'))
 		{
 			charId = ENTITY_JANITOR;
@@ -1363,17 +1907,20 @@ void LobbyScene::CharacterPosCheck()
 		&& camera.position.x >= entityList[ENTITY_GAMER].getTransform().x - interactOffset
 		&& camera.position.z <= entityList[ENTITY_GAMER].getTransform().z + interactOffset)
 	{
-		screenTxt = "Press E to talk";
-
-		if (Application::EnoughEvidence(Application::arcadeEvidences)) 
+		isAbleToTalk = true;
+		if (Application::EnoughEvidence(Application::arcadeEvidences) && entityList[ENTITY_GAMER].getPinable())
 		{
-			culpritText = "Press C to Pin Culprit";
-
+			isAbleToPin = true;
 			if (canInteract && Application::IsKeyPressed('C'))
 			{
-				if (declareCulprit(ENTITY_GAMER)) //if actual culprit (gamer)
+				if (declareCulprit(ENTITY_GAMER)) //if actual culprit (janitor)
 				{
 					Application::sceneState = Application::STATE_GAMEWIN;
+				}
+				else
+				{
+					entityList[ENTITY_GAMER].setPinable(false);
+					isAbleToPin = false;
 				}
 			}
 		}
@@ -1392,7 +1939,23 @@ void LobbyScene::CharacterPosCheck()
 		&& camera.position.x >= entityList[ENTITY_KID].getTransform().x - interactOffset
 		&& camera.position.z <= entityList[ENTITY_KID].getTransform().z + interactOffset)
 	{
-		screenTxt = "Press E to talk";
+		isAbleToTalk = true;
+		if (Application::EnoughEvidence(Application::kidEvidences) && entityList[ENTITY_KID].getPinable())
+		{
+			isAbleToPin = true;
+			if (canInteract && Application::IsKeyPressed('C'))
+			{
+				if (declareCulprit(ENTITY_KID)) //if actual culprit (kid)
+				{
+					Application::sceneState = Application::STATE_GAMEWIN;
+				}
+				else
+				{
+					entityList[ENTITY_KID].setPinable(false);
+					isAbleToPin = false;
+				}
+			}
+		}
 		if (canInteract && Application::IsKeyPressed('E'))
 		{
 			charId = ENTITY_KID;
@@ -1407,7 +1970,23 @@ void LobbyScene::CharacterPosCheck()
 		&& camera.position.x >= entityList[ENTITY_OLDMAN].getTransform().x - interactOffset
 		&& camera.position.z <= entityList[ENTITY_OLDMAN].getTransform().z + interactOffset)
 	{
-		screenTxt = "Press E to talk";
+	isAbleToTalk = true;
+	if (Application::EnoughEvidence(Application::oldguyEvidences) && entityList[ENTITY_OLDMAN].getPinable())
+	{
+		isAbleToPin = true;
+		if (canInteract && Application::IsKeyPressed('C'))
+		{
+			if (declareCulprit(ENTITY_OLDMAN)) //if actual culprit (oldman)
+			{
+				Application::sceneState = Application::STATE_GAMEWIN;
+			}
+			else
+			{
+				entityList[ENTITY_OLDMAN].setPinable(false);
+				isAbleToPin = false;
+			}
+		}
+	}
 		if (canInteract && Application::IsKeyPressed('E'))
 		{
 			charId = ENTITY_OLDMAN;
@@ -1419,8 +1998,8 @@ void LobbyScene::CharacterPosCheck()
 	}
 	else
 	{
-		screenTxt = "";
-		culpritText = "";
+		isAbleToTalk = false;
+		isAbleToPin = false;
 	}
 }
 
@@ -1613,8 +2192,8 @@ void LobbyScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ
 			RenderEntity(entity, true);
 		}
 
-		cout << "Entity X:" << entity->getTransform().x << endl;
-		cout << "Entity Z:" << entity->getTransform().z << endl;
+		/*cout << "Entity X:" << entity->getTransform().x << endl;
+		cout << "Entity Z:" << entity->getTransform().z << endl;*/
 
 		if (camera.position.x >= entity->getTransform().x - rangeX
 			&& camera.position.x <= entity->getTransform().x + rangeX
@@ -1676,17 +2255,61 @@ void LobbyScene::Init()
 
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	light[0].type = Light::LIGHT_SPOT;
-	light[0].position.Set(0, 20, 0);
-	light[0].color.Set(1, 1, 1);
-	light[0].power = 2;
-	light[0].kC = 1.f;
-	light[0].kL = 0.01f;
-	light[0].kQ = 0.001f;
-	light[0].cosCutoff = cos(Math::DegreeToRadian(45));
-	light[0].cosInner = cos(Math::DegreeToRadian(30));
-	light[0].exponent = 3.f;
-	light[0].spotDirection.Set(0.f, 1.f, 0.f);
+	//Light Settings
+	{
+		//1st Light (Window)
+		light[0].type = Light::LIGHT_SPOT;
+		light[0].position.Set(18, 20, 0);
+		light[0].color.Set(1, 1, 1);
+		light[0].power = 2;
+		light[0].kC = 1.f;
+		light[0].kL = 0.01f;
+		light[0].kQ = 0.001f;
+		light[0].cosCutoff = cos(Math::DegreeToRadian(45));
+		light[0].cosInner = cos(Math::DegreeToRadian(30));
+		light[0].exponent = 3.f;
+		light[0].spotDirection.Set(0.f, 1.f, 0.f);
+
+		//2nd Light (Bar)
+		light[1].type = Light::LIGHT_SPOT;
+		light[1].position.Set(-15, 12, 3);
+		light[1].color.Set(1, 1, 1);
+		light[1].power = 3;
+		light[1].kC = 1.f;
+		light[1].kL = 0.01f;
+		light[1].kQ = 0.001f;
+		light[1].cosCutoff = cos(Math::DegreeToRadian(60));
+		light[1].cosInner = cos(Math::DegreeToRadian(45));
+		light[1].exponent = 3.f;
+		light[1].spotDirection.Set(0.f, 1.f, 0.f);
+
+		//3rd Light (Arcade)
+		light[2].type = Light::LIGHT_SPOT;
+		light[2].position.Set(4.5, 4, -14);
+		light[2].color.Set(1, 1, 1);
+		light[2].power = 1.8f;
+		light[2].kC = 1.f;
+		light[2].kL = 0.01f;
+		light[2].kQ = 0.001f;
+		light[2].cosCutoff = cos(Math::DegreeToRadian(45));
+		light[2].cosInner = cos(Math::DegreeToRadian(30));
+		light[2].exponent = 3.f;
+		light[2].spotDirection.Set(0.f, 1.f, 0.f);
+
+		//4th Light (Lift)
+		light[3].type = Light::LIGHT_SPOT;
+		light[3].position.Set(-3, 9, 27);
+		light[3].color.Set(1, 1, 1);
+		light[3].power = 1.8f;
+		light[3].kC = 1.f;
+		light[3].kL = 0.01f;
+		light[3].kQ = 0.001f;
+		light[3].cosCutoff = cos(Math::DegreeToRadian(45));
+		light[3].cosInner = cos(Math::DegreeToRadian(30));
+		light[3].exponent = 3.f;
+		light[3].spotDirection.Set(0.f, 1.f, 0.f);
+	}
+
 
 	//set background color
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -1698,25 +2321,70 @@ void LobbyScene::Init()
 	//load vertex and fragment shaders
 	m_programID = LoadShaders("Shader//Texture.vertexshader", "Shader//Text.fragmentshader");
 
-	m_parameters[U_LIGHT0_TYPE] = glGetUniformLocation(m_programID, "lights[0].type");
-	m_parameters[U_LIGHT0_SPOTDIRECTION] = glGetUniformLocation(m_programID, "lights[0].spotDirection");
-	m_parameters[U_LIGHT0_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[0].cosCutoff");
-	m_parameters[U_LIGHT0_COSINNER] = glGetUniformLocation(m_programID, "lights[0].cosInner");
-	m_parameters[U_LIGHT0_EXPONENT] = glGetUniformLocation(m_programID, "lights[0].exponent");
+	//Lights m_params
+	{
+		m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
+		m_parameters[U_MODELVIEW] = glGetUniformLocation(m_programID, "MV");
+		m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE] = glGetUniformLocation(m_programID, "MV_inverse_transpose");
+		m_parameters[U_MATERIAL_AMBIENT] = glGetUniformLocation(m_programID, "material.kAmbient");
+		m_parameters[U_MATERIAL_DIFFUSE] = glGetUniformLocation(m_programID, "material.kDiffuse");
+		m_parameters[U_MATERIAL_SPECULAR] = glGetUniformLocation(m_programID, "material.kSpecular");
+		m_parameters[U_MATERIAL_SHININESS] = glGetUniformLocation(m_programID, "material.kShininess");
+
+		//1st Light (Window)
+		m_parameters[U_LIGHT0_TYPE] = glGetUniformLocation(m_programID, "lights[0].type");
+		m_parameters[U_LIGHT0_SPOTDIRECTION] = glGetUniformLocation(m_programID, "lights[0].spotDirection");
+		m_parameters[U_LIGHT0_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[0].cosCutoff");
+		m_parameters[U_LIGHT0_COSINNER] = glGetUniformLocation(m_programID, "lights[0].cosInner");
+		m_parameters[U_LIGHT0_EXPONENT] = glGetUniformLocation(m_programID, "lights[0].exponent");
+		m_parameters[U_LIGHT0_POSITION] = glGetUniformLocation(m_programID, "lights[0].position_cameraspace");
+		m_parameters[U_LIGHT0_COLOR] = glGetUniformLocation(m_programID, "lights[0].color");
+		m_parameters[U_LIGHT0_POWER] = glGetUniformLocation(m_programID, "lights[0].power");
+		m_parameters[U_LIGHT0_KC] = glGetUniformLocation(m_programID, "lights[0].kC");
+		m_parameters[U_LIGHT0_KL] = glGetUniformLocation(m_programID, "lights[0].kL");
+		m_parameters[U_LIGHT0_KQ] = glGetUniformLocation(m_programID, "lights[0].kQ");
+		
+		//2nd Light (Bar)
+		m_parameters[U_LIGHT1_TYPE] = glGetUniformLocation(m_programID, "lights[1].type");
+		m_parameters[U_LIGHT1_SPOTDIRECTION] = glGetUniformLocation(m_programID, "lights[1].spotDirection");
+		m_parameters[U_LIGHT1_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[1].cosCutoff");
+		m_parameters[U_LIGHT1_COSINNER] = glGetUniformLocation(m_programID, "lights[1].cosInner");
+		m_parameters[U_LIGHT1_EXPONENT] = glGetUniformLocation(m_programID, "lights[1].exponent");
+		m_parameters[U_LIGHT1_POSITION] = glGetUniformLocation(m_programID, "lights[1].position_cameraspace");
+		m_parameters[U_LIGHT1_COLOR] = glGetUniformLocation(m_programID, "lights[1].color");
+		m_parameters[U_LIGHT1_POWER] = glGetUniformLocation(m_programID, "lights[1].power");
+		m_parameters[U_LIGHT1_KC] = glGetUniformLocation(m_programID, "lights[1].kC");
+		m_parameters[U_LIGHT1_KL] = glGetUniformLocation(m_programID, "lights[1].kL");
+		m_parameters[U_LIGHT1_KQ] = glGetUniformLocation(m_programID, "lights[1].kQ");
+
+		//3rd Light (Arcade)
+		m_parameters[U_LIGHT2_TYPE] = glGetUniformLocation(m_programID, "lights[2].type");
+		m_parameters[U_LIGHT2_SPOTDIRECTION] = glGetUniformLocation(m_programID, "lights[2].spotDirection");
+		m_parameters[U_LIGHT2_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[2].cosCutoff");
+		m_parameters[U_LIGHT2_COSINNER] = glGetUniformLocation(m_programID, "lights[2].cosInner");
+		m_parameters[U_LIGHT2_EXPONENT] = glGetUniformLocation(m_programID, "lights[2].exponent");
+		m_parameters[U_LIGHT2_POSITION] = glGetUniformLocation(m_programID, "lights[2].position_cameraspace");
+		m_parameters[U_LIGHT2_COLOR] = glGetUniformLocation(m_programID, "lights[2].color");
+		m_parameters[U_LIGHT2_POWER] = glGetUniformLocation(m_programID, "lights[2].power");
+		m_parameters[U_LIGHT2_KC] = glGetUniformLocation(m_programID, "lights[2].kC");
+		m_parameters[U_LIGHT2_KL] = glGetUniformLocation(m_programID, "lights[2].kL");
+		m_parameters[U_LIGHT2_KQ] = glGetUniformLocation(m_programID, "lights[2].kQ");
+
+		//4th Light (Lift)
+		m_parameters[U_LIGHT3_TYPE] = glGetUniformLocation(m_programID, "lights[3].type");
+		m_parameters[U_LIGHT3_SPOTDIRECTION] = glGetUniformLocation(m_programID, "lights[3].spotDirection");
+		m_parameters[U_LIGHT3_COSCUTOFF] = glGetUniformLocation(m_programID, "lights[3].cosCutoff");
+		m_parameters[U_LIGHT3_COSINNER] = glGetUniformLocation(m_programID, "lights[3].cosInner");
+		m_parameters[U_LIGHT3_EXPONENT] = glGetUniformLocation(m_programID, "lights[3].exponent");
+		m_parameters[U_LIGHT3_POSITION] = glGetUniformLocation(m_programID, "lights[3].position_cameraspace");
+		m_parameters[U_LIGHT3_COLOR] = glGetUniformLocation(m_programID, "lights[3].color");
+		m_parameters[U_LIGHT3_POWER] = glGetUniformLocation(m_programID, "lights[3].power");
+		m_parameters[U_LIGHT3_KC] = glGetUniformLocation(m_programID, "lights[3].kC");
+		m_parameters[U_LIGHT3_KL] = glGetUniformLocation(m_programID, "lights[3].kL");
+		m_parameters[U_LIGHT3_KQ] = glGetUniformLocation(m_programID, "lights[3].kQ");
+	}
+
 	m_parameters[U_NUMLIGHTS] = glGetUniformLocation(m_programID, "numLights");
-	m_parameters[U_MVP] = glGetUniformLocation(m_programID, "MVP");
-	m_parameters[U_MODELVIEW] = glGetUniformLocation(m_programID, "MV");
-	m_parameters[U_MODELVIEW_INVERSE_TRANSPOSE] = glGetUniformLocation(m_programID, "MV_inverse_transpose");
-	m_parameters[U_MATERIAL_AMBIENT] = glGetUniformLocation(m_programID, "material.kAmbient");
-	m_parameters[U_MATERIAL_DIFFUSE] = glGetUniformLocation(m_programID, "material.kDiffuse");
-	m_parameters[U_MATERIAL_SPECULAR] = glGetUniformLocation(m_programID, "material.kSpecular");
-	m_parameters[U_MATERIAL_SHININESS] = glGetUniformLocation(m_programID, "material.kShininess");
-	m_parameters[U_LIGHT0_POSITION] = glGetUniformLocation(m_programID, "lights[0].position_cameraspace");
-	m_parameters[U_LIGHT0_COLOR] = glGetUniformLocation(m_programID, "lights[0].color");
-	m_parameters[U_LIGHT0_POWER] = glGetUniformLocation(m_programID, "lights[0].power");
-	m_parameters[U_LIGHT0_KC] = glGetUniformLocation(m_programID, "lights[0].kC");
-	m_parameters[U_LIGHT0_KL] = glGetUniformLocation(m_programID, "lights[0].kL");
-	m_parameters[U_LIGHT0_KQ] = glGetUniformLocation(m_programID, "lights[0].kQ");
 	m_parameters[U_LIGHTENABLED] = glGetUniformLocation(m_programID, "lightEnabled");
 
 	// Get a handle for our "colorTexture" uniform
@@ -1731,21 +2399,82 @@ void LobbyScene::Init()
 	glUseProgram(m_programID);
 
 	// Make sure you pass uniform parameters after glUseProgram()
-	glUniform1i(m_parameters[U_NUMLIGHTS], 1);
-	//light[0].type = Light::LIGHT_DIRECTIONAL;
-	glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	glUniform3fv(m_parameters[U_LIGHT0_COLOR], 1, &light[0].color.r);
-	glUniform1f(m_parameters[U_LIGHT0_POWER], light[0].power);
+	glUniform1i(m_parameters[U_NUMLIGHTS], 4);
 
-	//light[0].type = Light::LIGHT_POINT;
-	glUniform1f(m_parameters[U_LIGHT0_KC], light[0].kC);
-	glUniform1f(m_parameters[U_LIGHT0_KL], light[0].kL);
-	glUniform1f(m_parameters[U_LIGHT0_KQ], light[0].kQ);
+	//Lights glParams
+	{
+		//Light 0 (Window)
+		{
+			//light[0].type = Light::LIGHT_DIRECTIONAL;
+			glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
+			glUniform3fv(m_parameters[U_LIGHT0_COLOR], 1, &light[0].color.r);
+			glUniform1f(m_parameters[U_LIGHT0_POWER], light[0].power);
 
-	//light[0].type = Light::LIGHT_SPOT;
-	glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF], light[0].cosCutoff);
-	glUniform1f(m_parameters[U_LIGHT0_COSINNER], light[0].cosInner);
-	glUniform1f(m_parameters[U_LIGHT0_EXPONENT], light[0].exponent);
+			//light[0].type = Light::LIGHT_POINT;
+			glUniform1f(m_parameters[U_LIGHT0_KC], light[0].kC);
+			glUniform1f(m_parameters[U_LIGHT0_KL], light[0].kL);
+			glUniform1f(m_parameters[U_LIGHT0_KQ], light[0].kQ);
+
+			//light[0].type = Light::LIGHT_SPOT;
+			glUniform1f(m_parameters[U_LIGHT0_COSCUTOFF], light[0].cosCutoff);
+			glUniform1f(m_parameters[U_LIGHT0_COSINNER], light[0].cosInner);
+			glUniform1f(m_parameters[U_LIGHT0_EXPONENT], light[0].exponent);
+		}
+
+		//Light 1 (Bar)
+		{
+			//light[1].type = Light::LIGHT_DIRECTIONAL;
+			glUniform1i(m_parameters[U_LIGHT1_TYPE], light[1].type);
+			glUniform3fv(m_parameters[U_LIGHT1_COLOR], 1, &light[1].color.r);
+			glUniform1f(m_parameters[U_LIGHT1_POWER], light[1].power);
+
+			//light[1].type = Light::LIGHT_POINT;
+			glUniform1f(m_parameters[U_LIGHT1_KC], light[1].kC);
+			glUniform1f(m_parameters[U_LIGHT1_KL], light[1].kL);
+			glUniform1f(m_parameters[U_LIGHT1_KQ], light[1].kQ);
+
+			//light[1].type = Light::LIGHT_SPOT;
+			glUniform1f(m_parameters[U_LIGHT1_COSCUTOFF], light[1].cosCutoff);
+			glUniform1f(m_parameters[U_LIGHT1_COSINNER], light[1].cosInner);
+			glUniform1f(m_parameters[U_LIGHT1_EXPONENT], light[1].exponent);
+		}
+
+		//Light 2 (Arcade)
+		{
+			//light[2].type = Light::LIGHT_DIRECTIONAL;
+			glUniform1i(m_parameters[U_LIGHT2_TYPE], light[2].type);
+			glUniform3fv(m_parameters[U_LIGHT2_COLOR], 1, &light[2].color.r);
+			glUniform1f(m_parameters[U_LIGHT2_POWER], light[2].power);
+
+			//light[2].type = Light::LIGHT_POINT;
+			glUniform1f(m_parameters[U_LIGHT2_KC], light[2].kC);
+			glUniform1f(m_parameters[U_LIGHT2_KL], light[2].kL);
+			glUniform1f(m_parameters[U_LIGHT2_KQ], light[2].kQ);
+
+			//light[2].type = Light::LIGHT_SPOT;
+			glUniform1f(m_parameters[U_LIGHT2_COSCUTOFF], light[2].cosCutoff);
+			glUniform1f(m_parameters[U_LIGHT2_COSINNER], light[2].cosInner);
+			glUniform1f(m_parameters[U_LIGHT2_EXPONENT], light[2].exponent);
+		}
+
+		//Light 3 (Lift)
+		{
+			//light[3].type = Light::LIGHT_DIRECTIONAL;
+			glUniform1i(m_parameters[U_LIGHT3_TYPE], light[3].type);
+			glUniform3fv(m_parameters[U_LIGHT3_COLOR], 1, &light[3].color.r);
+			glUniform1f(m_parameters[U_LIGHT3_POWER], light[3].power);
+
+			//light[3].type = Light::LIGHT_POINT;
+			glUniform1f(m_parameters[U_LIGHT3_KC], light[3].kC);
+			glUniform1f(m_parameters[U_LIGHT3_KL], light[3].kL);
+			glUniform1f(m_parameters[U_LIGHT3_KQ], light[3].kQ);
+
+			//light[3].type = Light::LIGHT_SPOT;
+			glUniform1f(m_parameters[U_LIGHT3_COSCUTOFF], light[3].cosCutoff);
+			glUniform1f(m_parameters[U_LIGHT3_COSINNER], light[3].cosInner);
+			glUniform1f(m_parameters[U_LIGHT3_EXPONENT], light[3].exponent);
+		}
+	}
 
 	//Enable depth test
 	glEnable(GL_DEPTH_TEST);
@@ -1771,6 +2500,9 @@ void LobbyScene::Init()
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
+
+	meshList[GEO_OFFICERS]=MeshBuilder::GenerateOBJMTL("CHIEF", "OBJ//Guard.obj", "OBJ//Guard.mtl");
+	meshList[GEO_OFFICERS]->textureID = LoadTGA("Image//PolygonOffice_Texture_01_A.tga");
 
 	//Journal
 	{
@@ -1815,23 +2547,33 @@ void LobbyScene::Init()
 		//gamer npc
 		entityList[ENTITY_GAMER].setMesh(MeshBuilder::GenerateOBJMTL("gamer", "OBJ//Gamer.obj", "OBJ//Gamer.mtl"));
 		entityList[ENTITY_GAMER].getMesh()->textureID = LoadTGA("Image//PolygonCity_Texture_03_B.tga");
-		entityList[ENTITY_GAMER].setTransform(Vector3(2.f, 0.f, -2.f)); //transform by default is 0,0,0
+		entityList[ENTITY_GAMER].setTransform(Vector3(3.f, 0.f, -14.f)); //transform by default is 0,0,0
+
 		//janitor npc
 		entityList[ENTITY_JANITOR].setMesh(MeshBuilder::GenerateOBJMTL("janitor", "OBJ//Janitor.obj", "OBJ//Janitor.mtl"));
 		entityList[ENTITY_JANITOR].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_02_C.tga");
-		entityList[ENTITY_JANITOR].setTransform(Vector3(-2.f, 0.f, -2.f)); //transform by default is 0,0,0
+		entityList[ENTITY_JANITOR].setTransform(Vector3(-7.f, 0.f, 10.5f)); //transform by default is 0,0,0
+		entityList[ENTITY_JANITOR].setRotationAngle(float(90.f));
+		entityList[ENTITY_JANITOR].setRotationAxis(Vector3(0.f, 3.f, 0.f));
+
 		//old man npc
 		entityList[ENTITY_OLDMAN].setMesh(MeshBuilder::GenerateOBJMTL("Old Man", "OBJ//OldMan.obj", "OBJ//OldMan.mtl"));
 		entityList[ENTITY_OLDMAN].getMesh()->textureID = LoadTGA("Image//PolygonCity_Texture_01_C.tga");
-		entityList[ENTITY_OLDMAN].setTransform(Vector3(-4.f, 0.f, -2.f)); //transform by default is 0,0,0
+		entityList[ENTITY_OLDMAN].setTransform(Vector3(5.6f, 0.f, 0.5f)); //transform by default is 0,0,0
 		//kid npc
 		entityList[ENTITY_KID].setMesh(MeshBuilder::GenerateOBJMTL("Kid", "OBJ//Kid.obj", "OBJ//Kid.mtl"));
 		entityList[ENTITY_KID].getMesh()->textureID = LoadTGA("Image//PolygonKids_Texture_01_A.tga");
-		entityList[ENTITY_KID].setTransform(Vector3(4.f, 0.f, -2.f)); //transform by default is 0,0,0
+		entityList[ENTITY_KID].setTransform(Vector3(5.5f, 0.f, -5.f)); //transform by default is 0,0,0
 		//guard npc
 		entityList[ENTITY_GUARD].setMesh(MeshBuilder::GenerateOBJMTL("guard", "OBJ//Guard.obj", "OBJ//Guard.mtl"));
 		entityList[ENTITY_GUARD].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_01_A.tga");
-		entityList[ENTITY_GUARD].setTransform(Vector3(0.f, 0.f, -2.f)); //transform by default is 0,0,0
+		entityList[ENTITY_GUARD].setTransform(Vector3(-5.6f, 0.f, 1.3f)); //transform by default is 0,0,0
+		entityList[ENTITY_GUARD].setRotationAngle(float(-90.f));
+		entityList[ENTITY_GUARD].setRotationAxis(Vector3(0.f, 1.f, 0.f));
+		//chief
+		entityList[ENTITY_CHIEF].setMesh(MeshBuilder::GenerateOBJMTL("CHIEF", "OBJ//Guard.obj", "OBJ//Guard.mtl"));
+		entityList[ENTITY_CHIEF].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_01_A.tga");
+		entityList[ENTITY_CHIEF].setTransform(Vector3(-1.1f, 0.f, 14.5f)); //transform by default is 0,0,0
 	}
 	
 	//Lobby Stage + Assets
@@ -1850,13 +2592,17 @@ void LobbyScene::Init()
 
 	//evidence
 	{
+		entityList[ENTITY_PSYCHO_PILLS].setMesh(MeshBuilder::GenerateOBJMTL("psycho pills", "OBJ//evidence//psycho_pills.obj", "OBJ//evidence//psycho_pills.mtl"));
+		entityList[ENTITY_PSYCHO_PILLS].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_04_C.tga");
+		entityList[ENTITY_PSYCHO_PILLS].setTransform(Vector3(-8, 0.9, 15)); //transform by default is 0,0,0
+
 		entityList[ENTITY_NOTES].setMesh(MeshBuilder::GenerateOBJMTL("oldman notes", "OBJ//evidence//writing_notes.obj", "OBJ//evidence//writing_notes.mtl"));
 		entityList[ENTITY_NOTES].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_03_B.tga");
 		entityList[ENTITY_NOTES].setTransform(Vector3(-8, 0.9f, 10.f)); //transform by default is 0,0,0
 
 		entityList[ENTITY_ALCHOHOL_BOTTLE].setMesh(MeshBuilder::GenerateOBJMTL("alchohol bottle", "OBJ//evidence//drinking_bottle.obj", "OBJ//evidence//drinking_bottle.mtl"));
 		entityList[ENTITY_ALCHOHOL_BOTTLE].getMesh()->textureID = LoadTGA("Image//PolygonTown_Texture_01_A.tga");
-		entityList[ENTITY_ALCHOHOL_BOTTLE].setTransform(Vector3(-8, 0.9f, 12.f)); //transform by default is 0,0,0
+		entityList[ENTITY_ALCHOHOL_BOTTLE].setTransform(Vector3(-8, 0.9f, 11.5f)); //transform by default is 0,0,0
 
 		entityList[ENTITY_BOTTLEMIX].setMesh(MeshBuilder::GenerateOBJMTL("bottle mix", "OBJ//evidence//water_bottle.obj", "OBJ//evidence//water_bottle.mtl"));
 		entityList[ENTITY_BOTTLEMIX].getMesh()->textureID = LoadTGA("Image//PolygonTown_Texture_01_A.tga");
@@ -1877,6 +2623,9 @@ void LobbyScene::Init()
 	ChatDialogueInit("Text//GamerChat.txt", gamerChat);
 	ChatDialogueInit("Text//KidChat.txt", kidChat);
 	ChatDialogueInit("Text//OldManChat.txt", oldManChat);
+
+	Application::AddEvidence("Guest list: Kids");
+	Application::AddEvidence("Guest list: daughter");
 
 	//hide and reset the cursor
 	Application::ResetCursor();
@@ -1912,48 +2661,19 @@ void LobbyScene::Update(double dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
 	}
 
-	if (Application::IsKeyPressed('I'))
-		light[0].position.z -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('K'))
-		light[0].position.z += (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('J'))
-		light[0].position.x -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('L'))
-		light[0].position.x += (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('O'))
-		light[0].position.y -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('P'))
-		light[0].position.y += (float)(LSPEED * dt);
-
-	if (Application::IsKeyPressed('5'))
-	{
-		light[0].type = Light::LIGHT_POINT;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	}
-	else if (Application::IsKeyPressed('6'))
-	{
-		light[0].type = Light::LIGHT_DIRECTIONAL;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	}
-	else if (Application::IsKeyPressed('7'))
-	{
-		light[0].type = Light::LIGHT_SPOT;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	}
-
 	//Mouse Inputs
 	{
 		static bool bLButtonState = false;
 		if (!bLButtonState && Application::IsMousePressed(0))
 		{
 			bLButtonState = true;
-			std::cout << "LBUTTON DOWN" << std::endl;
+			//std::cout << "LBUTTON DOWN" << std::endl;
 			TalkButtons();
 		}
 		else if (bLButtonState && !Application::IsMousePressed(0))
 		{
 			bLButtonState = false;
-			std::cout << "LBUTTON UP" << std::endl;
+			//std::cout << "LBUTTON UP" << std::endl;
 		}
 	}
 
@@ -2051,31 +2771,30 @@ void LobbyScene::Render()
 		camera.up.x, camera.up.y, camera.up.z);
 	modelStack.LoadIdentity();
 
-	if (light[0].type == Light::LIGHT_DIRECTIONAL)
-	{
-		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);
-		Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDirection_cameraspace.x);
-	}
-	else if (light[0].type == Light::LIGHT_SPOT)
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * light[0].position;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
-		Vector3 spotDirection_cameraspace = viewStack.Top() * light[0].spotDirection;
-		glUniform3fv(m_parameters[U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
-	}
-	else
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * light[0].position;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
-	}
+	Position lightPosition_cameraspace = viewStack.Top() * light[0].position;
+	glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
+	Vector3 spotDirection_cameraspace = viewStack.Top() * light[0].spotDirection;
+	glUniform3fv(m_parameters[U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
+
+	//2nd Light Parameters
+	lightPosition_cameraspace = viewStack.Top() * light[1].position;
+	glUniform3fv(m_parameters[U_LIGHT1_POSITION], 1, &lightPosition_cameraspace.x);
+	spotDirection_cameraspace = viewStack.Top() * light[1].spotDirection;
+	glUniform3fv(m_parameters[U_LIGHT1_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
+
+	//3rd Light Parameters
+	lightPosition_cameraspace = viewStack.Top() * light[2].position;
+	glUniform3fv(m_parameters[U_LIGHT2_POSITION], 1, &lightPosition_cameraspace.x);
+	spotDirection_cameraspace = viewStack.Top() * light[2].spotDirection;
+	glUniform3fv(m_parameters[U_LIGHT2_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
+
+	//4th Light Parameters
+	lightPosition_cameraspace = viewStack.Top() * light[3].position;
+	glUniform3fv(m_parameters[U_LIGHT3_POSITION], 1, &lightPosition_cameraspace.x);
+	spotDirection_cameraspace = viewStack.Top() * light[3].spotDirection;
+	glUniform3fv(m_parameters[U_LIGHT3_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
 
 	RenderMesh(meshList[GEO_AXES], false);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
-	RenderMesh(meshList[GEO_SUN], false);
-	modelStack.PopMatrix();
 
 	modelStack.PushMatrix();
 	modelStack.Rotate(rotateSkybox, 0,1,0);
@@ -2097,26 +2816,28 @@ void LobbyScene::Render()
 		modelStack.PopMatrix();
 	}
 
-	RenderEntity(&entityList[ENTITY_GUARD], false);
-	RenderEntity(&entityList[ENTITY_JANITOR], false);
-	RenderEntity(&entityList[ENTITY_GAMER], false);
-	RenderEntity(&entityList[ENTITY_KID], false);
-	RenderEntity(&entityList[ENTITY_OLDMAN], false);
+	RenderEntity(&entityList[ENTITY_GUARD], true);
+	RenderEntity(&entityList[ENTITY_JANITOR], true);
+	RenderEntity(&entityList[ENTITY_GAMER], true);
+	RenderEntity(&entityList[ENTITY_KID], true);
+	RenderEntity(&entityList[ENTITY_OLDMAN], true);
 	RenderEntity(&entityList[ENTITY_MACHINE], true);
+	RenderEvidenceObject(&entityList[ENTITY_PSYCHO_PILLS], 0.5f, 0.5f);
 	RenderEvidenceObject(&entityList[ENTITY_NOTES], 0.5f, 0.5f);
 	RenderEvidenceObject(&entityList[ENTITY_ALCHOHOL_BOTTLE], 0.5f, 0.5f);
 	RenderEvidenceObject(&entityList[ENTITY_BOTTLEMIX], 0.5f, 0.5f);
 	RenderEvidenceObject(&entityList[ENTITY_KNIFE], 0.5f, 0.5f);
 
-	if (IsInArcadeMachineInteraction() ||
-		IsInElevatorInteraction())
-	{
-		RenderPressEToInteract();
-	}
 
 	if (isJournalOpen)
 	{
 		RenderJournal();
+	}
+
+	if (IsInArcadeMachineInteraction() ||
+		IsInElevatorInteraction())
+	{
+		RenderPressEToInteract('E', "interact", 35, 10);
 	}
 
 	if (isTalking)
@@ -2125,19 +2846,20 @@ void LobbyScene::Render()
 	}
 	else
 	{
-		ss.str("");
-		ss << screenTxt;
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 3, 32, 10);
-	
-		ss.str("");
-		ss << culpritText;
-		RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 3, 30, 20);
+		if (isAbleToTalk)
+		{
+			RenderPressEToInteract('E', "talk", 35, 10);
 
+		}
+		if (isAbleToPin)
+		{
+			RenderPressEToInteract('C', "pin culprit", 30, 15);
+		}
 	}
-
+	RenderOfficers();
 	RenderHUD();
 
-	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 4, 0);
+	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 4, 0);
 }
 
 void LobbyScene::Exit()

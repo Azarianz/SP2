@@ -9,6 +9,7 @@ private:
 	Vector3 rotationAxis;
 	float rotationAngle;
 	Vector3 scale;
+	bool pinable;
 
 public:
 	enum class vector3Type
@@ -34,5 +35,8 @@ public:
 
 	float getRotationAngle();
 	void setRotationAngle(float angle);
+
+	bool getPinable();
+	void setPinable(bool pin);
 };
 

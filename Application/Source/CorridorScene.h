@@ -31,6 +31,7 @@ private:
 		GEO_JOURNAL_PAGE2,
 		//Corridor Stage + Assets
 		GEO_CORRIDOR,
+		GEO_OFFICER,
 		NUM_GEOMETRY,
 	};
 
@@ -116,6 +117,8 @@ private:
 	void ResetJournal();
 	void RenderHUD();
 	void PrintEvidence();
+	void BoundsCheck();
+	void RenderOfficers();
 	bool CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft);
 	bool IsInElevatorInteraction();
 	bool IsInDoor1Interaction();

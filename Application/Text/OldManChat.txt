@@ -1,8 +1,10 @@
 D:So how old is your granddaughter?
 O:10.
-D:But she is not here.
+D:But she's not here.
 O:Yes she is.
-D:There are pills in your room. What are they for?
+D:There are pills in your room.
+D:What are they for?
 O:Pills? Pills… 
 D:Sir?
-O:Hm? Oh i have to take my pills soon.
+O:Hm? 
+O:Oh! I have to take my pills soon.

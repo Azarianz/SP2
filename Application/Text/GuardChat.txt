@@ -1,4 +1,6 @@
-D:So this medical condition. What is it?
+D:So this medical condition.
+D:What is it?
 G:I am not willing to say.
-D:You seem very calm even after hearing this news.
-G:Well it's my medical condition.
+D:You seem very calm.
+D:Even after hearing this news.
+G:Well, it's my medical condition.

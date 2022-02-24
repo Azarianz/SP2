@@ -113,6 +113,7 @@ public:
 	void Exit();
 	static bool IsKeyPressed(unsigned short key);
 	static void AddEvidence(string text);
+	static bool CheckEvidence(string text);
 	static bool EnoughEvidence(bool b[4]);
 
 	//sound manager

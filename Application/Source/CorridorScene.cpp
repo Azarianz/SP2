@@ -310,28 +310,28 @@ bool CorridorScene::IsInDoor1Interaction()
 {
 	//door1 interaction collision
 	return ((camera.position.z >= 16) && (camera.position.z <= 20) &&
-		(camera.position.x >= -2) && (camera.position.x <= 0));
+		(camera.position.x >= -2) && (camera.position.x <= -1));
 }
 
 bool CorridorScene::IsInDoor2Interaction()
 {
 	//door2 interaction collision
 	return ((camera.position.z >= 9) && (camera.position.z <= 11) &&
-		(camera.position.x >= -2) && (camera.position.x <= 0));
+		(camera.position.x >= -2) && (camera.position.x <= -1));
 }
 
 bool CorridorScene::IsInDoor3Interaction()
 {
 	//door3 interaction collision
 	return ((camera.position.z >= -10) && (camera.position.z <= -8) &&
-		(camera.position.x >= -2) && (camera.position.x <= 0));
+		(camera.position.x >= -2) && (camera.position.x <= -1));
 }
 
 bool CorridorScene::IsInDoor4Interaction()
 {
 	//door4 interaction collision
 	return ((camera.position.z >= -19) && (camera.position.z <= -16) &&
-		(camera.position.x >= -2) && (camera.position.x <= 0));
+		(camera.position.x >= -2) && (camera.position.x <= -1));
 }
 
 void CorridorScene::RenderJournal()
@@ -482,6 +482,128 @@ void CorridorScene::PrintEvidence()
 	int arrag[i];
 }
 
+void CorridorScene::BoundsCheck()
+{
+	if ((camera.position.x >= 2))
+	{
+		camera.position.x = 2;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.x <= -2.1) && (camera.position.z >= 4))
+	{
+		camera.position.x = -2.1;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.x <= -2.1) && (camera.position.z <= 1.6))
+	{
+		camera.position.x = -2.1;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.x <= -4))
+	{
+		camera.position.x = -4;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.z >= 3.7) && (camera.position.x <= -2.5))
+	{
+		camera.position.z = 3.7;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.z <= 2) && (camera.position.x <= -2.5))
+	{
+		camera.position.z = 2;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.z <= -24))
+	{
+		camera.position.z = -24;
+		camera.target = camera.position + camera.view;
+	}
+	if ((camera.position.z >= 24))
+	{
+		camera.position.z = 24;
+		camera.target = camera.position + camera.view;
+	}
+}
+
+void CorridorScene::RenderOfficers()
+{
+	//cart officer
+
+	modelStack.PushMatrix();
+	modelStack.Translate(1.5, 0, -21.6);
+	modelStack.Scale(1, 1, 1);
+	RenderMesh(meshList[GEO_OFFICER], false);
+	modelStack.PopMatrix();
+	RenderHUD();
+
+	if (camera.position.x > 0 && camera.position.x < 3 && camera.position.z > -23.1 && camera.position.z < -20.1)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is the janitor's cart"), Color(1, 1, 1), 2, 35, 8);
+		RenderTextOnScreen(meshList[GEO_TEXT], ("there may be some evidence here"), Color(1, 1, 1), 2, 35, 5.5);
+	}
+
+	//victim officer
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-2, 0, -16.4);
+	modelStack.Scale(1, 1, 1);
+	modelStack.Rotate(90, 0, 1, 0);
+	RenderMesh(meshList[GEO_OFFICER], false);
+	modelStack.PopMatrix();
+	RenderHUD();
+
+	if (camera.position.x > -3.5 && camera.position.x < -.5 && camera.position.z > -17.9 && camera.position.z < -14.9)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is the Victim's room"), Color(1, 1, 1), 2, 35, 8);
+	}
+
+	//Kid officer
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-2, 0, -8.2);
+	modelStack.Scale(1, 1, 1);
+	modelStack.Rotate(90, 0, 1, 0);
+	RenderMesh(meshList[GEO_OFFICER], false);
+	modelStack.PopMatrix();
+	RenderHUD();
+
+	if (camera.position.x > -3.5 && camera.position.x < -.5 && camera.position.z > -9.7 && camera.position.z < -6.7)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is Kevin's room"), Color(1, 1, 1), 2, 35, 8);
+	}
+
+	//Oldman officer
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-2, 0, 9.5);
+	modelStack.Scale(1, 1, 1);
+	modelStack.Rotate(90, 0, 1, 0);
+	RenderMesh(meshList[GEO_OFFICER], false);
+	modelStack.PopMatrix();
+	RenderHUD();
+
+	if (camera.position.x > -3.5 && camera.position.x < -.5 && camera.position.z > 8 && camera.position.z < 11)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is Izan's room"), Color(1, 1, 1), 2, 35, 8);
+	}
+
+	//Arcade officer
+
+	modelStack.PushMatrix();
+	modelStack.Translate(-2, 0, 17.5);
+	modelStack.Scale(1, 1, 1);
+	modelStack.Rotate(90, 0, 1, 0);
+	RenderMesh(meshList[GEO_OFFICER], false);
+	modelStack.PopMatrix();
+	RenderHUD();
+
+	if (camera.position.x > -3.5 && camera.position.x < -.5 && camera.position.z > 16 && camera.position.z < 19)
+	{
+		RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is Ivan sonny's room"), Color(1, 1, 1), 2, 35, 8);
+	}
+}
+
 void CorridorScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ) {
 	//inspect
 	{
@@ -559,7 +681,7 @@ void CorridorScene::Init()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	light[0].type = Light::LIGHT_SPOT;
-	light[0].position.Set(0, 20, 0);
+	light[0].position.Set(12, 30, 0);
 	light[0].color.Set(1, 1, 1);
 	light[0].power = 2;
 	light[0].kC = 1.f;
@@ -654,6 +776,10 @@ void CorridorScene::Init()
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
 
+	//Officer
+	meshList[GEO_OFFICER] = MeshBuilder::GenerateOBJMTL("gamer", "OBJ//Guard.obj", "OBJ//Guard.mtl");
+	meshList[GEO_OFFICER]->textureID = LoadTGA("Image//PolygonOffice_Texture_01_A.tga");
+
 	//Skybox
 	{
 		meshList[GEO_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1), 1.f);
@@ -720,35 +846,6 @@ void CorridorScene::Update(double dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
 	}
 	camera.Update(dt);
-
-	if (Application::IsKeyPressed('I'))
-		light[0].position.z -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('K'))
-		light[0].position.z += (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('J'))
-		light[0].position.x -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('L'))
-		light[0].position.x += (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('O'))
-		light[0].position.y -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('P'))
-		light[0].position.y += (float)(LSPEED * dt);
-
-	if (Application::IsKeyPressed('5'))
-	{
-		light[0].type = Light::LIGHT_POINT;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	}
-	else if (Application::IsKeyPressed('6'))
-	{
-		light[0].type = Light::LIGHT_DIRECTIONAL;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	}
-	else if (Application::IsKeyPressed('7'))
-	{
-		light[0].type = Light::LIGHT_SPOT;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	}
 
 	//Mouse Inputs
 	{
@@ -869,6 +966,7 @@ void CorridorScene::Update(double dt)
 	}
 
 	framePerSecond = 1.f / dt;
+	BoundsCheck();
 }
 
 void CorridorScene::Render()
@@ -885,24 +983,10 @@ void CorridorScene::Render()
 		camera.up.x, camera.up.y, camera.up.z);
 	modelStack.LoadIdentity();
 
-	if (light[0].type == Light::LIGHT_DIRECTIONAL)
-	{
-		Vector3 lightDir(light[0].position.x, light[0].position.y, light[0].position.z);
-		Vector3 lightDirection_cameraspace = viewStack.Top() * lightDir;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightDirection_cameraspace.x);
-	}
-	else if (light[0].type == Light::LIGHT_SPOT)
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * light[0].position;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
-		Vector3 spotDirection_cameraspace = viewStack.Top() * light[0].spotDirection;
-		glUniform3fv(m_parameters[U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
-	}
-	else
-	{
-		Position lightPosition_cameraspace = viewStack.Top() * light[0].position;
-		glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
-	}
+	Position lightPosition_cameraspace = viewStack.Top() * light[0].position;
+	glUniform3fv(m_parameters[U_LIGHT0_POSITION], 1, &lightPosition_cameraspace.x);
+	Vector3 spotDirection_cameraspace = viewStack.Top() * light[0].spotDirection;
+	glUniform3fv(m_parameters[U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
 
 	RenderMesh(meshList[GEO_AXES], false);
 
@@ -940,10 +1024,10 @@ void CorridorScene::Render()
 	{
 		RenderJournal();
 	}
-
+	RenderOfficers();
 	RenderHUD();
 
-	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 4, 0);
+	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 4, 0);
 	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.x), Color(0, 1, 0), 4, 0, 0);
 	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.z), Color(0, 1, 0), 4, 0, 2);
 	//RenderMeshOnScreen(meshList[GEO_QUAD], 40, 30, 20, 10);
