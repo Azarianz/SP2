@@ -287,10 +287,10 @@ void CorridorScene::RenderHUD()
 
 	if (!isJournalOpen)
 	{
-		RenderTextOnScreen(meshList[GEO_TEXT], guess, Color(1, 1, 1), 2, 8, Application::screenUISizeY - 10);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Find the Culprit", Color(1, 1, 1), 2, 8, Application::screenUISizeY - 13);
-		RenderTextOnScreen(meshList[GEO_TEXT], "(J) Journal", Color(1, 1, 1), 2, Application::screenUISizeX - 16, Application::screenUISizeY - 10);
-		RenderTextOnScreen(meshList[GEO_TEXT], clues, Color(1, 1, 1), 2, Application::screenUISizeX - 15, Application::screenUISizeY - 13);
+		RenderTextOnScreen(meshList[GEO_TEXT], guess, Color(1, 1, 1), 2, 8, Application::screenUISizeY - 5);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Find the Culprit", Color(1, 1, 1), 2, 8, Application::screenUISizeY - 8);
+		RenderTextOnScreen(meshList[GEO_TEXT], "[J] Journal", Color(1, 1, 1), 2, Application::screenUISizeX - 16, Application::screenUISizeY - 5);
+		RenderTextOnScreen(meshList[GEO_TEXT], clues, Color(1, 1, 1), 2, Application::screenUISizeX - 15, Application::screenUISizeY - 8);
 	}
 }
 
@@ -613,11 +613,6 @@ void CorridorScene::RenderOfficers()
 	modelStack.PopMatrix();
 	RenderHUD();
 
-	if (camera.position.x > 0 && camera.position.x < 3 && camera.position.z > -21.5 && camera.position.z < -18.5)
-	{
-		RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is the janitor's cart"), Color(1, 1, 1), 2, 35, 8);
-		RenderTextOnScreen(meshList[GEO_TEXT], ("there might be something of use here"), Color(1, 1, 1), 2, 35, 5.5);
-	}
 
 	//victim officer
 
@@ -629,10 +624,6 @@ void CorridorScene::RenderOfficers()
 	modelStack.PopMatrix();
 	RenderHUD();
 
-	if (camera.position.x > -3.5 && camera.position.x < -.5 && camera.position.z > -17.9 && camera.position.z < -14.9)
-	{
-		RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is the Victim's room"), Color(1, 1, 1), 2, 35, 8);
-	}
 
 	//Kid officer
 
@@ -644,10 +635,6 @@ void CorridorScene::RenderOfficers()
 	modelStack.PopMatrix();
 	RenderHUD();
 
-	if (camera.position.x > -3.5 && camera.position.x < -.5 && camera.position.z > -9.7 && camera.position.z < -6.7)
-	{
-		RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is Kevin's room"), Color(1, 1, 1), 2, 35, 8);
-	}
 
 	//Oldman officer
 
@@ -659,10 +646,6 @@ void CorridorScene::RenderOfficers()
 	modelStack.PopMatrix();
 	RenderHUD();
 
-	if (camera.position.x > -3.5 && camera.position.x < -.5 && camera.position.z > 8 && camera.position.z < 11)
-	{
-		RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is Izan's room"), Color(1, 1, 1), 2, 35, 8);
-	}
 
 	//Arcade officer
 
@@ -674,9 +657,34 @@ void CorridorScene::RenderOfficers()
 	modelStack.PopMatrix();
 	RenderHUD();
 
-	if (camera.position.x > -3.5 && camera.position.x < -.5 && camera.position.z > 16 && camera.position.z < 19)
+	if (!isJournalOpen && !Inspect)
 	{
-		RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is Ivan sonny's room"), Color(1, 1, 1), 2, 35, 8);
+		//cart officer
+		if (camera.position.x > 0 && camera.position.x < 3 && camera.position.z > -21.5 && camera.position.z < -18.5)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is the janitor's cart"), Color(1, 1, 1), 2, 35, 8);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("there might be something of use here"), Color(1, 1, 1), 2, 35, 5.5);
+		}
+		//victim officer
+		if (camera.position.x > -3.5 && camera.position.x < -.5 && camera.position.z > -17.9 && camera.position.z < -14.9)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is the victim's room"), Color(1, 1, 1), 2, 35, 8);
+		}
+		//Kid officer
+		if (camera.position.x > -3.5 && camera.position.x < -.5 && camera.position.z > -9.7 && camera.position.z < -6.7)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is Kevin's room"), Color(1, 1, 1), 2, 35, 8);
+		}
+		//Oldman officer
+		if (camera.position.x > -3.5 && camera.position.x < -.5 && camera.position.z > 8 && camera.position.z < 11)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is Izan's room"), Color(1, 1, 1), 2, 35, 8);
+		}
+		//Arcade officer
+		if (camera.position.x > -3.5 && camera.position.x < -.5 && camera.position.z > 16 && camera.position.z < 19)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is Ivan's room"), Color(1, 1, 1), 2, 35, 8);
+		}
 	}
 }
 
@@ -695,7 +703,7 @@ void CorridorScene::RenderEvidenceObject(Entity* entity, float rangeX, float ran
 		{
 			if (!Inspect)
 			{
-				RenderTextOnScreen(meshList[GEO_TEXT], "Press F To Inspect", Color(1, 1, 1), 4, 25, 6);
+				RenderTextOnScreen(meshList[GEO_TEXT], "[F] inspect", Color(1, 1, 1), 3, 35, 10);
 
 				if (Application::IsKeyPressed('F') && (Interacted == false) && !isJournalOpen)
 				{
@@ -730,8 +738,8 @@ void CorridorScene::RenderEvidenceObject(Entity* entity, float rangeX, float ran
 					Interacted = false;
 				}
 
-				RenderTextOnScreen(meshList[GEO_TEXT], "Press F To Stop Inspecting", Color(1, 1, 1), 3, 27, 8);
-				RenderTextOnScreen(meshList[GEO_TEXT], "Arrow Keys To Turn The Object", Color(1, 1, 1), 1.5, 60, 30);
+				RenderTextOnScreen(meshList[GEO_TEXT], "[F] stop inspecting", Color(1, 1, 1), 3, 30, 10);
+				RenderTextOnScreen(meshList[GEO_TEXT], "Arrow Keys To Turn The Object", Color(1, 1, 1), 1.5, 38, 5);
 
 				InspectEvidenceOnScreen(entity->getMesh(), 40, 15, 20, 20, rotateZ, rotateX);
 			}
@@ -961,7 +969,7 @@ void CorridorScene::Update(double dt)
 	//Journal
 	{
 		static bool jButtonState = false;
-		if (!jButtonState && Application::IsKeyPressed('J') && !isJournalOpen)
+		if (!jButtonState && Application::IsKeyPressed('J') && !isJournalOpen && !Inspect)
 		{
 			camera.DisableControl();
 			Application::ShowCursor();

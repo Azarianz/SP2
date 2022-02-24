@@ -301,10 +301,10 @@ void RoomScene::RenderHUD()
 
 	if (!isJournalOpen)
 	{
-		RenderTextOnScreen(meshList[GEO_TEXT], guess, Color(1, 1, 1), 2, 8, Application::screenUISizeY - 10);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Find the Culprit", Color(1, 1, 1), 2, 8, Application::screenUISizeY - 13);
-		RenderTextOnScreen(meshList[GEO_TEXT], "(J) Journal", Color(1, 1, 1), 2, Application::screenUISizeX - 16, Application::screenUISizeY - 10);
-		RenderTextOnScreen(meshList[GEO_TEXT], clues, Color(1, 1, 1), 2, Application::screenUISizeX - 15, Application::screenUISizeY - 13);
+		RenderTextOnScreen(meshList[GEO_TEXT], guess, Color(1, 1, 1), 2, 8, Application::screenUISizeY - 5);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Find the Culprit", Color(1, 1, 1), 2, 8, Application::screenUISizeY - 8);
+		RenderTextOnScreen(meshList[GEO_TEXT], "[J] Journal", Color(1, 1, 1), 2, Application::screenUISizeX - 16, Application::screenUISizeY - 5);
+		RenderTextOnScreen(meshList[GEO_TEXT], clues, Color(1, 1, 1), 2, Application::screenUISizeX - 15, Application::screenUISizeY - 8);
 	}
 }
 
@@ -674,7 +674,7 @@ void RoomScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ)
 		{
 			if (!Inspect)
 			{
-				RenderTextOnScreen(meshList[GEO_TEXT], "[F] Inspect", Color(1, 1, 1), 4, 35, 6);
+				RenderTextOnScreen(meshList[GEO_TEXT], "[F] inspect", Color(1, 1, 1), 3, 35, 10);
 
 				if (Application::IsKeyPressed('F') && (Interacted == false) && !isJournalOpen)
 				{
@@ -729,8 +729,8 @@ void RoomScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ)
 
 				InspectEvidenceOnScreen(entity->getMesh(), 40, 30, 60, 60, rotateZ, rotateX);
 
-				RenderTextOnScreen(meshList[GEO_TEXT], "Press F To Stop Inspecting", Color(1, 1, 1), 3, 27, 8);
-				RenderTextOnScreen(meshList[GEO_TEXT], "Arrow Keys To Turn The Object", Color(1, 1, 1), 1.5, 60, 30);
+				RenderTextOnScreen(meshList[GEO_TEXT], "[F] stop inspecting", Color(1, 1, 1), 3, 30, 10);
+				RenderTextOnScreen(meshList[GEO_TEXT], "Arrow Keys To Turn The Object", Color(1, 1, 1), 1.5, 38, 5);
 			}
 		}
 	}
@@ -1116,7 +1116,7 @@ void RoomScene::Update(double dt)
 	//Journal
 	{
 		static bool jButtonState = false;
-		if (!jButtonState && Application::IsKeyPressed('J') && !isJournalOpen)
+		if (!jButtonState && Application::IsKeyPressed('J') && !isJournalOpen && !Inspect)
 		{
 			Application::SetCanPause(false);
 			camera.DisableControl();

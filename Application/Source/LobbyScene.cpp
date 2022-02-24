@@ -198,18 +198,18 @@ void LobbyScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, f
 
 void LobbyScene::RenderOfficers()
 {
+	//officers
 	//chief
 	if (camera.position.x - 1.5 <= entityList[ENTITY_CHIEF].getTransform().x + interactOffset
 		&& camera.position.z + 1.5 >= entityList[ENTITY_CHIEF].getTransform().z - interactOffset
 		&& camera.position.x + 1.5 >= entityList[ENTITY_CHIEF].getTransform().x - interactOffset
 		&& camera.position.z - 1.5 <= entityList[ENTITY_CHIEF].getTransform().z + interactOffset)
 	{
-		RenderTextOnScreen(meshList[GEO_TEXT], ("You can have a look at them."), Color(1, 1, 1), 2, 35, 2);
-		RenderTextOnScreen(meshList[GEO_TEXT], ("On your left, you'll find a table of confiscated evidences."), Color(1, 1, 1), 2, 22, 4.5);
+		RenderTextOnScreen(meshList[GEO_TEXT], ("You can have a look at them."), Color(1, 1, 1), 2, 32, 2);
+		RenderTextOnScreen(meshList[GEO_TEXT], ("On your left, you'll find a table of confiscated evidences."), Color(1, 1, 1), 2, 25, 4.5);
 		RenderTextOnScreen(meshList[GEO_TEXT], ("Go to the officers, they'll inform you about the suspects."), Color(1, 1, 1), 2, 25, 7);
-		RenderTextOnScreen(meshList[GEO_TEXT], ("Welcome to the crime scene Detective."), Color(1, 1, 1), 2, 33, 9.5);
+		RenderTextOnScreen(meshList[GEO_TEXT], ("Welcome to the crime scene Detective."), Color(1, 1, 1), 2, 31, 9.5);
 	}
-	//officers
 	{
 		//janitor
 
@@ -219,11 +219,6 @@ void LobbyScene::RenderOfficers()
 		modelStack.Rotate(90, 0, 1, 0);
 		RenderMesh(meshList[GEO_OFFICER_F], true);
 		modelStack.PopMatrix();
-		if (camera.position.x > -8.5 && camera.position.x < -5.5 && camera.position.z > 6.5 && camera.position.z < 8.5 && !isTalking)
-		{
-			RenderTextOnScreen(meshList[GEO_TEXT], ("This is Gertrude, the janitor."), Color(1, 1, 1), 2, 35, 8);
-			RenderTextOnScreen(meshList[GEO_TEXT], ("She's the last one seen to exit the victim's room."), Color(1, 1, 1), 2, 31, 5.5);
-		}
 
 		//guard
 		modelStack.PushMatrix();
@@ -233,12 +228,6 @@ void LobbyScene::RenderOfficers()
 		RenderMesh(meshList[GEO_OFFICER_M], true);
 		modelStack.PopMatrix();
 
-		if (camera.position.x > -7 && camera.position.x < -4 && camera.position.z > 1.7 && camera.position.z < 4.7 && !isTalking)
-		{
-			RenderTextOnScreen(meshList[GEO_TEXT], ("Akkop, this is the detective."), Color(1, 1, 1), 2, 35, 8);
-			RenderTextOnScreen(meshList[GEO_TEXT], ("Detective, this is Akkop. He was sitting"), Color(1, 1, 1), 2, 34, 5.5);
-			RenderTextOnScreen(meshList[GEO_TEXT], ("with the victim before he died."), Color(1, 1, 1), 2, 34.5, 3);
-		}
 
 		//oldman
 		modelStack.PushMatrix();
@@ -248,11 +237,6 @@ void LobbyScene::RenderOfficers()
 		RenderMesh(meshList[GEO_OFFICER_M], true);
 		modelStack.PopMatrix();
 
-		if (camera.position.x > 4 && camera.position.x < 7 && camera.position.z > 1.7 && camera.position.z < 4.7)
-		{
-			RenderTextOnScreen(meshList[GEO_TEXT], ("This is Izan."), Color(1, 1, 1), 2, 35, 8);
-			RenderTextOnScreen(meshList[GEO_TEXT], ("He was the closest to the victim when he fell."), Color(1, 1, 1), 2, 31, 5.5);
-		}
 		//kid
 
 		modelStack.PushMatrix();
@@ -261,11 +245,6 @@ void LobbyScene::RenderOfficers()
 		RenderMesh(meshList[GEO_OFFICER_F], true);
 		modelStack.PopMatrix();
 
-		if (camera.position.x > 3 && camera.position.x < 6 && camera.position.z > -6.5 && camera.position.z < -3.5)
-		{
-			RenderTextOnScreen(meshList[GEO_TEXT], ("This is Kevin."), Color(1, 1, 1), 2, 35, 8);
-			RenderTextOnScreen(meshList[GEO_TEXT], ("He was caught having many run-ins with the victim."), Color(1, 1, 1), 2, 31, 5.5);
-		}
 		//arcade
 
 		modelStack.PushMatrix();
@@ -273,12 +252,6 @@ void LobbyScene::RenderOfficers()
 		modelStack.Scale(1, 1, 1);
 		RenderMesh(meshList[GEO_OFFICER_M], true);
 		modelStack.PopMatrix();
-
-		if (camera.position.x > 0.5 && camera.position.x < 3.5 && camera.position.z > -15.5 && camera.position.z < -12.5 && !isTalking)
-		{
-			RenderTextOnScreen(meshList[GEO_TEXT], ("Good Evening Detective. This is Ivan."), Color(1, 1, 1), 2, 35, 8);
-			RenderTextOnScreen(meshList[GEO_TEXT], ("He was just playing the arcade machine when the victim died."), Color(1, 1, 1), 2, 31, 5.5);
-		}
 
 		//lift
 		modelStack.PushMatrix();
@@ -294,10 +267,45 @@ void LobbyScene::RenderOfficers()
 		RenderMesh(meshList[GEO_OFFICER_M], true);
 		modelStack.PopMatrix();
 
-		if (camera.position.x > -0.8 && camera.position.x < 5 && camera.position.z > 29 && camera.position.z < 40)
+		if (!isTalking && !isJournalOpen && !Inspect)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], ("Hello sir. The chief will brief you on this case."), Color(1, 1, 1), 2, 30, 8);
-			RenderTextOnScreen(meshList[GEO_TEXT], ("He'll be at the entrance."), Color(1, 1, 1), 2, 35, 5.5);
+			//janitor
+			if (camera.position.x > -8.5 && camera.position.x < -5.5 && camera.position.z > 7 && camera.position.z < 9.5 && !isTalking)
+			{
+				RenderTextOnScreen(meshList[GEO_TEXT], ("This is Gertrude, the janitor."), Color(1, 1, 1), 2, 31, 8);
+				RenderTextOnScreen(meshList[GEO_TEXT], ("She's the last one seen to exit the victim's room."), Color(1, 1, 1), 2, 27, 5.5);
+			}
+			//guard
+			if (camera.position.x > -7 && camera.position.x < -4 && camera.position.z > 1.7 && camera.position.z < 4.7 && !isTalking)
+			{
+				RenderTextOnScreen(meshList[GEO_TEXT], ("Akkop, this is the detective."), Color(1, 1, 1), 2, 35, 8);
+				RenderTextOnScreen(meshList[GEO_TEXT], ("Detective, this is Akkop. He was sitting"), Color(1, 1, 1), 2, 34, 5.5);
+				RenderTextOnScreen(meshList[GEO_TEXT], ("with the victim before he died."), Color(1, 1, 1), 2, 34.5, 3);
+			}
+			//oldman
+			if (camera.position.x > 4 && camera.position.x < 7 && camera.position.z > 1.7 && camera.position.z < 4.7)
+			{
+				RenderTextOnScreen(meshList[GEO_TEXT], ("This is Izan."), Color(1, 1, 1), 2, 37, 8);
+				RenderTextOnScreen(meshList[GEO_TEXT], ("He was the closest to the victim when he fell."), Color(1, 1, 1), 2, 31, 5.5);
+			}
+			//kid
+			if (camera.position.x > 3 && camera.position.x < 6 && camera.position.z > -6.5 && camera.position.z < -3.5)
+			{
+				RenderTextOnScreen(meshList[GEO_TEXT], ("This is Kevin."), Color(1, 1, 1), 2, 35, 8);
+				RenderTextOnScreen(meshList[GEO_TEXT], ("He was caught having many run-ins with the victim."), Color(1, 1, 1), 2, 31, 5.5);
+			}
+			//arcade
+			if (camera.position.x > 0.5 && camera.position.x < 3.5 && camera.position.z > -15.5 && camera.position.z < -12.5 && !isTalking)
+			{
+				RenderTextOnScreen(meshList[GEO_TEXT], ("Good Evening Detective. This is Ivan."), Color(1, 1, 1), 2, 31, 8);
+				RenderTextOnScreen(meshList[GEO_TEXT], ("He was just playing the arcade machine when the victim died."), Color(1, 1, 1), 2, 26, 5.5);
+			}
+			//lift
+			if (camera.position.x > -0.8 && camera.position.x < 5 && camera.position.z > 29 && camera.position.z < 40)
+			{
+				RenderTextOnScreen(meshList[GEO_TEXT], ("Hello sir. The chief will brief you on this case."), Color(1, 1, 1), 2, 30, 8);
+				RenderTextOnScreen(meshList[GEO_TEXT], ("He'll be at the entrance."), Color(1, 1, 1), 2, 35, 5.5);
+			}
 		}
 	}
 }
@@ -399,10 +407,10 @@ void LobbyScene::RenderHUD()
 
 	if (!isJournalOpen && !isTalking) 
 	{
-		RenderTextOnScreen(meshList[GEO_TEXT], guess, Color(1, 1, 1), 2, 8, Application::screenUISizeY - 10);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Find the Culprit", Color(1, 1, 1), 2, 8, Application::screenUISizeY - 13);
-		RenderTextOnScreen(meshList[GEO_TEXT], "[J] Journal", Color(1, 1, 1), 2, Application::screenUISizeX - 16, Application::screenUISizeY - 10);
-		RenderTextOnScreen(meshList[GEO_TEXT], clues, Color(1, 1, 1), 2, Application::screenUISizeX - 15, Application::screenUISizeY - 13);
+		RenderTextOnScreen(meshList[GEO_TEXT], guess, Color(1, 1, 1), 2, 8, Application::screenUISizeY - 5);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Find the Culprit", Color(1, 1, 1), 2, 8, Application::screenUISizeY - 8);
+		RenderTextOnScreen(meshList[GEO_TEXT], "[J] Journal", Color(1, 1, 1), 2, Application::screenUISizeX - 16, Application::screenUISizeY - 5);
+		RenderTextOnScreen(meshList[GEO_TEXT], clues, Color(1, 1, 1), 2, Application::screenUISizeX - 15, Application::screenUISizeY - 8);
 	}
 }
 
@@ -1941,15 +1949,9 @@ void LobbyScene::CharacterPosCheck()
 			isAbleToPin = true;
 			if (canInteract && Application::IsKeyPressed('C'))
 			{
-				if (declareCulprit(ENTITY_KID)) //if actual culprit (kid)
-				{
-					Application::sceneState = Application::STATE_GAMEWIN;
-				}
-				else
-				{
-					entityList[ENTITY_KID].setPinable(false);
-					isAbleToPin = false;
-				}
+				declareCulprit(ENTITY_KID); //if actual culprit (kid)
+				entityList[ENTITY_KID].setPinable(false);
+				isAbleToPin = false;
 			}
 		}
 		if (canInteract && Application::IsKeyPressed('E') && !isJournalOpen)
@@ -2292,7 +2294,7 @@ void LobbyScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ
 		{
 			if (!Inspect)
 			{
-				RenderTextOnScreen(meshList[GEO_TEXT], "Press F To Inspect", Color(1, 1, 1), 4, 25, 6);
+				RenderTextOnScreen(meshList[GEO_TEXT], "[F] inspect", Color(1, 1, 1), 3, 35, 10);
 
 				if (Application::IsKeyPressed('F') && (Interacted == false) && !isJournalOpen)
 				{
@@ -2343,8 +2345,8 @@ void LobbyScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ
 					Interacted = false;
 				}
 
-				RenderTextOnScreen(meshList[GEO_TEXT], "Press F To Stop Inspecting", Color(1, 1, 1), 3, 27, 8);
-				RenderTextOnScreen(meshList[GEO_TEXT], "Arrow Keys To Turn The Object", Color(1, 1, 1), 1.5, 60, 30);
+				RenderTextOnScreen(meshList[GEO_TEXT], "[F] stop inspecting", Color(1, 1, 1), 3, 30, 10);
+				RenderTextOnScreen(meshList[GEO_TEXT], "Arrow Keys To Turn The Object", Color(1, 1, 1), 1.5, 38, 5);
 
 				InspectEvidenceOnScreen(entity->getMesh(), 40, 20, 60, 60, rotateZ, rotateX);
 			}
@@ -2640,7 +2642,7 @@ void LobbyScene::Init()
 		meshList[GEO_DIALOGUE] = MeshBuilder::GenerateQuad("dialogue", Color(0.5, 0.5, 0.5), 1.f);
 		meshList[GEO_DIALOGUE]->textureID = LoadTGA("Image//dialogue_bg2.tga");
 		meshList[GEO_DIALOGUE2] = MeshBuilder::GenerateQuad("dialogue2", Color(0.5, 0.5, 0.5), 1.f);
-		meshList[GEO_DIALOGUE2]->textureID = LoadTGA("Image//dialogue_bg.tga");
+		meshList[GEO_DIALOGUE2]->textureID = LoadTGA("Image//dialogue_bg2.tga");
 	}
 
 	//Skybox 
@@ -2716,7 +2718,7 @@ void LobbyScene::Init()
 	{
 		entityList[ENTITY_PSYCHO_PILLS].setMesh(MeshBuilder::GenerateOBJMTL("psycho pills", "OBJ//evidence//psycho_pills.obj", "OBJ//evidence//psycho_pills.mtl"));
 		entityList[ENTITY_PSYCHO_PILLS].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_04_C.tga");
-		entityList[ENTITY_PSYCHO_PILLS].setTransform(Vector3(-8, 0.9, 15)); //transform by default is 0,0,0
+		entityList[ENTITY_PSYCHO_PILLS].setTransform(Vector3(-8, 0.9, 15.5f)); //transform by default is 0,0,0
 
 		entityList[ENTITY_NOTES].setMesh(MeshBuilder::GenerateOBJMTL("oldman notes", "OBJ//evidence//writing_notes.obj", "OBJ//evidence//writing_notes.mtl"));
 		entityList[ENTITY_NOTES].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_03_B.tga");
@@ -2764,6 +2766,7 @@ LobbyScene::LobbyScene()
 
 void LobbyScene::Update(double dt)
 {
+	std::cout << camera.position.x << " : " << camera.position.z << std::endl;
 	camera.Update(dt);
 
 	if (Application::IsKeyPressed('1'))
@@ -2821,7 +2824,7 @@ void LobbyScene::Update(double dt)
 	//Journal
 	{
 		static bool jButtonState = false;
-		if (!jButtonState && Application::IsKeyPressed('J') && !isJournalOpen && !isTalking)
+		if (!jButtonState && Application::IsKeyPressed('J') && !isJournalOpen && !isTalking && !Inspect)
 		{
 			camera.DisableControl();
 			Application::SetCanPause(false);
@@ -2950,14 +2953,13 @@ void LobbyScene::Render()
 	RenderEntity(&entityList[ENTITY_OLDMAN], true);
 	RenderEntity(&entityList[ENTITY_MACHINE], true);
 	RenderEntity(&entityList[ENTITY_CHIEF], true);
-	RenderEvidenceObject(&entityList[ENTITY_PSYCHO_PILLS], 0.5f, 0.5f);
-	RenderEvidenceObject(&entityList[ENTITY_NOTES], 0.5f, 0.5f);
-	RenderEvidenceObject(&entityList[ENTITY_ALCHOHOL_BOTTLE], 0.5f, 0.5f);
-	RenderEvidenceObject(&entityList[ENTITY_BOTTLEMIX], 0.5f, 0.5f);
-	RenderEvidenceObject(&entityList[ENTITY_KNIFE], 0.5f, 0.5f);
+	RenderEvidenceObject(&entityList[ENTITY_PSYCHO_PILLS], 0.7f, 0.7f);
+	RenderEvidenceObject(&entityList[ENTITY_NOTES], 0.7f, 0.7f);
+	RenderEvidenceObject(&entityList[ENTITY_ALCHOHOL_BOTTLE], 0.7f, 0.7f);
+	RenderEvidenceObject(&entityList[ENTITY_BOTTLEMIX], 0.7f, 0.7f);
+	RenderEvidenceObject(&entityList[ENTITY_KNIFE], 0.7f, 0.7f);
 
 	RenderOfficers();
-
 
 	if (isJournalOpen)
 	{
