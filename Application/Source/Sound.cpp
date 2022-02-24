@@ -23,6 +23,7 @@ Sound::Sound()
 
 Sound::~Sound()
 {
+    m_pSystem->close();
     m_pSystem->release();
 }
 

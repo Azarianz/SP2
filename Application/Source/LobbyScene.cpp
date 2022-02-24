@@ -740,7 +740,7 @@ void LobbyScene::RenderInteraction()
 				case 0://Gossiping about guard
 					ss.str("");
 					ss << "I have never seen him before";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 1);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 11);
 					break;
 				case 1://Gossiping about Janitor
 					ss.str("");
@@ -2003,16 +2003,6 @@ void LobbyScene::Update(double dt)
 	}
 	if (!isJournalOpen)
 	{
-		static bool lButtonState = false;
-		if (!lButtonState && Application::IsKeyPressed('L'))
-		{
-			std::cout << "x: " << camera.target.x << "y: " << camera.target.y << "z: " << camera.target.z;
-			lButtonState = true;
-		}
-		else if (lButtonState && !Application::IsKeyPressed('L'))
-		{
-			lButtonState = false;
-		}
 
 		if (IsInArcadeMachineInteraction() && Application::IsKeyPressed('E'))
 		{
