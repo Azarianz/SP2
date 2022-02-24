@@ -2101,10 +2101,10 @@ void LobbyScene::BoundsCheck()
 bool LobbyScene::IsInArcadeMachineInteraction()
 {
 	//arcade interaction colision
-	return(camera.position.x >= entityList[ENTITY_MACHINE].getTransform().x - 3) &&
-		(camera.position.z >= entityList[ENTITY_MACHINE].getTransform().z - 3) &&
-		(camera.position.x <= entityList[ENTITY_MACHINE].getTransform().x + 3) &&
-		(camera.position.z < entityList[ENTITY_MACHINE].getTransform().z + 3);
+	return(camera.position.x >= entityList[ENTITY_MACHINE].getTransform().x - 1) &&
+		(camera.position.z >= entityList[ENTITY_MACHINE].getTransform().z - 1) &&
+		(camera.position.x <= entityList[ENTITY_MACHINE].getTransform().x + 1) &&
+		(camera.position.z < entityList[ENTITY_MACHINE].getTransform().z + 1);
 }
 
 bool LobbyScene::IsInElevatorInteraction()
@@ -2494,9 +2494,6 @@ void LobbyScene::Init()
 
 	meshList[GEO_SUN] = MeshBuilder::GenerateSphere("Sphere", Color(1.0, 1.0, 1.0), 20, 20, 0.5);
 
-	meshList[GEO_SPHERE] = MeshBuilder::GenerateSphere("Sphere", Color(0.5, 1.0, 1.0), 20, 20, 1);
-	meshList[GEO_SPHERE]->textureID = LoadTGA("Image//color.tga");
-
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference");
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
@@ -2833,12 +2830,6 @@ void LobbyScene::Render()
 	RenderEvidenceObject(&entityList[ENTITY_BOTTLEMIX], 0.5f, 0.5f);
 	RenderEvidenceObject(&entityList[ENTITY_KNIFE], 0.5f, 0.5f);
 
-
-	if (isJournalOpen)
-	{
-		RenderJournal();
-	}
-
 	if (IsInArcadeMachineInteraction() ||
 		IsInElevatorInteraction())
 	{
@@ -2863,6 +2854,11 @@ void LobbyScene::Render()
 	}
 	RenderOfficers();
 	RenderHUD();
+
+	if (isJournalOpen)
+	{
+		RenderJournal();
+	}
 
 	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 4, 0);
 	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.x), Color(0, 1, 0), 4, 4, 3);

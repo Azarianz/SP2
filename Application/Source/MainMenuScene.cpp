@@ -789,9 +789,6 @@ void MainMenuScene::Init()
 
 	meshList[GEO_SUN] = MeshBuilder::GenerateSphere("Sphere", Color(1.0, 1.0, 1.0), 20, 20, 0.5);
 
-	meshList[GEO_SPHERE] = MeshBuilder::GenerateSphere("Sphere", Color(0.5, 1.0, 1.0), 20, 20, 1);
-	meshList[GEO_SPHERE]->textureID = LoadTGA("Image//color.tga");
-
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
 
@@ -838,6 +835,7 @@ void MainMenuScene::Render()
 	modelStack.LoadIdentity();
 
 	modelStack.PushMatrix();
+	modelStack.Translate(0, -40, 0);
 	modelStack.Rotate(rotateSkybox, 0, 1, 0);
 	RenderSkybox();
 	modelStack.PopMatrix();

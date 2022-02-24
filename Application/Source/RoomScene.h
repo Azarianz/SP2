@@ -18,7 +18,6 @@ private:
 		GEO_AXES,
 		GEO_QUAD,
 		GEO_QUAD_BUTTON,
-		GEO_SPHERE,
 		GEO_SUN,
 		GEO_LEFT,
 		GEO_RIGHT,
