@@ -504,7 +504,7 @@ void LobbyScene::RenderInteraction()
 	{
 		if (printInterrogate)//print interrogate dialogue
 		{
-			RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 11, 60, 17);
+			RenderMeshOnScreen(meshList[GEO_DIALOGUE], 40, 11, 60, 17);
 			switch (charId)
 			{
 			case 0: // Player interrogate guard
@@ -784,7 +784,7 @@ void LobbyScene::RenderInteraction()
 		}
 		else if (printGossip)//print gossip dialogues
 		{
-			RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 11, 60, 17);
+			RenderMeshOnScreen(meshList[GEO_DIALOGUE], 40, 11, 60, 17);
 			switch (charId)
 			{
 			case 0: // Player gossiping to guard
@@ -1125,7 +1125,7 @@ void LobbyScene::RenderInteraction()
 				}
 				else
 				{
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 11, 60, 17);
+					RenderMeshOnScreen(meshList[GEO_DIALOGUE], 40, 11, 60, 17);
 					ss.str("");
 					ss << "No evidence currently found";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 25, 11);
@@ -1169,7 +1169,7 @@ void LobbyScene::RenderInteraction()
 				}
 				else
 				{
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 11, 60, 17);
+					RenderMeshOnScreen(meshList[GEO_DIALOGUE], 40, 11, 60, 17);
 					ss.str("");
 					ss << "No evidence currently found";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 25, 11);
@@ -1213,7 +1213,7 @@ void LobbyScene::RenderInteraction()
 				}
 				else
 				{
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 11, 60, 17);
+					RenderMeshOnScreen(meshList[GEO_DIALOGUE], 40, 11, 60, 17);
 					ss.str("");
 					ss << "No evidence currently found";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 25, 11);
@@ -1257,7 +1257,7 @@ void LobbyScene::RenderInteraction()
 				}
 				else
 				{
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 11, 60, 17);
+					RenderMeshOnScreen(meshList[GEO_DIALOGUE], 40, 11, 60, 17);
 					ss.str("");
 					ss << "No evidence currently found";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 25, 11);
@@ -1301,7 +1301,7 @@ void LobbyScene::RenderInteraction()
 				}
 				else
 				{
-					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 11, 60, 17);
+					RenderMeshOnScreen(meshList[GEO_DIALOGUE], 40, 11, 60, 17);
 					ss.str("");
 					ss << "No evidence currently found";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 25, 11);
@@ -1312,7 +1312,7 @@ void LobbyScene::RenderInteraction()
 		}
 		else if (isChatting)//print chat dialogues
 		{
-			RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 11, 60, 17);
+			RenderMeshOnScreen(meshList[GEO_DIALOGUE], 40, 11, 60, 17);
 			switch (charId)
 			{
 			case 0:
@@ -2641,8 +2641,6 @@ void LobbyScene::Init()
 	{
 		meshList[GEO_DIALOGUE] = MeshBuilder::GenerateQuad("dialogue", Color(0.5, 0.5, 0.5), 1.f);
 		meshList[GEO_DIALOGUE]->textureID = LoadTGA("Image//dialogue_bg2.tga");
-		meshList[GEO_DIALOGUE2] = MeshBuilder::GenerateQuad("dialogue2", Color(0.5, 0.5, 0.5), 1.f);
-		meshList[GEO_DIALOGUE2]->textureID = LoadTGA("Image//dialogue_bg2.tga");
 	}
 
 	//Skybox 
