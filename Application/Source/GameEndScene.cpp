@@ -208,9 +208,42 @@ void GameEndScene::RenderGameOver()
 	if (winstate)
 	{
 		RenderMeshOnScreen(meshList[GEO_BACKGROUND], 0, 0, Application::screenUISizeX, Application::screenUISizeY);
-		RenderTextOnScreen(meshList[GEO_TEXT], "YOU WIN", Color(1, 1, 1), 5, 40, 40);
-		RenderTextOnScreen(meshList[GEO_TEXT], "YOU FOUND THE CULPRIT!", Color(1, 1, 1), 4, 40, 30);
-		RenderTextOnScreen(meshList[GEO_TEXT], "Press R to Restart", Color(1, 1, 1), 3, 40, 20);
+		if (elapsedTime < 2)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "So I caught the criminal", Color(1, 1, 1), 2.5, 40, 30);
+		}
+		else if (elapsedTime < 5)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "It turns out the poor guy got scammed by our victim", Color(1, 1, 1), 2.5, 40, 30);
+		}
+		else if (elapsedTime < 8)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "After he got scammed the guy turned depressed", Color(1, 1, 1), 2.5, 40, 30);
+			RenderTextOnScreen(meshList[GEO_TEXT], "and desperately wanted revenge because of that.", Color(1, 1, 1), 2.5, 40, 25);
+		}
+		else if (elapsedTime < 11)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "I guess the moral of this story is to not scam at all.", Color(1, 1, 1), 2.5, 40, 30);
+			RenderTextOnScreen(meshList[GEO_TEXT], "It's a lose-lose situation", Color(1, 1, 1), 2.5, 40, 25);
+		}
+		else if (elapsedTime < 14)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "whether you are the scammer or the victim.", Color(1, 1, 1), 2.5, 40, 30);
+		}
+		else if (elapsedTime < 17)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "With that this case is closed ", Color(1, 1, 1), 2.5, 40, 30);
+		}
+		else if (elapsedTime < 20)
+		{
+			RenderTextOnScreen(meshList[GEO_TEXT], "End", Color(1, 1, 1), 4, 40, 30);
+		}
+		else
+		{
+			Application::soundManager.ReleaseSound(Application::soundList[Application::SOUND_MAINGAME]);
+			Application::skipIntro = false;
+			Application::sceneState = Application::STATE_MAINMENU_INIT;
+		}
 	}
 	else if (!winstate)
 	{
@@ -218,10 +251,13 @@ void GameEndScene::RenderGameOver()
 		RenderTextOnScreen(meshList[GEO_TEXT], "YOU LOST", Color(1, 1, 1), 5, 40, 40);
 		RenderTextOnScreen(meshList[GEO_TEXT], "THE CULPRIT GOT AWAY!", Color(1, 1, 1), 4, 40, 30);
 		RenderTextOnScreen(meshList[GEO_TEXT], "Press R to Restart", Color(1, 1, 1), 3, 40, 20);
-	}
-	if (Application::IsKeyPressed('R'))
-	{
-		Application::sceneState = Application::STATE_MAINMENU_INIT;
+
+		if (Application::IsKeyPressed('R'))
+		{
+			Application::soundManager.ReleaseSound(Application::soundList[Application::SOUND_MAINGAME]);
+			Application::skipIntro = false;
+			Application::sceneState = Application::STATE_MAINMENU_INIT;
+		}
 	}
 }
 
@@ -349,62 +385,9 @@ void GameEndScene::Update(double dt)
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
 	}
-	camera.Update(dt);
 
-	if (winstate)
-	{
-		elapsedTime += dt;
-		if (elapsedTime < 2)
-		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "So I caught the criminal", Color(1, 1, 1), 2.5, 40, 30);
-		}
-		else if (elapsedTime < 5)
-		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "It turns out the poor guy got scammed by our victim", Color(1, 1, 1), 2.5, 40, 30);
-		}
-		else if (elapsedTime < 8)
-		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "After he got scammed the guy turned depressed", Color(1, 1, 1), 2.5, 40, 30);
-			RenderTextOnScreen(meshList[GEO_TEXT], "and desperately wanted revenge because of that.", Color(1, 1, 1), 2.5, 40, 25);
-		}
-		else if (elapsedTime < 11)
-		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "I guess the moral of this story is to not scam at all.", Color(1, 1, 1), 2.5, 40, 30);
-			RenderTextOnScreen(meshList[GEO_TEXT], "It's a lose-lose situation", Color(1, 1, 1), 2.5, 40, 25);
-		}
-		else if (elapsedTime < 14)
-		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "whether you are the scammer or the victim.", Color(1, 1, 1), 2.5, 40, 30);
-		}
-		else if (elapsedTime < 17)
-		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "With that this case is closed ", Color(1, 1, 1), 2.5, 40, 30);
-		}
-		else if (elapsedTime < 20)
-		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "End", Color(1, 1, 1), 4, 40, 30);
-		}
-		else
-		{
-			Application::soundManager.ReleaseSound(Application::soundList[Application::SOUND_MAINGAME]);
-			Application::skipIntro = false;
-			Application::sceneState = Application::STATE_MAINMENU_INIT;
-		}
-	}
-	else
-	{
-		elapsedTime += dt;
-		if (elapsedTime < 3)
-		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "Game Over", Color(1, 1, 1), 2.5, 40, 30);
-		}
-		else
-		{
-			Application::soundManager.ReleaseSound(Application::soundList[Application::SOUND_MAINGAME]);
-			Application::skipIntro = false;
-			Application::sceneState = Application::STATE_MAINMENU_INIT;
-		}
-	}
+	camera.Update(dt);
+	elapsedTime += dt;
 }
 
 void GameEndScene::Render()
