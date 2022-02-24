@@ -496,7 +496,7 @@ void LobbyScene::RenderInteraction()
 	{
 		if (printInterrogate)//print interrogate dialogue
 		{
-			RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
+			RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 11, 60, 17);
 			switch (charId)
 			{
 			case 0: // Player interrogate guard
@@ -510,7 +510,7 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "I have a medical condition.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 11);
 						Application::guardEvidences[0] = true;
 						break;
 					}
@@ -519,10 +519,10 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "I just want to rest.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 11);
 						ss.str("");
 						ss << "Everyone here gets to relax, why can't I?";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 9);
 						Application::guardEvidences[1] = true;
 						break;
 					}
@@ -531,7 +531,7 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "In my field of work, I've seen worse.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 11);
 						Application::guardEvidences[2] = true;
 						break;
 					}
@@ -540,10 +540,10 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "He sells drugs. That's all I'll tell you.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 11);
 						ss.str("");
 						ss << "And whatever he says about me is false.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 9);
 						Application::guardEvidences[3] = true;
 						break;
 					}
@@ -560,7 +560,7 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "Of course I'm angry. He's got no respect for me.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 11);
 						Application::janitorEvidences[0] = true;
 						break;
 					}
@@ -569,7 +569,7 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "Yeah? I have to clean people's rooms?";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 11);
 						Application::janitorEvidences[1] = true;
 						break;
 					}
@@ -578,10 +578,10 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "Yeah! To clean people's rooms.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 11);
 						ss.str("");
 						ss << "What else am I gonna use? Your piss!?";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 9);
 						Application::AddEvidence("Access to the victims room", "Janitor");
 						Application::janitorEvidences[2] = true;
 						break;
@@ -591,10 +591,10 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "If there's an empty bottle,";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 11);
 						ss.str("");
 						ss << "I have to clean it. I am the cleaner...";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 9);
 						Application::janitorEvidences[3] = true;
 						break;
 					}
@@ -613,31 +613,31 @@ void LobbyScene::RenderInteraction()
 						{
 							ss.str("");
 							ss << "I have really bad depression. don't really wanna";
-							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 12.5);
+							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 12.5);
 							ss.str("");
 							ss << "talk about it but I can slip an info for";
-							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 10.5);
+							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 10.5);
 							ss.str("");
 							ss << "you.. Not for free though. Beat my game";
-							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 8.5);
+							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 8.5);
 							ss.str("");
 							ss << "highscore of 1000 and I'll consider.";
-							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 6.5);
+							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 6.5);
 						}
 						else
 						{
 							ss.str("");
 							ss << "Ooo you're not too shabby. Anyways,";
-							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 12.5);
+							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 12.5);
 							ss.str("");
 							ss << "I had a deal-in with the guard who wanted";
-							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 10.5);
+							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 10.5);
 							ss.str("");
 							ss << "some of my meds. Gave it to him for some";
-							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 8.5);
+							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 8.5);
 							ss.str("");
 							ss << "cash. If anything, he seems suspicious here.";
-							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 6.5);
+							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 6.5);
 							Application::AddEvidence("Drug Dealing", "Guard");
 						}
 						Application::arcadeEvidences[0] = true;
@@ -648,7 +648,7 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "It's from my company.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 11);
 						Application::arcadeEvidences[1] = true;
 						break;
 					}
@@ -657,10 +657,10 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "A man's gotta be prepared for anything.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 11);
 						ss.str("");
 						ss << "What happens if you want to peel an apple?";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 9);
 						Application::arcadeEvidences[2] = true;
 						break;
 					}
@@ -669,10 +669,10 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "And you believe them?";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 11);
 						ss.str("");
 						ss << "They're the suspicious ones I tell ya.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 9);
 						Application::arcadeEvidences[3] = true;
 						break;
 					}
@@ -689,7 +689,7 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "Marv and Harry? They're here with me.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 11);
 						Application::kidEvidences[0] = true;
 						break;
 					}
@@ -698,7 +698,7 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "THEY ARE HERE WITH ME! Am I right Marv?";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 11);
 						Application::kidEvidences[1] = true;
 						break;
 					}
@@ -707,7 +707,7 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "That's a drawing I made for me and my friends.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 11);
 						Application::kidEvidences[2] = true;
 						break;
 					}
@@ -716,10 +716,10 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "It's part of the spy game.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 11);
 						ss.str("");
 						ss << "We create mixtures to poison our enemy.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 9);
 						Application::kidEvidences[3] = true;
 						break;
 					}
@@ -736,10 +736,10 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "Oh, my dementia pills.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 11);
 						ss.str("");
 						ss << "Almost forgot to take them.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 9);
 						Application::oldguyEvidences[0] = true;
 						break;
 					}
@@ -748,7 +748,7 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "My sweet sweet letter from my granddaughter.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 11);
 						Application::oldguyEvidences[1] = true;
 						break;
 					}
@@ -757,7 +757,7 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "Well my granddaughter is here I tell you.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 11);
 						Application::oldguyEvidences[2] = true;
 						break;
 					}
@@ -766,7 +766,7 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "Back in my day, I used to be a veteran spy.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 11);
 						Application::oldguyEvidences[3] = true;
 						break;
 					}
@@ -776,208 +776,208 @@ void LobbyScene::RenderInteraction()
 		}
 		else if (printGossip)//print gossip dialogues
 		{
-			RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
+			RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 11, 60, 17);
 			switch (charId)
 			{
 			case 0: // Player gossiping to guard
 				ss.str("");
 				ss << "Akkop P.";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 0), 2, 13, 15.5); //charId of the person we talking to
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, .6, 0), 2, 13, 15.5); //charId of the person we talking to
 				switch (gossipId)
 				{
 				case 0: //Gossiping about Janitor
 					ss.str("");
 					ss << "She always looks angry except that one time";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 10.5);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 14, 10.5);
 					ss.str("");
 					ss << "5 years ago when her son visited her.";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 8.5);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 14, 8.5);
 					break;
 				case 1: //Gossiping about Gamer
 					ss.str("");
-					ss << "He looks angry.";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 10.5);
+					ss << "He looks angry. Something must have happened.";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 14, 10.5);
 					Application::susCounter[0] = true;
 					break;
 				case 2: //Gossiping about kid
 					ss.str("");
 					ss << "That kid seems contented with his game.";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 10.5);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 14, 10.5);
 					break;
 				case 3: //Gossiping about old man
 					ss.str("");
 					ss << "He's always there if his wife doesn't come to ";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 10.5);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 14, 10.5);
 					ss.str("");
 					ss << "pick him up, he looks confused";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 8.5);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 14, 8.5);
 					break;
 				}
 				break;
 			case 1: // Player gossiping to janitor
 				ss.str("");
 				ss << "Gertrude H.";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 0), 2, 13, 15.5);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, .6, 0), 2, 13, 15.5);
 				switch (gossipId)
 				{
 				case 0://Gossiping about guard
 					ss.str("");
 					ss << "He's been working here for a long time now.";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 11);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 11);
 					ss.str("");
 					ss << "I always see him drinking in the bar on his duty.";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 9);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 9);
 					Application::AddEvidence("In the bar", "Guard");
 					break;
 				case 1://Gossiping about gamer
 					ss.str("");
 					ss << "I've seen him a few times when he is going out of";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 12.5);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 12.5);
 					ss.str("");
 					ss << "his room, always looking down while whispering";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 10.5);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 10.5);
 					ss.str("");
 					ss << "to himself about stopping it all. I've never seen";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 8.5);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 8.5);
 					ss.str("");
 					ss << "his face but I recognise that red hoodie.";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 6.5);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 6.5);
 					Application::susCounter[1] = true;
 					break;
 				case 2://Gossiping about kid
 					ss.str("");
 					ss << "That kid is so annoying. I just can't";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 11);
 					ss.str("");
 					ss << "stand noisy kids.";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 9);
 					break;
 				case 3://Gossiping about old man
 					ss.str("");
 					ss << "He's always sitting at the lobby just";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 11);
 					ss.str("");
 					ss << "waiting for somebody.";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 12, 9);
 					break;
 				}
 				break;
 			case 2: // Player gossiping to gamer
 				ss.str("");
 				ss << "Ivan S.";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 0), 2, 13, 15.5);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, .6, 0), 2, 13, 15.5);
 				switch (gossipId)
 				{
 				case 0://Gossiping about guard
 					ss.str("");
 					ss << "That guard has no emotions even till now";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 11);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 11);
 					ss.str("");
 					ss << "he just seems too relaxed. He must be the killer.";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 9);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 9);
 					break;
 				case 1://Gossiping about Janitor
 					ss.str("");
 					ss << "She always looks grumpy and unapproachable.";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 11);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 11);
 					break;
 				case 2://Gossiping about kid
 					ss.str("");
 					ss << "Everytime I'm in the hallway, the kid talks";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 11);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 11);
 					ss.str("");
 					ss << "to himself. He might have some mental issues";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 9);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 9);
 					break;
 				case 3://Gossiping about old man1
 					ss.str("");
 					ss << "Whenever I'm in the lobby, I always see him";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 11);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 11);
 					ss.str("");
 					ss << "sitting there looking.";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 9);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 9);
 					break;
 				}
 				break;
 			case 3: // Player gossiping to kid
 				ss.str("");
 				ss << "Kevin M.";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 0), 2, 13, 15.5);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, .6, 0), 2, 13, 15.5);
 				switch (gossipId)
 				{
 				case 0://Gossiping about guard
 					ss.str("");
 					ss << "I believe he's a robot. Whenever I say";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 11);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 11);
 					ss.str("");
 					ss << "hi to him, his replies are cold.";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 9);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 9);
 					break;
 				case 1://Gossiping about Janitor
 					ss.str("");
 					ss << "That lady is mean. She told me to be quiet";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 11);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 11);
 					ss.str("");
 					ss << "and to stop running around. She even threatened";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 9);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 9);
 					ss.str("");
 					ss << "to tie me up and leave to shut me up.";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 7);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 7);
 					break;
 				case 2://Gossiping about gamer
 					ss.str("");
 					ss << "I have never seen him before up until now.";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 11);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 11);
 					ss.str("");
 					ss << "He's always been away somewhere.";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 9);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 9);
 					Application::susCounter[2] = true;
 					break;
 				case 3://Gossiping about old man
 					ss.str("");
-					ss << "The old guy is very friendly. When i was";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 12.5);
+					ss << "The old guy is very friendly. When I was";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 12.5);
 					ss.str("");
-					ss << "playing with harry and marv, he offered to be ";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 10.5);
+					ss << "playing with Harry and Marv, he offered to be ";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 10.5);
 					ss.str("");
 					ss << "the enemy. He's pretty funny too! He always";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 8.5);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 8.5);
 					ss.str("");
 					ss << "forgets his role and lines.";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 6.5);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 6.5);
 					break;
 				}
 				break;
 			case 4: // Player gossiping to old man
 				ss.str("");
 				ss << "Izan E.";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 0), 2, 13, 15.5);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, .6, 0), 2, 13, 15.5);
 				switch (gossipId)
 				{
 				case 0://Gossiping about guard
 					ss.str("");
 					ss << "I have never seen him before.";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 11);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 11);
 					break;
 				case 1://Gossiping about Janitor
 					ss.str("");
 					ss << "Oh the janitor? Well wait nevermind I forgot.";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 11);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 11);
 					break;
 				case 2://Gossiping about gamer
 					ss.str("");
 					ss << "Hmm? I dont remember anybody from the arcade.";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 11);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 11);
 					Application::susCounter[3] = true;
 					break;
 				case 3://Gossiping about kid
 					ss.str("");
 					ss << "Nope I have no idea who he is but where is";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 11);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 11);
 					ss.str("");
 					ss << "my granddaughter?";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 9);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 9);
 					break;
 				}
 				break;
@@ -985,326 +985,326 @@ void LobbyScene::RenderInteraction()
 		}
 		else if (isGossiping)//print gossip buttons
 		{
-			RenderMeshOnScreen(meshList[GEO_DIALOGUE], 40, 12, 60, 13);
+			RenderMeshOnScreen(meshList[GEO_DIALOGUE], 40, 11, 60, 17);
 			switch (charId)
 			{
 			case 0:
 				ss.str("");
 				ss << "Akkop P.";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 0), 2, 13, 15.5); //charId of the person we talking to
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, .6, 0), 2, 13, 15.5); //charId of the person we talking to
 				ss.str("");
-				ss << "Janitor";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 21, 11.5); //charId of others we gossiping about
+				ss << "[Janitor]";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 21, 11.5); //charId of others we gossiping about
 				ss.str("");
-				ss << "Gamer";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 52, 11.5);
+				ss << "[Gamer]";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 52, 11.5);
 				ss.str("");
-				ss << "Kid";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 23, 7);
+				ss << "[Kid]";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 23, 7);
 				ss.str("");
-				ss << "Old Man";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 50, 7);
+				ss << "[Old Man]";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 50, 7);
 				break;
 			case 1:
 				ss.str("");
 				ss << "Gertrude H.";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 0), 2, 13, 15.5);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, .6, 0), 2, 13, 15.5);
 				ss.str("");
-				ss << "Guard";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 22, 11.5);
+				ss << "[Guard]";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 22, 11.5);
 				ss.str("");
-				ss << "Gamer";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 52, 11.5);
+				ss << "[Gamer]";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 52, 11.5);
 				ss.str("");
-				ss << "Kid";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 23, 7);
+				ss << "[Kid]";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 23, 7);
 				ss.str("");
-				ss << "Old Man";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 50, 7);
+				ss << "[Old Man]";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 50, 7);
 				break;
 			case 2:
 				ss.str("");
 				ss << "Ivan S.";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 0), 2, 13, 15.5);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, .6, 0), 2, 13, 15.5);
 				ss.str("");
-				ss << "Guard";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 22, 11.5);
+				ss << "[Guard]";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 22, 11.5);
 				ss.str("");
-				ss << "Janitor";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 50, 11.5);
+				ss << "[Janitor]";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 50, 11.5);
 				ss.str("");
-				ss << "Kid";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 23, 7);
+				ss << "[Kid]";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 23, 7);
 				ss.str("");
-				ss << "Old Man";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 50, 7);
+				ss << "[Old Man]";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 50, 7);
 				break;
 			case 3:
 				ss.str("");
 				ss << "Kevin M.";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 0), 2, 13, 15.5);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, .6, 0), 2, 13, 15.5);
 				ss.str("");
-				ss << "Guard";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 22, 11.5);
+				ss << "[Guard]";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 22, 11.5);
 				ss.str("");
-				ss << "Janitor";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 50, 11.5);
+				ss << "[Janitor]";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 50, 11.5);
 				ss.str("");
-				ss << "Gamer";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 22, 7);
+				ss << "[Gamer]";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 22, 7);
 				ss.str("");
-				ss << "Old Man";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 50, 7);
+				ss << "[Old Man]";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 50, 7);
 				break;
 			case 4:
 				ss.str("");
 				ss << "Izan E.";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 0), 2, 13, 15.5);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, .6, 0), 2, 13, 15.5);
 				ss.str("");
-				ss << "Guard";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 22, 11.5);
+				ss << "[Guard]";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 22, 11.5);
 				ss.str("");
-				ss << "Janitor";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 51, 11.5);
+				ss << "[Janitor]";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 51, 11.5);
 				ss.str("");
-				ss << "Gamer";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 22, 7);
+				ss << "[Gamer]";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 22, 7);
 				ss.str("");
-				ss << "Kid";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 53, 7);
+				ss << "[Kid]";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 53, 7);
 				break;
 			}
 		}
 		else if (isInterrogate)//Print Evidence buttons
 		{
-		RenderMeshOnScreen(meshList[GEO_DIALOGUE], 40, 12, 60, 13);
-		switch (charId)
-		{
-		case 0:
-			ss.str("");
-			ss << "Akkop P.";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 13, 15.5);
-			if (Application::CheckEvidence("Carmanadezpine pills") ||
-				Application::CheckEvidence("In the bar") ||
-				Application::CheckEvidence("Calm about incident") ||
-				Application::CheckEvidence("Drug Dealing"))
+			RenderMeshOnScreen(meshList[GEO_DIALOGUE], 40, 11, 60, 17);
+			switch (charId)
 			{
-				if (Application::CheckEvidence("Carmanadezpine pills"))
-				{
-					ss.str("");
-					ss << "Carmanadezpine pills";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 13.5, 11.5);
-				}
-				if (Application::CheckEvidence("In the bar"))
-				{
-					ss.str("");
-					ss << "In the bar";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 49, 11.5);
-				}
-				if (Application::CheckEvidence("Calm about incident"))
-				{
-					ss.str("");
-					ss << "Calm about incident";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 7);
-				}
-				if (Application::CheckEvidence("Drug Dealing"))
-				{
-					ss.str("");
-					ss << "Drug Dealing";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 47.5, 7);
-				}
-				haveEvidence = true;
-			}
-			else
-			{
-				RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
+			case 0:
 				ss.str("");
-				ss << "No evidence currently found";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 25, 11);
-				haveEvidence = false;
-			}
-			break;
-		case 1:
-			ss.str("");
-			ss << "Gertrude H.";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 13, 15.5);
-			if (Application::CheckEvidence("Anger towards the victim") ||
-				Application::CheckEvidence("Access to the victims room") ||
-				Application::CheckEvidence("Trolley toxic detergent") ||
-				Application::CheckEvidence("Getting rid of the bottle"))
-			{
-				if (Application::CheckEvidence("Anger towards the victim"))
+				ss << "Akkop P.";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 13, 15.5);
+				if (Application::CheckEvidence("Carmanadezpine pills") ||
+					Application::CheckEvidence("In the bar") ||
+					Application::CheckEvidence("Calm about incident") ||
+					Application::CheckEvidence("Drug Dealing"))
 				{
-					ss.str("");
-					ss << "Angry at victim";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 16, 11.5);
+					if (Application::CheckEvidence("Carmanadezpine pills"))
+					{
+						ss.str("");
+						ss << "[Carmanadezpine pills]";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 13.5, 11.5);
+					}
+					if (Application::CheckEvidence("In the bar"))
+					{
+						ss.str("");
+						ss << "[In the bar]";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 49, 11.5);
+					}
+					if (Application::CheckEvidence("Calm about incident"))
+					{
+						ss.str("");
+						ss << "[Calm about incident]";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 14, 7);
+					}
+					if (Application::CheckEvidence("Drug Dealing"))
+					{
+						ss.str("");
+						ss << "[Drug Dealing]";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 47.5, 7);
+					}
+					haveEvidence = true;
 				}
-				if (Application::CheckEvidence("Access to the victims room"))
+				else
 				{
+					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 11, 60, 17);
 					ss.str("");
-					ss << "Access to victim's room";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 41, 11.5);
+					ss << "No evidence currently found";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 25, 11);
+					haveEvidence = false;
 				}
-				if (Application::CheckEvidence("Trolley toxic detergent"))
-				{
-					ss.str("");
-					ss << "Trolley toxic detergent";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 7);
-				}
-				if (Application::CheckEvidence("Getting rid of the bottle"))
-				{
-					ss.str("");
-					ss << "Getting rid of bottle";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 42, 7);
-				}
-				haveEvidence = true;
-			}
-			else
-			{
-				RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
+				break;
+			case 1:
 				ss.str("");
-				ss << "No evidence currently found";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 25, 11);
-				haveEvidence = false;
-			}
-			break;
-		case 2:
-			ss.str("");
-			ss << "Ivan S.";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 13, 15.5);
-			if (Application::CheckEvidence("Antidepressant pills") ||
-				Application::CheckEvidence("Laptop/Phone Messages") ||
-				Application::CheckEvidence("Pocket Knife") ||
-				Application::CheckEvidence("Suspicious to everybody"))
-			{
-				if (Application::CheckEvidence("Antidepressant pills"))
+				ss << "Gertrude H.";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 13, 15.5);
+				if (Application::CheckEvidence("Anger towards the victim") ||
+					Application::CheckEvidence("Access to the victims room") ||
+					Application::CheckEvidence("Trolley toxic detergent") ||
+					Application::CheckEvidence("Getting rid of the bottle"))
 				{
-					ss.str("");
-					ss << "Antidepressant pills";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 13, 11.5);
+					if (Application::CheckEvidence("Anger towards the victim"))
+					{
+						ss.str("");
+						ss << "[Angry at victim]";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 16, 11.5);
+					}
+					if (Application::CheckEvidence("Access to the victims room"))
+					{
+						ss.str("");
+						ss << "[Access to victim's room]";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 41, 11.5);
+					}
+					if (Application::CheckEvidence("Trolley toxic detergent"))
+					{
+						ss.str("");
+						ss << "[Trolley toxic detergent]";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 7);
+					}
+					if (Application::CheckEvidence("Getting rid of the bottle"))
+					{
+						ss.str("");
+						ss << "[Getting rid of bottle]";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 42, 7);
+					}
+					haveEvidence = true;
 				}
-				if (Application::CheckEvidence("Laptop/Phone Messages"))
+				else
 				{
+					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 11, 60, 17);
 					ss.str("");
-					ss << "Laptop/Phone Messages";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 43, 11.5);
+					ss << "No evidence currently found";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 25, 11);
+					haveEvidence = false;
 				}
-				if (Application::CheckEvidence("Pocket Knife"))
-				{
-					ss.str("");
-					ss << "Pocket Knife";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 19, 7);
-				}
-				if (Application::CheckEvidence("Suspicious to everybody"))
-				{
-					ss.str("");
-					ss << "Suspicious to everybody";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 41, 7);
-				}
-				haveEvidence = true;
-			}
-			else
-			{
-				RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
+				break;
+			case 2:
 				ss.str("");
-				ss << "No evidence currently found";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 25, 11);
-				haveEvidence = false;
-			}
-			break;
-		case 3:
-			ss.str("");
-			ss << "Kevin M.";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 13, 15.5);
-			if (Application::CheckEvidence("Imaginary friends") ||
-				Application::CheckEvidence("Guest list: Kids") ||
-				Application::CheckEvidence("Drawing of demonic friends") ||
-				Application::CheckEvidence("Bottle of weird mixtures"))
-			{
-				if (Application::CheckEvidence("Imaginary friends"))
+				ss << "Ivan S.";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 13, 15.5);
+				if (Application::CheckEvidence("Antidepressant pills") ||
+					Application::CheckEvidence("Laptop/Phone Messages") ||
+					Application::CheckEvidence("Pocket Knife") ||
+					Application::CheckEvidence("Suspicious to everybody"))
 				{
-					ss.str("");
-					ss << "Imaginary friends";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 15, 11.5);
+					if (Application::CheckEvidence("Antidepressant pills"))
+					{
+						ss.str("");
+						ss << "[Antidepressant pills]";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 13, 11.5);
+					}
+					if (Application::CheckEvidence("Laptop/Phone Messages"))
+					{
+						ss.str("");
+						ss << "[Laptop/Phone Messages]";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 41, 11.5);
+					}
+					if (Application::CheckEvidence("Pocket Knife"))
+					{
+						ss.str("");
+						ss << "[Pocket Knife]";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 18, 7);
+					}
+					if (Application::CheckEvidence("Suspicious to everybody"))
+					{
+						ss.str("");
+						ss << "[Suspicious to everybody]";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 40, 7);
+					}
+					haveEvidence = true;
 				}
-				if (Application::CheckEvidence("Guest list: Kids"))
+				else
 				{
+					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 11, 60, 17);
 					ss.str("");
-					ss << "Guest list: Kids";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 45, 11.5);
+					ss << "No evidence currently found";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 25, 11);
+					haveEvidence = false;
 				}
-				if (Application::CheckEvidence("Drawing of demonic friends"))
-				{
-					ss.str("");
-					ss << "Demonic Friends Drawing";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11.5, 7);
-				}
-				if (Application::CheckEvidence("Bottle of weird mixtures"))
-				{
-					ss.str("");
-					ss << "Bottle of weird mixtures";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 41, 7);
-				}
-				haveEvidence = true;
-			}
-			else
-			{
-				RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
+				break;
+			case 3:
 				ss.str("");
-				ss << "No evidence currently found";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 25, 11);
-				haveEvidence = false;
-			}
-			break;
-		case 4:
-			ss.str("");
-			ss << "Izan E.";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 13, 15.5);
-			if (Application::CheckEvidence("Dementia pills") ||
-				Application::CheckEvidence("Written notes") ||
-				Application::CheckEvidence("Guest list: daughter") ||
-				Application::CheckEvidence("Gun in his room"))
-			{
-				if (Application::CheckEvidence("Dementia pills"))
+				ss << "Kevin M.";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 13, 15.5);
+				if (Application::CheckEvidence("Imaginary friends") ||
+					Application::CheckEvidence("Guest list: Kids") ||
+					Application::CheckEvidence("Drawing of demonic friends") ||
+					Application::CheckEvidence("Bottle of weird mixtures"))
 				{
-					ss.str("");
-					ss << "Dementia pills";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 17, 11.5);
+					if (Application::CheckEvidence("Imaginary friends"))
+					{
+						ss.str("");
+						ss << "[Imaginary friends]";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 15, 11.5);
+					}
+					if (Application::CheckEvidence("Guest list: Kids"))
+					{
+						ss.str("");
+						ss << "[Guest list: Kids]";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 45, 11.5);
+					}
+					if (Application::CheckEvidence("Drawing of demonic friends"))
+					{
+						ss.str("");
+						ss << "[Demonic Friends Drawing]";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 10.5, 7);
+					}
+					if (Application::CheckEvidence("Bottle of weird mixtures"))
+					{
+						ss.str("");
+						ss << "[Bottle of mixtures]";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 44, 7);
+					}
+					haveEvidence = true;
 				}
-				if (Application::CheckEvidence("Written notes"))
+				else
 				{
+					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 11, 60, 17);
 					ss.str("");
-					ss << "Written notes";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 48, 11.5);
+					ss << "No evidence currently found";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 25, 11);
+					haveEvidence = false;
 				}
-				if (Application::CheckEvidence("Guest list: daughter"))
-				{
-					ss.str("");
-					ss << "Guest list: Daughter";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 13, 7);
-				}
-				if (Application::CheckEvidence("Gun in his room"))
-				{
-					ss.str("");
-					ss << "Gun in his room";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 46.5, 7);
-				}
-				haveEvidence = true;
-			}
-			else
-			{
-				RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
+				break;
+			case 4:
 				ss.str("");
-				ss << "No evidence currently found";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 25, 11);
-				haveEvidence = false;
+				ss << "Izan E.";
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 0, 0), 2, 13, 15.5);
+				if (Application::CheckEvidence("Dementia pills") ||
+					Application::CheckEvidence("Written notes") ||
+					Application::CheckEvidence("Guest list: daughter") ||
+					Application::CheckEvidence("Gun in his room"))
+				{
+					if (Application::CheckEvidence("Dementia pills"))
+					{
+						ss.str("");
+						ss << "[Dementia pills]";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 17, 11.5);
+					}
+					if (Application::CheckEvidence("Written notes"))
+					{
+						ss.str("");
+						ss << "[Written notes]";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 48, 11.5);
+					}
+					if (Application::CheckEvidence("Guest list: daughter"))
+					{
+						ss.str("");
+						ss << "[Guest list: Daughter]";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 13, 7);
+					}
+					if (Application::CheckEvidence("Gun in his room"))
+					{
+						ss.str("");
+						ss << "[Gun in his room]";
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 46.5, 7);
+					}
+					haveEvidence = true;
+				}
+				else
+				{
+					RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 11, 60, 17);
+					ss.str("");
+					ss << "No evidence currently found";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 25, 11);
+					haveEvidence = false;
+				}
+				break;
 			}
-			break;
-		}
 		}
 		else if (isChatting)//print chat dialogues
 		{
-			RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
+			RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 11, 60, 17);
 			switch (charId)
 			{
 			case 0:
@@ -1314,21 +1314,21 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "Detective";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2, 15, 15.5); //charId of the person we talking to
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2, 13, 15.5); //charId of the person we talking to
 						ss.str("");
 						tempCounter = chatCounter + 1;
 						ss << guardChat[tempCounter];
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 10);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 10);
 					}
 					else if (guardChat[chatCounter] == "G")
 					{
 						ss.str("");
 						ss << "Akkop P.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 2, 15, 15.5);//charId of the person we talking to
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, .5, 0), 2, 13, 15.5);//charId of the person we talking to
 						ss.str("");
 						tempCounter = chatCounter + 1;
 						ss << guardChat[tempCounter];
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 10);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 10);
 					}
 
 					if (chatCounter == tempCounter)
@@ -1353,21 +1353,21 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "Detective";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2, 15, 15.5);//charId of the person we talking to
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2, 13, 15.5);//charId of the person we talking to
 						ss.str("");
 						tempCounter = chatCounter + 1;
 						ss << janitorChat[tempCounter];
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 10);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 10);
 					}
 					else if (janitorChat[chatCounter] == "J")
 					{
 						ss.str("");
 						ss << "Gertrude H.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 2, 15, 15.5); //charId of the person we talking to
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, .5, 0), 2, 13, 15.5); //charId of the person we talking to
 						ss.str("");
 						tempCounter = chatCounter + 1;
 						ss << janitorChat[tempCounter];
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 10);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 10);
 					}
 
 					if (chatCounter == tempCounter)
@@ -1392,21 +1392,21 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "Detective";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2, 15, 15.5); //charId of the person we talking to
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2, 13, 15.5); //charId of the person we talking to
 						ss.str("");
 						tempCounter = chatCounter + 1;
 						ss << gamerChat[tempCounter];
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 10);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 10);
 					}
 					else if (gamerChat[chatCounter] == "A")
 					{
 						ss.str("");
 						ss << "Ivan S.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 2, 15, 15.5);//charId of the person we talking to
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, .5, 0), 2, 13, 15.5);//charId of the person we talking to
 						ss.str("");
 						tempCounter = chatCounter + 1;
 						ss << gamerChat[tempCounter];
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 10);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 10);
 					}
 
 					if (chatCounter == tempCounter)
@@ -1430,21 +1430,21 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "Detective";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2, 15, 15.5); //charId of the person we talking to
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2, 13, 15.5); //charId of the person we talking to
 						ss.str("");
 						tempCounter = chatCounter + 1;
 						ss << kidChat[tempCounter];
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 10);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 10);
 					}
 					else if (kidChat[chatCounter] == "K")
 					{
 						ss.str("");
 						ss << "Kevin M.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 2, 15, 15.5); //charId of the person we talking to
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, .5, 0), 2, 13, 15.5); //charId of the person we talking to
 						ss.str("");
 						tempCounter = chatCounter + 1;
 						ss << kidChat[tempCounter];
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 10);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 10);
 					}
 
 					if (chatCounter == tempCounter)
@@ -1469,21 +1469,21 @@ void LobbyScene::RenderInteraction()
 					{
 						ss.str("");
 						ss << "Detective";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2, 15, 15.5);//charId of the person we talking to
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 1), 2, 13, 15.5);//charId of the person we talking to
 						ss.str("");
 						tempCounter = chatCounter + 1;
 						ss << oldManChat[tempCounter];
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 10);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 10);
 					}
 					else if (oldManChat[chatCounter] == "O")
 					{
 						ss.str("");
 						ss << "Izan E.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 1, 0), 2, 15, 15.5);//charId of the person we talking to
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, .5, 0), 2, 13, 15.5);//charId of the person we talking to
 						ss.str("");
 						tempCounter = chatCounter + 1;
 						ss << oldManChat[tempCounter];
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 10);
+						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 11, 10);
 					}
 
 					if (chatCounter == tempCounter)
@@ -1504,47 +1504,47 @@ void LobbyScene::RenderInteraction()
 		}
 		else//print chat options
 		{
-			RenderMeshOnScreen(meshList[GEO_DIALOGUE], 40, 12, 60, 13);
+			RenderMeshOnScreen(meshList[GEO_DIALOGUE], 40, 11, 60, 17);
 			switch (charId)
 			{
 			case 0:
 				ss.str("");
 				ss << "Akkop P.";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 13, 15.5);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 13, 15.5);
 				break;
 			case 1:
 				ss.str("");
 				ss << "Gertrude H.";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 13, 15.5);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 13, 15.5);
 				break;
 			case 2:
 				ss.str("");
 				ss << "Ivan S.";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 13, 15.5);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 13, 15.5);
 				break;
 			case 3:
 				ss.str("");
 				ss << "Kevin M.";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 13, 15.5);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 13, 15.5);
 				break;
 			case 4:
 				ss.str("");
 				ss << "Izan E.";
-				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 13, 15.5);
+				RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 13, 15.5);
 				break;
 			}
 			ss.str("");
-			ss << "Chat";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 23, 11.5);
+			ss << "[Chat]";
+			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 23, 11.5);
 			ss.str("");
-			ss << "Interrogate";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 49, 11.5);
+			ss << "[Interrogate]";
+			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 49, 11.5);
 			ss.str("");
-			ss << "Gossip";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 22, 7);
+			ss << "[Gossip]";
+			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 22, 7);
 			ss.str("");
-			ss << "Leave";
-			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 52, 7);
+			ss << "[Leave]";
+			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, 52, 7);
 		}
 	}
 }
@@ -2638,9 +2638,9 @@ void LobbyScene::Init()
 	//Dialogue BG
 	{
 		meshList[GEO_DIALOGUE] = MeshBuilder::GenerateQuad("dialogue", Color(0.5, 0.5, 0.5), 1.f);
-		meshList[GEO_DIALOGUE]->textureID = LoadTGA("Image//dialogue_start.tga");
+		meshList[GEO_DIALOGUE]->textureID = LoadTGA("Image//dialogue_bg2.tga");
 		meshList[GEO_DIALOGUE2] = MeshBuilder::GenerateQuad("dialogue2", Color(0.5, 0.5, 0.5), 1.f);
-		meshList[GEO_DIALOGUE2]->textureID = LoadTGA("Image//dialogue_gossip.tga");
+		meshList[GEO_DIALOGUE2]->textureID = LoadTGA("Image//dialogue_bg.tga");
 	}
 
 	//Skybox 

@@ -25,6 +25,7 @@ private:
 		GEO_FRONT,
 		GEO_BACK,
 		GEO_TEXT,
+		GEO_TITLEBG,
 		NUM_GEOMETRY,
 	};
 

@@ -204,8 +204,10 @@ void MainMenuScene::RenderMainMenu()
 {
 	if (menuState == MAIN)
 	{
-		RenderTextOnScreen(meshList[GEO_TEXT], "Case at Sea", textColor, 6, 40, 40);
-
+		RenderMeshOnScreen(meshList[GEO_TITLEBG], 40, 43, 42, 12);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Va[", textColor, 6, 27, 40);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Case", Color(0.7,0,0), 6, 38, 40);
+		RenderTextOnScreen(meshList[GEO_TEXT], "]ion", textColor, 6, 52, 40);
 		RenderTextOnScreen(meshList[GEO_TEXT], "Play Game", textColor, 2, 40, 30);
 		RenderTextOnScreen(meshList[GEO_TEXT], "Options", textColor, 2, 40, 25);
 		RenderTextOnScreen(meshList[GEO_TEXT], "How To Play", textColor, 2, 40, 20);
@@ -325,11 +327,11 @@ void MainMenuScene::RenderMainMenu()
 		}
 		else if (elapsedTime < 17)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "and so begins my investigation", Color(1, 1, 1), 2.5, 40, 30);
+			RenderTextOnScreen(meshList[GEO_TEXT], "and so begins my investigation...", Color(1, 1, 1), 2.5, 40, 30);
 		}
 		else if (elapsedTime < 20)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "Case at Sea", Color(1, 1, 1), 4, 40, 30);
+			RenderTextOnScreen(meshList[GEO_TEXT], "Va[Case]ion", Color(1, 1, 1), 4, 40, 30);
 		}
 		else
 		{
@@ -788,6 +790,9 @@ void MainMenuScene::Init()
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//typewriter.tga");
+
+	meshList[GEO_TITLEBG] = MeshBuilder::GenerateQuad("titlebg", 16, 16);
+	meshList[GEO_TITLEBG]->textureID = LoadTGA("Image//dialogue_bg2.tga");
 
 	//hide and reset the cursor
 	Application::ResetCursor();
