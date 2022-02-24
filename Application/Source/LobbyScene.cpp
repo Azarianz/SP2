@@ -405,12 +405,12 @@ void LobbyScene::RenderHUD()
 	{
 		RenderTextOnScreen(meshList[GEO_TEXT], guess, Color(1, 1, 1), 2, 8, Application::screenUISizeY - 10);
 		RenderTextOnScreen(meshList[GEO_TEXT], "Find the Culprit", Color(1, 1, 1), 2, 8, Application::screenUISizeY - 13);
-		RenderTextOnScreen(meshList[GEO_TEXT], "(J) Journal", Color(1, 1, 1), 2, Application::screenUISizeX - 16, Application::screenUISizeY - 10);
+		RenderTextOnScreen(meshList[GEO_TEXT], "[J] Journal", Color(1, 1, 1), 2, Application::screenUISizeX - 16, Application::screenUISizeY - 10);
 		RenderTextOnScreen(meshList[GEO_TEXT], clues, Color(1, 1, 1), 2, Application::screenUISizeX - 15, Application::screenUISizeY - 13);
 	}
 }
 
-void LobbyScene::RenderPressEToInteract(char btn, std::string input, float x, float y)
+void LobbyScene::RenderPressToInteract(char btn, std::string input, float x, float y)
 {
 	ss.str("");
 	ss << "[" << btn << "] " << input;
@@ -2828,7 +2828,7 @@ void LobbyScene::Render()
 	if (IsInArcadeMachineInteraction() ||
 		IsInElevatorInteraction())
 	{
-		RenderPressEToInteract('E', "interact", 35, 10);
+		RenderPressToInteract('E', "interact", 35, 10);
 	}
 
 	if (isTalking)
@@ -2839,12 +2839,12 @@ void LobbyScene::Render()
 	{
 		if (isAbleToTalk)
 		{
-			RenderPressEToInteract('E', "talk", 35, 10);
+			RenderPressToInteract('E', "talk", 35, 10);
 
 		}
 		if (isAbleToPin)
 		{
-			RenderPressEToInteract('C', "pin culprit", 30, 15);
+			RenderPressToInteract('C', "pin culprit", 30, 15);
 		}
 	}
 	RenderOfficers();

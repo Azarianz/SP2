@@ -191,7 +191,7 @@ private:
 	void InspectEvidenceOnScreen(Mesh* mesh, float x, float y, float sizex, float sizey, float rotatez, float rotatex);
 	void RenderSkybox();
 	bool CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft);
-	void RenderPressEToInteract(char btn, std::string input, float x, float y);
+	void RenderPressToInteract(char btn, std::string input, float x, float y);
 	void RenderOfficers();
 	void RenderJournal();
 	void RenderHUD();
