@@ -64,10 +64,14 @@ private:
 	unsigned m_programID;
 
 	Camera3 camera;
-	char menuState;
 
+	//some variables for interactions
+	char menuState; //what state the menu is in e.g. menuState = STATE_OPTIONS (is in options menu)
 	float elapsedTime;
 	float rotateSkybox;
+
+	//color of text
+	Color textColor;
 
 	void RenderMesh(Mesh* mesh, bool enableLight);
 	void RenderEntity(Entity* entity, bool enableLight);
@@ -76,8 +80,6 @@ private:
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y);
 	bool CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft);
-	void LoadSettings();
-	void SaveSettings();
 	void RenderMainMenu();
 
 public:

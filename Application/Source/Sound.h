@@ -11,8 +11,9 @@ private:
 public:
 	Sound();
 	~Sound();
+
 	void CreateSound(FMOD::Sound** pSound, const char* pFile);
 	void RunSound(FMOD::Sound* pSound, bool bLoop = false);
-	void ReleaseSound(FMOD::Sound* pSound);
+	void ReleaseSound(FMOD::Sound* pSound); //release means delete
 };
 

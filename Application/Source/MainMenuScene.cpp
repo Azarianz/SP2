@@ -202,11 +202,8 @@ bool MainMenuScene::CreateButton(float buttonTop, float buttonBottom, float butt
 
 void MainMenuScene::RenderMainMenu()
 {
-	Color textColor = Color(0.6, 0.6, 0.7);
-
 	if (menuState == MAIN)
 	{
-		//RenderMeshOnScreen(meshList[GEO_BACKGROUND], 0, 0, Application::screenUISizeX + 100, Application::screenUISizeY + 100);
 		RenderTextOnScreen(meshList[GEO_TEXT], "Title", textColor, 6, 40, 40);
 
 		RenderTextOnScreen(meshList[GEO_TEXT], "Play Game", textColor, 2, 40, 30);
@@ -766,9 +763,11 @@ void MainMenuScene::Init()
 		m_parameters[U_MATERIAL_SPECULAR],
 		m_parameters[U_MATERIAL_SHININESS]);
 
+	textColor = Color(0.6, 0.6, 0.7);
+
 	meshList[GEO_BACKGROUND] = MeshBuilder::GenerateQuad("quad", Color(0, 0, 0), 1.f);
 
-	meshList[GEO_SELECT] = MeshBuilder::GenerateQuad("quad", Color(1, 1, 1), 1.f);
+	meshList[GEO_SELECT] = MeshBuilder::GenerateQuad("quad", textColor, 1.f);
 
 	meshList[GEO_FRONT] = MeshBuilder::GenerateQuad("front", Color(1, 1, 1), 1.f);
 	meshList[GEO_FRONT]->textureID = LoadTGA("Image//front.tga");
