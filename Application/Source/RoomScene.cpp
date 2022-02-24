@@ -1166,6 +1166,7 @@ void RoomScene::Update(double dt)
 		static bool jButtonState = false;
 		if (!jButtonState && Application::IsKeyPressed('J') && !isJournalOpen)
 		{
+			Application::SetCanPause(false);
 			camera.DisableControl();
 			Application::ShowCursor();
 			isJournalOpen = true;
@@ -1177,6 +1178,7 @@ void RoomScene::Update(double dt)
 		}
 		else if (!jButtonState && Application::IsKeyPressed('J') && isJournalOpen)
 		{
+			Application::SetCanPause(true);
 			camera.EnableControl();
 			Application::HideCursor();
 			isJournalOpen = false;

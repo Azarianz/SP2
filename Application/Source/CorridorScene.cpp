@@ -998,6 +998,7 @@ void CorridorScene::Update(double dt)
 		{
 			camera.DisableControl();
 			Application::ShowCursor();
+			Application::SetCanPause(false);
 			isJournalOpen = true;
 			jButtonState = true;
 		}
@@ -1009,6 +1010,7 @@ void CorridorScene::Update(double dt)
 		{
 			camera.EnableControl();
 			Application::HideCursor();
+			Application::SetCanPause(true);
 			isJournalOpen = false;
 			jButtonState = true;
 			ResetJournal();

@@ -2834,6 +2834,7 @@ void LobbyScene::Update(double dt)
 		if (!jButtonState && Application::IsKeyPressed('J') && !isJournalOpen)
 		{
 			camera.DisableControl();
+			Application::SetCanPause(false);
 			Application::ShowCursor();
 			isJournalOpen = true;
 			jButtonState = true;
@@ -2846,6 +2847,7 @@ void LobbyScene::Update(double dt)
 		{
 			camera.EnableControl();
 			Application::HideCursor();
+			Application::SetCanPause(true);
 			isJournalOpen = false;
 			jButtonState = true;
 			ResetJournal();
