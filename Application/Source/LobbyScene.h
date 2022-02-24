@@ -21,7 +21,6 @@ private:
 	{
 		GEO_QUAD,
 		GEO_QUAD_BUTTON,
-		GEO_SUN,
 		GEO_LEFT,
 		GEO_RIGHT,
 		GEO_TOP,

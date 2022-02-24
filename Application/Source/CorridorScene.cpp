@@ -371,23 +371,6 @@ void CorridorScene::RenderJournal()
 			journalPage = PROFILE_PAGE;
 		}
 
-		//if (CreateButton(tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
-		//	tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
-		//	(journalButtonWidth / 2 + journalButtonWidth * tempCount) + (journalButtonWidth / 2 - buttonSpacing / 2),
-		//	(journalButtonWidth / 2 + journalButtonWidth * tempCount) - (journalButtonWidth / 2 - buttonSpacing / 2)))
-		//{
-		//	std::cout << "journal page is: 3" << std::endl;
-		//	journalPage = EVIDENCE_PAGE;
-		//}
-		//++tempCount;
-		//if (CreateButton(tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing + journalButtonHeight / 2,
-		//	tempScreenUISizeY - journalButtonHeight / 2 - buttonSpacing - journalButtonHeight / 2,
-		//	(journalButtonWidth / 2 + journalButtonWidth * tempCount) + (journalButtonWidth / 2 - buttonSpacing / 2),
-		//	(journalButtonWidth / 2 + journalButtonWidth * tempCount) - (journalButtonWidth / 2 - buttonSpacing / 2)))
-		//{
-		//	std::cout << "journal page is: 4" << std::endl;
-		//	journalPage = EVIDENCE_PAGE;
-		//}
 	}
 	else if (lcButtonState && !Application::IsMousePressed(0))
 	{
@@ -766,10 +749,6 @@ void CorridorScene::Init()
 
 	meshList[GEO_QUAD_BUTTON] = MeshBuilder::GenerateQuad("quad", Color(0, 0, 0), 1.f);
 
-	meshList[GEO_SUN] = MeshBuilder::GenerateSphere("Sphere", Color(1.0, 1.0, 1.0), 20, 20, 0.5);
-
-	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference");
-
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
 
@@ -989,13 +968,6 @@ void CorridorScene::Render()
 	Vector3 spotDirection_cameraspace = viewStack.Top() * light[0].spotDirection;
 	glUniform3fv(m_parameters[U_LIGHT0_SPOTDIRECTION], 1, &spotDirection_cameraspace.x);
 
-	RenderMesh(meshList[GEO_AXES], false);
-
-	modelStack.PushMatrix();
-	modelStack.Translate(light[0].position.x, light[0].position.y, light[0].position.z);
-	RenderMesh(meshList[GEO_SUN], false);
-	modelStack.PopMatrix();
-
 	modelStack.PushMatrix();
 	modelStack.Rotate(rotateSkybox, 0, 1, 0);
 	RenderSkybox();
@@ -1031,11 +1003,6 @@ void CorridorScene::Render()
 	}
 
 	RenderHUD();
-
-	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 4, 0);
-	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.x), Color(0, 1, 0), 4, 0, 0);
-	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.z), Color(0, 1, 0), 4, 0, 2);
-	//RenderMeshOnScreen(meshList[GEO_QUAD], 40, 30, 20, 10);
 
 }
 

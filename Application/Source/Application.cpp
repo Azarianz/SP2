@@ -408,12 +408,6 @@ void Application::Run()
 						scene = sceneList[SCENE_ROOM];
 						sceneState = STATE_RUN_SCENE;
 					}
-					else
-					{
-						sceneList[SCENE_ROOM]->Init();
-						scene = sceneList[SCENE_ROOM];
-						sceneState = STATE_RUN_SCENE;
-					}
 				}
 				else if (sceneState == STATE_ROOM_EXIT)
 				{

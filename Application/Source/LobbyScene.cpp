@@ -2474,8 +2474,6 @@ void LobbyScene::Init()
 
 	meshList[GEO_QUAD_BUTTON] = MeshBuilder::GenerateQuad("quad", Color(0, 0, 0), 1.f);
 
-	meshList[GEO_SUN] = MeshBuilder::GenerateSphere("Sphere", Color(1.0, 1.0, 1.0), 20, 20, 0.5);
-
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
 
@@ -2846,6 +2844,10 @@ void LobbyScene::Render()
 
 void LobbyScene::Exit()
 {
+	for (int i = 0; i < NUM_GEOMETRY; ++i)
+	{
+		delete meshList[i];
+	}
 	// Cleanup VBO here
 	glDeleteVertexArrays(1, &m_vertexArrayID);
 	glDeleteProgram(m_programID);

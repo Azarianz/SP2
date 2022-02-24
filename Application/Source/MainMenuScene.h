@@ -18,7 +18,6 @@ private:
 	{
 		GEO_BACKGROUND,
 		GEO_SELECT,
-		GEO_SUN,
 		GEO_LEFT,
 		GEO_RIGHT,
 		GEO_TOP,

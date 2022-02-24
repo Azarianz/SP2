@@ -110,9 +110,6 @@ private:
 	Mesh* meshList[NUM_GEOMETRY];
 	Entity entityList[NUM_ENTITY];
 
-	//unsigned m_indexBuffer [Num_Geometry];
-	//unsigned m_vertexBuffer[Num_Geometry];
-	//unsigned m_colorBuffer[Num_Geometry];
 	unsigned m_programID;
 
 	Camera3 camera;

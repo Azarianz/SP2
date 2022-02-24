@@ -210,7 +210,7 @@ void RoomScene::InspectEvidenceOnScreen(Mesh* mesh, float x, float y, float size
 
 void RoomScene::RenderPressEToInteract()
 {
-	RenderTextOnScreen(meshList[GEO_TEXT], "Press E to interact", Color(1, 1, 1), 3, 29, 10);
+	RenderTextOnScreen(meshList[GEO_TEXT], "[E] interact", Color(1, 1, 1), 3, 35, 10);
 }
 
 bool RoomScene::CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft)
@@ -600,7 +600,7 @@ void RoomScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ)
 		{
 			if (!Inspect)
 			{
-				RenderTextOnScreen(meshList[GEO_TEXT], "Press F To Inspect", Color(1, 1, 1), 4, 25, 6);
+				RenderTextOnScreen(meshList[GEO_TEXT], "[F] Inspect", Color(1, 1, 1), 4, 35, 6);
 
 				if (Application::IsKeyPressed('F') && (Interacted == false))
 				{

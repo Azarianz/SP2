@@ -15,10 +15,8 @@ class CorridorScene : public Scene
 private:
 	enum GEOMETRY_TYPE
 	{
-		GEO_AXES,
 		GEO_QUAD,
 		GEO_QUAD_BUTTON,
-		GEO_SUN,
 		GEO_LEFT,
 		GEO_RIGHT,
 		GEO_TOP,
