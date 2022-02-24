@@ -386,8 +386,10 @@ void GameEndScene::Update(double dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
 	}
 
-	camera.Update(dt);
-	elapsedTime += dt;
+	if (winstate)
+	{
+		elapsedTime += dt;
+	}
 }
 
 void GameEndScene::Render()
