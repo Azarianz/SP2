@@ -29,6 +29,11 @@ private:
 		GEO_BACK,
 		GEO_JOURNAL_PAGE1,
 		GEO_JOURNAL_PAGE2,
+		GEO_CHARACTER_PROFILE1,
+		GEO_CHARACTER_PROFILE2,
+		GEO_CHARACTER_PROFILE3,
+		GEO_CHARACTER_PROFILE4,
+		GEO_CHARACTER_PROFILE5,
 		GEO_TEXT,
 		GEO_JANITOR,
 		GEO_GAMER,
@@ -172,6 +177,7 @@ private:
 	char journalPage;
 	float rotateSkybox;
 	int evidencePage = 1;
+	int profilePage = 1;
 	bool Pickup = false;
 	bool Interacted = false;
 	bool text = false;
@@ -194,6 +200,7 @@ private:
 	void RenderHUD();
 	void ResetJournal();
 	void PrintEvidence();	//for journal
+	void PrintProfiles();	//for char profile
 	void ChatDialogueInit(std::string, std::vector<std::string>& vec);
 	void RenderInteraction();
 	void Interaction();
