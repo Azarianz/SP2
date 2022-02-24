@@ -2745,16 +2745,6 @@ void LobbyScene::Init()
 	journalPage = EVIDENCE_PAGE;
 	rotateSkybox = 0;
 
-	//Init dialogues
-	ChatDialogueInit("Text//GuardChat.txt", guardChat);// file format to be like this "Text//OldManChat.txt" and vector to store into
-	ChatDialogueInit("Text//JanitorChat.txt", janitorChat);
-	ChatDialogueInit("Text//GamerChat.txt", gamerChat);
-	ChatDialogueInit("Text//KidChat.txt", kidChat);
-	ChatDialogueInit("Text//OldManChat.txt", oldManChat);
-
-	Application::AddEvidence("Guest list: Kids", "Kid");
-	Application::AddEvidence("Guest list: daughter", "Old Man");
-
 	//hide and reset the cursor
 	Application::ResetCursor();
 	if (!isTalking)
@@ -2766,6 +2756,16 @@ void LobbyScene::Init()
 LobbyScene::LobbyScene()
 {
 	camera.Init(Vector3(-7, 1.5f, 30), Vector3(0, 1.5, 30), Vector3(0, 1, 0));
+
+	//Init dialogues
+	ChatDialogueInit("Text//GuardChat.txt", guardChat);// file format to be like this "Text//OldManChat.txt" and vector to store into
+	ChatDialogueInit("Text//JanitorChat.txt", janitorChat);
+	ChatDialogueInit("Text//GamerChat.txt", gamerChat);
+	ChatDialogueInit("Text//KidChat.txt", kidChat);
+	ChatDialogueInit("Text//OldManChat.txt", oldManChat);
+
+	Application::AddEvidence("Guest list: Kids", "Kid");
+	Application::AddEvidence("Guest list: daughter", "Old Man");
 }
 
 void LobbyScene::Update(double dt)

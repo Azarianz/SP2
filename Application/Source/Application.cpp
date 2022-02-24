@@ -206,15 +206,6 @@ void Application::SetCanPause(bool isAble)
 
 void Application::Init()
 {
-	/*AddEvidence("Evidence 01: Insert Text Here");
-	AddEvidence("Evidence 02: Insert Text Here");
-	AddEvidence("Evidence 03: Insert Text Here");
-	AddEvidence("Evidence 04: Insert Text Here");
-	AddEvidence("Evidence 05: Insert Text Here");
-	AddEvidence("Evidence 06: Insert Text Here");
-	AddEvidence("Evidence 07: Insert Text Here");
-	AddEvidence("Evidence 08: Insert Text Here");
-	AddEvidence("Evidence 09: Insert Text Here");*/
 
 	//Set the error callback
 	glfwSetErrorCallback(error_callback);
