@@ -575,6 +575,7 @@ void SceneMiniGame::Update(double dt)
 	}
 	else if (GAMEOVER)
 	{
+		Application::arcadeGameScore = score;
 		timeElapsed += dt;
 
 		if (timeElapsed > 2)

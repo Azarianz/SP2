@@ -585,6 +585,7 @@ void LobbyScene::RenderInteraction()
 						ss.str("");
 						ss << "What else am I gonna use? Your piss!?";
 						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
+						Application::AddEvidence("Access to the victims room", "Janitor");
 						Application::janitorEvidences[2] = true;
 						break;
 					}
@@ -611,12 +612,37 @@ void LobbyScene::RenderInteraction()
 				case 0://interrogating about guard
 					if (Application::CheckEvidence("Antidepressant pills"))
 					{
-						ss.str("");
-						ss << "I have severe depression okay? Stop pushing it.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
-						ss.str("");
-						ss << "That's also the reason why I'm here, to enjoy.";
-						RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
+						if (!isDoneGaming)
+						{
+							ss.str("");
+							ss << "I have really bad depression. don't really wanna";
+							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 12.5);
+							ss.str("");
+							ss << "talk about it but I can slip an info for";
+							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 10.5);
+							ss.str("");
+							ss << "you.. Not for free though. Beat my game";
+							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 8.5);
+							ss.str("");
+							ss << "highscore of 1000 and I'll consider.";
+							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 6.5);
+						}
+						else
+						{
+							ss.str("");
+							ss << "Ooo you're not too shabby. Anyways,";
+							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 12.5);
+							ss.str("");
+							ss << "I had a deal-in with the guard who wanted";
+							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 10.5);
+							ss.str("");
+							ss << "some of my meds. Gave it to him for some";
+							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 8.5);
+							ss.str("");
+							ss << "cash. If anything, he seems suspicious here.";
+							RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 6.5);
+							Application::AddEvidence("Drug Dealing", "Guard");
+						}
 						Application::arcadeEvidences[0] = true;
 						break;
 					}
@@ -751,7 +777,7 @@ void LobbyScene::RenderInteraction()
 				break;
 			}
 		}
-		else if (printGossip)
+		else if (printGossip)//print gossip dialogues
 		{
 			RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
 			switch (charId)
@@ -774,6 +800,7 @@ void LobbyScene::RenderInteraction()
 					ss.str("");
 					ss << "He looks angry.";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 14, 10.5);
+					Application::susCounter[0] = true;
 					break;
 				case 2: //Gossiping about kid
 					ss.str("");
@@ -798,28 +825,27 @@ void LobbyScene::RenderInteraction()
 				{
 				case 0://Gossiping about guard
 					ss.str("");
-					ss << "He's been working here for a long time now,";
+					ss << "He's been working here for a long time now.";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
 					ss.str("");
-					ss << "got to know him, apparently he has some mental";
+					ss << "I always see him drinking in the bar during his duty.";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
-					ss.str("");
-					ss << "issue and i can kind of see that";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 7);
+					Application::AddEvidence("In the bar", "Guard");
 					break;
 				case 1://Gossiping about gamer
 					ss.str("");
 					ss << "I've seen him a few times when he is going out of";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 13);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 12.5);
 					ss.str("");
 					ss << "his room, always looking down while whispering";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 11);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 10.5);
 					ss.str("");
 					ss << "to himself about stopping it all. I've never seen";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 9);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 8.5);
 					ss.str("");
 					ss << "his face but I recognise that red hoodie.";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 7);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 6.5);
+					Application::susCounter[1] = true;
 					break;
 				case 2://Gossiping about kid
 					ss.str("");
@@ -831,10 +857,10 @@ void LobbyScene::RenderInteraction()
 					break;
 				case 3://Gossiping about old man
 					ss.str("");
-					ss << "He's always sitting at the lobby";
+					ss << "He's always sitting at the lobby just";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 11);
 					ss.str("");
-					ss << "just waiting for somebody.";
+					ss << "waiting for somebody.";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 12, 9);
 					break;
 				}
@@ -903,22 +929,26 @@ void LobbyScene::RenderInteraction()
 					break;
 				case 2://Gossiping about gamer
 					ss.str("");
-					ss << "I have never seen him before up until now";
+					ss << "I have never seen him before up until now.";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 11);
+					ss.str("");
+					ss << "He's always been away somewhere.";
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 9);
+					Application::susCounter[2] = true;
 					break;
 				case 3://Gossiping about old man
 					ss.str("");
 					ss << "The old guy is very friendly. When i was";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 13);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 12.5);
 					ss.str("");
 					ss << "playing with harry and marv, he offered to be ";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 11);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 10.5);
 					ss.str("");
 					ss << "the enemy. He's pretty funny too! He always";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 9);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 8.5);
 					ss.str("");
 					ss << "forgets his role and lines.";
-					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 7);
+					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 6.5);
 					break;
 				}
 				break;
@@ -930,18 +960,19 @@ void LobbyScene::RenderInteraction()
 				{
 				case 0://Gossiping about guard
 					ss.str("");
-					ss << "I have never seen him before";
+					ss << "I have never seen him before.";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 11);
 					break;
 				case 1://Gossiping about Janitor
 					ss.str("");
-					ss << "Oh the janitor? Well wait nevermind I forgot";
+					ss << "Oh the janitor? Well wait nevermind I forgot.";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 11);
 					break;
 				case 2://Gossiping about gamer
 					ss.str("");
-					ss << "Hmm? I dont remember any body from the arcade";
+					ss << "Hmm? I dont remember anybody from the arcade.";
 					RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(1, 1, 1), 2, 11, 11);
+					Application::susCounter[3] = true;
 					break;
 				case 3://Gossiping about kid
 					ss.str("");
@@ -955,7 +986,7 @@ void LobbyScene::RenderInteraction()
 				break;
 			}
 		}
-		else if (isGossiping)
+		else if (isGossiping)//print gossip buttons
 		{
 			RenderMeshOnScreen(meshList[GEO_DIALOGUE], 40, 12, 60, 13);
 			switch (charId)
@@ -1274,7 +1305,7 @@ void LobbyScene::RenderInteraction()
 			break;
 		}
 		}
-		else if (isChatting)
+		else if (isChatting)//print chat dialogues
 		{
 			RenderMeshOnScreen(meshList[GEO_DIALOGUE2], 40, 12, 60, 13);
 			switch (charId)
@@ -1310,10 +1341,7 @@ void LobbyScene::RenderInteraction()
 				}
 				else
 				{
-					Application::AddEvidence("Carmanadezpine pills");
-					Application::AddEvidence("In the bar");
-					Application::AddEvidence("Calm about incident");
-					Application::AddEvidence("Drug Dealing");
+					Application::AddEvidence("Calm about incident", "Guard");
 					isChatting = false;
 					isGossiping = false;
 					isTalking = true;
@@ -1352,10 +1380,7 @@ void LobbyScene::RenderInteraction()
 				}
 				else
 				{
-					Application::AddEvidence("Anger towards the victim");
-					Application::AddEvidence("Access to the victims room");
-					Application::AddEvidence("Trolley toxic detergent");
-					Application::AddEvidence("Getting rid of the bottle");
+					Application::AddEvidence("Anger towards the victim", "Janitor");
 					isChatting = false;
 					isGossiping = false;
 					isTalking = true;
@@ -1394,10 +1419,6 @@ void LobbyScene::RenderInteraction()
 				}
 				else
 				{
-					Application::AddEvidence("Antidepressant pills");
-					Application::AddEvidence("Laptop/Phone Messages");
-					Application::AddEvidence("Pocket Knife");
-					Application::AddEvidence("Suspicious to everybody Knife");
 					isChatting = false;
 					isGossiping = false;
 					isTalking = true;
@@ -1436,9 +1457,7 @@ void LobbyScene::RenderInteraction()
 				}
 				else
 				{
-					Application::AddEvidence("Imaginary friends");
-					Application::AddEvidence("Drawing of demonic friends");
-					Application::AddEvidence("Bottle of weird mixtures");
+					Application::AddEvidence("Imaginary friends", "Kid");
 					isChatting = false;
 					isGossiping = false;
 					isTalking = true;
@@ -1477,9 +1496,6 @@ void LobbyScene::RenderInteraction()
 				}
 				else
 				{
-					Application::AddEvidence("Dementia pills");
-					Application::AddEvidence("Written notes");
-					Application::AddEvidence("Gun in his room");
 					isChatting = false;
 					isGossiping = false;
 					isTalking = true;
@@ -1489,7 +1505,7 @@ void LobbyScene::RenderInteraction()
 				break;
 			}
 		}
-		else
+		else//print chat options
 		{
 			RenderMeshOnScreen(meshList[GEO_DIALOGUE], 40, 12, 60, 13);
 			switch (charId)
@@ -2116,7 +2132,9 @@ void LobbyScene::PrintEvidence()
 		//Add logic to print based on page number eg.(page 2: for (i = 8; i < i + 4; i++))
 		for (int i = index; i <= (endIndex - 1); i++)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], Application::eList[i], Color(0, 0, 0), 2, xpos, yOffset);
+			ss.str("");
+			ss << "(" << Application::nameList[i] << ") " << Application::eList[i];
+			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, xpos, yOffset);
 			yOffset -= 8;
 		}
 
@@ -2189,6 +2207,26 @@ void LobbyScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ
 
 				if (Application::IsKeyPressed('F') && (Interacted == false))
 				{
+					if (entity == &entityList[ENTITY_PSYCHO_PILLS])
+					{
+						Application::AddEvidence("Carmanadezpine pills", "Guard");
+					}
+					else if (entity == &entityList[ENTITY_ALCHOHOL_BOTTLE])
+					{
+						Application::AddEvidence("Getting rid of the bottle", "Janitor");
+					}
+					else if (entity == &entityList[ENTITY_BOTTLEMIX])
+					{
+						Application::AddEvidence("Bottle of weird mixtures", "Kid");
+					}
+					else if (entity == &entityList[ENTITY_NOTES])
+					{
+						Application::AddEvidence("Written notes", "Old Man");
+					}
+					else if (entity == &entityList[ENTITY_KNIFE])
+					{
+						Application::AddEvidence("Pocket Knife", "Gamer");
+					}
 					Inspect = true;
 					Interacted = true;
 					Pickup = true;
@@ -2603,8 +2641,8 @@ void LobbyScene::Init()
 	ChatDialogueInit("Text//KidChat.txt", kidChat);
 	ChatDialogueInit("Text//OldManChat.txt", oldManChat);
 
-	Application::AddEvidence("Guest list: Kids");
-	Application::AddEvidence("Guest list: daughter");
+	Application::AddEvidence("Guest list: Kids", "Kid");
+	Application::AddEvidence("Guest list: daughter", "Old Man");
 
 	//hide and reset the cursor
 	Application::ResetCursor();
@@ -2731,6 +2769,15 @@ void LobbyScene::Update(double dt)
 	if (rotateSkybox <= -360)
 	{
 		rotateSkybox = 0;
+	}
+
+	if (Application::EnoughEvidence(Application::susCounter))
+	{
+		Application::AddEvidence("Suspicious to everybody", "Gamer");
+	}
+	if (Application::arcadeGameScore >= 1000)
+	{
+		isDoneGaming = true;
 	}
 }
 

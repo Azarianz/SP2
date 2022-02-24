@@ -22,7 +22,9 @@ unsigned char Application::sceneState;
 unsigned char Application::roomState;
 bool Application::skipIntro;
 vector<string> Application::eList;
+vector<string> Application::nameList;
 int Application::playerGuesses = 3;
+int Application::arcadeGameScore = 0;
 
 //sound variables
 Sound Application::soundManager;
@@ -33,6 +35,7 @@ bool Application::janitorEvidences[4] = { false,false,false,false };
 bool Application::arcadeEvidences[4] = { false,false,false,false };
 bool Application::kidEvidences[4] = { false,false,false,false };
 bool Application::oldguyEvidences[4] = { false,false,false,false };
+bool Application::susCounter[4] = { false,false,false,false };
 
 bool Application::IsFullscreen;
 bool Application::CanPause;
@@ -134,7 +137,7 @@ int Application::GetWindowHeight()
 	return m_height;
 }
 
-void Application::AddEvidence(string text) 
+void Application::AddEvidence(string text, string name)
 {
 	bool isExisting = true; //check for existing evidence
 	if (!eList.empty())
@@ -151,11 +154,13 @@ void Application::AddEvidence(string text)
 		}
 		if (!isExisting) {
 			eList.push_back(text);
+			nameList.push_back(name);
 		}
 	}
 	else
 	{
 		eList.push_back(text);
+		nameList.push_back(name);
 	}
 }
 
