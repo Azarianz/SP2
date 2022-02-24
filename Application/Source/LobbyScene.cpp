@@ -206,7 +206,7 @@ void LobbyScene::RenderOfficers()
 		&& camera.position.z - 1.5 <= entityList[ENTITY_CHIEF].getTransform().z + interactOffset)
 	{
 		RenderTextOnScreen(meshList[GEO_TEXT], ("you can go and take a look at it"), Color(1, 1, 1), 2, 35, 2);
-		RenderTextOnScreen(meshList[GEO_TEXT], ("on your left, you will find a table with evidence we have found here"), Color(1, 1, 1), 2, 22, 4.5);
+		RenderTextOnScreen(meshList[GEO_TEXT], ("on your left, you will find a table with evidence we have confiscated"), Color(1, 1, 1), 2, 22, 4.5);
 		RenderTextOnScreen(meshList[GEO_TEXT], ("go to the officers,they will inform you about the suspects"), Color(1, 1, 1), 2, 25, 7);
 		RenderTextOnScreen(meshList[GEO_TEXT], ("Sir, welcome to the cime scene"), Color(1, 1, 1), 2, 33, 9.5);
 	}
@@ -252,7 +252,7 @@ void LobbyScene::RenderOfficers()
 
 		if (camera.position.x > 4 && camera.position.x < 7 && camera.position.z > 1.7 && camera.position.z < 4.7)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], ("Um this's Izan"), Color(1, 1, 1), 2, 35, 8);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("Um this is Izan"), Color(1, 1, 1), 2, 35, 8);
 			RenderTextOnScreen(meshList[GEO_TEXT], ("he was the closest to the victim when he fell"), Color(1, 1, 1), 2, 31, 5.5);
 		}
 		//kid
@@ -266,7 +266,7 @@ void LobbyScene::RenderOfficers()
 		if (camera.position.x > 3 && camera.position.x < 6 && camera.position.z > -6.5 && camera.position.z < -3.5)
 		{
 			RenderTextOnScreen(meshList[GEO_TEXT], ("This is Kevin"), Color(1, 1, 1), 2, 35, 8);
-			RenderTextOnScreen(meshList[GEO_TEXT], ("he caught having many run-ins with the victim"), Color(1, 1, 1), 2, 31, 5.5);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("he was caught having many run-ins with the victim"), Color(1, 1, 1), 2, 31, 5.5);
 		}
 		//arcade
 
@@ -279,7 +279,7 @@ void LobbyScene::RenderOfficers()
 		if (camera.position.x > 0.5 && camera.position.x < 3.5 && camera.position.z > -15.5 && camera.position.z < -12.5)
 		{
 			RenderTextOnScreen(meshList[GEO_TEXT], ("Hi sir this is Ivan"), Color(1, 1, 1), 2, 35, 8);
-			RenderTextOnScreen(meshList[GEO_TEXT], ("he was just playing the arcade game when the victim died"), Color(1, 1, 1), 2, 31, 5.5);
+			RenderTextOnScreen(meshList[GEO_TEXT], ("he was just playing the arcade machine when the victim died"), Color(1, 1, 1), 2, 31, 5.5);
 		}
 
 		//lift
@@ -2101,10 +2101,10 @@ void LobbyScene::BoundsCheck()
 bool LobbyScene::IsInArcadeMachineInteraction()
 {
 	//arcade interaction colision
-	return(camera.position.x >= entityList[ENTITY_MACHINE].getTransform().x - 1) &&
-		(camera.position.z >= entityList[ENTITY_MACHINE].getTransform().z - 1) &&
-		(camera.position.x <= entityList[ENTITY_MACHINE].getTransform().x + 1) &&
-		(camera.position.z < entityList[ENTITY_MACHINE].getTransform().z + 1);
+	return(camera.position.x >= entityList[ENTITY_MACHINE].getTransform().x - 3) &&
+		(camera.position.z >= entityList[ENTITY_MACHINE].getTransform().z - 3) &&
+		(camera.position.x <= entityList[ENTITY_MACHINE].getTransform().x + 3) &&
+		(camera.position.z < entityList[ENTITY_MACHINE].getTransform().z + 3);
 }
 
 bool LobbyScene::IsInElevatorInteraction()
@@ -2494,6 +2494,9 @@ void LobbyScene::Init()
 
 	meshList[GEO_SUN] = MeshBuilder::GenerateSphere("Sphere", Color(1.0, 1.0, 1.0), 20, 20, 0.5);
 
+	meshList[GEO_SPHERE] = MeshBuilder::GenerateSphere("Sphere", Color(0.5, 1.0, 1.0), 20, 20, 1);
+	meshList[GEO_SPHERE]->textureID = LoadTGA("Image//color.tga");
+
 	meshList[GEO_AXES] = MeshBuilder::GenerateAxes("reference");
 
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
@@ -2830,6 +2833,14 @@ void LobbyScene::Render()
 	RenderEvidenceObject(&entityList[ENTITY_BOTTLEMIX], 0.5f, 0.5f);
 	RenderEvidenceObject(&entityList[ENTITY_KNIFE], 0.5f, 0.5f);
 
+	RenderOfficers();
+
+
+	if (isJournalOpen)
+	{
+		RenderJournal();
+	}
+
 	if (IsInArcadeMachineInteraction() ||
 		IsInElevatorInteraction())
 	{
@@ -2852,17 +2863,11 @@ void LobbyScene::Render()
 			RenderPressToInteract('C', "pin culprit", 30, 15);
 		}
 	}
-	RenderOfficers();
 	RenderHUD();
 
-	if (isJournalOpen)
-	{
-		RenderJournal();
-	}
-
 	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 4, 0);
-	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.x), Color(0, 1, 0), 4, 4, 3);
-	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.z), Color(0, 1, 0), 4, 4, 6);
+	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.x), Color(0, 1, 0), 4, 4, 3);
+	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.z), Color(0, 1, 0), 4, 4, 6);
 }
 
 void LobbyScene::Exit()
