@@ -204,7 +204,7 @@ void MainMenuScene::RenderMainMenu()
 {
 	if (menuState == MAIN)
 	{
-		RenderTextOnScreen(meshList[GEO_TEXT], "Title", textColor, 6, 40, 40);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Case at Sea", textColor, 6, 40, 40);
 
 		RenderTextOnScreen(meshList[GEO_TEXT], "Play Game", textColor, 2, 40, 30);
 		RenderTextOnScreen(meshList[GEO_TEXT], "Options", textColor, 2, 40, 25);
@@ -329,7 +329,7 @@ void MainMenuScene::RenderMainMenu()
 		}
 		else if (elapsedTime < 20)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], "Title", Color(1, 1, 1), 4, 40, 30);
+			RenderTextOnScreen(meshList[GEO_TEXT], "Case at Sea", Color(1, 1, 1), 4, 40, 30);
 		}
 		else
 		{
