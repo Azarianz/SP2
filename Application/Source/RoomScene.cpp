@@ -376,6 +376,7 @@ void RoomScene::RenderJournal()
 	else if (journalPage == PROFILE_PAGE)
 	{
 		RenderMeshOnScreen(meshList[GEO_JOURNAL_PAGE2], 40, 30, 40, 55);
+		PrintProfiles();
 	}
 }
 
@@ -456,6 +457,103 @@ void RoomScene::PrintEvidence()
 
 	const int i = 9;
 	int arrag[i];
+}
+
+void RoomScene::PrintProfiles()
+{
+	int xpos = ((Application::screenUISizeX / 2)) - 4;
+	int yOffset = ((Application::screenUISizeY / 2) - 8);
+	static bool EButtonState = false;
+	static bool QButtonState = false;
+
+	switch (profilePage)
+	{
+		//gamer
+	case 1:
+		RenderMeshOnScreen(meshList[GEO_CHARACTER_PROFILE1], 40, 37.5, 25, 25);
+		RenderTextOnScreen(meshList[GEO_TEXT], "The Arcade Gamer", Color(0, 0, 0), 2, xpos, yOffset);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Name: Ivan Sonny", Color(0, 0, 0), 2, xpos, yOffset - 4);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Age: 34 Years Old", Color(0, 0, 0), 2, xpos, yOffset - 8);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Last Seen: At the Arcade Machine", Color(0, 0, 0), 1.7f, xpos, yOffset - 12);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Desc: Depressed, mostly alone", Color(0, 0, 0), 1.7f, xpos, yOffset - 16);
+		break;
+		//guard
+	case 2:
+		RenderMeshOnScreen(meshList[GEO_CHARACTER_PROFILE2], 40, 37.5, 25, 25);
+		RenderTextOnScreen(meshList[GEO_TEXT], "The Off-Duty Guard", Color(0, 0, 0), 2, xpos, yOffset);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Name: Akkop Poloka", Color(0, 0, 0), 2, xpos, yOffset - 4);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Age: 42 Years Old", Color(0, 0, 0), 2, xpos, yOffset - 8);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Last Seen: Drinking with the victim", Color(0, 0, 0), 1.7f, xpos - 1, yOffset - 12);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Desc: Alchoholic, Too Calm", Color(0, 0, 0), 1.7f, xpos, yOffset - 16);
+		break;
+		//janitor
+	case 3:
+		RenderMeshOnScreen(meshList[GEO_CHARACTER_PROFILE3], 40, 37.5, 25, 25);
+		RenderTextOnScreen(meshList[GEO_TEXT], "The Janitor", Color(0, 0, 0), 2, xpos + 1, yOffset);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Name: Gertrude Heckler", Color(0, 0, 0), 2, xpos, yOffset - 4);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Age: 26 Years Old", Color(0, 0, 0), 2, xpos, yOffset - 8);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Last Seen: Throwing Victim's Bottle", Color(0, 0, 0), 1.7f, xpos - 1, yOffset - 12);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Desc: Grumpy, Hates Victim", Color(0, 0, 0), 1.7f, xpos, yOffset - 16);
+		break;
+		//kid
+	case 4:
+		RenderMeshOnScreen(meshList[GEO_CHARACTER_PROFILE4], 40, 37.5, 25, 25);
+		RenderTextOnScreen(meshList[GEO_TEXT], "The Weird Kid", Color(0, 0, 0), 2, xpos + 1, yOffset);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Name: Kevin McCallister", Color(0, 0, 0), 2, xpos, yOffset - 4);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Age: 10 Years Old", Color(0, 0, 0), 2, xpos, yOffset - 8);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Last Seen: Playing with the Old Man", Color(0, 0, 0), 1.7f, xpos - 1, yOffset - 12);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Desc: Plays with imaginary friends", Color(0, 0, 0), 1.7f, xpos, yOffset - 16);
+		break;
+		//oldman
+	case 5:
+		RenderMeshOnScreen(meshList[GEO_CHARACTER_PROFILE5], 40, 37.5, 25, 25);
+		RenderTextOnScreen(meshList[GEO_TEXT], "The Old Man", Color(0, 0, 0), 2, xpos + 1, yOffset);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Name: Izan Eisenhower", Color(0, 0, 0), 2, xpos, yOffset - 4);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Age: 80 Years Old", Color(0, 0, 0), 2, xpos, yOffset - 8);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Last Seen: Sitting with the Kid", Color(0, 0, 0), 1.7f, xpos, yOffset - 12);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Desc: Forgetful, has dementia", Color(0, 0, 0), 1.7f, xpos, yOffset - 16);
+		break;
+	default:
+		break;
+	}
+
+	if (!EButtonState && Application::IsKeyPressed('E'))
+	{
+		cout << "E" << endl;
+		EButtonState = true;
+
+		if (profilePage >= 5) {
+			profilePage = 1;
+		}
+		else {
+			profilePage++;
+		}
+	}
+
+	else if (EButtonState && !Application::IsKeyPressed('E'))
+	{
+		EButtonState = false;
+	}
+
+	if (!QButtonState && Application::IsKeyPressed('Q'))
+	{
+		QButtonState = true;
+
+		if (profilePage <= 1) {
+			profilePage = 5;
+		}
+		else {
+			profilePage--;
+		}
+	}
+
+	else if (QButtonState && !Application::IsKeyPressed('Q'))
+	{
+		QButtonState = false;
+	}
+
+	RenderTextOnScreen(meshList[GEO_TEXT], "<Q", Color(1, 1, 1), 5, 5, 20);
+	RenderTextOnScreen(meshList[GEO_TEXT], "E>", Color(1, 1, 1), 5, 71, 20);
 }
 
 void RoomScene::RoomCollision1()
@@ -914,6 +1012,21 @@ void RoomScene::Init()
 
 			meshList[GEO_JOURNAL_PAGE2] = MeshBuilder::GenerateQuad("Journal Page 2", Color(1, 1, 1), 1.f);
 			meshList[GEO_JOURNAL_PAGE2]->textureID = LoadTGA("Image//journal_2.tga");
+
+			meshList[GEO_CHARACTER_PROFILE1] = MeshBuilder::GenerateQuad("Gamer Profile", Color(1, 1, 1), 1.f);
+			meshList[GEO_CHARACTER_PROFILE1]->textureID = LoadTGA("Image//profile//gamer_profile.tga");
+
+			meshList[GEO_CHARACTER_PROFILE2] = MeshBuilder::GenerateQuad("Guard Profile", Color(1, 1, 1), 1.f);
+			meshList[GEO_CHARACTER_PROFILE2]->textureID = LoadTGA("Image//profile//guard_profile.tga");
+
+			meshList[GEO_CHARACTER_PROFILE3] = MeshBuilder::GenerateQuad("Janitor Profile", Color(1, 1, 1), 1.f);
+			meshList[GEO_CHARACTER_PROFILE3]->textureID = LoadTGA("Image//profile//janitor_profile.tga");
+
+			meshList[GEO_CHARACTER_PROFILE4] = MeshBuilder::GenerateQuad("Kid Profile", Color(1, 1, 1), 1.f);
+			meshList[GEO_CHARACTER_PROFILE4]->textureID = LoadTGA("Image//profile//kid_profile.tga");
+
+			meshList[GEO_CHARACTER_PROFILE5] = MeshBuilder::GenerateQuad("Old Man Profile", Color(1, 1, 1), 1.f);
+			meshList[GEO_CHARACTER_PROFILE5]->textureID = LoadTGA("Image//profile//oldman_profile.tga");
 		}
 
 		//evidence
@@ -998,35 +1111,6 @@ void RoomScene::Update(double dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe mode
 	}
 	camera.Update(dt);
-
-	if (Application::IsKeyPressed('I'))
-		light[0].position.z -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('K'))
-		light[0].position.z += (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('J'))
-		light[0].position.x -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('L'))
-		light[0].position.x += (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('O'))
-		light[0].position.y -= (float)(LSPEED * dt);
-	if (Application::IsKeyPressed('P'))
-		light[0].position.y += (float)(LSPEED * dt);
-
-	if (Application::IsKeyPressed('5'))
-	{
-		light[0].type = Light::LIGHT_POINT;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	}
-	else if (Application::IsKeyPressed('6'))
-	{
-		light[0].type = Light::LIGHT_DIRECTIONAL;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	}
-	else if (Application::IsKeyPressed('7'))
-	{
-		light[0].type = Light::LIGHT_SPOT;
-		glUniform1i(m_parameters[U_LIGHT0_TYPE], light[0].type);
-	}
 
 	//Mouse Inputs
 	{

@@ -198,7 +198,6 @@ void LobbyScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, f
 
 void LobbyScene::RenderOfficers()
 {
-
 	//chief
 	if (camera.position.x - 1.5 <= entityList[ENTITY_CHIEF].getTransform().x + interactOffset
 		&& camera.position.z + 1.5 >= entityList[ENTITY_CHIEF].getTransform().z - interactOffset
@@ -206,9 +205,9 @@ void LobbyScene::RenderOfficers()
 		&& camera.position.z - 1.5 <= entityList[ENTITY_CHIEF].getTransform().z + interactOffset)
 	{
 		RenderTextOnScreen(meshList[GEO_TEXT], ("you can go and take a look at it"), Color(1, 1, 1), 2, 35, 2);
-		RenderTextOnScreen(meshList[GEO_TEXT], ("on your left, you will find a table with evidence we have confiscated"), Color(1, 1, 1), 2, 22, 4.5);
-		RenderTextOnScreen(meshList[GEO_TEXT], ("go to the officers,they will inform you about the suspects"), Color(1, 1, 1), 2, 25, 7);
-		RenderTextOnScreen(meshList[GEO_TEXT], ("Sir, welcome to the cime scene"), Color(1, 1, 1), 2, 33, 9.5);
+		RenderTextOnScreen(meshList[GEO_TEXT], ("On your left, you will find a table with evidence we have confiscated"), Color(1, 1, 1), 2, 22, 4.5);
+		RenderTextOnScreen(meshList[GEO_TEXT], ("Go to the officers, they will inform you about the suspects."), Color(1, 1, 1), 2, 25, 7);
+		RenderTextOnScreen(meshList[GEO_TEXT], ("Welcome to the crime scene detective."), Color(1, 1, 1), 2, 33, 9.5);
 	}
 	//officers
 	{
@@ -220,7 +219,7 @@ void LobbyScene::RenderOfficers()
 		modelStack.Rotate(90, 0, 1, 0);
 		RenderMesh(meshList[GEO_OFFICER_F], true);
 		modelStack.PopMatrix();
-		if (camera.position.x > -8.5 && camera.position.x < -5.5 && camera.position.z > 7.5 && camera.position.z < 10.5)
+		if (camera.position.x > -8.5 && camera.position.x < -5.5 && camera.position.z > 6.5 && camera.position.z < 8.5)
 		{
 			RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is the janitor, Gertrude"), Color(1, 1, 1), 2, 35, 8);
 			RenderTextOnScreen(meshList[GEO_TEXT], ("She was the last one to exit the victims room"), Color(1, 1, 1), 2, 31, 5.5);
@@ -468,6 +467,7 @@ void LobbyScene::RenderJournal()
 	else if (journalPage == PROFILE_PAGE)
 	{
 		RenderMeshOnScreen(meshList[GEO_JOURNAL_PAGE2], 40, 30, 40, 55);
+		PrintProfiles();
 	}
 }
 
@@ -2185,6 +2185,103 @@ void LobbyScene::PrintEvidence()
 	int arrag[i];
 }
 
+void LobbyScene::PrintProfiles()
+{
+	int xpos = ((Application::screenUISizeX / 2)) - 4;
+	int yOffset = ((Application::screenUISizeY / 2) - 8);
+	static bool EButtonState = false;
+	static bool QButtonState = false;
+
+	switch (profilePage)
+	{
+		//gamer
+	case 1:
+		RenderMeshOnScreen(meshList[GEO_CHARACTER_PROFILE1], 40, 37.5, 25, 25);
+		RenderTextOnScreen(meshList[GEO_TEXT], "The Arcade Gamer", Color(0, 0, 0), 2, xpos, yOffset);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Name: Ivan Sonny", Color(0, 0, 0), 2, xpos, yOffset - 4);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Age: 34 Years Old", Color(0, 0, 0), 2, xpos, yOffset - 8);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Last Seen: At the Arcade Machine", Color(0, 0, 0), 1.7f, xpos, yOffset - 12);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Desc: Depressed, mostly alone", Color(0, 0, 0), 1.7f, xpos, yOffset - 16);
+		break;
+		//guard
+	case 2:
+		RenderMeshOnScreen(meshList[GEO_CHARACTER_PROFILE2], 40, 37.5, 25, 25);
+		RenderTextOnScreen(meshList[GEO_TEXT], "The Off-Duty Guard", Color(0, 0, 0), 2, xpos, yOffset);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Name: Akkop Poloka", Color(0, 0, 0), 2, xpos, yOffset - 4);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Age: 42 Years Old", Color(0, 0, 0), 2, xpos, yOffset - 8);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Last Seen: Drinking with the victim", Color(0, 0, 0), 1.7f, xpos - 1, yOffset - 12);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Desc: Alchoholic, Too Calm", Color(0, 0, 0), 1.7f, xpos, yOffset - 16);
+		break;
+		//janitor
+	case 3:
+		RenderMeshOnScreen(meshList[GEO_CHARACTER_PROFILE3], 40, 37.5, 25, 25);
+		RenderTextOnScreen(meshList[GEO_TEXT], "The Janitor", Color(0, 0, 0), 2, xpos + 1, yOffset);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Name: Gertrude Heckler", Color(0, 0, 0), 2, xpos, yOffset - 4);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Age: 26 Years Old", Color(0, 0, 0), 2, xpos, yOffset - 8);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Last Seen: Throwing Victim's Bottle", Color(0, 0, 0), 1.7f, xpos - 1, yOffset - 12);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Desc: Grumpy, Hates Victim", Color(0, 0, 0), 1.7f, xpos, yOffset - 16);
+		break;
+		//kid
+	case 4:
+		RenderMeshOnScreen(meshList[GEO_CHARACTER_PROFILE4], 40, 37.5, 25, 25);
+		RenderTextOnScreen(meshList[GEO_TEXT], "The Weird Kid", Color(0, 0, 0), 2, xpos + 1, yOffset);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Name: Kevin McCallister", Color(0, 0, 0), 2, xpos, yOffset - 4);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Age: 10 Years Old", Color(0, 0, 0), 2, xpos, yOffset - 8);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Last Seen: Playing with the Old Man", Color(0, 0, 0), 1.7f, xpos - 1, yOffset - 12);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Desc: Plays with imaginary friends", Color(0, 0, 0), 1.7f, xpos, yOffset - 16);
+		break;
+		//oldman
+	case 5:
+		RenderMeshOnScreen(meshList[GEO_CHARACTER_PROFILE5], 40, 37.5, 25, 25);
+		RenderTextOnScreen(meshList[GEO_TEXT], "The Old Man", Color(0, 0, 0), 2, xpos + 1, yOffset);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Name: Izan Eisenhower", Color(0, 0, 0), 2, xpos, yOffset - 4);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Age: 80 Years Old", Color(0, 0, 0), 2, xpos, yOffset - 8);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Last Seen: Sitting with the Kid", Color(0, 0, 0), 1.7f, xpos, yOffset - 12);
+		RenderTextOnScreen(meshList[GEO_TEXT], "Desc: Forgetful, has dementia", Color(0, 0, 0), 1.7f, xpos, yOffset - 16);
+		break;
+	default:
+		break;
+	}
+
+	if (!EButtonState && Application::IsKeyPressed('E'))
+	{
+		cout << "E" << endl;
+		EButtonState = true;
+
+		if (profilePage >= 5) {
+			profilePage = 1;
+		}
+		else {
+			profilePage++;
+		}
+	}
+
+	else if (EButtonState && !Application::IsKeyPressed('E'))
+	{
+		EButtonState = false;
+	}
+
+	if (!QButtonState && Application::IsKeyPressed('Q'))
+	{
+		QButtonState = true;
+
+		if (profilePage <= 1) {
+			profilePage = 5;
+		}
+		else {
+			profilePage--;
+		}
+	}
+
+	else if (QButtonState && !Application::IsKeyPressed('Q'))
+	{
+		QButtonState = false;
+	}
+
+	RenderTextOnScreen(meshList[GEO_TEXT], "<Q", Color(1, 1, 1), 5, 5, 20);
+	RenderTextOnScreen(meshList[GEO_TEXT], "E>", Color(1, 1, 1), 5, 71, 20);
+}
+
 void LobbyScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ) {
 	//inspect
 	{
@@ -2295,7 +2392,7 @@ void LobbyScene::Init()
 		light[1].type = Light::LIGHT_SPOT;
 		light[1].position.Set(-15, 12, 3);
 		light[1].color.Set(1, 1, 1);
-		light[1].power = 3;
+		light[1].power = 2.5;
 		light[1].kC = 1.f;
 		light[1].kL = 0.01f;
 		light[1].kQ = 0.001f;
@@ -2528,6 +2625,22 @@ void LobbyScene::Init()
 
 		meshList[GEO_JOURNAL_PAGE2] = MeshBuilder::GenerateQuad("Journal Page 2", Color(1, 1, 1), 1.f);
 		meshList[GEO_JOURNAL_PAGE2]->textureID = LoadTGA("Image//journal_2.tga");
+
+
+		meshList[GEO_CHARACTER_PROFILE1] = MeshBuilder::GenerateQuad("Gamer Profile", Color(1, 1, 1), 1.f);
+		meshList[GEO_CHARACTER_PROFILE1]->textureID = LoadTGA("Image//profile//gamer_profile.tga");
+
+		meshList[GEO_CHARACTER_PROFILE2] = MeshBuilder::GenerateQuad("Guard Profile", Color(1, 1, 1), 1.f);
+		meshList[GEO_CHARACTER_PROFILE2]->textureID = LoadTGA("Image//profile//guard_profile.tga");
+
+		meshList[GEO_CHARACTER_PROFILE3] = MeshBuilder::GenerateQuad("Janitor Profile", Color(1, 1, 1), 1.f);
+		meshList[GEO_CHARACTER_PROFILE3]->textureID = LoadTGA("Image//profile//janitor_profile.tga");
+
+		meshList[GEO_CHARACTER_PROFILE4] = MeshBuilder::GenerateQuad("Kid Profile", Color(1, 1, 1), 1.f);
+		meshList[GEO_CHARACTER_PROFILE4]->textureID = LoadTGA("Image//profile//kid_profile.tga");
+
+		meshList[GEO_CHARACTER_PROFILE5] = MeshBuilder::GenerateQuad("Old Man Profile", Color(1, 1, 1), 1.f);
+		meshList[GEO_CHARACTER_PROFILE5]->textureID = LoadTGA("Image//profile//oldman_profile.tga");
 	}
 
 	//Dialogue BG

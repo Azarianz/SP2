@@ -27,6 +27,11 @@ private:
 		GEO_TEXT,
 		GEO_JOURNAL_PAGE1,
 		GEO_JOURNAL_PAGE2,
+		GEO_CHARACTER_PROFILE1,
+		GEO_CHARACTER_PROFILE2,
+		GEO_CHARACTER_PROFILE3,
+		GEO_CHARACTER_PROFILE4,
+		GEO_CHARACTER_PROFILE5,
 		//Corridor Stage + Assets
 		GEO_CORRIDOR,
 		GEO_OFFICER_M,
@@ -94,6 +99,7 @@ private:
 	bool isJournalOpen;
 	char journalPage;
 	int evidencePage = 1;
+	int profilePage = 1;
 	bool Pickup = false;
 	bool Interacted = false;
 	bool text = false;
@@ -114,6 +120,7 @@ private:
 	void ResetJournal();
 	void RenderHUD();
 	void PrintEvidence();
+	void PrintProfiles();
 	void BoundsCheck();
 	void RenderOfficers();
 	bool CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft);

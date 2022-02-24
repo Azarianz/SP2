@@ -28,6 +28,11 @@ private:
 		GEO_BACK,
 		GEO_JOURNAL_PAGE1,
 		GEO_JOURNAL_PAGE2,
+		GEO_CHARACTER_PROFILE1,
+		GEO_CHARACTER_PROFILE2,
+		GEO_CHARACTER_PROFILE3,
+		GEO_CHARACTER_PROFILE4,
+		GEO_CHARACTER_PROFILE5,
 		GEO_TEXT,
 		GEO_GUARD,
 		GEO_JANITOR,
@@ -119,6 +124,7 @@ private:
 	bool isJournalOpen;
 	char journalPage;
 	int evidencePage = 1;
+	int profilePage = 1;
 	bool Pickup = false;
 	bool Interacted = false;
 	bool text = false;
@@ -139,6 +145,7 @@ private:
 	void RenderJournal();
 	void ResetJournal();
 	void PrintEvidence();
+	void PrintProfiles();
 	void RoomCollision1();
 	void RoomCollision2();
 	bool CreateButton(float buttonTop, float buttonBottom, float buttonRight, float buttonLeft);
