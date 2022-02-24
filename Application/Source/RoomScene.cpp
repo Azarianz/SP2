@@ -678,7 +678,7 @@ void RoomScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ)
 			{
 				RenderTextOnScreen(meshList[GEO_TEXT], "[F] Inspect", Color(1, 1, 1), 4, 35, 6);
 
-				if (Application::IsKeyPressed('F') && (Interacted == false))
+				if (Application::IsKeyPressed('F') && (Interacted == false) && !isJournalOpen)
 				{
 					if (entity == &entityList[ENTITY_DEMENTIA_PILLS])
 					{
@@ -715,7 +715,7 @@ void RoomScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ)
 			}
 			else if (Inspect)
 			{
-				if (Application::IsKeyPressed('F') && (Interacted == false))
+				if (Application::IsKeyPressed('F') && (Interacted == false) && !isJournalOpen)
 				{
 					text = false;
 					Inspect = false;

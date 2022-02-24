@@ -455,7 +455,6 @@ void MainMenuScene::RenderMainMenu()
 	}
 	else if (menuState == RESOLUTION)
 	{
-		//RenderMeshOnScreen(meshList[GEO_BACKGROUND], 0, 0, Application::screenUISizeX, Application::screenUISizeY);
 		RenderTextOnScreen(meshList[GEO_TEXT], "Resolution", textColor, 5, 40, 40);
 
 		RenderTextOnScreen(meshList[GEO_TEXT], "1920 x 1080", textColor, 2, 40, 30);

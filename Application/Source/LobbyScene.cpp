@@ -219,14 +219,13 @@ void LobbyScene::RenderOfficers()
 		modelStack.Rotate(90, 0, 1, 0);
 		RenderMesh(meshList[GEO_OFFICER_F], true);
 		modelStack.PopMatrix();
-		if (camera.position.x > -8.5 && camera.position.x < -5.5 && camera.position.z > 6.5 && camera.position.z < 8.5)
+		if (camera.position.x > -8.5 && camera.position.x < -5.5 && camera.position.z > 6.5 && camera.position.z < 8.5 && !isTalking)
 		{
 			RenderTextOnScreen(meshList[GEO_TEXT], ("This is Gertrude, the janitor."), Color(1, 1, 1), 2, 35, 8);
 			RenderTextOnScreen(meshList[GEO_TEXT], ("She's the last one seen to exit the victim's room."), Color(1, 1, 1), 2, 31, 5.5);
 		}
 
 		//guard
-
 		modelStack.PushMatrix();
 		modelStack.Translate(-5.5, 0, 3.2);
 		modelStack.Scale(1, 1, 1);
@@ -234,7 +233,7 @@ void LobbyScene::RenderOfficers()
 		RenderMesh(meshList[GEO_OFFICER_M], true);
 		modelStack.PopMatrix();
 
-		if (camera.position.x > -7 && camera.position.x < -4 && camera.position.z > 1.7 && camera.position.z < 4.7)
+		if (camera.position.x > -7 && camera.position.x < -4 && camera.position.z > 1.7 && camera.position.z < 4.7 && !isTalking)
 		{
 			RenderTextOnScreen(meshList[GEO_TEXT], ("Akkop, this is the detective."), Color(1, 1, 1), 2, 35, 8);
 			RenderTextOnScreen(meshList[GEO_TEXT], ("Detective, this is Akkop. He was sitting"), Color(1, 1, 1), 2, 34, 5.5);
@@ -275,7 +274,7 @@ void LobbyScene::RenderOfficers()
 		RenderMesh(meshList[GEO_OFFICER_M], true);
 		modelStack.PopMatrix();
 
-		if (camera.position.x > 0.5 && camera.position.x < 3.5 && camera.position.z > -15.5 && camera.position.z < -12.5)
+		if (camera.position.x > 0.5 && camera.position.x < 3.5 && camera.position.z > -15.5 && camera.position.z < -12.5 && !isTalking)
 		{
 			RenderTextOnScreen(meshList[GEO_TEXT], ("Good Evening Detective. This is Ivan."), Color(1, 1, 1), 2, 35, 8);
 			RenderTextOnScreen(meshList[GEO_TEXT], ("He was just playing the arcade machine when the victim died."), Color(1, 1, 1), 2, 31, 5.5);
@@ -1859,7 +1858,7 @@ void LobbyScene::CharacterPosCheck()
 				}
 			}
 		}
-		if (canInteract && Application::IsKeyPressed('E'))
+		if (canInteract && Application::IsKeyPressed('E') && !isJournalOpen)
 		{
 			charId = ENTITY_GUARD;
 			isTalking = true;
@@ -1890,7 +1889,7 @@ void LobbyScene::CharacterPosCheck()
 				}
 			}
 		}
-		if (canInteract && Application::IsKeyPressed('E'))
+		if (canInteract && Application::IsKeyPressed('E') && !isJournalOpen)
 		{
 			charId = ENTITY_JANITOR;
 			isTalking = true;
@@ -1922,7 +1921,7 @@ void LobbyScene::CharacterPosCheck()
 			}
 		}
 
-		if (canInteract && Application::IsKeyPressed('E'))
+		if (canInteract && Application::IsKeyPressed('E') && !isJournalOpen)
 		{
 			charId = ENTITY_GAMER;
 			isTalking = true;
@@ -1953,7 +1952,7 @@ void LobbyScene::CharacterPosCheck()
 				}
 			}
 		}
-		if (canInteract && Application::IsKeyPressed('E'))
+		if (canInteract && Application::IsKeyPressed('E') && !isJournalOpen)
 		{
 			charId = ENTITY_KID;
 			isTalking = true;
@@ -1984,7 +1983,7 @@ void LobbyScene::CharacterPosCheck()
 			}
 		}
 	}
-		if (canInteract && Application::IsKeyPressed('E'))
+		if (canInteract && Application::IsKeyPressed('E') && !isJournalOpen)
 		{
 			charId = ENTITY_OLDMAN;
 			isTalking = true;
@@ -2243,7 +2242,6 @@ void LobbyScene::PrintProfiles()
 
 	if (!EButtonState && Application::IsKeyPressed('E'))
 	{
-		cout << "E" << endl;
 		EButtonState = true;
 
 		if (profilePage >= 5) {
@@ -2300,7 +2298,7 @@ void LobbyScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ
 			{
 				RenderTextOnScreen(meshList[GEO_TEXT], "Press F To Inspect", Color(1, 1, 1), 4, 25, 6);
 
-				if (Application::IsKeyPressed('F') && (Interacted == false))
+				if (Application::IsKeyPressed('F') && (Interacted == false) && !isJournalOpen)
 				{
 					if (entity == &entityList[ENTITY_PSYCHO_PILLS])
 					{
@@ -2336,7 +2334,7 @@ void LobbyScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ
 			}
 			else if (Inspect)
 			{
-				if (Application::IsKeyPressed('F') && (Interacted == false))
+				if (Application::IsKeyPressed('F') && (Interacted == false) && !isJournalOpen)
 				{
 					text = false;
 					Inspect = false;
@@ -2827,7 +2825,7 @@ void LobbyScene::Update(double dt)
 	//Journal
 	{
 		static bool jButtonState = false;
-		if (!jButtonState && Application::IsKeyPressed('J') && !isJournalOpen)
+		if (!jButtonState && Application::IsKeyPressed('J') && !isJournalOpen && !isTalking)
 		{
 			camera.DisableControl();
 			Application::SetCanPause(false);
@@ -2852,12 +2850,12 @@ void LobbyScene::Update(double dt)
 	if (!isJournalOpen)
 	{
 
-		if (IsInArcadeMachineInteraction() && Application::IsKeyPressed('E'))
+		if (IsInArcadeMachineInteraction() && Application::IsKeyPressed('E') && !isJournalOpen)
 		{
 			Application::sceneState = Application::STATE_MINIGAME_INIT;
 		}
 
-		if (IsInElevatorInteraction() && Application::IsKeyPressed('E')) 
+		if (IsInElevatorInteraction() && Application::IsKeyPressed('E') && !isJournalOpen) 
 		{
 			Application::sceneState = Application::STATE_CORRIDOR_INIT;
 		}

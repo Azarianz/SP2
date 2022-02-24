@@ -418,7 +418,6 @@ void CorridorScene::PrintEvidence()
 
 		if (!EButtonState && Application::IsKeyPressed('E'))
 		{
-			cout << "E" << endl;
 			EButtonState = true;
 
 			if (evidencePage >= 4) {
@@ -523,7 +522,6 @@ void CorridorScene::PrintProfiles()
 
 	if (!EButtonState && Application::IsKeyPressed('E'))
 	{
-		cout << "E" << endl;
 		EButtonState = true;
 
 		if (profilePage >= 5) {
@@ -699,7 +697,7 @@ void CorridorScene::RenderEvidenceObject(Entity* entity, float rangeX, float ran
 			{
 				RenderTextOnScreen(meshList[GEO_TEXT], "Press F To Inspect", Color(1, 1, 1), 4, 25, 6);
 
-				if (Application::IsKeyPressed('F') && (Interacted == false))
+				if (Application::IsKeyPressed('F') && (Interacted == false) && !isJournalOpen)
 				{
 					if (entity == &entityList[ENTITY_CLEANER_CART])
 					{
@@ -719,7 +717,7 @@ void CorridorScene::RenderEvidenceObject(Entity* entity, float rangeX, float ran
 			}
 			else if (Inspect)
 			{
-				if (Application::IsKeyPressed('F') && (Interacted == false))
+				if (Application::IsKeyPressed('F') && (Interacted == false) && !isJournalOpen)
 				{
 					text = false;
 					Inspect = false;
@@ -988,14 +986,14 @@ void CorridorScene::Update(double dt)
 
 	//Check Door Interaction Collision
 	{
-		if ((IsInDoor1Interaction()) && Application::IsKeyPressed('E')) {
+		if ((IsInDoor1Interaction()) && Application::IsKeyPressed('E') && !isJournalOpen) {
 			Application::ResetCursor();
 			Application::ShowCursor();
 			Application::sceneState = Application::STATE_ROOM_INIT;
 			Application::roomState = Application::ROOM1;
 		}
 
-		if ((IsInDoor2Interaction()) && Application::IsKeyPressed('E')) {
+		if ((IsInDoor2Interaction()) && Application::IsKeyPressed('E') && !isJournalOpen) {
 			Application::ResetCursor();
 			Application::ShowCursor();
 			Application::sceneState = Application::STATE_ROOM_INIT;
@@ -1003,21 +1001,21 @@ void CorridorScene::Update(double dt)
 
 		}
 
-		if ((IsInDoor3Interaction()) && Application::IsKeyPressed('E')) {
+		if ((IsInDoor3Interaction()) && Application::IsKeyPressed('E') && !isJournalOpen) {
 			Application::ResetCursor();
 			Application::ShowCursor();
 			Application::sceneState = Application::STATE_ROOM_INIT;
 			Application::roomState = Application::ROOM3;
 		}
 
-		if ((IsInDoor4Interaction()) && Application::IsKeyPressed('E')) {
+		if ((IsInDoor4Interaction()) && Application::IsKeyPressed('E') && !isJournalOpen) {
 			Application::ResetCursor();
 			Application::ShowCursor();
 			Application::sceneState = Application::STATE_ROOM_INIT;
 			Application::roomState = Application::ROOM4;
 		}
 
-		if (IsInElevatorInteraction() && Application::IsKeyPressed('E')) {
+		if (IsInElevatorInteraction() && Application::IsKeyPressed('E') && !isJournalOpen) {
 			Application::ResetCursor();
 			Application::ShowCursor();
 			Application::sceneState = Application::STATE_LOBBY;
