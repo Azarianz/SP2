@@ -396,7 +396,6 @@ void RoomScene::PrintEvidence()
 
 		if (!EButtonState && Application::IsKeyPressed('E'))
 		{
-			cout << "E" << endl;
 			EButtonState = true;
 
 			if (evidencePage >= 4) {
@@ -501,7 +500,6 @@ void RoomScene::PrintProfiles()
 
 	if (!EButtonState && Application::IsKeyPressed('E'))
 	{
-		cout << "E" << endl;
 		EButtonState = true;
 
 		if (profilePage >= 5) {

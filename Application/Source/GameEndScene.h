@@ -55,6 +55,8 @@ private:
 
 	Camera3 camera;
 	char menuState;
+	
+	double elapsedTime;
 
 	void RenderMesh(Mesh* mesh, bool enableLight);
 	void RenderEntity(Entity* entity, bool enableLight);

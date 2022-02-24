@@ -2137,7 +2137,6 @@ void LobbyScene::PrintEvidence()
 
 		if (!EButtonState && Application::IsKeyPressed('E'))
 		{
-			cout << "E" << endl;
 			EButtonState = true;
 
 			if (evidencePage >= 4) {
@@ -2285,9 +2284,6 @@ void LobbyScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ
 		{
 			RenderEntity(entity, true);
 		}
-
-		/*cout << "Entity X:" << entity->getTransform().x << endl;
-		cout << "Entity Z:" << entity->getTransform().z << endl;*/
 
 		if (camera.position.x >= entity->getTransform().x - rangeX
 			&& camera.position.x <= entity->getTransform().x + rangeX

@@ -461,6 +461,13 @@ void Application::Run()
 						playerGuesses = 3;
 						sceneState = STATE_RUN_SCENE;
 					}
+					else if (sceneList[SCENE_GAMEOVER] != nullptr)
+					{
+						sceneList[SCENE_GAMEOVER]->Init();
+						scene = sceneList[SCENE_GAMEOVER];
+						playerGuesses = 3;
+						sceneState = STATE_RUN_SCENE;
+					}
 				}
 
 				//Game End (Out of Guesses)
@@ -474,6 +481,13 @@ void Application::Run()
 						}
 
 						sceneList[SCENE_GAMEOVER] = new GameEndScene();
+						sceneList[SCENE_GAMEOVER]->Init();
+						scene = sceneList[SCENE_GAMEOVER];
+						playerGuesses = 3;
+						sceneState = STATE_RUN_SCENE;
+					}
+					else if (sceneList[SCENE_GAMEOVER] != nullptr)
+					{
 						sceneList[SCENE_GAMEOVER]->Init();
 						scene = sceneList[SCENE_GAMEOVER];
 						playerGuesses = 3;
