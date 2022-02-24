@@ -77,13 +77,16 @@ public:
 	static unsigned char roomState;
 	static bool skipIntro;
 	static vector<string> eList;
+	static vector<string> nameList;
 	static int playerGuesses;
+	static int arcadeGameScore;
 
 	static bool guardEvidences[4];
 	static bool janitorEvidences[4];
 	static bool arcadeEvidences[4];
 	static bool kidEvidences[4];
 	static bool oldguyEvidences[4];
+	static bool susCounter[4];
 
 	//mouse func
 	static bool IsMousePressed(unsigned short key);
@@ -110,7 +113,7 @@ public:
 	void Run();
 	void Exit();
 	static bool IsKeyPressed(unsigned short key);
-	static void AddEvidence(string text);
+	static void AddEvidence(string text, string name);
 	static bool CheckEvidence(string text);
 	static bool EnoughEvidence(bool b[4]);
 	static void SetCanPause(bool isAble);

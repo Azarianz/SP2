@@ -9,6 +9,7 @@
 #include "Utility.h"
 #include "LoadTGA.h"
 #include "Entity.h"
+#include <sstream>
 
 class CorridorScene : public Scene
 {
@@ -91,6 +92,7 @@ private:
 	//unsigned m_colorBuffer[Num_Geometry];
 	unsigned m_programID;
 
+	std::ostringstream ss;
 	Camera3 camera;
 	bool isJournalOpen;
 	char journalPage;

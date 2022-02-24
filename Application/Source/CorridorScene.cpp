@@ -414,7 +414,9 @@ void CorridorScene::PrintEvidence()
 		//Add logic to print based on page number eg.(page 2: for (i = 8; i < i + 4; i++))
 		for (int i = index; i <= (endIndex - 1); i++)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], Application::eList[i], Color(0, 0, 0), 2, xpos, yOffset);
+			ss.str("");
+			ss << "(" << Application::nameList[i] << ") " << Application::eList[i];
+			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, xpos, yOffset);
 			yOffset -= 8;
 		}
 
@@ -609,6 +611,10 @@ void CorridorScene::RenderEvidenceObject(Entity* entity, float rangeX, float ran
 
 				if (Application::IsKeyPressed('F') && (Interacted == false))
 				{
+					if (entity == &entityList[ENTITY_CLEANER_CART])
+					{
+						Application::AddEvidence("Trolley toxic detergent", "Janitor");
+					}
 					Inspect = true;
 					Interacted = true;
 					Pickup = true;

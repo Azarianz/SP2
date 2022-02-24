@@ -408,7 +408,9 @@ void RoomScene::PrintEvidence()
 		//Add logic to print based on page number eg.(page 2: for (i = 8; i < i + 4; i++))
 		for (int i = index; i <= (endIndex - 1); i++)
 		{
-			RenderTextOnScreen(meshList[GEO_TEXT], Application::eList[i], Color(0, 0, 0), 2, xpos, yOffset);
+			ss.str("");
+			ss << "(" << Application::nameList[i] << ") " << Application::eList[i];
+			RenderTextOnScreen(meshList[GEO_TEXT], ss.str(), Color(0, 0, 0), 2, xpos, yOffset);
 			yOffset -= 8;
 		}
 
@@ -604,6 +606,26 @@ void RoomScene::RenderEvidenceObject(Entity* entity, float rangeX, float rangeZ)
 
 				if (Application::IsKeyPressed('F') && (Interacted == false))
 				{
+					if (entity == &entityList[ENTITY_DEMENTIA_PILLS])
+					{
+						Application::AddEvidence("Dementia pills", "Old Man");
+					}
+					else if (entity == &entityList[ENTITY_ANTIDEPRESSANT_PILLS])
+					{
+						Application::AddEvidence("Antidepressant pills", "Gamer");
+					}
+					else if (entity == &entityList[ENTITY_LAPTOP])
+					{
+						Application::AddEvidence("Laptop/Phone Messages", "Gamer");
+					}
+					else if (entity == &entityList[ENTITY_GUNCASE])
+					{
+						Application::AddEvidence("Gun in his room", "Old Man");
+					}
+					else if (entity == &entityList[ENTITY_CREEPYDRAWING])
+					{
+						Application::AddEvidence("Drawing of demonic friends", "Kid");
+					}
 					Inspect = true;
 					Interacted = true;
 					Pickup = true;

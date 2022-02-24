@@ -145,7 +145,7 @@ private:
 	int interrogateId; // 0 = guard, 1 = janitor, 2 = Arcader, 3 = Kid, 4 = old guy
 	int interactOffset;
 	bool canInteract;
-	bool isTalking, isChatting, isAbleToTalk, isAbleToPin;
+	bool isTalking, isChatting, isAbleToTalk, isAbleToPin, isDoneGaming;
 	int chatCounter = 0;
 	int tempCounter = 0;
 	bool isInterrogate;
