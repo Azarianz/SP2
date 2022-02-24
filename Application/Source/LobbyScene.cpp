@@ -1803,7 +1803,6 @@ void LobbyScene::TalkButtons()
 		}
 		else if (CreateButton(y, y - y / 3 ,x / 1.6 + x * 2, x)) //Interrogate button
 		{
-			std::cout << "Interrogating..." << std::endl;
 			isInterrogate = true;
 		}
 		else if (CreateButton(y - y / 3, y - (y / 3) * 2, x + (x / 4) * 2, x - x / 1.6)) //Gossip button
@@ -1849,26 +1848,20 @@ void LobbyScene::CharacterPosCheck()
 		&& camera.position.x >= entityList[ENTITY_GUARD].getTransform().x - interactOffset
 		&& camera.position.z <= entityList[ENTITY_GUARD].getTransform().z + interactOffset)
 	{
+		charId = ENTITY_GUARD;
 		isAbleToTalk = true;
 		if (Application::EnoughEvidence(Application::guardEvidences) && entityList[ENTITY_GUARD].getPinable())
 		{
 			isAbleToPin = true;
 			if (canInteract && Application::IsKeyPressed('C'))
 			{
-				if (declareCulprit(ENTITY_GUARD)) //if actual culprit (guard)
-				{
-					Application::sceneState = Application::STATE_GAMEWIN;
-				}
-				else
-				{
-					entityList[ENTITY_GUARD].setPinable(false);
-					isAbleToPin = false;
-				}
+				declareCulprit(ENTITY_GUARD);
+				entityList[ENTITY_GUARD].setPinable(false);
+				isAbleToPin = false;
 			}
 		}
 		if (canInteract && Application::IsKeyPressed('E') && !isJournalOpen)
 		{
-			charId = ENTITY_GUARD;
 			isTalking = true;
 			canInteract = false;
 			camera.DisableControl();
@@ -1880,26 +1873,20 @@ void LobbyScene::CharacterPosCheck()
 		&& camera.position.x >= entityList[ENTITY_JANITOR].getTransform().x - interactOffset
 		&& camera.position.z <= entityList[ENTITY_JANITOR].getTransform().z + interactOffset)
 	{
+		charId = ENTITY_JANITOR;
 		isAbleToTalk = true;
 		if (Application::EnoughEvidence(Application::janitorEvidences) && entityList[ENTITY_JANITOR].getPinable())
 		{
 			isAbleToPin = true;
 			if (canInteract && Application::IsKeyPressed('C'))
 			{
-				if (declareCulprit(ENTITY_JANITOR)) //if actual culprit (janitor)
-				{
-					Application::sceneState = Application::STATE_GAMEWIN;
-				}
-				else
-				{
-					entityList[ENTITY_JANITOR].setPinable(false);
-					isAbleToPin = false;
-				}
+				declareCulprit(ENTITY_JANITOR);
+				entityList[ENTITY_JANITOR].setPinable(false);
+				isAbleToPin = false;
 			}
 		}
 		if (canInteract && Application::IsKeyPressed('E') && !isJournalOpen)
 		{
-			charId = ENTITY_JANITOR;
 			isTalking = true;
 			canInteract = false;
 			camera.DisableControl();
@@ -1911,6 +1898,7 @@ void LobbyScene::CharacterPosCheck()
 		&& camera.position.x >= entityList[ENTITY_GAMER].getTransform().x - interactOffset
 		&& camera.position.z <= entityList[ENTITY_GAMER].getTransform().z + interactOffset)
 	{
+		charId = ENTITY_GAMER;
 		isAbleToTalk = true;
 		if (Application::EnoughEvidence(Application::arcadeEvidences) && entityList[ENTITY_GAMER].getPinable())
 		{
@@ -1931,7 +1919,6 @@ void LobbyScene::CharacterPosCheck()
 
 		if (canInteract && Application::IsKeyPressed('E') && !isJournalOpen)
 		{
-			charId = ENTITY_GAMER;
 			isTalking = true;
 			canInteract = false;
 			camera.DisableControl();
@@ -1943,6 +1930,7 @@ void LobbyScene::CharacterPosCheck()
 		&& camera.position.x >= entityList[ENTITY_KID].getTransform().x - interactOffset
 		&& camera.position.z <= entityList[ENTITY_KID].getTransform().z + interactOffset)
 	{
+		charId = ENTITY_KID;
 		isAbleToTalk = true;
 		if (Application::EnoughEvidence(Application::kidEvidences) && entityList[ENTITY_KID].getPinable())
 		{
@@ -1956,7 +1944,6 @@ void LobbyScene::CharacterPosCheck()
 		}
 		if (canInteract && Application::IsKeyPressed('E') && !isJournalOpen)
 		{
-			charId = ENTITY_KID;
 			isTalking = true;
 			canInteract = false;
 			camera.DisableControl();
@@ -1968,26 +1955,20 @@ void LobbyScene::CharacterPosCheck()
 		&& camera.position.x >= entityList[ENTITY_OLDMAN].getTransform().x - interactOffset
 		&& camera.position.z <= entityList[ENTITY_OLDMAN].getTransform().z + interactOffset)
 	{
+	charId = ENTITY_OLDMAN;
 	isAbleToTalk = true;
 	if (Application::EnoughEvidence(Application::oldguyEvidences) && entityList[ENTITY_OLDMAN].getPinable())
 	{
 		isAbleToPin = true;
 		if (canInteract && Application::IsKeyPressed('C'))
 		{
-			if (declareCulprit(ENTITY_OLDMAN)) //if actual culprit (oldman)
-			{
-				Application::sceneState = Application::STATE_GAMEWIN;
-			}
-			else
-			{
-				entityList[ENTITY_OLDMAN].setPinable(false);
-				isAbleToPin = false;
-			}
+			declareCulprit(ENTITY_OLDMAN);
+			entityList[ENTITY_OLDMAN].setPinable(false);
+			isAbleToPin = false;
 		}
 	}
 		if (canInteract && Application::IsKeyPressed('E') && !isJournalOpen)
 		{
-			charId = ENTITY_OLDMAN;
 			isTalking = true;
 			canInteract = false;
 			camera.DisableControl();
@@ -2764,7 +2745,6 @@ LobbyScene::LobbyScene()
 
 void LobbyScene::Update(double dt)
 {
-	std::cout << camera.position.x << " : " << camera.position.z << std::endl;
 	camera.Update(dt);
 
 	if (Application::IsKeyPressed('1'))

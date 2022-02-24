@@ -179,10 +179,12 @@ bool Application::CheckEvidence(string text)
 bool Application::EnoughEvidence(bool b[4])
 {
 	int check = 0;
-	for (int i = 0; i <= sizeof(b) / sizeof(b[0]); i++) 
+	int arrSize = sizeof(b) / sizeof(b[0]);
+	for (int i = 0; i < arrSize; ++i)
 	{
 		if (b[i] == true) {
-			check++;
+			++check;
+			//std::cout << check << std::endl;
 		}
 
 		if (check >= 4) {
@@ -190,7 +192,6 @@ bool Application::EnoughEvidence(bool b[4])
 			break;
 		}
 	}
-
 	if (check == 4) {
 		return true;
 	}
