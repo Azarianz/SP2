@@ -531,16 +531,16 @@ void CorridorScene::RenderOfficers()
 	//cart officer
 
 	modelStack.PushMatrix();
-	modelStack.Translate(1.5, 0, -21.6);
+	modelStack.Translate(1.5, 0, -20);
 	modelStack.Scale(1, 1, 1);
-	RenderMesh(meshList[GEO_OFFICER], false);
+	RenderMesh(meshList[GEO_OFFICER_F], false);
 	modelStack.PopMatrix();
 	RenderHUD();
 
-	if (camera.position.x > 0 && camera.position.x < 3 && camera.position.z > -23.1 && camera.position.z < -20.1)
+	if (camera.position.x > 0 && camera.position.x < 3 && camera.position.z > -21.5 && camera.position.z < -18.5)
 	{
 		RenderTextOnScreen(meshList[GEO_TEXT], ("Sir this is the janitor's cart"), Color(1, 1, 1), 2, 35, 8);
-		RenderTextOnScreen(meshList[GEO_TEXT], ("there may be some evidence here"), Color(1, 1, 1), 2, 35, 5.5);
+		RenderTextOnScreen(meshList[GEO_TEXT], ("there might be something of use here"), Color(1, 1, 1), 2, 35, 5.5);
 	}
 
 	//victim officer
@@ -549,7 +549,7 @@ void CorridorScene::RenderOfficers()
 	modelStack.Translate(-2, 0, -16.4);
 	modelStack.Scale(1, 1, 1);
 	modelStack.Rotate(90, 0, 1, 0);
-	RenderMesh(meshList[GEO_OFFICER], false);
+	RenderMesh(meshList[GEO_OFFICER_M], false);
 	modelStack.PopMatrix();
 	RenderHUD();
 
@@ -564,7 +564,7 @@ void CorridorScene::RenderOfficers()
 	modelStack.Translate(-2, 0, -8.2);
 	modelStack.Scale(1, 1, 1);
 	modelStack.Rotate(90, 0, 1, 0);
-	RenderMesh(meshList[GEO_OFFICER], false);
+	RenderMesh(meshList[GEO_OFFICER_F], false);
 	modelStack.PopMatrix();
 	RenderHUD();
 
@@ -579,7 +579,7 @@ void CorridorScene::RenderOfficers()
 	modelStack.Translate(-2, 0, 9.5);
 	modelStack.Scale(1, 1, 1);
 	modelStack.Rotate(90, 0, 1, 0);
-	RenderMesh(meshList[GEO_OFFICER], false);
+	RenderMesh(meshList[GEO_OFFICER_M], false);
 	modelStack.PopMatrix();
 	RenderHUD();
 
@@ -594,7 +594,7 @@ void CorridorScene::RenderOfficers()
 	modelStack.Translate(-2, 0, 17.5);
 	modelStack.Scale(1, 1, 1);
 	modelStack.Rotate(90, 0, 1, 0);
-	RenderMesh(meshList[GEO_OFFICER], false);
+	RenderMesh(meshList[GEO_OFFICER_M], false);
 	modelStack.PopMatrix();
 	RenderHUD();
 
@@ -773,9 +773,13 @@ void CorridorScene::Init()
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
 
-	//Officer
-	meshList[GEO_OFFICER] = MeshBuilder::GenerateOBJMTL("gamer", "OBJ//Guard.obj", "OBJ//Guard.mtl");
-	meshList[GEO_OFFICER]->textureID = LoadTGA("Image//PolygonOffice_Texture_01_A.tga");
+	//officer
+	meshList[GEO_OFFICER_M] = MeshBuilder::GenerateOBJMTL("CHIEF", "OBJ//officer_male.obj", "OBJ//officer_male.mtl");
+	meshList[GEO_OFFICER_M]->textureID = LoadTGA("Image//PolygonOffice_Texture_01_A.tga");
+
+	meshList[GEO_OFFICER_F] = MeshBuilder::GenerateOBJMTL("CHIEF", "OBJ//officer_female.obj", "OBJ//officer_female.mtl");
+	meshList[GEO_OFFICER_F]->textureID = LoadTGA("Image//PolygonOffice_Texture_01_A.tga");
+
 
 	//Skybox
 	{
@@ -997,6 +1001,8 @@ void CorridorScene::Render()
 	RenderSkybox();
 	modelStack.PopMatrix();
 
+	
+
 	//Stage + Assets
 	{
 		modelStack.PushMatrix();
@@ -1008,6 +1014,8 @@ void CorridorScene::Render()
 		RenderEvidenceObject(&entityList[ENTITY_CLEANER_CART], 1, 1);
 	}
 	
+	RenderOfficers();
+
 	if (IsInElevatorInteraction() || 
 		IsInDoor1Interaction() ||
 		IsInDoor2Interaction() ||
@@ -1021,7 +1029,7 @@ void CorridorScene::Render()
 	{
 		RenderJournal();
 	}
-	RenderOfficers();
+
 	RenderHUD();
 
 	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 4, 0);

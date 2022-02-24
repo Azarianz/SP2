@@ -30,7 +30,8 @@ private:
 		GEO_JOURNAL_PAGE2,
 		//Corridor Stage + Assets
 		GEO_CORRIDOR,
-		GEO_OFFICER,
+		GEO_OFFICER_M,
+		GEO_OFFICER_F,
 		NUM_GEOMETRY,
 	};
 
