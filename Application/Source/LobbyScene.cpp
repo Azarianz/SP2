@@ -198,6 +198,7 @@ void LobbyScene::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, f
 
 void LobbyScene::RenderOfficers()
 {
+
 	//chief
 	if (camera.position.x - 1.5 <= entityList[ENTITY_CHIEF].getTransform().x + interactOffset
 		&& camera.position.z + 1.5 >= entityList[ENTITY_CHIEF].getTransform().z - interactOffset
@@ -214,10 +215,10 @@ void LobbyScene::RenderOfficers()
 		//janitor
 
 		modelStack.PushMatrix();
-		modelStack.Translate(-7, 0, 9);
+		modelStack.Translate(-7, 0, 8.2);
 		modelStack.Scale(1, 1, 1);
 		modelStack.Rotate(90, 0, 1, 0);
-		RenderMesh(meshList[GEO_OFFICERS], false);
+		RenderMesh(meshList[GEO_OFFICER_F], false);
 		modelStack.PopMatrix();
 		if (camera.position.x > -8.5 && camera.position.x < -5.5 && camera.position.z > 7.5 && camera.position.z < 10.5)
 		{
@@ -231,7 +232,7 @@ void LobbyScene::RenderOfficers()
 		modelStack.Translate(-5.5, 0, 3.2);
 		modelStack.Scale(1, 1, 1);
 		modelStack.Rotate(90, 0, 1, 0);
-		RenderMesh(meshList[GEO_OFFICERS], false);
+		RenderMesh(meshList[GEO_OFFICER_M], false);
 		modelStack.PopMatrix();
 
 		if (camera.position.x > -7 && camera.position.x < -4 && camera.position.z > 1.7 && camera.position.z < 4.7)
@@ -246,7 +247,7 @@ void LobbyScene::RenderOfficers()
 		modelStack.Translate(5.5, 0, 3.2);
 		modelStack.Scale(1, 1, 1);
 		modelStack.Rotate(-180, 0, 1, 0);
-		RenderMesh(meshList[GEO_OFFICERS], false);
+		RenderMesh(meshList[GEO_OFFICER_M], false);
 		modelStack.PopMatrix();
 
 		if (camera.position.x > 4 && camera.position.x < 7 && camera.position.z > 1.7 && camera.position.z < 4.7)
@@ -259,7 +260,7 @@ void LobbyScene::RenderOfficers()
 		modelStack.PushMatrix();
 		modelStack.Translate(4.5, 0, -5);
 		modelStack.Scale(1, 1, 1);
-		RenderMesh(meshList[GEO_OFFICERS], false);
+		RenderMesh(meshList[GEO_OFFICER_F], false);
 		modelStack.PopMatrix();
 
 		if (camera.position.x > 3 && camera.position.x < 6 && camera.position.z > -6.5 && camera.position.z < -3.5)
@@ -272,7 +273,7 @@ void LobbyScene::RenderOfficers()
 		modelStack.PushMatrix();
 		modelStack.Translate(2, 0, -14);
 		modelStack.Scale(1, 1, 1);
-		RenderMesh(meshList[GEO_OFFICERS], false);
+		RenderMesh(meshList[GEO_OFFICER_M], false);
 		modelStack.PopMatrix();
 
 		if (camera.position.x > 0.5 && camera.position.x < 3.5 && camera.position.z > -15.5 && camera.position.z < -12.5)
@@ -285,14 +286,14 @@ void LobbyScene::RenderOfficers()
 		modelStack.PushMatrix();
 		modelStack.Translate(1.1, 0, 30.5);
 		modelStack.Scale(1, 1, 1);
-		RenderMesh(meshList[GEO_OFFICERS], false);
+		RenderMesh(meshList[GEO_OFFICER_F], false);
 		modelStack.PopMatrix();
 
 		modelStack.PushMatrix();
 		modelStack.Translate(1.1, 0, 32);
 		modelStack.Scale(1, 1, 1);
 		modelStack.Rotate(-180, 0, 1, 0);
-		RenderMesh(meshList[GEO_OFFICERS], false);
+		RenderMesh(meshList[GEO_OFFICER_M], false);
 		modelStack.PopMatrix();
 
 		if (camera.position.x > -0.8 && camera.position.x < 5 && camera.position.z > 29 && camera.position.z < 40)
@@ -2498,8 +2499,11 @@ void LobbyScene::Init()
 	meshList[GEO_TEXT] = MeshBuilder::GenerateText("text", 16, 16);
 	meshList[GEO_TEXT]->textureID = LoadTGA("Image//arial.tga");
 
-	meshList[GEO_OFFICERS]=MeshBuilder::GenerateOBJMTL("CHIEF", "OBJ//Guard.obj", "OBJ//Guard.mtl");
-	meshList[GEO_OFFICERS]->textureID = LoadTGA("Image//PolygonOffice_Texture_01_A.tga");
+	meshList[GEO_OFFICER_M]=MeshBuilder::GenerateOBJMTL("CHIEF", "OBJ//officer_male.obj", "OBJ//officer_male.mtl");
+	meshList[GEO_OFFICER_M]->textureID = LoadTGA("Image//PolygonOffice_Texture_01_A.tga");
+
+	meshList[GEO_OFFICER_F] = MeshBuilder::GenerateOBJMTL("CHIEF", "OBJ//officer_female.obj", "OBJ//officer_female.mtl");
+	meshList[GEO_OFFICER_F]->textureID = LoadTGA("Image//PolygonOffice_Texture_01_A.tga");
 
 	//Journal
 	{
@@ -2544,12 +2548,12 @@ void LobbyScene::Init()
 		//gamer npc
 		entityList[ENTITY_GAMER].setMesh(MeshBuilder::GenerateOBJMTL("gamer", "OBJ//Gamer.obj", "OBJ//Gamer.mtl"));
 		entityList[ENTITY_GAMER].getMesh()->textureID = LoadTGA("Image//PolygonCity_Texture_03_B.tga");
-		entityList[ENTITY_GAMER].setTransform(Vector3(3.f, 0.f, -14.f)); //transform by default is 0,0,0
+		entityList[ENTITY_GAMER].setTransform(Vector3(0.0f, 0.f, -14.f)); //transform by default is 0,0,0
 
 		//janitor npc
 		entityList[ENTITY_JANITOR].setMesh(MeshBuilder::GenerateOBJMTL("janitor", "OBJ//Janitor.obj", "OBJ//Janitor.mtl"));
 		entityList[ENTITY_JANITOR].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_02_C.tga");
-		entityList[ENTITY_JANITOR].setTransform(Vector3(-7.f, 0.f, 10.5f)); //transform by default is 0,0,0
+		entityList[ENTITY_JANITOR].setTransform(Vector3(-7.f, 0.f, 7.f)); //transform by default is 0,0,0
 		entityList[ENTITY_JANITOR].setRotationAngle(float(90.f));
 		entityList[ENTITY_JANITOR].setRotationAxis(Vector3(0.f, 3.f, 0.f));
 
@@ -2568,7 +2572,7 @@ void LobbyScene::Init()
 		entityList[ENTITY_GUARD].setRotationAngle(float(-90.f));
 		entityList[ENTITY_GUARD].setRotationAxis(Vector3(0.f, 1.f, 0.f));
 		//chief
-		entityList[ENTITY_CHIEF].setMesh(MeshBuilder::GenerateOBJMTL("CHIEF", "OBJ//Guard.obj", "OBJ//Guard.mtl"));
+		entityList[ENTITY_CHIEF].setMesh(MeshBuilder::GenerateOBJMTL("CHIEF", "OBJ//officer_male.obj", "OBJ//officer_male.mtl"));
 		entityList[ENTITY_CHIEF].getMesh()->textureID = LoadTGA("Image//PolygonOffice_Texture_01_A.tga");
 		entityList[ENTITY_CHIEF].setTransform(Vector3(-1.1f, 0.f, 14.5f)); //transform by default is 0,0,0
 	}
@@ -2819,6 +2823,7 @@ void LobbyScene::Render()
 	RenderEntity(&entityList[ENTITY_KID], true);
 	RenderEntity(&entityList[ENTITY_OLDMAN], true);
 	RenderEntity(&entityList[ENTITY_MACHINE], true);
+	RenderEntity(&entityList[ENTITY_CHIEF], true);
 	RenderEvidenceObject(&entityList[ENTITY_PSYCHO_PILLS], 0.5f, 0.5f);
 	RenderEvidenceObject(&entityList[ENTITY_NOTES], 0.5f, 0.5f);
 	RenderEvidenceObject(&entityList[ENTITY_ALCHOHOL_BOTTLE], 0.5f, 0.5f);
@@ -2856,6 +2861,8 @@ void LobbyScene::Render()
 	}
 
 	//RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(framePerSecond), Color(0, 1, 0), 4, 4, 0);
+	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.x), Color(0, 1, 0), 4, 4, 3);
+	RenderTextOnScreen(meshList[GEO_TEXT], std::to_string(camera.position.z), Color(0, 1, 0), 4, 4, 6);
 }
 
 void LobbyScene::Exit()
